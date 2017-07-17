@@ -1,3 +1,5 @@
+![QP framework](https://state-machine.com/img/qm_3monitors.jpg)
+
 What's New?
 ===========
 Scroll down a bit to the section "QM Revision History".
