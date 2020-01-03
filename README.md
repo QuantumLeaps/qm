@@ -6,6 +6,15 @@ View QM Revision History at:
 https://www.state-machine.com/qm/history.html
 
 ---------------------------------------------------------------------------
+# Documentation
+The online HTML documention for the **latest** version of QM is located
+at: https://www.state-machine.com/qm/
+
+The offline HTML documentation for **this** particular version of QM
+is located in the folder `html/`. To view the offline documentation, open
+the file `html/index.html` in your web browser.
+
+---------------------------------------------------------------------------
 # About QM
 QM (QP Modeler) is a freeware graphical modeling tool for designing and
 implementing real-time embedded software based on the UML state machines
@@ -16,66 +25,74 @@ QM is available for Windows 32/64-bit, Linux 64-bit, and MacOS.
 https://www.state-machine.com/qm/
 
 ---------------------------------------------------------------------------
+# Downloading and Installing QM
+The most recommended way of obtaining QM is by downloading the
+[QP-bundle](https://www.state-machine.com/#Downloads), which includes
+QM and also all [QP frameworks](https://www.state-machine.com/products/)
+and the [QTools collection](https://www.state-machine.com/products/).
+The main advantage of obtaining QM bundled together like that is that you
+get all components, tools and examples ready to go.
+
+> NOTE: [QP-bundle](https://www.state-machine.com/#Downloads) is the
+**most recommended** way of downloading and installing QM. However,
+if you are allergic to installers and GUIs or don't have administrator
+privileges you can also **download and install QM separately**
+as described below.
+
+> CAUTION: If you have any previous version of QM installed on your system,
+please *uninstall* it before installing the new version.
+
+---------------------------------------------------------------------------
 ### Installing QM on Windows (32/64-bit)
+Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
+download the QM zip archive for Windows (`qm_<ver>-win32.zip`). You can
+unzip the archive into any directory, although the `C:\qp\` folder is the
+recommended default.
 
-> CAUTION: If you have any previous version of QM installed on your
-system, please *uninstall* it before installing the new version.
+> NOTE: It is generally not recommended to install QM in such standard
+locations as "Program Files" or "Program Files (x86)", because these
+directories have access limitations and don't allow you to modify the
+QM Style Sheet (`qm.qss`) or the model templates.
 
-Download the QM installer for Windows, which is a Windows executable.
-Run the installer. The installation is very straightforward and offers
-you options of installing a desktop icon and associate QM model files
-(*.qm) with the QM tool. The uninstaller is provided.
+If you wish, after the installation, you could create a desktop shortcut
+for QM and you can also associate QM model files (`*.qm` and `*.qmp`)
+with the QM application (using the standard Windows Explorer and
+"Open With" popup menu).
+
+To uninstall QM you simply delete the installation directory.
 
 ---------------------------------------------------------------------------
 ### Installing QM on Linux (64-bit)
+Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
+download the QM zip archive for Linux (`qm_<ver>-linux64.zip`). You can
+unzip the archive into any directory, although the `~/qp/` folder is the
+recommended default.
 
-> CAUTION: If you have any previous version of QM installed on your
-system, please *uninstall* it before installing the new version.
-
-Download the QM installer for Linux. You need to make the file
-executable in order to run it. You can either do this  with your
-desktop's file manager or at the command line, type:
-
-```sh
-chmod u+x qm_4.4.0-linux64
-```
-
-You should now be able to execute the installer. You can do this from
-your file manager (by double-clicking on the installer), or from the
-command line by typing:
+After unzipping the archive, go to the `qm/bin/` directory and make sure
+that the `qm` executable and the `qm.sh` shell script have executable
+permissions. You can either do this  with your desktop's file manager
+or at the command line, type:
 
 ```sh
-./qm_4.4.0-linux64
+chmod u+x qm
+chmod u+x qm.sh
 ```
 
-Run the installer. The uninstaller is provided.
-
-> NOTE: To run the QM application on Linux, you need to run the <qm
-installation dir>/bin/qm.sh script. Make sure that the file has
-executable permissions.
+> NOTE: To run the QM application on Linux, you need to run the
+`qm/bin/qm.sh` script. Make sure that the file has executable permissions.
 
 
 ---------------------------------------------------------------------------
 ### Installing QM on MacOS
-
-> CAUTION: If you have any previous version of QM installed on your
-system, please *uninstall* it before installing the new version.
-
-Double click on the provided qm_4.4.0-macos.dmg file. This will mount
-and open the disk image. To install the QM tool, you simply drag the
-qm.app image into the Applications folder (typically visible in the
-Dock). If you wish, you might also create the alias of the qm.app and
-place it on your Desktop.
+Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
+download the disk image for MacOS (`qm_<ver>-macx64.dmg`). Double click
+on `.dmg` file. This will mount and open the disk image. To install the
+QM tool, you simply drag the qm.app image into the Applications folder
+(typically visible in the Dock). If you wish, you might also create the
+alias of the qm.app and place it on your Desktop.
 
 To uninstall QM, simply delete the qm.app file and the examples.
 
-> NOTE: The QM application contains both the QM GUI and the QMC model
-compiler command-line utility. You can invoke the QMC utility from the
-terminal by typing:
-
-```sh
-/Applications/qm.app/Contents/MacOS/qmc
-```
 
 ---------------------------------------------------------------------------
 # EXAMPLE PROJECTS
@@ -147,11 +164,10 @@ a suggestion how to improve this functionality to the "Feature Tracker" at:
 
 Thank you for your help in improving QM!
 
-
 ---------------------------------------------------------------------------
 # CONTACT INFORMATION
 - https://www.state-machine.com
-- mailto:info@state-machine.com
+- info@state-machine.com
 
    [QP]: <https://www.state-machine.com/products/#QP>
 
