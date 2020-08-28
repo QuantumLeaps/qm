@@ -1,4 +1,4 @@
-![QM model-based design tool](img/qm_3monitors.jpg)
+![QM model-based design tool](https://www.state-machine.com/img/qm_3monitors.jpg)
 
 ---------------------------------------------------------------------------
 # What's New?
