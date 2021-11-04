@@ -1,0 +1,172 @@
+/*! @mainpage About QM&trade;
+
+@image html qm_3monitors.jpg
+@subpage license "&nbsp;"
+
+@htmlonly
+<a target="_blank" href="https://github.com/QuantumLeaps/qm/releases" title="QM on GitHub"><img style="float:right; clear:right;" src="img/github-corner.png"></a>
+@endhtmlonly
+
+@section ab_new What's new?
+To check what's new in QM, please see @ref history "QM Revision History". You can also get the latest __QM release__, with the recent enhancements and bug fixes, from the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qm/releases"><strong>GitHub QM repository</strong></a>.
+
+<div style="clear:both"></div>
+
+@section ab_what What is it?
+QM&trade; (QP&trade; Modeler) is a @ref ab_license "freeware" Model-Based Design (MBD) and automatic code generation tool for real-time embedded software in C or C++ based on @ref sm "hierarchical state machines" (<a class="extern" target="_blank" href="https://www.state-machine.com/doc/concepts#HSM">UML statecharts</a>) and the event-driven <a href="https://www.state-machine.com/products/#QP" target="_blank" class="extern"><strong>QP&trade; Real-Time Embedded Frameworks (RTEFs)</strong></a>. QM&trade; is available for Windows, Linux, and MacOS hosts.
+
+@remark
+To use the QM&trade; tool effectively, you need to understand a few <a href="https://www.state-machine.com/doc/concepts" target="_blank" class="extern"><strong>key concepts</strong></a> that underline the whole philosophy of modeling and code generation in QM&trade;.
+
+<div style="clear:both;"></div>
+
+
+@section ab_goals What does it do?
+The main goals of the QM&trade; Model-Based Design tool are:
+- to help you break down your software into event-driven components called <a href="https://www.state-machine.com/doc/concepts#Active" target="_blank" class="extern"><strong>active objects</strong></a>;
+- to help you **graphically** design the @ref sm "hierarchical state machines" associated with these active objects, and
+- to @ref ce "automatically generate code" that is of production-quality and is fully **traceable** from your design.
+
+@anchor ab_oo
+@note
+QM&trade; is fundamentally an **object-oriented tool**, regardless of the target programming language (currently C or C++). Object orientation means that @ref bm_model "QM models" are fundamentally composed of @ref bm_class "classes" and only classes can have @ref sm "state machines" associated with them.
+
+@note
+If you program in C and object-oriented programming is new to you, please refer to the Application Note <a class="pdf" target="_blank" href="https://www.state-machine.com/doc/AN_OOP_in_C.pdf">"Object-Oriented Programming in C"</a>, which describes how you can implement the concepts of @ref bm_class "classes", **inheritance**, and **polymorphism** to portable ANSI-C.
+<br>
+@htmlonly
+<div class="image">
+<a target="_blank" href="https://www.state-machine.com/doc/AN_OOP_in_C.pdf">
+  <img border="0" src="img/AN_OOP_in_C.gif" title="Download PDF">
+  <div class="caption">
+  Application Note: Object-Oriented Programming in C
+  </div>
+</a>
+</div>
+@endhtmlonly
+
+
+
+@section ab_look How does it look?
+QM&trade; is a cross-platform desktop application. The following screen shots show the typical activities you perform in QM&trade;:
+
+@htmlonly
+<div class="image">
+<a href="sm.html">
+  <img border="0" src="img/qm1.png" title="Working with hierarchical state machines in QM">
+  <div class="caption">
+Working with hierarchical state machines in QM&trade;
+  </div>
+</a>
+</div>
+@endhtmlonly
+@n
+
+@htmlonly
+<div class="image">
+<a href="ce.html">
+  <img border="0" src="img/qm2.png" title="Generating code in QM">
+  <div class="caption">
+Generating code in QM&trade;
+  </div>
+</a>
+</div>
+@endhtmlonly
+@n
+
+@htmlonly
+<div class="image">
+<a href="sm_subm.html">
+  <img border="0" src="img/qm3.png" title="Designing a sub-machine to capture the common behavior in QM">
+  <div class="caption">
+Designing a sub-machine to capture the common behavior in QM&trade;
+  </div>
+</a>
+</div>
+@endhtmlonly
+@n
+
+@htmlonly
+<div class="image">
+<a href="ui_custom.html">
+  <img border="0" src="img/qm4.png" title="Customizing the QM user interface (dark theme)">
+  <div class="caption">
+Customizing the QM&trade; user interface (dark theme)
+  </div>
+</a>
+</div>
+@endhtmlonly
+
+
+
+@section ab_special What's special about it?
+The main design objectives for QM&trade; are **simplicity** and minimizing the need to "fight the tool". QM&trade; achieves this in several ways described below.
+
+
+
+@subsection ab_ceremony Low Ceremony
+Compared to most other "high ceremony" modeling tools on the market today, QM&trade; is much simpler, code-centric, and relatively low-level. This characterization is not pejorative. It simply means that QM&trade; maps the design unambiguously and directly to C or C++ code, without intermediate layers of "Platform-Independent Models" (PIMs), "Platform-Specific Models" (PSMs), complex "Model-Transformations", or "Action Languages". All actions executed by @ref sm "state machines" are entered into the model directly in C or C++.
+
+
+@subsection ab_qp Built-in QP&trade; Frameworks
+As most other tools capable of code generation, the models you create with QM&trade; are based on an <a href="https://www.state-machine.com/doc/concepts#Framework" target="_blank" class="extern"><strong>event-driven Real-Time Embedded Framework</strong></a>. This is because such a framework provides well-defined "framework extension points" designed for customizing the framework into applications, which in turn provide well-defined rules for @ref ce "generating code".
+
+However, much of the simplicity of QM&trade; derives from the fact that it comes with the **built-in** family of <a href="https://www.state-machine.com/products" target="_blank" class="extern"><strong>QP&trade; frameworks</strong></a> (QP/C, QP/C++, and QP-nano), as opposed to supporting an open-ended number of yet-to-be-defined frameworks and programming languages.
+
+@anchor ab_ao
+@note
+QM&trade; assumes a specific overall **architecture** of your application, which combines object-orientation with the particular model of concurrency, known as <a href="https://www.state-machine.com/doc/concepts#Active" target="_blank" class="extern"><strong>active objects</strong></a> (a.k.a. "actors"). In this architecture, software application consists of collaborating, <a href="https://www.state-machine.com/doc/concepts#Paradigm" target="_blank" class="extern"><strong>event-driven</strong></a> active objects, which collectively deliver the desired behavior.
+
+
+
+@subsection ab_forward Forward Engineering
+Another simplifying aspect is that QM&trade; is a strictly **forward-engineering** tool without attempts to support <a class="extern" target="_blank" href="https://en.wikipedia.org/wiki/Round-trip_engineering">round-trip-engineering</a>.
+
+@note
+"Forward engineering" means that you should **not** edit the generated code, because your changes will be lost when the code is re-generated. The tool is not able to "reverse-engineer" your changes back into the model.
+
+
+
+@subsection ab_code Capturing the Physical Design
+QM&trade; is a unique Model-Based Design tool on the market that allows you to capture the @ref ce_phys "physical design" of your code as an integral part of the model, whereas "physical design" is the partitioning of the code into directories and files, such as header files (`.h`) and implementation files (`.c` or `.cpp` files). This unique approach gives you the ultimate flexibly and control over the source code structure and mitigates the needs to make manual changes to the generated code in order to combine it with hand-written code or existing 3rd-party code. Also, QM&trade; provides @ref ce_comment-link "mechanisms" to quickly go back and forth between the model and the generated code so that any changes can be conveniently applied directly to the @ref bm_model "model" rather than the code.
+
+
+
+@subsection ab_friendly No more "Fighting the Tool"
+The primary design objective in QM&trade; was to respect your design decisions as much as possible and leave you in control, not only in the physical design of the generated code, but down to the exact details of @ref sm_state "arranging your states" and @ref sm_tran_routing "routing your transitions". Noting is more frustrating as a tool that suddenly changes the arrangement of your diagrams, after you spent hours arranging the states and routing the transitions. QM&trade; will never to that.
+
+A lot of thought went into drawing hierarchical state diagrams in QM&trade;. In this respect, the tool is innovative and might work differently than other graphical state machine tools on the market. For example, QM does not use "pseudostates", such as the initial pseudostate or choice point. Instead QM uses higher-level primitives of @ref sm_init "initial-transition" and @ref sm_choice "choice-segment", respectively. This simplifies state diagramming immensely, because you don't need to separately position pseudostates and then connect them. Also, QM introduces a new notation for @ref sm_tran_add-internal "internal transitions", which allows actual drawing of internal transitions (in standard UML notation internal transitions are just text in the state body). This notation enables you to attach internal transitions and/or regular state transitions to a single choice point--something that comes up very often in practice and was never addressed well in the standard UML.
+
+
+
+@section ab_license How is it licensed?
+
+@subsection ab_eula The QM&trade; Tool
+The QM&trade; Model-Based Design tool is **freeware**. It is free to download and free to use for any purpose, including commercial projects, but is not open source. During the installation you will need to accept the basic @ref license "End-User License Agreement" (EULA), which legally protects Quantum Leaps from any warranty claims, prohibits removing any copyright notices from QM, selling it, and creating similar competitive products based on QM.
+
+@note
+QM&trade; internally uses the <a class="extern" target="_blank" href="http://www.qt.io">Qt Toolkit</a> under the <a class="extern" target="_blank" href="https://www.qt.io/qt-licensing-terms/">GNU Lesser General Public License (LGPL)</a>. Please refer to Section @ref qt_lgpl "Compliance with LGPL" for more information on how to obtain, install, and build the Qt toolkit from sources.
+
+
+
+@subsection ab_gen_code The Generated Code
+@ref ce "The code generated by QM&trade;" is licensed under the same <a class="extern" target="_blank" href="https://www.state-machine.com/licensing"><strong>dual-license model</strong></a> as the underlying <a class="extern" target="_blank" href="https://www.state-machine.com/products"><strong>QP&trade; framework</strong></a>, for which the code has been generated.
+
+By default, the QM code generator assumes that the underlying QP&trade; framework is used under the open source <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" class="extern">GNU General Public License (<strong>GPL</strong>)</a>, and for compliance with the GPL, QM generates the required @ref ce_comment "top-level file comments".
+
+However, when the underlying QP framework is licensed commercially, the Licensee receives a @ref ui_license_cert "QM License Certificate file", which can be registered with QM by means of the @ref ui_license-dlg "Code Generation License Dialog Box". After registering a commercial license, QM generates @ref ce_comment-file "top-level file comments" that reflect the commercial license terms.
+
+@attention
+Starting from version 4, QM&trade; requires a @ref ui_license_cert "QM license certificate" to generate the @ref ce_qmsm_strategy "QMsm state machine implementation strategy".
+
+
+
+@section ab_help How to get help?
+Please post any **technical questions** to the <a class="extern" target="_blank" href="http://sourceforge.net/p/qpc/discussion/668726"><strong>Free Support Forum</strong></a> hosted on SourceForge.net. Posts to this forum benefit the whole community and are typically answered the same day.
+
+Direct **Commercial Support** is available to the commercial licensees. Every commercial license includes one year of Technical Support for the licensed software. The support term can be extended annually.
+
+Training and consulting services are also available from Quantum Leaps. Please refer to the <a class="extern" target="_blank" href="https://www.state-machine.com/contact">Contact web-page</a> for more information.
+
+@next{license}
+*/

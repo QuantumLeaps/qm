@@ -1,0 +1,107 @@
+/*! @page links Quick Links
+
+<table class="indextable" summary="help topics" cellpadding="0" cellspacing="0" width="100%">
+  <tr bgColor="#c8cedc">
+    <th width="50%">@ref index "Getting Started"</th>
+    <th>External Resources</th>
+  </tr>
+  <tr>
+    <td>
+      - @ref help
+      - @ref index "About QM&trade;"
+      - @ref license
+      - @ref gs "Using QM&trade; Help"
+      - @ref gs_obtain
+      - @ref gs_install
+      - @ref gs_run
+      - @ref gs_tut
+      - @ref gs_examples
+    </td>
+    <td>
+      - <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/forums/forum/668726">Free Support Forum</a>
+      - <a class="extern" target="_blank" href="https://sourceforge.net/p/qpc/bugs/">Bug Reports</a>
+      - <a class="extern" target="_blank" href="https://sourceforge.net/p/qpc/feature-requests/">Feature Requests</a>
+      - <a class="extern" target="_blank" href="https://www.state-machine.com">Quantum Leaps Website</a>
+      - <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads">Quantum Leaps Downloads</a>
+      - <a class="extern" target="_blank" href="https://www.state-machine.com/licensing">Quantum Leaps  Licensing</a>
+      - <a class="extern" target="_blank" href="https://github.com/QuantumLeaps">Quantum Leaps on GitHub</a>
+    </td>
+  </tr>
+  <tr bgColor="#c8cedc">
+    <th>@ref bm</th>
+    <th>@ref ui</th>
+  </tr>
+  <tr>
+    <td>
+      - @ref bm_model
+      - @ref bm_fq-name
+      - @ref bm_package
+      - @ref bm_class
+      - @ref bm_attr
+      - @ref bm_oper
+      - @ref bm_evt
+      - @ref bm_diagram
+      - @ref bm_edit @n
+      - @ref bm_search
+      - @ref bm_cut-paste
+      - @ref bm_undo-redo
+      - @ref bm_lock
+    </td>
+    <td>
+      - @ref ui_overview
+      - @ref ui_mvc
+      - @ref ui_dock
+      - @ref ui_mdi
+      - @ref ui_model_file
+      - @ref ui_session_file
+      - @ref ui_curr_item
+      - @ref ui_explorer
+      - @ref ui_search
+      - @ref ui_prop
+      - @ref ui_toolbox
+      - @ref ui_birds-eye
+      - @ref ui_log
+      - @ref ui_menus
+      - @ref ui_toolbars
+      - @ref ui_status
+      - @ref ui_new-dlg
+      - @ref ui_tools-dlg
+      - @ref ui_license-dlg
+      - @ref ui_custom
+    </td>
+  </tr>
+  <tr bgColor="#c8cedc">
+    <th>@ref sm</th>
+    <th>@ref ce</th>
+  </tr>
+  <tr>
+    <td>
+      - @ref sm_class
+      - @ref sm_add
+      - <span class="img state"></span>      @ref sm_state
+      - <span class="img tran"></span>       @ref sm_tran
+      - <span class="img choice"></span>     @ref sm_choice
+      - <span class="img initial"></span>    @ref sm_init
+      - <span class="img history"></span>    @ref sm_hist
+      - <span class="img submachine"></span> @ref sm_subm
+      - <span class="img ep_seg"></span>     @ref sm_epseg
+      - <span class="img xp"></span>         @ref sm_xp
+      - <span class="img sm_state"></span>   @ref sm_smstate
+      - <span class="img xp_seg"></span>     @ref sm_xpseg
+    </td>
+    <td>
+      - @ref ce_phys
+      - @ref ce_dir
+      - @ref ce_file
+      - @ref ce_directive
+      - @ref ce_sm
+      - @ref ce_comment
+      - @ref ce_cond
+      - @ref ce_qmc
+    </td>
+  </tr>
+</table>
+@n
+
+@next{index}
+*/

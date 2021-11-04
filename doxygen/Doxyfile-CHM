@@ -1,0 +1,13 @@
+# Doxyfile 1.9.0
+
+@INCLUDE = Doxyfile
+
+#---------------------------------------------------------------------------
+# Configuration options related to the HTML output
+#---------------------------------------------------------------------------
+HTML_OUTPUT            = tmp
+HTML_HEADER            = ../../ql-doxygen/header.html
+HTML_FOOTER            = ../../ql-doxygen/footer.html
+HTML_EXTRA_STYLESHEET  = ../../ql-doxygen/ql.css \
+                         qm.css
+GENERATE_HTMLHELP      = YES
