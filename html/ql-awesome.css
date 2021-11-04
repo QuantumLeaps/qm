@@ -1,0 +1,64 @@
+
+/******** Custom spans  ********/
+.img {
+  padding-left: 20px;
+  white-space: nowrap;
+  color: #00A;
+}
+
+.logo {
+  line-height: 50px;
+  padding: 10px 0px 20px 55px;
+  white-space: nowrap;
+  color: #007;
+  font-weight: bold;
+}
+
+/******   Custom anchors   ******/
+a.extern {
+  background:url(img/extern.png) no-repeat right;
+  padding-right: 14px;
+}
+
+/******** Costom tags (explanation section) *****/
+dl.tag dt {
+  float: left;
+  background-color: black;
+  color: white;
+  line-height: 1.3em;
+  padding: 0 5px;
+}
+
+dl.tag blockquote {
+  border-left: 4px solid #9CAFD4;
+}
+
+/******** Costom images (center) *****/
+img.inline {
+  display: block;
+  margin: auto;
+}
+
+/********      Icons  ********/
+.qp_link   {background:url(img/qp_link.png)   no-repeat;}
+.file      {background:url(img/file.png)      no-repeat;}
+.file_c    {background:url(img/file_c.png)    no-repeat;}
+.file_cpp  {background:url(img/file_cpp.png)  no-repeat;}
+.file_doc  {background:url(img/file_doc.png)  no-repeat;}
+.file_h    {background:url(img/file_h.png)    no-repeat;}
+.file_mak  {background:url(img/file_mak.png)  no-repeat;}
+.file_pdf  {background:url(img/file_pdf.png)  no-repeat;}
+.file_py   {background:url(img/file_py.png)   no-repeat;}
+.file_qm   {background:url(img/file_qm.png)   no-repeat;}
+.file_qmp  {background:url(img/file_qmp.png)  no-repeat;}
+.file_tcl  {background:url(img/file_tcl.png)  no-repeat;}
+.file_wish {background:url(img/file_wish.png) no-repeat;}
+.folder    {background:url(img/folder.png)    no-repeat;}
+.key_down  {background:url(img/key_down.png)  no-repeat;}
+.key_ret   {background:url(img/key_ret.png)   no-repeat;}
+.key_up    {background:url(img/key_up.png)    no-repeat;}
+.bug       {background:url(img/bug.png)       no-repeat;}
+.logo_win   {background:url(img/logo_win48.png)   no-repeat;}
+.logo_linux {background:url(img/logo_linux48.png) no-repeat;}
+.logo_macos {background:url(img/logo_macos48.png) no-repeat;}
+

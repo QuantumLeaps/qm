@@ -1,0 +1,1089 @@
+/*! @page bm Basic Modeling
+
+The following sections describe how to perform the basic modeling tasks in QM&trade;:
+
+- @subpage bm_model explains the hierarchical structure of the QM&trade; model
+- @subpage bm_fq-name explains how to unambiguously reference QM&trade; model items
+- @subpage bm_package explains QM&trade; packages for grouping other elements
+- @subpage bm_class explains QM&trade; classes
+- @subpage bm_attr explains class attributes and free attributes
+- @subpage bm_oper-class explains class operations
+- @subpage bm_oper-free explains free operations
+- @subpage bm_evt explains the event classes and event signals
+- @subpage bm_diagram explains the common operations on diagrams, such as: panning, zooming, selecting shapes, the gird, resizing and exporting diagrams
+- @subpage bm_edit explains how various editors work in QM&trade;
+- @subpage bm_search explains how you can search and replace text in QM&trade;
+- @subpage bm_cut-paste explains how to copy/cut and paste model items (even between different instances of QM&trade;)
+- @subpage bm_undo-redo explains how the feature works is implemented in QM&trade;
+- @subpage bm_lock explains the concepts of protecting QM&trade; model items from inadvertent changes (locking)
+
+
+@next{bm_model}
+*/
+/*##########################################################################*/
+/*! @page bm_model QM Model
+
+@tableofcontents
+
+<p>The abstract **model** of your software is the centerpiece of the QM&trade; modeling tool. In fact, QM&trade; can be viewed as a multifaceted *model editor*, which allows you to create, view, and modify the abstract model and eventually to @ref ce "generate code" based on this model.
+</p>
+
+@note
+The abstract **QM model** is kept entirely in memory during a QM session and this section describes the *logical structure* of this model. Between editing sessions, the abstract QM model is preserved on disk in an XML-based @ref ui_model_file "QM Model File".
+
+A QM&trade; model is structured as a <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Tree_structure">hierarchical tree</a>, similar in concept to the hierarchical file system consisting of directories and files. The nodes of this tree are comprised of **model items**, many of which can contain other model items, similar to directories that can contain other directories and files.
+
+<div style="clear:both;"></div>
+
+@image html bm_model.png "Anatomy of a QM Model"
+
+A typical QM&trade; model has a hierarchical structure consisting of:
+
+- the <span class="img model"><strong>Model Item</strong></span> sits at the root of the hierarchy and contains all other model items;
+
+- the <span class="img qp_framework">@ref bm_qp_item "QP framework"</span> (`qpc`, `qpcpp`, or `qpn`) that provides you with foundation classes for derivation of your own classes, such as active objects, state machines, time events, etc. (NOTE: The QM&trade; Model is always based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; frameworks</a>).
+
+- one or more <span class="img package">@ref bm_package "packages"</span> that contain <span class="img class">@ref bm_class "classes"</span> and possibly other model items, including packages.
+
+- one or more <span class="img directory">@ref ce_dir "directories"</span> that contain <span class="img file">@ref ce_file "files"</span>, which provide "templates" for the code to be generated from the model.
+
+
+
+@section bm_model_prop Model Property Sheet
+The <span class="img model"><strong>Model Item</strong></span> can be configured by the Model-Specific @ref ui_prop "Property Sheet".
+
+@image html bm_model_prop.png "Model Property Sheet"
+
+The Model Properties are as follows:
+
+- The **encoding** drop-box property of the Model item allows you to select one of the few dozens available <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Character_encoding">character encodings</a> for the @ref ui_model_file  "Model File" in XML. The default encoding is <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/UTF-8">UTF-8</a>, which can accommodate a wide range of languages, including special characters of many non-English languages. However, in case you wish to use a very specific encoding, you can select one of the dozens supported by QM&trade;.
+
+- The **save links** check-box property allows you to save @ref ui_model_links "Model-Link Comments" in the @ref ui_model_file "QM Model File". The presence of the links increases the size of the model file, but can be very useful in merging different versions of the model files.
+
+- The **documentation** box allows you to provide a description of the model. For the Model Item this property is not used during code generation.
+
+@anchor bm_unicode
+@note
+Internally, all textual information that you enter into a QM&trade; model is represented in <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Unicode"><strong>Unicode</strong></a>, which means that QM&trade; can accommodate  most of the world's writing systems.
+
+
+
+@section bm_qp_item QP Framework Item
+<p>The first item of every QM&trade; model is the <span class="img qp_framework"><strong>QP framework</strong></span> item, which is the main enabler for automatic @ref ce "code generation" and also provides the foundation classes for derivation of your own @ref bm_class "classes", such as state machines, active objects, time events, etc.
+</p>
+
+@image html framework_item.png "Framework Item (qpc)"
+
+@attention
+<span class="highlight">The QP framework item is **not editable** (it is permanently @ref bm_lock "locked")</span>.
+
+The QP framework names inside QM&trade; are abbreviated compared to their names in the <a class="extern" target="_blank" href="https://www.state-machine.com/psicc2/">PSiCC2 book</a> and other <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP documentation</a>. The following table provides the mapping:
+
+<center>
+QM Framework Item Name|  QP framework type
+:---------------------|--------------------
+<span class="img qp_framework">qpc</span>  | <a class="extern" target="_blank" href="https://www.state-machine.com/qpc/">QP/C</a>
+<span class="img qp_framework">qpcpp</span>| <a class="extern" target="_blank" href="https://www.state-machine.com/qpcpp/">QP/C++</a>
+<span class="img qp_framework">qpn</span>  | <a class="extern" target="_blank" href="https://www.state-machine.com/qpn/">QP-nano</a>
+</center>
+
+The <span class="img qp_framework"><strong>qpc, qpcpp, qpn</strong></span> model item contains quite a detailed and documented model of the selected <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; framework</a>, which you can use as a quick reference. For instance, you can check the signatures of various functions, macros, etc. <span class="highlight">You can also copy-and-paste the provided code examples into your own code</span> anywhere in the editable parts of the model (see also @ref bm_edit).
+
+As most software frameworks, the QP&trade; frameworks use the basic concepts of encapsulation (@ref bm_class "classes") and **inheritance** as primary mechanisms for customizing, specializing, and extending the framework to a particular application.
+
+@next{bm_fq-name}
+*/
+/*##########################################################################*/
+/*! @page bm_fq-name Fully-Qualified Names
+
+<p>In a hierarchical tree-like structure, like the @ref bm_model "QM&trade; model", it is often useful to refer to items by means of <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Fully_qualified_name"><strong>fully-qualified names</strong></a>. A name is *fully-qualified* when it <i>"is complete in the sense that it includes (a) all names in the hierarchic sequence above the given element and (b) the name of the given element itself"</i>. The following picture shows examples of the fully-qualified names of various items in a QM model:
+</p>
+
+<div style="clear:both;"></div>
+
+@image html bm_fq-names.png "Examples of Fully-Qualified Item Names"
+
+As you can see from the picture above, QM&trade; uses two colons (`::`) to separate the list of parent-items of the given item.
+
+To avoid ambiguities, the QM&trade; modeling tool requires providing the **fully-qualified names** of items in several circumstances, such as specifying the @ref bm_class-super "Superclass" of a given class, inside the @ref ce_directive "Code-Generation Directives", and in the @ref ce_comment-link "item references" embedded into comments in the generated code.
+
+@note
+Just like most high-level language compilers, QM&trade; recognizes only a limited number of characters in each name level as unique, and abbreviates the rest of the name. Currently, this limit is set to 16 unique leading characters at each level of the name, with the total length of the fully-qualified name not exceeding 99 characters.
+
+@next{bm_package}
+*/
+/*##########################################################################*/
+/*! @page bm_package Working with Packages
+
+@tableofcontents
+
+<p>A **package** in the Unified Modeling Language is used to <i>"group elements, and to provide a namespace for the grouped elements"</i>. Pretty much all UML elements can be grouped into packages. A package may even contain other packages, thus allowing **hierarchical nesting** of packages.
+</p>
+
+QM&trade; supports packages and allows a package to contain:
+
+- other  <span class="img package">packages</span>
+- <span class="img class">@ref bm_class "classes"</span>
+- free <span class="img attr">attributes</span>
+- free <span class="img oper">operations</span>
+- <span class="img directory">@ref ce_dir "directories"</span>
+
+<div style="clear:both;"></div>
+
+
+@section bm_package-add Adding a Package
+In the @ref ui_explorer **right-click** on the @ref bm_model "Model" or a **Package** item to which you want to add a new package and select <span class="img package">Add Package</span> from the popup menu.
+
+@image html bm_package-add.png "Adding a Package to the Model"
+
+
+@note
+Alternatively, you can also add an @ref bm_package-extern "External Package" by @ref bm_package-import "importing it".
+
+
+@section bm_package_prop Package Property Sheet
+A QM&trade; <span class="img package">package</span> item can be configured by the Package-Specific @ref ui_prop "Property Sheet".
+
+@image html bm_package_prop.png "Package Property Sheet"
+
+The package-item property sheet allows you to set the following properties:
+
+- package **name**
+- package @ref bm_package-stero "stereotype"
+- package **file** (see @ref bm_package-extern)
+- package @ref bm_package-namespace "namespace"
+
+
+
+@subsection bm_package-stero Package Stereotype
+A QM&trade; package can have a configurable "stereotype", which you set through the @ref ui_prop for the package. The purpose of the package stereotype is to provide a concise information about the contents of the package and currently has no other function or implications for code generation.
+
+@image html bm_package-stereo.png "Setting Stereotype for a Package"
+
+QM&trade; currently supports the following package stereotypes:
+
+<center>
+Package Stereotype |  Explorer Icon
+:------------------|:--------------:
+undefined          | <span class="img package"></span>
+events             | <span class="img package_evts"></span>
+components         | <span class="img package_comp"></span>
+diagrams           | <span class="img package_diag"></span>
+framework          | <span class="img package_frame"></span>
+</center>
+
+
+@subsection bm_package-namespace Package Namespace
+As mentioned at the top of this section, one of the main jobs of a package is <i>to provide a namespace for the grouped elements</i>. QM&trade; supports this feature through the **namespace** field in the @ref ui_prop for the package.
+
+@note
+By using a namespace (or possibly miltiple namespaces) you can avoid name conflicts with other code, such as any 3rd party libraries, in which you cannot easily change names.
+
+@image html bm_package-namespace.png "Setting Namespace for a Package (C++ case)"
+
+If you choose to set a non-empty namespace in the package's property sheet, your choice will be reflected in the @ref ui_explorer by showing the namespace in parentheses in front of the package name. For example, in the screen shot above the namespace `DPP::` is shown as the string `(DPP::)` pre-pended to the package name `AOs` (active objects). In contrast to the package stereotype, the package namespace has important implications for @ref ce "code generation".
+
+@attention
+<span class="highlight">In C++ (see below), a package namespace can be specified either with or without the trailing double-colon '::'</span>.
+
+
+@subsection bm_package-namespace-cpp Namespaces in C++
+If you use a package with a namespace in <strong>C++</strong> (i.e., you model is based on the <span class="img qp_framework">@ref bm_qp_item "qpcpp"</span> framework), the QM @ref ce "code generator" will surround all the appropriate code sections with the C++ `namespace` as follows:
+
+@verbatim
+namespace FOO {
+    . . .
+} // namespace FOO
+@endverbatim
+
+Moreover, QM&trade; will also handle correctly the case of **nesting** packages with namespaces. For example, if package with namespace `BAR` nests inside a package with namespace `FOO`, any element from the nested package will be surrounded by the correctly nested namespaces as well:
+
+@verbatim
+namespace FOO {
+namespace BAR {
+    . . .
+} // namespace BAR
+} // namespace FOO
+@endverbatim
+
+
+
+@subsection bm_package-namespace-c Namespaces in C
+QM&trade; also supports namespaces in <strong>C</strong> (i.e., in models based on the <span class="img qp_framework">@ref bm_qp_item "qpc"</span> or <span class="img qp_framework">@ref bm_qp_item "qpn"</span> frameworks). In C, the QM @ref ce "code generator" will pre-pend the namespace to the names of elements included in the package, such as classes, class operations, free attributes, and free operations.
+
+@note
+For improved code readability in C, it is recommended to use the underscore '_' as the last character in the namespace string. QM&trade; will not insert any characters between the namespace and the name of the element. (This is in contrast to C++, where QM will make sure that the namespace is separated with the double-colon '::').
+
+For example, if your package defines a namespace string as "FOO_", the code generated for any elements inside this package will look as follows:
+
+@verbatim
+typedef struct {
+    . . .
+} FOO_Test_QMsm;
+
+static QState FOO_Test_QMsm_initial(FOO_Test_QMsm * const me,
+                                    QEvt const * const e);
+. . .
+@endverbatim
+
+
+Again, also in C, the QM @ref ce "code generator" supports the case of **nesting** packages with namespaces. For example, if package with a namespace "BAR_" nests inside a package with a namespace "FOO_", the generated code will correctly nest namespaces as follows:
+
+@verbatim
+typedef struct {
+    . . .
+} FOO_BAR_Test_QMsm;
+
+static QState FOO_BAR_Test_QMsm_initial(FOO_BAR_Test_QMsm * const me,
+                                        QEvt const * const e);
+. . .
+@endverbatim
+
+
+@section bm_package-extern External Packages
+QM&trade; supports **external packages**, which are are saved to the specified files instead of being saved as part of the main @ref ui_model_file "Model File". In other words, the use of external packages allows you to split the @ref bm_model "Abstract Model" into **multiple** model files, which then can be owned by different team members and tracked separately in a <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Revision_control">Version Control System (VCS)</a>.
+
+Also, an external package can be @ref bm_package-import "imported" into many QM&trade; models, thus such an external package can be **shared** and **reused** among all these models. In fact, the intent for reuse should be the main consideration for deciding whether or not a package should be made external.
+
+
+
+@subsection bm_package-export Exporting a Package
+To export a package (thus making it an external package), you simply provide an non-empty **file_property** in the Package Property Sheet:
+
+@image html bm_package-extern.png "External Package with a Non-Empty File Name"
+
+The package file_property can contain the whole **path** to the package file, which is always <span class="highlight">relative to the @ref ui_model_file "Model File"</span>. For example, in the screen shot above, the package `"tcp_ip"` will be saved to the package file `"tcp_ip.qmp"` in the parent directory (`..`) relative to the model file.
+
+The default **extension** of the package file name is `.qmp` (QM Package). If you don't provide this extension, QM&trade; will append it for you.
+
+@note
+To give you a quick visual feedback that a package is external, the @ref ui_explorer "Model Explorer" adorns the package icon with a red arrow, like so: <span class="img package_imp">package</span>
+
+@attention
+If an external package contains any @ref ce_dir "directories" and @ref ce_file "files" (for @ref ce "code generation"), the generated code is **relative to the package file**, as opposed to be directly relative to the @ref ui_model_file  "model file".
+
+
+
+@subsection bm_package-import Importing a Package
+To import an external package into your QM&trade; model, go to the @ref ui_explorer "Model Explorer" view and **right-click** the mouse over the <span class="img model">model</span> item or a <span class="img package">package</span> item into which you wish to import the external package. This will open a popup-menu, from which you need to select the option "Import package".
+
+@image html bm_package-imp.png "Importing a Package"
+
+This action will launch the standard file-open dialog box, through which you can select the package-file you wish to import. Select the desired package file and click "Open". Note that by default, the dialog box shows only the files with extension `.qmp`.
+
+@image html bm_package-imp1.png "Selecting the Package File to Import"
+
+QM&trade; allows you to import an exported package into any number of models. All these models will then be able to use the package and to change it as well.
+
+@note
+If you want to avoid inadvertent modification of the imported package you can @ref bm_lock "lock" it from editing.
+
+@next{bm_class}
+*/
+/*##########################################################################*/
+/*! @page bm_class Working with Classes
+
+@tableofcontents
+
+<p>A <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Class_%28computer_programming%29"><strong>class</strong></a> groups together @ref bm_attr-class "attributes" and @ref bm_oper-class "operations" available to all instances of the class (*objects*). A class can also <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)"><strong>inherit</strong></a> from another class (called the *superclass*).
+</p>
+
+<strong>Classes</strong> are the main entities from which you build your @ref bm_model "models" in QM&trade;. Also, in QM&trade;, only a class can have a @ref sm_class "State Machine".
+
+@attention
+QM&trade; supports *classes* and *inheritance* regardless of the target programming language, which currently can be either **C** or <strong>C++</strong>. The <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Simple_OOP_in_C.pdf">Application Note "Simple Object-Oriented Programming in C"</a> describes how QP frameworks and the QM code generator implement *classes* and *inheritance* in portable **ANSI C**.
+
+<div style="clear:both;"></div>
+
+@image html bm_class.png "A Class in Model Explorer"
+
+
+@section bm_class-add Adding a Class
+A Class can only be added to a @ref bm_package "Package". To add a Class, in the @ref ui_explorer **right-click** on the @ref bm_package "Package" to which you want to add a new Class and select <span class="img class">Add Class</span> from the popup menu.
+
+@image html bm_class-add.png "Adding a Class"
+
+
+@section bm_class_prop Class Property Sheet
+A <span class="img class">Class</span> item can be configured by the Class-Specific @ref ui_prop "Property Sheet".
+
+@image html bm_class_prop.png "Class Property Sheet"
+
+The class-item property sheet allows you to set the following properties:
+
+- @ref bm_class-name
+- @ref bm_class-super
+- @ref bm_class-doc
+
+
+@subsection bm_class-name Class Name
+The class **name** should be a valid name of a C++ `class` or a C `struct`. Typically, you should strive for a short and punchy name, typically a noun that captures the nature of the objects of this class. For example, a class that encapsulates a motor controller could be named `Motor`. (For more ideas about naming classes, see the discussion of the StackOverflow question <a class="extern" target="_blank" href="http://stackoverflow.com/questions/38019/whats-the-best-approach-to-naming-classes">"What's the best approach to naming classes?"</a>).
+
+
+@subsection bm_class-super Superclass of a Class
+A class can *optionally* inherit a **superclass**. A superclass can be any of the already defined classes, which specifically include classes provided in the @ref bm_qp_item "QP Framework Item". The following screen shot shows an expanded drop-down box of existing classes, from which you can choose the superclass. Please note that the classes listed in the drop-box use the @ref bm_fq-name "Fully-Qualified Names", that is, names that are prefixed with the package name(s), such as `qpc::QActive`.
+
+@image html bm_class-super.png "Selecting a Superclass"
+
+
+
+@subsection bm_class-doc Class Documentation
+The **documentation** box in the Class Property Sheet allows you to provide documentation to the class. The QM code generator parses the documentation box and can @ref ce_comment-doc "generate comments" from it in the auto-generated code.
+
+
+@next{bm_attr}
+*/
+/*##########################################################################*/
+/*! @page bm_attr Working with Attributes
+
+@tableofcontents
+
+<p>An *attribute* defines a variable that can be attached to the instances of a @ref bm_class "class" (see @ref bm_attr-class) or to a @ref bm_package "package" (see @ref bm_attr-free).
+</p>
+
+
+@section bm_attr-class Class Attributes
+Attributes attached to a @ref bm_class "class" are present in each instance of the class, except for a `static` class attribute, which exists in one copy only, regardless of the number of class instances. In C/C++, non-static class attributes correspond to data members of a `struct`/`class`.
+
+
+
+@subsection bm_attr-class-add Adding a Class Attribute
+A *class attribute* can only be added to a Class. To add a *class attribute*, in the Model Explorer right-click on the Class to which you want to add a new *class attribute* and select `Add Attribute` from the popup menu.
+
+![Adding a Class Attribute](bm_attr-class-add.png)
+
+
+
+@subsection bm_attr-class-prop Class Attribute Property Sheet
+A <span class="img attr">Class Attribute</span> item can be configured by the Class-Attribute-Specific @ref ui_prop "Property Sheet".
+
+![Class Attribute Property Sheet](bm_attr-class-prop.png)
+
+The class-attribute-item property sheet allows you to set the following properties:
+
+- **attribute name** (NOTE: name can be followed by the array dimension for arrays of attributes)
+- **attribute type** drop-down box (NOTE: accepts also user-supplied types)
+- **attribute visibility** drop-down box with options: `public`, `protected`, `private`
+- **static checkbox** (for designating a class attribute as a *static class attribute*)
+- **attribute documentation** for documenting the attribute (see also @ref ce_comment-doc "generate comments")
+
+
+
+@section bm_attr-free Free Attributes
+Attributes attached to a @ref bm_package "package" (as opposed to a @ref bm_class "class") are called **free attributes**. In C/C++, such free attributes correspond to variables defined directly at file scope (either `static` variables or a global variables).
+
+
+@subsection bm_attr-free-add Adding a Free Attribute
+A *free attribute* can only be added to a Package. To add a *free attribute*, in the Model Explorer right-click on the Package to which you want to add a new *free attribute* and select `Add Attribute` from the popup menu.
+
+![Adding a Class Attribute](bm_attr-free-add.png)
+
+
+@subsection bm_attr-free-prop Free Attribute Property Sheet
+A <span class="img attr">Free Attribute</span> item can be configured by the Free-Attribute-Specific @ref ui_prop "Property Sheet".
+
+![Free Attribute Property Sheets (simple initilizer--left, and array initializer--right)](bm_attr-free-prop.png)
+
+The free-attribute-item property sheet allows you to set the following properties:
+
+- **attribute name** (NOTE: name can be followed by the array dimension for arrays of attributes)
+- **attribute type** drop-down box (NOTE: accepts also user-supplied types)
+- **attribute documentation** for documenting the attribute (see also @ref ce_comment-doc "generate comments")
+- **attribute initializer** (for optional initialization of the free attribute)
+
+
+
+@subsection bm_attr-free-init Free Attribute Initialization
+As mentioned in the previous section, the @ref bm_attr-free-prop "Free Attribute Property Sheet", provides the **attribute initializer** field for an *optional* initialization of the free attribute at the point of definition. If specified, the *attribute initializer* is copied literally immediately *after* the attribute definition (see also @ref ce_define).
+
+For example, the free attribute initializer shown on the left-hand side of the the @ref bm_attr-free-prop "Free Attribute Property Sheets" above generates the following code (directive `$define${AOs::AO_Table}`):
+
+@code{c}
+/* opaque pointer to the Table AO */
+/*${AOs::AO_Table} .........................................................*/
+QActive * const AO_Table = &l_table.super;
+/*$enddef${AOs::AO_Table} ##################################################*/
+@endcode
+
+The free attribute initializer shown on the right-hand side of the the @ref bm_attr-free-prop "Free Attribute Property Sheets" above generates the following code (directive `$define${AOs::AO_Philo[N_PHILO]}`):
+
+@code{c}
+/* opaque pointers to the Philo AOs */
+/*${AOs::AO_Philo[N_PHILO]} ................................................*/
+QActive * const AO_Philo[N_PHILO] = {
+    &l_philo[0].super,
+    &l_philo[1].super,
+    &l_philo[2].super,
+    &l_philo[3].super,
+    &l_philo[4].super
+};
+/*$enddef${AOs::AO_Philo[N_PHILO]} #########################################*/
+@endcode
+
+
+@next{bm_oper}
+*/
+/*##########################################################################*/
+/*! @page bm_oper-class Working with Class Operations
+
+@tableofcontents
+
+<p>Operations attached to a @ref bm_class "class" can access individual instances of the class, except for a @ref bm_class-oper-static "static class operation", which is cannot access any particular instance.
+</p>
+In C, a non-static class operation corresponds to a function that (by a coding convention) takes the "me" pointer to the `struct` with class attribute (e.g., `bool Calc_eval(Calc * const me, double op, uint8_t oper)`).
+
+@image html bm_class-oper_c.png "Example of a class operation in C"
+
+
+In C++, a non-static class operation corresponds to a class member function, that is a function with the "this"-calling convention (e.g.,  (e.g., `bool Calc::eval(double op, std::uint8_t oper)`).
+
+@image html bm_class-oper_cpp.png "Example of a class operation in C++"
+
+
+@section bm_class-ctor Class Constructors
+
+A constructor is a special kind of class operation that initializes an instance of its class. QM supports class constructors both for C and C++.
+
+
+@subsection bm_class-ctor_C Class Constructors in C
+In C, a constructor should be named @c ctor, or @c ctor1, @c ctor2, etc. if you have more constructors with different signatures (different parameters). The @c ctor function should have return type @c void. It can have any number of parameters.
+
+@image html bm_class-ctor_c.png "Class constructor in C"
+
+This piece of the model generates the following code:
+
+@code{c}
+void Philo_ctor(Philo * const me) {
+    QActive_ctor(&me->super, Q_STATE_CAST(&Philo_initial));
+    QTimeEvt_ctorX(&me->timeEvt, &me->super, TIMEOUT_SIG, 0U);
+}
+@endcode
+
+@note
+The C constructor must always call the superclass' as well as members' constructors explicitly. For example, the `Philo_ctor()` in the listing above calls the superclass' constructor `QActive_ctor()` as well as member constructor `QTimeEvt_ctorX()`.
+
+
+@subsubsection bm_class-ctor_call Invoking Constructors of Static Objects in C
+
+In C, constructors of global/static objects are __not__ invoked automatically, as it is the case in C++. Therefore, in C, __you__ need to call the constructors of all your global/static objects explicitly. This often poses a problem with __encapsulation__ of components, such as Active Objects, where you don't want to expose the whole class declaration (to get to the constructor). In that cases, the example models in QP/C use an idiom, in which the special @ref bm_oper-free "free operation" `<Class>_ctor_caller()` (or just `<Class>_ctor()`) is provided just to call the constructor.
+
+For example, the model in the screen shot above contains the free operation `Philo_ctor_call()`, which is defined as follows
+
+@code{c}
+/* definition provided in the philo.c module */
+void Philo_ctor_call(void) {
+    uint8_t n;
+    for (n = 0U; n < N_PHILO; ++n) {
+        Philo_ctor(&Philo_inst[n]); /* <== ctor */
+    }
+}
+@endcode
+
+This particular "ctor call" invokes constructors of all `Philo` instances in the system. Later, in the `main()` function, only the  `Philo_ctor_call()` operation is called, without exposing the declaration of the `Philo` class (and its constructor):
+
+@code{c}
+void main(void) {
+    . . .
+    /* start the active objects... */
+    Philo_ctor_call(); /* <== call all Philosopher ctors */
+    for (n = 0U; n < N_PHILO; ++n) {
+        QACTIVE_START(AO_Philo[n], /* AO to start */
+        . . .
+     }
+     . . .
+}
+@endcode
+
+
+@subsection bm_class-ctor_Cpp Class Constructors in C++
+In C++, a constructor has the same name as the class and no return value. A constructor can have any number of parameters and a class may have any number of overloaded constructors. Constructors may have any accessibility, public, protected or private.
+
+
+@subsubsection bm_class-ctor_initializer  C++ Constructor Initializer List
+To provide the **constructor initializer list**, you put the list in the _code_ panel starting with the colon (':') optionally preceded by any number of spaces. You can continue the list for as many lines as you wish.
+
+The **constructor initializer list** might be followed by the body of the constructor. To start the body, you simply leave one (or more) empty lines after the initializer. QM will interpret all lines of code after such an empty line as the body of the constructor.
+
+Finally, you might skip the **constructor initializer list** altogether by simply not placing the colon (':') at the beginning.
+
+The following screen shot shows a C++ constructor with a **constructor initializer list** and a body.
+
+@image html bm_class-ctor_cpp.png "Class constructor in C++"
+
+This piece of the model generates the following code:
+
+@code{cpp}
+Table::Table() noexcept
+  : QActive(&initial)
+{
+    for (uint8_t n = 0U; n < N_PHILO; ++n) {
+        m_fork[n] = FREE;
+        m_isHungry[n] = false;
+    }
+}
+@endcode
+
+@subsubsection bm_class-ctor_explicit  Explicit Constructor in C++
+You can make a C++ constructor __explicit__ by providing the keyword `explict` in the __return type__ filed in the Property Sheet. An example of an explicit constructor is provided in the `Table` constructor shown in the scren shot above.
+
+
+@section bm_class-xtor Class Destructors
+A destructor is a kind of class operation that cleans up after an instance of its class. QM supports class destructors both for C and C++.
+
+@subsubsection bm_class-xtor_C Class Destructors in C
+In C, a destructor should be named `xtor`. The `xtor` class operation should have return type @c void and should not take any parameters (except of the implicit `me` pointer).
+
+
+@note
+The C constructor must always call the superclass' constructor explicitly.
+
+@subsubsection bm_class-xtor_Cpp Class Destructors in C++
+In C++, a destructor should be named ` ~<Class>`. The destructor class operation should have no return type and should not take any parameters (except of the implicit `this` pointer).
+
+
+@section bm_class-oper-static Static (Class-Wide) Operations
+Static class operation does not have access to any specific instance of a class, but has permissions to access any attributes of any instance of the class. In C, a static class operation does __not__ take the "me" pointer. Similarly, in C++, a static class operation does __not__ take the implicit "this" pointer. You make a given class operation `static` by checking the __static__ checkbox in the @ref bm_class-oper-prop "Class Operation Property Sheet".
+
+
+@section bm_class-oper-prop Class Operation Property Sheet
+
+@image html bm_class-oper_prop.png "Class operation Property Sheet"
+
+The class operation property sheet allows you to set the following properties:
+
+- **operation name**
+- **operation return type** drop-down box (NOTE: accepts also user-supplied types)
+- **operation specifier** (C++ only) allow you to provide such specifiers as: `override`, `noexcept`, `=delete`, `=0`, etc.
+- **operation virtual** (C++ only) chcekbox
+- **operation inline** (C++ only) chcekbox
+- **operation documentation** for documenting the operation (see also @ref ce_comment-doc "generate comments")
+- **operation code/pseudocode** for specifying code of the operation (NOTE: the pseudocode box is currently not used)
+
+
+@next{bm_oper-free}
+*/
+/*##########################################################################*/
+/*! @page bm_oper-free Working with Free Operations
+
+@tableofcontents
+
+<p>Free operations are defined at a @ref bm_package "package" scope _not_ attached to any class.
+</p>
+
+In C/C++, a free operation corresponds to a function (e.g., `int foo(int x, float y)`).
+
+@image html bm_free-oper_c.png "Free operation"
+
+This piece of the model generates the following code:
+
+@code{c}
+void Philo_ctor_call(void) {
+    uint8_t n;
+    for (n = 0U; n < N_PHILO; ++n) {
+        Philo_ctor(&Philo_inst[n]);
+    }
+}
+@endcode
+
+
+@section bm_free-oper-prop Free Operation Property Sheet
+
+The free operation property sheet allows you to set the following properties:
+
+- **operation name**
+- **operation return type** drop-down box (NOTE: accepts also user-supplied types)
+- **operation specifier** (C++ only) allow you to provide such specifiers as: `noexcept`, etc.
+- **operation inline** (C++ only) chcekbox
+- **operation documentation** for documenting the operation (see also @ref ce_comment-doc "generate comments")
+- **operation code/pseudocode** for specifying code of the operation (NOTE: the pseudocode box is currently not used)
+
+
+@next{bm_evt}
+*/
+/*##########################################################################*/
+/*! @page bm_evt Working with Events
+
+@tableofcontents
+
+<p>Events are objects specifically designed for communication. They consist of event-signal and event-parameters. In the QP frameworks underlying QM, events are subclasses of the `QEvt` base class. QM such events by recognizing that a given class is a (direct or indirect) subclass of `QEvt` and by providing the <span class="img class_evt">event stereotype</span> for those classes. Additionally, event classes can be placed in @ref bm_package-stero "packages" with the <span class="img class_evt">event stereotype</span>
+</p>
+
+
+@section bm_evt-sig Event Signals
+The event-signal provides information about the occurrence conveyed by the event. In QM, event-signals are used as @ref sm_tran-trig "transition triggers". Event-signals are typically enumerated in a @ref ce_file "header file", as illustrated in the following screen shot:
+
+@image html bm_evt-sig.png "Event-signals enumerated in a header file"
+
+
+@attention
+By the __QM convention__, the event signals must have the <strong class="strong">`_SIG` suffix</strong>. To avoid clutter, the `_SIG` suffix is omitted in the state diagrams. For example, the `MISSILE_FIRE_SIG` enumerated in the `game.hpp` header file appears as the `MISSILE_FIRE` trigger in a state diagram, but the QM code generator will add the `_SIG` suffix in the generating code. See also: @ref sm_tran-trig "transition trigger".
+
+@note
+The event-signals cannot start at zero, but must start with the `Q_USER_SIG` offset.
+
+
+Currently, QM does not provide any more support for handling event-signals. In the future, QM will add support for partitioning the signal space and for associating event-signals with custom event classes.
+
+
+@section bm_evt-param Event Parameters
+The purpose of subclassing `QEvt` is to create events with __parameters__. These parameters are added in subclasses of `QEvt` as @ref bm_attr  "attributes" of the event classes.
+
+@image html bm_evt_c.png "Event classes (subclasses of QEvt) in an events package"
+
+For example, the event class `ObjectImageEvt` in the screen shot above specifies the following event parameters:
+
+@code{}
+x : uint8_t
+y : int8_t
+bmp : uint8_t
+@endcode
+
+@note
+When adding event parameters you should keep in mind the __size__ of the event class. The instances of event classes are stored in the QP event pools, which then must be sized accordingly. Also, you typically should keep event classes simple PODs (Plain Old Datatypes), meaning that you should not provide constructors, destructors, virtual functions (in C++), etc.
+
+
+@section bm_evt-decl Declaring Event Classes
+Once the event classes are specified in the QM model, you typically need to provide the __declaration__ of these classes in a header file. A header file is the right place, because events are _shared_ among components, so they typically need to be included in multiple modules (`.c` or `.cpp` files).
+
+You can @ref ce_declare "declare" event classes in a @ref ce_file "header file" either one at a time:
+
+@image html bm_evt_decl.png "Declaring individual event classes"
+
+Alternatively, if you placed all your events in an dedicated package, you can simply generate @ref ce_declare "declaration of the whole package":
+
+@image html bm_evt_decl-pkg.png "Declaring the whole event package"
+
+The latter declaration (the whole event package) results in the following generated code:
+
+@code{c}
+/*.$file${.::game.h} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
+. . .
+/*.$declare${Events} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
+/*.${Events::ObjectPosEvt} .................................................*/
+typedef struct {
+/* protected: */
+    QEvt super;
+
+/* public: */
+    uint8_t x;
+    uint8_t y;
+} ObjectPosEvt;
+/*.${Events::ObjectImageEvt} ...............................................*/
+typedef struct {
+/* protected: */
+    QEvt super;
+
+/* public: */
+    uint8_t x;
+    int8_t y;
+    uint8_t bmp;
+} ObjectImageEvt;
+/*.${Events::MineEvt} ......................................................*/
+typedef struct {
+/* protected: */
+    QEvt super;
+
+/* public: */
+    uint8_t id;
+} MineEvt;
+/*.${Events::ScoreEvt} .....................................................*/
+typedef struct {
+/* protected: */
+    QEvt super;
+
+/* public: */
+    uint16_t score;
+} ScoreEvt;
+/*.$enddecl${Events} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+. . .
+@endcode
+
+
+@section bm_evt-using Using Event Classes in the Code
+As mentioned before, the purpose of custom event classes is to represent events with parameters. So now, in the code you need to access the event parameters. The QP/C and QP/C++ frameworks provide special macro `Q_EVT_CAST()` to encapsulate the __down-casting__ the current event `e` to the specific subclass of `QEvt` and then to conveniently access the event parameters. This is illustrated in the screen shot below:
+
+@image html bm_evt-use.png "Using custom event in a transition action"
+
+@note
+The macro `Q_EVT_CAST()` encapsulates the deviation of MISRA-C/C++ rules of casting pointers.
+
+
+@next{bm_diagram}
+*/
+/*##########################################################################*/
+/*! @page bm_diagram Working with Diagrams
+
+@tableofcontents
+
+<p>In order to work with a diagram, you must first create it. For example, to create a State Machine diagram (Statechart), please refer to Section @ref sm_add.
+</p>
+
+@note
+Currently QM&trade; supports only State Diagrams, but it might support other diagram types in the future. This section describes generic operations applicable to any diagram type.
+
+<div style="clear:both;"></div>
+
+
+@section bm_diagram_open Opening a Diagram
+Once a diagram exists, you have two options of opening it. First option is to **double**-click on the diagram item in the @ref ui_explorer to trigger its default action, which is to show the diagram.
+
+Alternatively, you can **right**-click on the diagram in the @ref ui_explorer to launch the popup menu associated with the diagram, and then choosing the first action from this menu, which is <span class="img diagrams">Show Diagram</span>.
+
+@image html diagram_open.png "Opening a Diagram"
+
+
+@section bm_diagram_close Closing a Diagram
+
+<img src="img/btn_close.png" alt="" style="float:left; margin-right:10px;">To close a diagram, you click on the <span class="button">X</span> button in the top-right corner of the diagram window, or in the @ref ui_mdi "MDI" tab (if you use the @ref ui_mdi_tabs mode), as shown in the picture below.
+
+@image html diagram_close.png "Closing a Diagram"
+
+<img src="img/keyboard.png" style="float:left; margin-right:10px;">Alternatively, the current active @ref ui_mdi "MDI" window can be closed by means of the keyboard shortcut: **Ctrl**-<span class="button">W</span>.
+
+
+@note
+Closing a diagram does <strong>not</strong> delete the diagram, it merely hides the diagram window from view.
+
+
+@section bm_diagram_canvas The Drawing Canvas
+Every diagram in QM&trade; is drawn on the canvas, which is a rectangular background area behind the various shapes. Even though you can actually draw outside the canvas, QM&trade; will export to a graphic format (see @ref bm_diagram_export) only the part of the diagram enclosed by the canvas.
+
+As shown in the screen shot below, you can easily resize the Drawing Canvas by dragging its right or bottom edges, or by dragging the resize handle in the bottom-right corner of the canvas. In each case the mouse cursor indicates the possible direction of resizing.
+
+@image html bm_diagram-canvas.gif "Resizing the Drawing Canvas"
+
+
+@section bm_diagram_grid The Grid
+All elements of any QM&trade; diagram are aligned with the <strong>grid</strong>. You can position the diagram nodes and route the connectors <strong>only</strong> along the grid nodes, and in fact, the geometry of any shape is stored in the grid coordinates, so you cannot achieve any finer positioning granularity than the grid size, which is currently 8 pixels horizontally and 8 pixels vertically.
+
+However, even though you cannot remove the alignment of all shapes to the grid, you can show or hide the grid dots in the diagram. You show or hide the grid by means of the "Grid Options" selection in the @ref ui_menu_view, or by means of the grid drop-box (<span class="img grid">grid</span>) in the @ref ui_toolbar_view.
+
+
+@section bm_diagram_shape_select Selecting Diagram Shapes
+
+Typically, when you simply click on a shape in a diagram you <strong>select</strong> that shape and clear any previous selection, so that only one shape is selected at a time. The model item corresponding to the selected shape becomes @ref ui_curr_item.
+
+However, QM&trade; also offers you the convenience of selecting and manipulating **multiple shapes** simultaneously. QM&trade; provides two options of selecting multiple diagram shapes: the **lasso** tool and mouse **selection-toggle**. These two methods can be combined to fine-tune the selection.
+
+
+@subsection bm_diagram_shape_select-lasso Selecting Shapes with the Lasso
+<img class="left" src="img/cur_select0.png">
+To select shapes with the lasso, press the <span class="button">Ctrl</span> key on your keyboard, at which point the mouse cursor changes to a hand-pointer.
+
+<img class="left" src="img/cur_select.png">
+When you press the left mouse button, the cursor changes to a hand-pointer with a lasso and you can start dragging the lasso from that point.
+
+@image html bm_diagram-lasso.gif "Selecting multiple shapes with a lasso"
+
+
+
+@subsection bm_diagram_shape_select-mouse Selecting Shapes with the Mouse-Toggle
+
+<img class="left" src="img/cur_select0.png" />
+You can also select or deselect shapes with the mouse-toggle. You start exactly the same as for selecting with the lasso, that is by pressing the <span class="button">Ctrl</span> key on your keyboard, at which point the mouse cursor changes to a hand-pointer.
+
+<img class="left" src="img/cur_select1.png" />
+Now you just hover the mouse over any shape (hover means just moving the mouse cursor without depressing any mouse buttons). Whenever you hover over an active part of a shape, the mouse cursor changes to a hand-pointer with "+". You can then click the left mouse button to select the shape, if it is not selected, or un-select it, if it was already selected.
+
+@image html bm_diagram-select.gif "Selecting/deselecting shapes with mouse toggle"
+
+
+@section bm_diagram_pan Panning Diagrams
+
+<img class="left" src="img/cur_pan.png" />
+To pan the diagram with the mouse, press the <span class="button">Shift</span> key. At this point the mouse cursor changes to the open hand:
+
+<img class="left" src="img/cur_grab.png" />
+When you press the **left** mouse button, you "grab" the diagram and the cursor changes to closed hand:
+
+Hold down the left mouse button and drag the whole diagram under the viewing window.
+
+@image html bm_diagram-pan.gif "Panning a Diagram"
+
+@sa
+    @ref ui_birds-eye
+
+
+@section bm_diagram_scroll Scrolling Diagrams
+When the diagram window is smaller than the diagram canvas, QM&trade; displays scroll bars, which allow you to scroll the diagram horizontally and vertically.
+
+@image html scrolling.png "Scrolling a Diagram"
+
+
+
+@subsection bm_diagram_scroll_with_keyboard Scrolling with the Keyboard
+<img src="img/keyboard.png" style="float:left; margin-right:10px;">
+You can scroll the diagram using the keyboard. As expected, the "up" key (<span class="img key_up">key-up</span>) scrolls the diagram up, the "down" key (<span class="img key_down">key-down</span>) scrolls the diagram down, the "left" key (<span class="img key_left">key-left</span>) scrolls the diagram left, and the "right" key (<span class="img key_right">key-right</span>) scrolls the diagram right.
+
+
+
+@subsection bm_diagram_scroll_with_wheel Scrolling with the Mouse Wheel
+<img src="img/wheel.png" style="float:left; margin-right:10px;">
+You can also scroll the diagram using the mouse wheel. As expected, rotating the wheel forward scrolls the diagram down and rotating the wheel backward scrolls the diagram up. By pressing the <span class="button">Ctrl</span> key, you can also scroll the diagram <strong>horizontally</strong>. When the <span class="button">Ctrl</span> is pressed, rotating the wheel forward scrolls the diagram right and rotating the wheel backward scrolls the diagram left.
+
+
+@section bm_diagram_zoom Zooming Diagrams
+
+You can zoom a diagram in and out using several methods.
+
+@image html zoom.png "Zooming a Diagram"
+
+
+
+@subsection bm_diagram_zoom_with_status Zooming with the Status Bar
+You can zoom a diagram by clicking on the zoom buttons (<span class="img zoom_in">zoom-in</span>, <span class="img zoom_out">zoom-out</span>, and <span class="img zoom_100">zoom to 100%</span>) in the @ref ui_status. The zoom-1 button (<span class="img zoom_100">zoom to 100%</span>)restores the zoom of 100%.
+
+@image html zoom_slider.png "Zoom Slider in the Status Bar"
+
+Alternatively, you can use the zoom slider in the @ref ui_status. Shifting the slider left towards <span class="img zoom_out">zoom-out</span> zooms out, towards <span class="img zoom_out">zoom-in</span> zooms in the diagram.
+
+
+
+@subsection bm_diagram_zoom_with_menu Zooming with the View Menu
+You can zoom the active diagram with the @ref ui_menu_view actions <span class="img zoom_in">zoom-in</span>, <span class="img zoom_out">zoom-out</span>, and <span class="img zoom_100">zoom to 100%</span>.
+
+
+
+@subsection bm_diagram_zoom_with_keyboard Zooming with the Keyboard
+<img src="img/keyboard.png" style="float:left; margin-right:10px;">
+You can zoom a diagram in and out with the keyboard shortcuts, which are the same as those used in web browsers for zooming websites. The shortcut <span class="button">Ctrl -</span> (Ctrl-minus) zooms out, <span class="button">Ctrl +</span> (Ctrl-plus) zooms in, and <span class="button">Ctr 0</span> (Ctrl-zero) zooms the diagram to 100%.
+
+
+
+@subsection bm_diagram_zoom_with_wheel Zooming with the Mouse Wheel
+<img src="img/wheel.png" style="float:left; margin-right:10px;">
+Finally, you can zoom the active diagram with the mouse wheel, in similar way as you zoom in or out on Google maps. To activate zoom by the mouse wheel, press the <span class="button">Shift</span> key on your keyboard. Now, rotating the mouse wheel forward zooms out and rotating the wheel backward zooms the diagram in, which is the same convention used in mapping applications, such as Google maps.
+
+
+@section bm_diagram_export Exporting Diagrams
+
+QM&trade; provides a very useful feature of exporting the active diagram to a graphic format, such as <a class="extern" target="_blank" href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">Scalable Vector Graphics</a> and <a class="extern" target="_blank" href="https://en.wikipedia.org/wiki/PNG_format">Portable Network Graphics</a> (PNG) raster format. The SVG format is particularly interesting, because this <strong>vector</strong> format is supported by most web browsers and Microsoft Office/Open Office.
+
+<div style="clear:both;"></div>
+
+![SVG in Open Office. Note that the vector format looks good at any zoom level.](svg.jpg)
+@n
+
+@attention
+If any shapes are selected in the active diagram, QM&trade; renders only the **selected shapes** to the graphic format and clips the image size to the smallest bounding rectangle that encompasses all selected shapes. If no shapes are selected, QM&trade; exports the entire diagram to the graphic format and uses the @ref bm_diagram_canvas "drawing canvas" as the bounding rectangle.
+
+
+
+@subsection bm_diagram_export-file Exporting Active Diagram to a Graphic File
+You can export the selected items or the whole active diagram to a graphic file by means of the <span class="menu">File->Export Diagram...</span> menu. This menu opens up the File Save dialog box to choose the graphic file name and format (currently SVG or PNG) to save.
+
+
+![Export diagram to SVG vector formats or PNG raster format](diagram_export.png)
+@n
+
+
+@subsection bm_diagram_export-Clipboard Copying active diagram to the Clipboard in SVG
+You can also copy the selected items or the whole diagram to the Clipboard in SVG by means of the (<span class="img export_svg">export to SVG</span>) button in the @ref ui_toolbar_edit. Once the SVG image is stored in the Clipboard, you can conveniently paste it directly to Microsoft Office, Open Office, or any other application that accepts SVG.
+
+<div style="clear:both;"></div>
+
+@next{bm_edit}
+*/
+/*##########################################################################*/
+/*! @page bm_edit Working with Code Editors
+
+@tableofcontents
+
+<p>QM provides an advanced text editor for working with @ref ce_file "files", as well as text-based properties in the @ref ui_prop "Property Editor". Besides the usual features expected of a state of the art editor, the QM text editor provides the following features:
+</p>
+
+- Full integration with QM (@ref bm_cut-paste "Cut/Copy/Paste", @ref bm_undo-redo "Undo/Redo", @ref bm_search "Search/Replace", etc.)
+- Extended syntax highlighting for C, C++, Make, Tcl, Arduino (C++)
+- Powerful keyboard shortcuts (e.g., block-indent/unindent, brace-kiss, etc.)
+
+@note
+The appearance of the QM text editor, such as fonts and colors, can be customized by means of the @ref ui_custom_qss "QM Style Sheet".
+
+
+
+@section bm_edit-syntax Syntax Highlighting
+The Syntax Highlighter supplied with the QM text editor has been customized to highlight the QM-specific constructs, such as:
+
+- the @ref ce_directive "Code-Generation Directives" (<strong>$declare${}</strong>, <strong>$define${}</strong>, <strong>$define1${}</strong>)
+- the <strong>me->...</strong> and <strong>e->...</strong> constructs for accessing the state-machine members and event-parameters, respectively
+- the standard fixed-width integer types from `<stdint.h>` header file (<strong>uint8_t</strong>, <strong>uint16_t</strong>...)
+
+@image html bm_edit.png "Text editors in QM (File item, Property Sheet)"
+
+
+
+@section bm_edit-keys Key Bindings
+The QM text editor provides the following key bindings (the highlighted key-bindings are arguably the most useful):
+
+Keypress     |  Action
+:------------|:---------------------------
+Backspace    | Deletes the character to the left of the cursor.
+Delete       | Deletes the character to the right of the cursor.
+<b>Tab</b>        | <b>Indent a block of text.</b>
+<b>Shift+Tab</b>  | <b>Un-indent a block of text.</b>
+<b>Ctrl+Delete</b>| <b>Deletes to the end of the line.</b>
+<b>Ctrl+K</b>     | <b>Find matching brace/parenthesis ("brace kiss").</b>
+Ctrl+C       | Copy the selected text to the clipboard.
+Ctrl+Insert  | Copy the selected text to the clipboard.
+Ctrl+V       | Pastes the clipboard text into text edit.
+Shift+Insert | Pastes the clipboard text into text edit.
+Ctrl+X       | Deletes the selected text and copies it to the clipboard.
+Shift+Delete | Deletes the selected text and copies it to the clipboard.
+Ctrl+Z       | Undoes the last operation.
+Ctrl+Y       | Redoes the last operation.
+LeftArrow    | Moves the cursor one character to the left.
+Ctrl+LeftArrow | Moves the cursor one word to the left.
+RightArrow   | Moves the cursor one character to the right.
+Ctrl+RightArrow | Moves the cursor one word to the right.
+UpArrow      | Moves the cursor one line up.
+Ctrl+UpArrow | Moves the cursor one word up.
+DownArrow    | Moves the cursor one line down.
+Ctrl+Down Arrow | Moves the cursor one word down.
+PageUp       | Moves the cursor one page up.
+PageDown     | Moves the cursor one page down.
+Home         | Moves the cursor to the beginning of the line.
+Ctrl+Home    | Moves the cursor to the beginning of the text.
+End          | Moves the cursor to the end of the line.
+Ctrl+End     | Moves the cursor to the end of the text.
+Wheel        | Scrolls the page vertically (the Wheel is the mouse wheel).
+Alt+Wheel    | Scrolls the page horizontally (the Wheel is the mouse wheel).
+
+
+@next{bm_search}
+*/
+/*##########################################################################*/
+/*! @page bm_search Search/Replace
+
+@tableofcontents
+
+@image html under_construction.jpg "under construction"
+
+@next{bm_cut-paste}
+*/
+/*##########################################################################*/
+/*! @page bm_cut-paste Cut/Copy/Paste
+
+@tableofcontents
+
+<p>QM&trade; supports <span class="img cut">Cut</span>, <span class="img copy">Copy</span>, and <span class="img paste">Paste</span> commands for all model items.
+</p>
+
+@note
+Before applying cut or paste, make sure that the QM&trade; model element is <strong>unlocked</strong> to allow editing the model. The model element is unlocked when the unlock button (<span class="img unlock">&nbsp;</span>) in the @ref ui_status as well as the @ref ui_toolbar_edit is depressed:
+@n
+@image html unlocked.png ""
+
+
+Cut, copy, and paste feature in QM uses the same XML format for placing model elements in the Clipboard, that is used to store the whole model on disk. This means that cut, copy, and past work not just within a single QM instance, but also <strong>across</strong> different QM instances. In other words, you can open copy-and-paste elements from one model, open in one QM instance, to another QM model, open in another QM instance.
+
+@next{bm_undo-redo}
+*/
+/*##########################################################################*/
+/*! @page bm_undo-redo Undo/Redo
+
+@tableofcontents
+
+<p>QM&trade; supports <span class="img undo">&nbsp;</span> undoing and <span class="img redo">&nbsp;</span> redoing of all actions that change the model in any way, such as:
+</p>
+
+- creating or deleting a model item
+- changing any property of a model item
+- changing any graphical element in a diagram
+- changing canvas size of a diagram
+- reordering the items in the model
+- editing a file
+
+@note
+For the purposes of undo/redo QM&trade; keeps track only of the <strong>editing</strong> actions listed above and does not keep track of other actions, such as browsing the model, zooming/scrolling of diagrams, etc., which do <strong>not</strong> change the underlying model.
+
+
+@section undo_clean Clean and Edited Model Indicator
+After opening a model, creating a new model, or saving the model to disk, the model is marked as &ldquo;<strong>clean</strong>&rdquo;.
+
+@image html title_clean.png "Toolbar File"
+
+Any editing action changes the model status to &ldquo;<strong>edited</strong>&rdquo;, which shows as a star after the model name in the QM's title bar.
+
+@image html title_dirty.png "Toolbar File"
+
+The model can become "clean" again after the undo actions bring it back to the original state.
+
+
+@section bm_undo_stack The Undo/Redo Stack
+QM&trade; keeps track of all model editing actions in the <strong>undo/redo stack</strong>, which operates as follows.
+
+@image html undo_stack.png "Undo stack"
+
+Every model edit action is pushed on top of the undo/redo stack. If there are any undoable actions above the current top of stack, all these actions get discarded, so that the most recent action sits at the top of stack.
+
+The <span class="img undo">Undo</span> command reverses the effect of the action pointed to by the "top of stack" and moves the top of the stack one level toward the older actions. As long as any editing actions are available for undoing, the undo command is enabled both in the @ref ui_menu_edit as well as in the @ref ui_toolbar_edit. The <strong>Undo</strong> command is also available under the standard keyboard shortcut <strong>Ctrl+Z</strong>.
+
+The <span class="img redo">Redo</span> command moves the top of the stack one level toward the newer actions and re-applies the action pointed to by the new "top of stack". As long as any actions are available above the current "top of stack", the redo command is enabled both in the @ref ui_menu_edit as well as in the @ref ui_toolbar_edit. The <strong>Redo</strong> command is also available under the standard keyboard shortcut <strong>Ctrl+Y</strong>.
+
+@note
+Unlike most programs with the @ref ui_mdi (such as IDEs), which use a separate undo/redo stack for each document, QM&trade; uses just <strong>one</strong> undo/redo stack for all editing actions. However, when recording actions on the undo stack, QM&trade; keeps track of the various editors/diagrams associated with the actions, so that when you undo the actions QM&trade; can open up the appropriate editor/diagram for each action you undo or redo.
+
+
+@section bm_undo_limit Undo/Redo Stack Depth Limit
+The value of undo/redo is high for recent editing actions, but diminishes quickly for older actions that are pushed down the udno/redo stack. Because the value of the old actions is very low, there is no much use to keep all the undo actions forever. Therefore the depth of the QM&trade; undo stack is limited, currently to <strong>16 levels</strong> of undo.
+
+
+@section bm_undo_text Undo/Redo and Editing Text
+QM&trade; uses text editors extensively to edit action code associated with state machines, to edit files for code generation, and to edit the documentation. The undo/redo feature works for editing text as expected, whereas you can undo each individual edit. However, as soon as you apply an editing actions outside of the current text editor, the QM&trade; undo stack <strong>collapses</strong> all these editing actions into just one edit.
+
+@next{bm_lock}
+*/
+/*##########################################################################*/
+/*! @page bm_lock Locking Model Items
+
+@tableofcontents
+
+<p>High-level model items, such as the whole @ref bm_model, @ref bm_package "Package Items", @ref ce_dir "Directory Items", and @ref ce_file "File Items" can be individually **locked for editing**, which is very useful for exploring or reviewing the model without the risk of inadvertently modifying the locked items.
+</p>
+
+The lock status of a given model item is visible in the @ref ui_explorer (through the `[locked]` annotation), as well as in @ref ui_status and the @ref ui_toolbar_edit, as shown below:
+
+<div style="clear:both;"></div>
+
+@image html locked_unlocked.png ""
+
+@note
+QM&trade; remembers the status of the Locked items in the @ref ui_session_file. In other words, when you open a @ref ui_model_file "Model File", QM&trade; restores the most-recent locked status of items from the @ref ui_session_file associated with the model.
+
+
+@section ui_lock Locking an Item
+You can lock the @ref ui_curr_item with the popup-menu in @ref ui_explorer (see the screen shot below), as well as the <span class="menu">Edit-&gt;Lock</span> menu or by pressing the Lock button (<span class="img lock"></span>) in @ref ui_toolbar_edit while the item is selected as the Current Item.
+
+@image html item_unlocked.png "Locing a package item"
+
+@note
+To lock the whole model, just lock the top-level <span class="img model">model</span> item.
+
+
+@section ui_unlock Unlocking an Item
+You can unlock the @ref ui_curr_item with the popup-menu in @ref ui_explorer (see the screen shot below), as well as by pressing the <span class="img unlock"></span> button in @ref ui_toolbar_edit.
+
+@image html item_locked.png "Locked package item (note the [locked] annotation)"
+
+
+@section ui_lock-mode The Locked Mode Capabilities and Limitations
+The Locked Mode allows you to conveniently explore and review the model without the risk of inadvertently changing the model. However, you can still change @ref ui_curr_item displayed by all the QM&trade; by clicking on any item in the diagram as well as in @ref ui_explorer. You can also @ref bm_diagram_export "export" @ref bm_diagram_shape_select "selected shapes" in the diagram in a graphic format (EMF or PNG). To remind you that you are in the @ref bm_lock "locked mode", the diagram shows a mouse cursor with the padlock.
+
+@image html locked0.png "Cursor when you hover over a diagram background"
+
+@image html locked1.png "Cursor when you hover over a selectable part of a shape"
+
+
+@note
+In the Locked Mode you don't get mouse cursors for moving or resizing shapes.
+
+
+@n
+@image html locked_diag.png ""
+
+Also, as long as @ref ui_curr_item is locked, you can inspect the @ref ui_prop of the @ref ui_curr_item.
+
+Finally, you can view the files in the File System, but they are all switched to the read-only mode to prevent any edits.
+
+@next{sm}
+*/
