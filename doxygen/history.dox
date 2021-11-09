@@ -1,4 +1,5 @@
 /*! @page history Revision History
+@nav{ce_qmc,license}
 
 @section qm_5_1_3 Version 5.1.3, 2021-06-17
 
@@ -1389,6 +1390,5 @@ The first official QM&trade; release contains the following features:
 
 - Completely free to download and free to use
 
-
-@next{links}
+@nav{ce_qmc,license}
 */

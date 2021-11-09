@@ -1,4 +1,5 @@
 /*! \page license QM&trade; License
+@nav{history,qt_lgpl}
 
 <h1>QUANTUM LEAPS QM&trade; (QP&trade; MODELER)<br>
 GRAPHICAL MODEL-BASED DESIGN AND CODE GENERATING SOFTWARE<br>
@@ -20,7 +21,6 @@ END USER LICENSE AGREEMENT</h1>
 </p>
 <p>1.5 "Quantum Leaps Core Market" means the market for real-time, event-driven real-time embedded frameworks (RTEFs) as well as graphical state machine modeling and code generating software.
 </p>
-
 
 
 <h2>2. GRANT OF COPYRIGHT LICENSE</h2>
@@ -76,14 +76,12 @@ END USER LICENSE AGREEMENT</h1>
 </p>
 
 
-
 <h2>6. DISCLAIMER OF WARRANTY</h2>
 
 <p>BECAUSE THE QM SOFTWARE IS LICENSED FREE OF CHARGE, IT IS LICENSED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE LICENSED SOFTWARE IS WITH YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 </p>
 <p>IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW SHALL QUANTUM LEAPS BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE LICENSED SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. NO LICENSE TO THE LICENSED SOFTWARE IS GRANTED HEREUNDER EXCEPT UNDER THIS DISCLAIMER.
 </p>
-
 
 
 <h2>7. CONTACT INFORMATION</h2>
@@ -94,12 +92,12 @@ END USER LICENSE AGREEMENT</h1>
 <a href="mailto:info@state-machine.com">info@state-machine.com</a>
 @subpage qt_lgpl "&nbsp;"
 
-@next{qt_lgpl}
+@nav{history,qt_lgpl}
 */
 /*##########################################################################*/
 /*! @page qt_lgpl Compliance with Qt LGPL
-
 @tableofcontents
+@nav{license,links}
 
 <p>The @ref ab_what "QM&trade; Modeling Tool" uses the <a class="extern" target="_blank" href="http://www.qt.io">Qt Toolkit</a> under the terms of the GNU Lesser General Public License v. 3 and the GNU Lesser General Public License v. 2.1 (both jointly <a class="extern" target="_blank" href="http://www.qt.io/qt-licensing-terms">"LGPL"</a>). In compliance with LGPL, this document collects the relevant information about downloading, installing, and building the Qt Toolkit from sources. The main source of the information and most of the web links provided here come from the <a class="extern" target="_blank" href="http://www.qt.io">Qt Company's</a> website.
 </p>
@@ -108,13 +106,11 @@ END USER LICENSE AGREEMENT</h1>
 The Qt Toolkit is copyright by <a class="extern" target="_blank" href="http://www.qt.io">The Qt Company</a> and/or its subsidiary(-ies) and other contributors.
 
 
-
 @section qt_lgpl_text LGPL License Text
 The first step in compliance with LGPL is that every recipient of the QM software receives also the full text of the LGPL licenses used. QM complies with this requirement by including the full text of the LGPL licenses (lgpl-2.1.txt and lgpl-3.txt) in every QM distribution. The full text of the LGPL licenses can also be obtained in this QM documentation by clicking on the links below:
 
 - <a href="lgpl-2.1.txt">LGPL v2.1</a>
 - <a href="lgpl-3.txt">LGPL v3</a>
-
 
 
 @section qt_lgpl_use How QM&trade; Modeling Tool Uses Qt
@@ -128,12 +124,10 @@ Also, in compliance with LGPL, the "About QM" dialog box of the QM application p
 ![About QM Dialog Box (Example)](about_qm.png)
 
 
-
 @subsection qt_lgpl_ver Qt Version Information
 Additionally, the QM Help Menu includes the standard "About Qt" dialog box, which informs the user about the exact version of Qt and explains the Qt licensing terms. Finally, the QM Manual prominently states that this program uses the Qt Toolkit under the terms of LGPL.
 
 ![About Qt Dialog Box (Example)](about_qt.png)
-
 
 
 @section qt_lgpl_source Qt Library Source Code
@@ -157,5 +151,5 @@ The QM Modeling tool has used several Qt versions. Please choose the Qt version 
 @section qt_lgpl_offer Written Offer to Provide Source Code
 In case you have any trouble downloading the Qt Source Code from the official links provided above, Quantum Leaps makes hereby a written offer to provide such source code to you. To make a Qt source code request, send email to the following address: <a href="mailto:info@state-machine.com"><b>info@state-machine.com</b></a>. Please indicate which specific QM version you are using. Each Qt version will be available for three (3) years after the release date of the corresponding QM tool.
 
-@next{gs}
+@nav{license,links}
 */

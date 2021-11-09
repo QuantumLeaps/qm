@@ -1,6 +1,6 @@
 /*! @page ui User Interface
-
 @tableofcontents
+@nav{gs_exa,ui_mvc}
 
 @section ui_overview Overview
 The QM&trade; user interface consist of **dock windows and toolbars** that surround the @ref ui_mdi (MDI) area in the center. Dock windows and toolbars can be docked to the edges of the MDI area or floated as independent windows.
@@ -57,11 +57,13 @@ Additionally customizing the fonts and colors in QM&trade; is covered in the sec
 - @subpage ui_custom.
 
 
-@next{ui_mvc}
+@nav{gs_exa,ui_mvc}
 */
 /*##########################################################################*/
 /*!
 @page ui_mvc Model-View-Controller
+@tableofcontents
+@nav{ui,ui_dock}
 
 <p>As most of modeling tools, QM&trade; is based on the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> architecture.
 </p>
@@ -69,25 +71,24 @@ Additionally customizing the fonts and colors in QM&trade; is covered in the sec
 @image html mvc.png "Model-View-Controller Architecture of QM&trade;"
 
 
-
 @section ui_mvc_model Model
 At the center of the system is an @ref bm_model "abstract hierarchical model" of your software system. This model is kept entirely in memory and can be accessed very quickly. The abstract model is persisted in a @ref ui_model_file "Model File" (file with extension `.qm`), which uses <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/XML">XML</a> data format. By using @ref bm_package-extern "external packages" you can also store the model into **multiple files** (package files with extension `.qmp`).
-
 
 
 @section ui_mvc_views Views
 The visible components of the QM&trade; user interface provide different **views** of the model. For example, the @ref ui_explorer provides the most comprehensive view of the whole model. Other GUI components provide the view of a specific item (see @ref ui_curr_item) or groups of related items (such as states and transitions in a diagram). The views are not just for viewing the model. You can use them also to **change** the model. For example, you can use the @ref ui_explorer to add, remove, or re-order the items. You can also change @ref bm_diagram "diagrams" by adding, removing, or re-arranging states and transitions. (NOTE: You always work with the **same** abstract model, regardless which view you are using.)
 
 
-
 @section ui_mvc_ctrl Controller
 Is the internal logic built into the QM&trade; tool that coordinates which parts of the model are displayed by the views and which parts of the model are updated from the views. The effective controller function requires a lot of internal knowledge about all the model items. For example, QM&trade; "knows" all the rules of state nesting, rules for attaching transitions, choice-segments, etc. in the @ref sm "state diagrams".
 
-@next{ui_dock}
+@nav{ui,ui_dock}
 */
 /*##########################################################################*/
 /*!
 @page ui_dock Working with Dock Windows
+@tableofcontents
+@nav{ui_mvc,ui_mdi}
 
 <p>Every dock window has its own title bar, even when it is docked. You can move dock windows form one dock area to another by dragging the **title bar**. You can dock more than one dock window in a given dock area, in which case they will stack on top of each other and will be accessible via tabs. You can also dock windows side-by-side.
 </p>
@@ -110,11 +111,13 @@ Any dock window can be shown or hidden by means of the @ref ui_toolbar_view or t
 @image html tb_view.png "&quot;View&quot; toolbar"
 @image html menu_view_docks.png "&quot;View&quot; menu"
 
-@next{ui_mdi}
+@nav{ui_mvc,ui_mdi}
 */
 /*##########################################################################*/
 /*!
 @page ui_mdi Multiple Document Interface
+@tableofcontents
+@nav{ui_dock,ui_model_file}
 
 <p>The Multiple Document Interface (**MDI**) area in the center of the QM&trade; user interface shows diagrams and files (file templates). The MDI area can be setup to operate in two view modes **Subwindows** and **Tabs**. In both modes you can also choose to view the windows-tabs along the top of the MDI area by selecting the <span class="checkbox">Window-&gt;Show Tabs</span> menu
 </p>
@@ -125,12 +128,10 @@ The QM&trade; application **saves** the most recently used MDI view mode as well
 <div style="clear:both;"></div>
 
 
-
 @section ui_mdi_subwindows Subwindows View
 The **Subwindows** mode is activated with the <span class="checkbox">Window-&gt;Show Subwindows</span> menu. In this mode you can view and resize individual subwindows. You can also tile and cascade the subwindows. The Subwindows mode is ideal for comparing diagrams or files side-by-side.
 
 @image html subwindows.jpg "Subwindows View"
-
 
 
 @section ui_mdi_tabs Tabs View
@@ -138,12 +139,12 @@ The **Tabs** mode is activated with the <span class="checkbox">Window-&gt;Show T
 
 @image html tabs.jpg "Tabs View"
 
-@next{ui_model_file}
+@nav{ui_dock,ui_model_file}
 */
 /*##########################################################################*/
 /*! @page ui_model_file QM Model File
-
 @tableofcontents
+@nav{ui_mdi,ui_session_file}
 
 <p>The @ref bm_model is saved between sessions to a **QM model file** (or to multiple **model files**, if you use @ref bm_package-extern). The QM&trade; model file has the default extension `.qm`.
 </p>
@@ -158,12 +159,10 @@ Even though the model file (as well as package files) are in principle human rea
 </span>
 
 
-
 @section ui_model_xml QM File XML Format
 The *QM model file*, as well as the *QM package files* (if external packages are used) are saved in the <a class="extern" target="_blank" href="http://www.w3.org/XML">eXtensible Markup Language (XML)</a> data format.The advantage of using XML is that it is a textual format and can be conveniently handled by any <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Revision_control">Version Control System (VCS)</a>.
 
 @image html bm_model-xml.png "QM Model File Viewed in an XML Editor"
-
 
 
 @subsection ui_model_links Model Link Comments
@@ -179,7 +178,6 @@ The model-link comments obviously take some additional space in the XML file, bu
 You should <span class="highlight"><strong>never</strong></span> edit your XML model files "manually" outside the QM modeling tool
 
 
-
 @section ui_model_backup Automatic QM File Backup
 QM can make automatic backups of the *QM model file* as well as the *QM Package Files* (if used). This option is enabled by the checkboxk in the @ref ui_menu_file "File Menu".
 
@@ -190,10 +188,12 @@ When "Create Backups" is enabled, QM will save the *previous* version of the mod
 @note
 QM creates only **one level** of model backups. The model backup file `<model>.bak` gets **overwritten** second and subsequent times the model is saved.
 
-@next{ui_session_file}
+@nav{ui_mdi,ui_session_file}
 */
 /*##########################################################################*/
 /*! @page ui_session_file QM Session File
+@tableofcontents
+@nav{ui_model_file,ui_license_cert}
 
 <p>The **QM Session File** stores the QM settings used in the most recent modeling session. The QM Session File is specific to the QM model used and therefore it is stored in the same directory as the most recent @ref ui_model_file "Model File". The QM Session File is named as `.`&lt;`model-name`&gt;. For example, the QM Session File for a model named `my_model` will be named `.my_model` (dot-my_model) and saved in the same directory as the @ref ui_model_file `my_model.qm`.
 </p>
@@ -219,10 +219,12 @@ The QM Session File is saved in the @ref ui_model_file "Model File" directory. T
 @attention
 The QM Session File saved on disk should <strong>not</strong> be edited manually outside the QM&trade; tool. Therefore, to prevent inadvertent modifications, the QM Session File is saved as <span class="highlight"><strong>read-only</strong></span>.
 
-@next{ui_license_cert}
+@nav{ui_model_file,ui_license_cert}
 */
 /*##########################################################################*/
 /*! @page ui_license_cert QM License Certificate File
+@tableofcontents
+@nav{ui_session_file,ui_curr_item}
 
 <p>Every QP commercial license comes with the **QM License Certificate file**, which stores the @ref ab_gen_code "commercial license information" for the QM code generator. The QM License Certificate file is always named exactly the same as the corresponding commercial license. For example, a commercial license with the license number `QPC-SP-161207A` will be accompanied by the license file named `QPC-SP-161207A.qlc` (extension `.qlc`).
 </p>
@@ -231,7 +233,6 @@ The QM License Certificate file is specific to the commercially licensed <a href
 
 @note
 If you are a commercial licensee and for some reason you did not receive your QM License Certificate file, please send email with your license number to <a href="mailto:support@state-machine.com">support@state-machine.com</a> to request your copy.
-
 
 
 @section ui_license_cont Contents of QM License Certificate File
@@ -254,7 +255,6 @@ The QM License Certificate file the following information:
 - The strong cryptographic hash over the contents of the file, which prevents tampering with it.
 
 
-
 @section ui_license_reg Registering QM License Certificate
 The QM License Certificate file must be registered in QM by means of the @ref ui_license-dlg "Code Generation License Dialog Box". The file is specific to the model file and different models can have different QM License Certificates associated with them. In other words, you can have multiple QM License Certificates present on your machine, associated with your various models (e.g., License Certificates for different Single Products of your Company).
 
@@ -263,10 +263,12 @@ The QM License Certificate file must be registered in QM by means of the @ref ui
 @note
 If you are interested in evaluating QM features available only with commercial license (such as generating code with the @ref ce_qmsm_strategy "QMsm state machine implementation strategy"), please submit an evaluation request using the no-obligation <a href="https://www.state-machine.com/licensing/#RequestForm" target="_blank" class="extern"><strong>License Request Form</strong></a>. Evaluation licenses will be granted very liberally.
 
-@next{ui_curr_item}
+@nav{ui_session_file,ui_curr_item}
 */
 /*##########################################################################*/
 /*! @page ui_curr_item Current Item
+@tableofcontents
+@nav{ui_license_cert,ui_explorer}
 
 <p>In QM&trade; you always work with just one model item at a time, which is called the <strong>Current Item</strong>. All views of the model, such as the @ref ui_explorer, the @ref ui_prop, and the active @ref bm_diagram "Diagrams", highlight the **same** Current Item, as illustrated below:
 </p>
@@ -278,12 +280,12 @@ If you are interested in evaluating QM features available only with commercial l
 @note
 The Current Item is typically also the **Selected Item** in the active diagram. However, it is also possible to select **multiple items** in a diagram or, by toggling selections, to end up de-selecting the Current Item (see section @ref bm_diagram_shape_select). Therefore, the Selected Items in a diagram should not be confused with the Current Item, which is always highlighted in the @ref ui_explorer and shown in the @ref ui_prop.
 
-@next{ui_explorer}
+@nav{ui_license_cert,ui_explorer}
 */
 /*##########################################################################*/
 /*! @page ui_explorer Model Explorer
-
 @tableofcontents
+@nav{ui_curr_item,ui_search}
 
 <p>The **Model Explorer** dock window provides the most holistic view of the QM&trade; model as it contains **all** model items in a hierarchical tree like structure, reflecting the arrangement of the items within the model. The Model Explorer dock window can be shown or hidden by means of the <span class="menu">View->Model Explorer</span> menu or the @ref ui_toolbar_view :
 </p>
@@ -297,7 +299,6 @@ At the top-most level, the Model Explorer typically displays: the <span class="i
 
 
 @image html explorer.png "Model Explorer Dock Window"
-
 
 
 You can use the Model Explorer to:
@@ -324,7 +325,6 @@ You can use the Model Explorer to:
 <span class="highlight">Any changes to the model are only allowed for items that are @ref bm_lock "unlocked" for editing (<span class="img unlock"></span>)</span>.
 
 
-
 @section ui_explorer_reorder Reordering Model Items
 The order of items within the model has important consequences for code generation and QM&trade; honors the specific order as much as possible. For example, the class attributes, operations, parameters, etc. as well as states, transitions, and guard conditions within a state machine will appear in the generated code exactly in the order specified in the model.
 
@@ -338,14 +338,12 @@ The Model Explorer provides two ways to reorder items within the model:
 To facilitate better organization of the model and faster navigation within the model, the QM&trade; tool uses a pre-defined ordering of model items within high-level container items, such as @ref bm_package "Packages", @ref bm_class "Classes", @ref sm "State Machines" and @ref ce_dir "Directories". For example, class attribute items are always ordered before the operation items. To enforce this ordering, the actions of moving an item up or down might be **disabled** (grayed out). In this case, you will not be able to move the item in the disallowed direction and the corresponding keyboard shortcut will be disabled as well.
 
 
-
 @section ui_explorer_delete Deleting Model Items
 The Model Explorer provides two ways to delete an item from the model:
 
 <img src="img/explorer_delete.png" style="float:left; margin-right:10px;">The @ref ui_curr_item can be deleted from the model by means of the <span class="img delete">Delete</span> button on the Explorer Toolbar.
 
 <img src="img/keyboard.png" style="float:left; margin-right:10px;">Alternatively, the @ref ui_curr_item can be deleted from the model by means of the <span class="button">Delete</span> keyboard shortcut.
-
 
 
 @section ui_explorer_drag-model Drag-and-Drop within the Model Explorer
@@ -365,7 +363,6 @@ The Model Explorer supports drag-and-drop of model items to @ref ce_file "File W
 @image html "ui_explorer_drag-link.gif" "Dragging a link to a File"
 
 To drag an item to a @ref ce_file "file", click on the item within the Model Explorer and while holding the (left) mouse button drag it to an open file until the mouse cursor shows that dropping is allowed.
-
 
 
 @section ui_explorer_popup Item-Specific Popup Menus
@@ -389,7 +386,6 @@ By **right-clicking** on any item in the Model Explorer you can open the item-sp
 - Delete model items.
 
 
-
 @section ui_explorer_default Item-Specific Default Actions
 
 By **double-clicking** on an item in the Explorer you can execute its **default action**. The default action for all model items is to expand the item if it is collapsed, and collapse it if it was expanded. Additionally, the default action for diagram and file-template items is to display the diagram or file in the @ref ui_mdi.
@@ -398,16 +394,14 @@ By **double-clicking** on an item in the Explorer you can execute its **default 
 The default action never causes any changes in the model and is always **safe to execute**.
 
 
-
 @sa @ref ui_docs_show
 
-@next{ui_search}
-
+@nav{ui_curr_item,ui_search}
 */
 /*##########################################################################*/
 /*! @page ui_search Model Search
-
 @tableofcontents
+@nav{ui_explorer,ui_prop}
 
 <p>The **Model Search** dock window enables you to perform textual search (and also replace) of a selected part of the  QM&trade; model. To allow you access to any part of the model, the search dock contains the hierarchical-tree view of the model, similar to the @ref ui_explorer, but it provides quite different functionality and you should <span class="highlight">not confuse the two</span>. The Model Search dock window can be shown or hidden by means of the <span class="menu">View->Search</span> menu or the @ref ui_toolbar_view :
 </p>
@@ -430,13 +424,12 @@ The tree view below the Search Box is for selecting the **Search Item**, which n
 @attention
 <span class="highlight">Please refer to the Section @ref bm_search for more information about search and replace.</span>
 
-@next{ui_prop}
-
+@nav{ui_explorer,ui_prop}
 */
 /*##########################################################################*/
 /*! @page ui_prop Property Editor
-
 @tableofcontents
+@nav{ui_search,ui_toolbox}
 
 <p>The Property Editor dock window contains the **Property Sheet**, which is specific to the type of the @ref ui_curr_item "Current Item" and enables you to modify any **textual** properties of the Current Item, such as its *name*, *documentation*, *code*, etc. The Property Editor dock window can be shown or hidden by means of the <span class="menu">View->Property Editor</span> menu or through the @ref ui_toolbar_view :
 </p>
@@ -449,7 +442,6 @@ The tree view below the Search Box is for selecting the **Search Item**, which n
 @image html ui_prop.png "Property Editor Dock Window"
 
 
-
 @section ui_prop_update Model Updates from Property Editor
 For performance reasons, the changes you make in the Property Editor are **not** introduced into the @ref bm_model "Abstract Model" immediately, so for example, the model is generally *not* updated after every key-press on your keyboard. Instead the Property Editor updates the model after the following events:
 
@@ -458,7 +450,6 @@ For performance reasons, the changes you make in the Property Editor are **not**
 - you click outside the Property Editor
 - you activate any keyboard shortcut (e.g., <span class="button">F7</span> for @ref ce "code generation")
 - you change the @ref ui_curr_item "Current Item"
-
 
 
 @section ui_prop_example Property Sheet Example
@@ -473,7 +464,6 @@ The screen shot below shows an example of a Property Sheet of the @ref sm_state 
 - **exit** text property consisting of two parts: the pseudocode next to the property and and the action code below.
 
 
-
 @section ui_prop_spec Specific Property Sheets
 The specific Property Sheets are documented with the model items to which they correspond:
 
@@ -484,12 +474,12 @@ The specific Property Sheets are documented with the model items to which they c
 - @ref ce_dir_prop "Directory Property Sheet"
 - @ref ce_file_prop "File Property Sheet"
 
-@next{ui_toolbox}
+@nav{ui_search,ui_toolbox}
 */
 /*##########################################################################*/
 /*! @page ui_toolbox Diagram Toolbox
-
 @tableofcontents
+@nav{ui_prop,ui_birds-eye}
 
 <p>The Diagram Toolbox is a special toolbar containing a collection of tools for **adding** new shapes to the active diagram. The Diagram Toolbox is typically docked along the right edge of the QM&trade; main window, but it can be @ref ui_dock "docked" at any location allowed for a toolbar. You can also @ref ui_dock "float" the Diagram Toolbox. The Diagram Toolbox can be shown or hidden by means of the <span class="menu">View->Draw Toolbox</span> menu or the @ref ui_toolbar_view :
 </p>
@@ -507,10 +497,8 @@ The Diagram Toolbox is **enabled** only when a state diagram is the active MDI w
 The diagram-specific tools displayed in the Diagram Toolbox depend on the active diagram type. Currently, QM&trade; supports only state diagrams, so you will see only the state diagram tools in the Diagram Toolbox, but other sets of tools for diagrams of different types can be supported in the future.
 
 
-
 @section ui_toolbox_select The Select Tool
 Regardless of the diagram type, the Diagram Toolbox always displays the <span class="img select">Select Tool</span> at the top, which is the default tool. The **Select Tool** allows you to select shapes and manipulate them (move and resize). The Select Tool also allows @ref bm_diagram_pan "panning" the diagram as well as @ref bm_diagram_shape_select "selecting" groups of shapes with the lasso. The **Select Tool** becomes automatically the current tool after you apply any other tool from the Toolbox.
-
 
 
 @section ui_toolbox_usig Using the Tools
@@ -523,17 +511,17 @@ The diagram-specific tools are used as follows:
 - Finally, when you hover over a diagram area where it is allowed to add a specific shape, you click the mouse and start dragging the shape. What happens next depends on the type of the shape. For example, if it is a node (such as a @ref sm_state "state"), you can drag the bottom-right corner of the shape to make it desired size. If it is a connector (such as a @ref sm_tran "transition"), you drag the other end of the shape to connect it to the desired node.
 
 
-
 @sa
   @ref sm_toolbox @n
   @ref bm_diagram @n
   @ref ui_docs_show
 
-@next{ui_birds-eye}
-
+@nav{ui_prop,ui_birds-eye}
 */
 /*##########################################################################*/
 /*! @page ui_birds-eye Bird's Eye View
+@tableofcontents
+@nav{ui_toolbox,ui_log}
 
 <p>The **Brid's Eye View** provides a zoomed-out view of the active diagram. It enables you to orient yourself quickly around large diagrams. The Bird's Eye View dock window can be shown or hidden by means of the <span class="menu">View->Bird's Eye View</span> menu or the @ref ui_toolbar_view :
 </p>
@@ -546,19 +534,18 @@ The diagram-specific tools are used as follows:
 @image html birds_eye.png "Brid's Eye View"
 
 
-
 @section ui_birds-eye_pan Panning the Viewport
 The highlighted box in the Brid's Eye View represents the viewed area on the open diagram called the **viewport**. You can pan the viewport by dragging it around the Brid's Eye View with the mouse. The corresponding active diagram will then reflect the fragment of the diagram visible through the viewport.
 
 @sa
 @ref bm_diagram_pan and @ref bm_diagram_scroll
 
-@next{ui_log}
+@nav{ui_toolbox,ui_log}
 */
 /*##########################################################################*/
 /*! @page ui_log Log Console
-
 @tableofcontents
+@nav{ui_birds-eye,ui_menus}
 
 <p>The Log Console @ref ui_dock "dock window" shows the textual output from code generation, external tool execution, and specific information about selected model elements (such as all triggers handled by a given state). The Model Explorer dock window can be shown or hidden by means of the <span class="menu">View->Log Console</span> menu or the @ref ui_toolbar_view :
 </p>
@@ -572,7 +559,6 @@ The highlighted box in the Brid's Eye View represents the viewed area on the ope
 
 
 The log console is **read-only**, but you can select any part of the text and copy it to the Clipboard.
-
 
 
 @section ui_log-menu Popup Menu
@@ -591,12 +577,10 @@ The available options are as follows:
 - **Clear All** allows you to clear the Log Console.
 
 
-
 @section ui_log-error Locating Erroneous Items
  The QM&trade; @ref ce "code generator" might report errors to the Log Console. Typically, an error message pertains to a specific model item. In that case, the Error Console allows you to quickly navigation to the erroneous item by **double-clicking** on the error message. For example, the screen shot below shows an error message associated with a state item. Double-clicking on the line with the error message opens the corresponding @ref sm "state machine" and locates the erroneous state.
 
 @image html log_error.png "Locating Erroneous Item"
-
 
 
 @section ui_log-tools Output from External Tools
@@ -610,7 +594,6 @@ For example, the following screen shot shows the output from a code upload to an
 In case of the tool failure, the Log Console will show the error status. But, if you checked the @ref ui_tools-dlg_errors "Show error message box after failure" check box in the @ref ui_tools-dlg, you will get an additional alert in form of a message box, which can be useful for unit testing.
 
 
-
 @section ui_log-signals Listing State Signals
 The Log Console also can display additional information about the model, such as all signals handled by a state in a <a class="extern" target="_blank" href="https://www.state-machine.com/doc/concepts#HSM">Hierarchical State Machine (HSM)</a>.
 
@@ -621,9 +604,10 @@ In a HSM, a state "inherits" signals from all its @ref sm_state_nest "superstate
 
 @next{ui_menus}
 */
+/*##########################################################################*/
 /*! @page ui_menus Menus
-
 @tableofcontents
+@nav{ui_log,ui_toolbars}
 
 @section ui_menu_file File Menu
 
@@ -769,7 +753,6 @@ In a HSM, a state "inherits" signals from all its @ref sm_state_nest "superstate
 </table>
 
 
-
 @section ui_menu_view View Menu
 @image html menu_view.png "View menu"
 
@@ -869,7 +852,6 @@ In a HSM, a state "inherits" signals from all its @ref sm_state_nest "superstate
 </table>
 
 
-
 @section ui_menu_search Search Menu
 @image html menu_search.png "Search menu"
 
@@ -903,7 +885,6 @@ In a HSM, a state "inherits" signals from all its @ref sm_state_nest "superstate
     <td></td>
   </tr>
 </table>
-
 
 
 @section ui_menu_tools Tools Menu
@@ -972,7 +953,6 @@ The part of the Tools Menu with keyboard shortcuts <span class="button">F8</span
 </table>
 
 
-
 @section menu_window Window Menu
 @image html menu_window.png "Window menu"
 
@@ -1037,7 +1017,6 @@ The part of the Tools Menu with keyboard shortcuts <span class="button">F8</span
 </table>
 
 
-
 @section ui_menu_help Help Menu
 @image html menu_help.png "Help menu"
 
@@ -1093,12 +1072,12 @@ The part of the Tools Menu with keyboard shortcuts <span class="button">F8</span
   </tr>
 </table>
 
-@next{ui_toolbars}
+@nav{ui_log,ui_toolbars}
 */
 /*##########################################################################*/
 /*! @page ui_toolbars Toolbars
-
 @tableofcontents
+@nav{ui_menus,ui_status}
 
 @section ui_toolbar_file File Toolbar
 The File Toolbar provides a quick access to actions of the @ref ui_menu_file. The File Toolbar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;File Toolbar&nbsp;</span> menu is checked.
@@ -1129,7 +1108,6 @@ The File Toolbar provides a quick access to actions of the @ref ui_menu_file. Th
     <td>saves the current model. <span class="highlight">Disabled if the model file is up to date</span>.</td>
   </tr>
 </table>
-
 
 
 @section ui_toolbar_edit Edit Toolbar
@@ -1187,7 +1165,6 @@ The Edit Toolbar provides a quick access to actions of the @ref ui_menu_edit. Th
 </table>
 
 
-
 @section ui_toolbar_view View Toolbar
 The View Toolbar provides a quick access to actions of the @ref ui_menu_view. The View Toolbar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;View Toolbar&nbsp;</span> menu is checked.
 
@@ -1231,7 +1208,6 @@ The View Toolbar provides a quick access to actions of the @ref ui_menu_view. Th
     <td>Drop down box with four choices of grid for diagrams. <span class="highlight">Disabled if no diagram is currently active</span>.</td>
   </tr>
 </table>
-
 
 
 @section ui_toolbar_tools Tools Toolbar
@@ -1288,19 +1264,16 @@ The Tools Toolbar provides a quick access to actions of the @ref ui_menu_tools. 
   </tr>
 </table>
 
-
-@next{ui_status}
+@nav{ui_menus,ui_status}
 */
 /*##########################################################################*/
 /*! @page ui_status Status Bar
-
 @tableofcontents
+@nav{ui_toolbars,ui_new-dlg}
 
 <p>The Status Bar is a horizontal bar at the bottom of the QM&trade; main window for presenting status information. The Status Bar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;Status Bar&nbsp;</span> menu is checked.
 </p>
-
 <div style="clear:both;"></div>
-
 
 
 @section ui_status_diagram Diagram Status Bar
@@ -1314,10 +1287,12 @@ If a **file window** is active, the Status Bar shows a hint and (Line, Column) c
 
 @image html status_file.jpg "File Status Bar"
 
-@next{ui_new-dlg}
+@nav{ui_toolbars,ui_new-dlg}
 */
 /*##########################################################################*/
 /*! @page ui_new-dlg New Model Dialog Box
+@tableofcontents
+@nav{ui_status,ui_tools-dlg}
 
 <p>The **New Model** dialog box allows you to create a new QM&trade; model. This dialog box can be opened either from the <span class="menu">File-&gt;New Model...</span> menu, or by means of the <span class="img new_model">New Model</span> button in the @ref ui_toolbar_file, or by means of the **Ctrl**-<span class="button">N</span> keyboard accelerator.
 </p>
@@ -1348,12 +1323,12 @@ The New Model dialog box has the following elements:
 The other way of creating a model in QM&trade; is to open an existing model (e.g., one of the @ref gs_examples "examples") and use the <span class="menu">File-&gt;Save As...</span> menu to save it under a different name in a directory of your choice.
 
 
-@next{ui_tools-dlg}
+@nav{ui_status,ui_tools-dlg}
 */
 /*##########################################################################*/
 /*! @page ui_tools-dlg Manage Tools Dialog Box
-
 @tableofcontents
+@nav{ui_new-dlg ,ui_license-dlg}
 
 <p>The **Manage Tools** dialog box allows you to configure up to 5 different external tools that can be then launched directly from QM&trade; with the keyboard shortcuts <span class="button">F8</span> trough <span class="button">F12</span>. Examples of external tools include `make` to perform a software build, `lint` to statically check your code, your own unit tests that run on the host computer, or a command-line tool to download the code to the embedded target, directly from QM with just one key press. The output generated by the external tool will appear in the QM's @ref ui_log.
 </p>
@@ -1361,15 +1336,14 @@ The other way of creating a model in QM&trade; is to open an existing model (e.g
 @note
 The external tools that can be launched directly from QM&trade; are not limited to command-line programs only. An external tool can be a GUI application and can be launched as "detached" from QM&trade;.
 
-<div style="clear:both;"></div>
 
+<div style="clear:both;"></div>
 
 
 @section ui_tools-dlg_open Opening the Manage Tools dialog box
 To open the **Manage Tools** dialog box, go to <span class="menu">Tools-&gt;Manage External Tools...</span> menu or press the <span class="img tool_manager">Manage Tools</span> button in the @ref ui_toolbar_tools :
 
 @image html manage_tools.png "Manage External Tools dialog"
-
 
 
 @section ui_tools-dlg_env Setting Environment Variables
@@ -1379,7 +1353,6 @@ The environment variables defined at the top of the "Manage External Tools" dial
 
 @note
 The environment variables defined at the top of the "Manage External Tools" dialog box have scope an lifetime limited to the temporary process that is used to lauch an external tool. They only persist during the run of the tool and disappear afterwards.
-
 
 
 @section ui_tools-dlg_config Configuring an External Tool
@@ -1409,7 +1382,6 @@ The environment variables defined at the top of the "Manage External Tools" dial
 QM&trade; stores the External Tool configuration in the Settings for the QM&trade; application, which is the same storage that holds the most recently used models or the recent arrangement of the docking windows. These Settings are **not** part of the model, but rather are specific to the machine on which QM&trade; is installed.
 
 
-
 @section ui_tools-dlg_gcc Example: A Tool for Calling GCC Compiler
 As a simple example of using an external tool, consider a tool for building the Blinky project discussed in the @ref gs_tut_build "QM&trade; Tutorial".
 
@@ -1426,7 +1398,6 @@ The screen shot below shows how to setup the "build Blinky" tool:
 As shown in the screen shot above, in the __Arguments:__ property you can use the pre-defined symbols `${ModelPath}`, `${ModelFile}`, and `${ModelDir}`.
 
 
-
 @section ui_tools-dlg_iar Example: A Tool for Building an IAR Project
 Many mature embedded toolsets support building projects from command-line, because only such builds can be truly **automated**. For example, the popular IAR Embedded Workbench toolset supports command-line build of the projects through the `IarBuild.exe` utility. The following screen shot illustrates how to set up an External Tool to build an IAR project.
 
@@ -1440,12 +1411,12 @@ The following screen shot shows the QM&trade; @ref ui_log "Log Console" output f
 In case of the tool failure, the @ref ui_log "Log Console" will show the error status. But, if you checked the **Show error message box after failure** box for the tool, you will get an additional alert in form of a message box, which can be useful for unit testing.
 
 
-@next{ui_license-dlg}
+@nav{ui_new-dlg ,ui_license-dlg}
 */
 /*##########################################################################*/
 /*! @page ui_license-dlg Code Generation License Dialog Box
-
 @tableofcontents
+@nav{ui_tools-dlg,ui_custom}
 
 <p>As mentioned in the section @ref ab_special "What's Special about QM", much of the simplicity of QM&trade; derives from the fact that the models you create with QM&trade; are based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/qp">QP&trade; Real-Time Embedded Frameworks (RTEFs)</a>. An important implication of this design is that the @ref ce "code generated by QM" can only run within the QP&trade; RTEF, which means that such code must comply with the same licensing terms as the underlying QP framework (qpc, qpcpp, or qpn).
 </p>
@@ -1479,12 +1450,12 @@ Commercial license is registered by means of a @ref ui_license_cert "QM license 
 @note
 If you are a commercial licensee and for some reason you did not receive your QM License Certificate file, please send email with your license number to <a href="mailto:support@state-machine.com">support@state-machine.com</a> to request your copy.
 
-@next{ui_custom}
+@nav{ui_tools-dlg,ui_custom}
 */
 /*##########################################################################*/
 /*! @page ui_custom Customizing QM GUI
-
 @tableofcontents
+@nav{ui_tools-dlg,bm}
 
 QM&trade; can be customized in several ways:
 
@@ -1495,7 +1466,6 @@ QM&trade; can be customized in several ways:
 - Finally, you can create your own custom @ref ui_custom_templates to speed up creating new models.
 
 <div style="clear:both;"></div>
-
 
 
 @section ui_custom_style QM&trade; GUI Style
@@ -1537,8 +1507,6 @@ The QM&trade; Style Sheet is loaded only during the startup, so you need to **re
 
 
 The active QM Style Sheet `qm.qss` is a plain text file that you can edit with any text editor. The Style Sheet contains several commented **sections** described below:
-
-
 
 
 @subsection ui_custom_mainwindow MainWindow Section
@@ -1676,7 +1644,6 @@ CodeEdit {
 @image html code_styles2.jpg "Code Edit Styles (Code Edit Inactive)"
 
 
-
 @subsection ui_custom_doc DocEdit Section
 The `DocEdit` section pertains to all documentation editors in @ref ui_prop.
 
@@ -1718,7 +1685,6 @@ Log:!active {
 @image html log_styles2.jpg "Log Styles (Log Window Inactive)"
 
 
-
 @section ui_custom_templates Model Templates
 QM&trade; model templates are simply QM&trade; models, perhaps incomplete, which are intended to be elaborated further into complete QM models. Simple model templates are provided in the @ref gs_install_folder in the subdirectory `Resources/`, but you can easily add <span class="strong">your own model templates</span>.
 
@@ -1739,5 +1705,5 @@ You add a new model template simply by saving a model in the @ref gs_install_fol
 @note
 If you save a model template for the wrong QP framework type (e.g., you save a model based on `qpc` into `Resources/qpcpp/`), the template will be rejected during creation of the new model.
 
-@next{bm}
+@nav{ui_tools-dlg,bm}
 */

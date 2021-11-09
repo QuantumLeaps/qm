@@ -9,13 +9,13 @@
     <td>
       - @ref help
       - @ref index "About QM&trade;"
-      - @ref license
       - @ref gs "Using QM&trade; Help"
-      - @ref gs_obtain
+      - @ref gs_get
       - @ref gs_install
       - @ref gs_run
       - @ref gs_tut
-      - @ref gs_examples
+      - @ref gs_exa
+      - @ref license
     </td>
     <td>
       - <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/forums/forum/668726">Free Support Forum</a>
@@ -38,10 +38,11 @@
       - @ref bm_package
       - @ref bm_class
       - @ref bm_attr
-      - @ref bm_oper
+      - @ref bm_oper-class
+      - @ref bm_oper-free
       - @ref bm_evt
       - @ref bm_diagram
-      - @ref bm_edit @n
+      - @ref bm_edit
       - @ref bm_search
       - @ref bm_cut-paste
       - @ref bm_undo-redo
@@ -101,7 +102,5 @@
     </td>
   </tr>
 </table>
-@n
 
-@next{index}
 */

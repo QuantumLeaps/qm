@@ -1,6 +1,6 @@
 /*! @page sm State Machines
-
 @tableofcontents
+@nav{bm_lock,sm_statechart}
 
 <p>QM&trade; provides extensive support for modern <a class="extern" target="_blank" href="https://www.state-machine.com/fsm/#HSM">Hierarchical State Machines (HSMs)</a> (UML Statecharts), which are perhaps the most effective and elegant technique of structuring event-driven systems. In fact, QM&trade; has been specifically designed for ease of diagramming HSMs and for generating efficient, production-quality code from them.
 </p>
@@ -26,7 +26,6 @@ This section focuses primarily on working with **state machine diagrams**, while
 Section @ref bm_diagram describes generic operations applicable to any diagram type, such as @ref bm_diagram_open "opening", @ref bm_diagram_close "closing", @ref bm_diagram_scroll "scrolling", @ref bm_diagram_pan "panning", and @ref bm_diagram_zoom "zooming" a diagram. Section @subpage sm_statechart "Working with Statecharts" describes specific operations applicable to statecharts (UML state diagrams).
 
 <div style="clear:both;"></div>
-
 
 
 @section sm_class State Machine Base Classes
@@ -59,7 +58,6 @@ Apart from changing the superclass property in the class Property Sheet, you als
 You should consider `QHsm/QActive`-style state machines only when you are still interested in **manual coding** or maintaining your state machines. (But then you will be working against the strictly @ref ab_special "forward-engineering nature" of QM&trade;)
 
 
-
 @subsection sm_class_qmsm QMsm/QMActive-Style State Machines
 The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-sylte strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **highly human-readable**, but is **not** suitable for manual coding or maintaining.
 
@@ -79,7 +77,6 @@ The `QMsm/QMActive`-style state machines are generally recommended over the olde
 
 @attention
 The `QMsm/QMActive`-style implementation strategy requires a @ref ab_license "commercial license certificate" to generate code.
-
 
 
 @section sm_toolbox State Machine Toolbox
@@ -104,11 +101,12 @@ The usage of the tools in the State Diagram Toolbox is explained in the sections
 - <span class="img xp_seg"></span> @subpage sm_xpseg   "Add eXit-Point Segment"
 
 
-@next{sm_statechart}
+@nav{bm_lock,sm_statechart}
 */
 /*==========================================================================*/
 /*! @page sm_statechart Working with Statecharts
-
+@tableofcontents
+@nav{sm,sm_state}
 
 @section sm_add Adding a Statechart
 In the @ref ui_explorer **right-click** on the @ref bm_class "Class" to which you want to add the state machine and select <span class="img statechart">Add State Machine</span> from the popup menu.
@@ -142,7 +140,6 @@ Checkbox that controls the state machine implementation style. When checked, the
 The **Use me->** checkbox is only relevant for models based on QP/C++ (qpcpp). For models based on QP/C or QP-nano, this checkbox is permanently checked and is "grayed-out" meaning that it cannot be unchecked.
 
 
-
 @subsection sm_statechart-QS QS_FUN_DICT
 Checkbox that turns on/off the automatic generation of the [QS_FUN_DICTIONARY()](https://www.state-machine.com/qtools/qs.html#qs_dict) macros for all states of a given statechart. The dictionary macros are generated in the top-most initial transition of the statechart. Below is an example of generated code with the `QS_FUN_DICTIONARY()` macros:
 
@@ -162,17 +159,16 @@ static QState Blinky_initial(Blinky * const me, void const * const par) {
 @subsection sm_statechart-doc Documentation
 The **documentation** entry in the Statechart Property Sheet allows you to provide documentation to the statechart. The QM code generator parses the documentation entry and can @ref ce_comment-doc "generate comments" for the **top-most initial transition** of this statechart.
 
-
-@next{sm_state}
+@nav{sm,sm_state}
 */
 /*==========================================================================*/
 /*! @page sm_state Working with States
-
 @tableofcontents
+@nav{sm_statechart,sm_tran}
+
 <p>The concept of <strong>State</strong> is a very effective mechanism of decomposing event-driven behavior. *States* divide the overall behavior of a class into separate parts, each part (state) handling events in a specific way. Any change in handling of any event requires a change of state, that is, a state @ref sm_tran "transition". States are represented in UML as rounded-corner rectangles with the state name at the top.
 </p>
 <div style="clear:both;"></div>
-
 
 
 @section sm_state_add Adding a State
@@ -182,7 +178,6 @@ In order to add states, you first need to @ref sm_add "create" and @ref bm_diagr
 Make sure that the State Machine subwindow is active. In the @ref sm_toolbox click on the <span class="img state">State</span> tool and *release* the mouse button (don't drag the tool off the toolbar). At this point, when you hover the mouse over the active state diagram, the mouse pointer changes shape to the <span class="img cur_state1">state</span> tool. To add a state, move the mouse to the desired location of the **top-left corner** of the state shape and press the left mouse button. At this point you create a state shape of minimal size at the mouse position. You can release the mouse button immediately or you can **drag** the mouse to the desired location of the **bottom-right** corner of the state shape. In any case, you can @ref sm_state_resize "resize" the state shape at any later time.
 
 @image html sm_state-add.gif "Adding a State"
-
 
 
 @section sm_state_nest Nesting of States
@@ -201,12 +196,10 @@ For example, the screen shot above shows `state2` nested in `state1`, as identif
 The state nesting is also reflected in the @ref sm_state-super property in the State Property Sheet.
 
 
-
 @section sm_state_move Moving a State
 To move a state, hover the mouse over the state until you get the move cursor. Click the mouse and drag the state shape to the desired location.
 
 @image html "sm_state-move.gif" "Moving a State"
-
 
 
 @section sm_state_resize Resizing a State
@@ -220,7 +213,6 @@ To resize the desired edge of a state, hover the mouse over the state edge until
 The state shape cannot be made smaller than the @ref sm_state-entry "entry box" and @ref sm_state-exit "exit box" in the state.
 
 
-
 @section sm_state_delete Deleting a State
 To delete a state, you need to select it as the @ref ui_curr_item "Current Item", either by clicking on it in the state diagram or in the @ref ui_explorer "Model Explorer". After this, you can delete the state in several ways: (1) click the <span class="img delete">button</span> in the @ref ui_explorer_delete  "Explorer Toolbar"; (2) press the <span class="button">Del</span> keyboard shortcut; or (3) right-click on the state diagram and choose the <span class="menu">Delete item</span> option from the pop-up menu (see the screen animation below).
 
@@ -228,7 +220,6 @@ To delete a state, you need to select it as the @ref ui_curr_item "Current Item"
 
 @note
 Deleting a state is **not recursive**, meaning that any substates nested within the deleted state are **not** deleted.
-
 
 
 @section sm_state_prop State Property Sheet
@@ -290,12 +281,12 @@ The actual algorithm QM uses to display action text in the exit box is as follow
 
 Once the state shape is *selected* as the @ref ui_curr_item "Current Item", you can **resize the exit box** by dragging the lower-right handle of the box (see the screen animation above).
 
-@next{sm_tran}
+@nav{sm_statechart,sm_tran}
 */
 /*==========================================================================*/
 /*! @page sm_tran Working with Transitions
-
 @tableofcontents
+@nav{sm_state,sm_choice}
 
 @section sm_tran_reg Regular Transitions
 <p>Any change in handling of events requires a change of state, that is, a **state transition**. Such **state-to-state transitions** are represented as lines that originate on an edge of the *source state* and terminate with an arrow (<span class="img tran_state"></span>) on an edge of the *target state*.
@@ -323,7 +314,6 @@ The QM&trade; representation of internal transitions differs from the <a class="
 Internal transitions are **different** from *self-transitions* (loops starting and terminating on the same state), because self-transitions cause exit of the state (execution of exit actions) and re-entry to the state (execution of entry actions followed by optional initial transitions), whereas internal transitions never cause state exit or entry.
 
 
-
 @section sm_tran_add Adding a Transition
 
 @note
@@ -333,7 +323,6 @@ Make sure that the State Machine subwindow is active. In the @ref sm_toolbox cli
 
 @attention
 As shown in the animations below, a transition (state-to-state or internal) in QM&trade; is always added to the **Source State**, meaning that it shows up in the @ref ui_explorer "Model Explorer" as a child of the **Source State** item.
-
 
 
 @subsection sm_tran_add-internal Adding Internal Transition
@@ -346,12 +335,10 @@ If you drop the transition end when it still shows as a square (<span class="img
 As described in section @ref sm_tran_type, you can very easily change an *internal transition* into a regular *state-to-state transition* or vice versa.
 
 
-
 @subsection sm_tran_add-state Adding State-to-State Transition
 To add a regular **state-to-state transition**, you need to drag the transition end to an edge of the **target** state. As you drag the transition end over a state edge (which could be the source state), the mouse pointer changes to a hand shape with an anchor (<span class="img anchor"></span>) and the transition end takes the shape of an arrow. If this is the desired **target** state, drop the transition end at this point. The following animation shows how to add a state-to-state transition:
 
 @image html sm_tran_state-add.gif "Adding a State-to-State Transition"
-
 
 
 @section sm_tran_prop Transition Property Sheet
@@ -390,10 +377,8 @@ As an extension to the UML, QM&trade; supports also a special type of **CATCH_AL
 Obviously, it does not make sense to have more than one `CATCH_ALL` transition per state. The QM&trade; @ref ce_sm "code generator" will report an error if encounters multiple `CATCH_ALL` triggers in a given state.
 
 
-
 @subsection sm_tran-target Transition Target
 The **target** property is not editable directly, but rather it is determined geometrically by the end-point of the transition. For *state-to-state transitions*, the *target* property lists the target state at which the end-point (<span class="img tran_state"></span>) terminates. For *internal transitions* with the square end-point (<span class="img tran_internal"></span>), the *target* property shows `internal`.
-
 
 
 @subsection sm_tran-act Transition Action
@@ -448,13 +433,12 @@ In QM&trade; state transitions do **not** accept guard conditions. Instead, you 
 @note
 The UML supports the concept of a "choice-pseudostate", which is an alternative to guards on transitions. QM&trade; supports the UML "choice-pseudostates" in form of @ref sm_choice "choice segments". The concept and notation for "choice pseudostate" (panel (B) in the diagram above) **is** compliant with UML.
 
-
-@next{sm_choice}
+@nav{sm_state,sm_choice}
 */
 /*==========================================================================*/
 /*! @page sm_choice Working with Choice Segments
-
 @tableofcontents
+@nav{sm_tran,sm_init}
 
 <p>Often in state machines, you need to take a state transition only when a specific condition (called **guard condition**) evaluates to TRUE at run-time. Also, quite often, you need to transition to different states, depending on the outcome of some guard conditions evaluated at run-time.
 </p>
@@ -529,7 +513,6 @@ For successful code generation, the Code entry of the _guard_ property must be a
 The **target** property is not editable directly, but rather it is determined geometrically by the end-point of the choice segment. For *state-to-state transitions*, the *target* property lists the target state at which the end-point (<span class="img tran_state"></span>) terminates. For *internal transitions* with the square end-point (<span class="img tran_internal"></span>), the *target* property shows `internal`.
 
 
-
 @subsection sm_choice-act Choice Action
 A Choice Segment can have optional **action** property, which is executed only when the _guard_ evaluates to TRUE at runtime (see also @ref sm_choice_act).
 
@@ -546,7 +529,6 @@ The <strong>Pseudocode</strong> entry of the _action_ property is intended only 
 Once the Choice Segment item is *selected* as the @ref ui_curr_item "Current Item", you can see boundary of the **Text Box** associated with the choice segment. The Text Box allows you to **move** and **resize** the choice text by dragging it around or dragging the Text Box Handle according to the same algorithm as the @ref sm_tran_text "Transition Text Box".
 
 
-
 @section sm_choice_else The else Guard
 The guard property can be defined as the special **else** keyword. Such _else_ guard complements any other guard conditions attached to the same choice pseudostate. The _else_ guard can be specified either in the code entry or pseudocode entry of the _guard_ property. Obviously, the "else" guard makes sense only for a choice pseudostate with multiple outgoing <span class="img choice">choice segments</span>.
 
@@ -556,7 +538,6 @@ The guard property can be defined as the special **else** keyword. Such _else_ g
 During the @ref ce "code generation", the _else_ guard will always be generated last within the group of all guards associated with the same choice pseudostate, regardless of its @ref sm_choice_order "order in the Model Explorer".
 
 
-
 @section sm_choice_none Choice Segments Without else
 According to the UML specification, an event that cannot be processed due to all guards evaluating to FALSE must be treated as unprocessed meaning that it must be propagated to the superstate(s). This requirement has implications for choice pseudostates without an explicit _else_ segment. Specifically, to comply with the UML semantics, the @ref ce "QM&trade; code generator" will generate in such cases an implicit `else` branch that will cause propagation of the event to the superstate(s).
 
@@ -564,7 +545,6 @@ According to the UML specification, an event that cannot be processed due to all
 
 @note
 There is a difference between a choice pseudostate with an empty _else_ segment and an otherwise identical choice pseudostate without the _else_ segment. The explicit empty _else_ will cause the event to be consumed (without doing anything), while the absence of the _else_ segment will cause the event to propagate to the superstate(s).
-
 
 
 @section sm_choice_order Order of Guard Evaluation
@@ -578,7 +558,6 @@ The order of guard evaluation is determined by the order of the <span class="img
 
 @note
 In case of overlapping guards when the order of guard evaluation matters, it is highly recommended to arrange the Choice Segments graphically in the diagram in same order as in the Model Explorer, as illustrated in the screen shot above. The generated code will then follow the same order, as shown on the right of the diagram above.
-
 
 
 @section sm_choice_act Order of Action Evaluation
@@ -611,7 +590,6 @@ case TRIG: {
 @endcode
 
 
-
 @section sm_choice_nest Nested Choice Segments
 As described @ref sm_choice_add-nest "above", Choice Segments can **nest**. This allows you to build complex conditional transition paths, but as always with guards, the feature should _not_ be overused.
 
@@ -641,13 +619,12 @@ On the other hand, if you select an outgoing choice-segment, you cannot move the
 
 ![Changing attachment of a choice-segment](sm_choice_att-ani.gif)
 
-
-@next{sm_init}
+@nav{sm_tran,sm_init}
 */
 /*==========================================================================*/
 /*! @page sm_init Working with Initial Transitions
-
 @tableofcontents
+@nav{sm_choice,sm_hist}
 
 <p>Every state machine needs the **top-most initial transition**, which originates in an initial pseudostate (black dot) placed directly on the drawing canvas and points to the first active state after the state machine gets initialized.
 </p>
@@ -661,12 +638,10 @@ Additionally, a *composite state* with nested *substates* might also have its ow
 In most UML tools, the process of drawing such initial transitions consists of first adding an initial pseudostate (black dot) and then attaching a transition between it and some state. In QM&trade; this process is simplified, because the @ref sm_toolbox "State Machine Toolbox" contains ready-to-use <span class="img initial">Initial Transition</span> tool, which combines an "initial pseudostate" with a transition attached permanently to it. This tool is used to add both the top-most initial transition and initial transitions nested within superstates.
 
 
-
 @section sm_initial_add Adding Initial Transition
 You select the Initial Transition tool by clicking on the <span class="img initial">button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active state diagram, the mouse pointer changes to the initial transition tool. To add an initial transition, move the mouse to the desired location of the **initial pseduostate** of the initial transition and press and hold down the left mouse button. At this point the mouse pointer changes to the initial tran with the  "forbidden" icon (<span class="img forbidden"></span>). Next, you need to **drag** the mouse to an **edge** of the target state. (If you release the mouse button without reaching the target state edge, the QM&trade; tool will delete the transition.) When you drag the mouse pointer over a state edge, the mouse pointer changes to the initial transition with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the end of the initial transition connector at this edge. To anchor the transition, release the mouse button.
 
 @image html "sm_init-add.gif" "Adding Initial Transitions"
-
 
 
 @section sm_initial_invalid Invalid Initial Transitions
@@ -675,7 +650,6 @@ As you keep working on your state diagram, some initial transition(s) might easi
 The following animation shows how an initial transition can become invalid and how QM&trade; renders it:
 
 @image html "sm_init-invalid.gif" "Invalid Initial Transition"
-
 
 
 @section sm_init_prop Initial Transition Property Sheet
@@ -704,16 +678,15 @@ The **pseudocode** property is designed to avoid clutter in the diagram by minim
 Once the initial transition is *selected* as the @ref ui_curr_item "Current Item", you can **move** and **resize** the text-box by dragging it around or dragging the lower-right handle of the box (see the screen animation above).
 
 
-
 @section sm_init-route Routing Transition Path
 All transitions in QM&trade; are **rectilinear**, meaning that they consist only of horizontal or vertical segments. You can adjust the position of the horizontal segments by dragging them up or down or the vertical segments by dragging them left and right.
 
-@next{sm_hist}
+@nav{sm_choice,sm_hist}
 */
 /*==========================================================================*/
 /*! @page sm_hist Working with Transitions to History
-
 @tableofcontents
+@nav{sm_init,sm_subm}
 
 <p>Sometimes in hierarchical state machines you need to transition out of a _composite_ state, but later you wish to come back to the _most-recent_ active substate of this composite state. In UML, this coming back to the most-recent substate is accomplished by the **transition to history** feature. Actually, the UML specification distinguishes between two types of "transition to history":
 </p>
@@ -734,7 +707,6 @@ In QM&trade;, however, this process is simplified, because the @ref sm_toolbox "
 A UML transition-to-history connector (of any type) can optionally have an outgoing transition pointing to the substate of the composite state. This is the way to designate a _default substate_, when the composite state has no history yet (has never been active before). In UML, the outgoing transition from the history connector is optional, but this leaves the "default substate" unspecified in case when the composite state has no history yet (has never been active before). The QM&trade; tool does **not allow** such incomplete history connectors and therefore the <span class="img history">History Segment</span> tool requires you to always **attach** it to an existing "default substate".
 
 
-
 @section sm_hist_add Adding History to a Composite State
 You select the History Segment tool by clicking on the <span class="img history">button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active state diagram, the mouse pointer changes to the history transition tool. To add a history transition, move the mouse to the **edge** of the desired composite state and press and hold down the left mouse button. At this point the mouse pointer changes to the history tran with the  "forbidden" icon (<span class="img forbidden"></span>). Next, you need to **drag** the mouse to an **edge** of the desired substate of the composite state. (If you release the mouse button without reaching any substate edge, the QM&trade; tool will delete the transition.) When you drag the mouse pointer over a state edge, the mouse pointer changes to the history transition with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the end of the history transition connector at this edge. To anchor the history transition, release the mouse button.
 
@@ -749,7 +721,6 @@ The QM&trade; tool permits you to attach the <span class="img history">History S
 @image html "subm_hist.gif" "History inside a submachine (top) and at the boundary of a submachine state (bottom)"
 
 
-
 @section sm_hist_subm Adding History to a Submachine Diagram
 History Segment can also be added to a @ref sm_subm "Submachine Diagram" in a similar way as it can be added to a composite state.
 
@@ -762,10 +733,8 @@ Because the <span class="img history">History Segment</span> is attached to the 
 A given *Submachine Diagram* can have at most one History Transition at its **boundary**. The History connector is **not allowed** in any sub-states nested within the submachine, and the QM tool does **not** allow attaching the History connector to the sub-states of a submachine.
 
 
-
 @section sm_hist_invalid Invalid History Transitions
 As you keep working on your state diagram, some history transition(s) might easily become **invalid**. For example, after resizing of a state the target substate of a history transition might fall outside of the state shape, such that it no longer is a substate of the composite state. Such invalid history transitions are shown with **dashed line**.
-
 
 
 @section sm_hist_in Adding Incoming Transition to State History
@@ -778,7 +747,6 @@ To attach a transition to a given history connector select the desired transitio
 To **disconnect** a given transition from a history connector, you first select this transition by clicking on one of its segments. Then, you hover the mouse cursor over the history connector, until it changes into a circle with letter 'H' in it. You can then drag this transition end to a desired new location, which might be an edge to the new target state, or away from any state edge, at which point it becomes an internal transition (see also @ref sm_tran_type "transition type").
 
 
-
 @section sm_hist_prop Transition to History Property Sheet
 <span class="img history">History Transition</span> item has a simple Property Sheet that currently does not contain any configurable parameters.
 
@@ -789,21 +757,20 @@ The Transition to History property sheet contains the following properties:
 - @ref sm_hist-is_shallow
 
 
-
 @subsection sm_hist-target Target
 The **target** property is not editable directly, but rather it is determined geometrically by the end-point of the transition to history. The target property determines the value of the history before the composite state has been visited.
-
 
 
 @subsection sm_hist-is_shallow Is Shallow
 This **is shallow** property specifies the type of the transition to history. When the checkbox is unchecked, the history transition is to **deep history**, which is indicated by the circled `(H+)`. When the checkbox is checked, the history transition is to **shallow history**, which is indicated by the circled `(H)`.
 
-@next{sm_subm}
+@nav{sm_init,sm_subm}
 */
 /*==========================================================================*/
 /*! @page sm_subm Working with Submachine Diagrams
-
 @tableofcontents
+@nav{sm_hist,sm_epseg}
+
 <p><span class="img submachine">Submachine Diagram</span> allows you to specify a composite state and all its nested substates and transitions (*submachine*) in such a way that it can be instantiated (and thus reused), possibly **multiple times**, in the context of a given state machine. You can think of submachines as "macros" or "procedures" that capture common behavior inside a given state machine in order to reuse it (as @ref sm_smstate "submachine states") within the context of the same state machines
 </p>
 
@@ -824,7 +791,6 @@ The @ref ce "QM code generator" supports Submachine Diagrams only for the @ref s
 <div style="clear:both;"></div>
 
 
-
 @section sm_subm_add_blank Adding a Blank Submachine Diagram
 To add an new, blank Submachine Diagram, in the @ref ui_explorer **right-click** on the @ref sm_add "State Machine (SM)" to which you want to add the Submachine Diagram and select <span class="img submachine">Add Sub-Machine</span> from the popup menu.
 
@@ -832,7 +798,6 @@ To add an new, blank Submachine Diagram, in the @ref ui_explorer **right-click**
 
 @note
 In order to add a Submachine Diagram, the State Machine must be @ref bm_lock "unlocked" (<span class="img unlock"></span>).
-
 
 
 @section sm_subm_add_state Creating a Submachine Diagram from State
@@ -843,12 +808,10 @@ To create a new Submachine Diagram from a given state **right-click** on this st
 @image html "sm_subm_from_state.png" "Creating a Submachine from a Composite State"
 
 
-
 @section sm_subm_resize Resizing a Submachine Diagram
 As all diagrams in QM, the *Submachine Diagram* has a @ref bm_diagram_canvas "Drawing Canvas", which can be resized by dragging the outside edges or the bottom-right corner of the diagram. However, the special feature of *Submachine Diagram* is that resizing the canvas always simultaneously resizes the outline of the composite state (shown in green).
 
 @image html "sm_subm_resize.png" "Resizing a Submachine Diagram"
-
 
 
 @section sm_subm_delete Deleting a Submachine Diagram
@@ -856,7 +819,6 @@ To delete a Submachine Diagram, you need to select it as the @ref ui_curr_item "
 
 @note
 Deleting a *Submachine Diagram* removes the reference to this *Submachine* in all @ref sm_smstate "Submachine States" based on this Submachine.
-
 
 
 @section sm_subm_prop Submachine Diagram Property Sheet
@@ -893,12 +855,12 @@ A submachine can have optional **exit action**. You provide this action in the @
 @note
 Once the state shape is *selected* as the @ref ui_curr_item "Current Item", you can **resize the exit box** by dragging the lower-right handle of the box.
 
-@next{sm_epseg}
+@nav{sm_hist,sm_epseg}
 */
 /*==========================================================================*/
 /*! @page sm_epseg Working with Entry-Point Segments
-
 @tableofcontents
+@nav{sm_subm,sm_xp}
 
 <p><span class="img ep_seg">Entry-Point Segment</span> represents a way of transitioning into a specific substate of a @ref sm_subm "Submachine". The *Entry-Point* provides an indirection layer to entering a specific substate without exposing this substate or any other internal parts of the Submachine.
 </p>
@@ -910,10 +872,8 @@ Once the state shape is *selected* as the @ref ui_curr_item "Current Item", you 
 In most UML tools, the process of drawing entry-point transitions consists of first adding an Entry-Point pseudostate (empty circle) and then attaching a transition between it and some state. In QM&trade; this process is simplified, because the @ref sm_toolbox "Submachine Toolbox" contains ready-to-use <span class="img ep_seg">Entry-Point Segment</span> tool, which combines an "Entry-Point pseudostate" with a transition attached permanently to it.
 
 
-
 @section sm_epseg_add Adding Entry-Point Segment
 You select the Entry-Point Segment tool by clicking on the <span class="img ep_seg">Entry-Point button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active submachine diagram, the mouse pointer changes to the EP-segment tool. To add an Entry-Point segment, move the mouse to the desired location of the **Entry-Point pseduostate** of the Entry-Point segment and press and hold down the left mouse button. At this point the mouse pointer changes to the Entry-Point segment with the  "forbidden" icon (<span class="img forbidden"></span>). Next, you need to **drag** the mouse to an **edge** of the target state. (If you release the mouse button without reaching the target state edge, the Entry-Point segment will be deleted.) When you drag the mouse pointer over a state edge, the mouse pointer changes to the Entry-Point segment with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the end of the Entry-Point segment connector at this edge. To anchor the segment, release the mouse button.
-
 
 
 @section sm_epseg_prop Entry-Point Segment Property Sheet
@@ -927,10 +887,8 @@ The Initial Transition property sheet contains the following properties:
 - @ref sm_epseg-act
 
 
-
 @subsection sm_epseg-name Entry-Point Name
 Every Entry-Point segment must have a name, which distinguishes this particular Entry-Point from other Entry-Points to the same Submachine. The Entry-Point name should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the state entered directly by the Entry-Point. The Entry-Point name shows up in the first Text Box associated with the Entry-Point.
-
 
 
 @subsection sm_epseg-act Entry-Point Segment Action
@@ -943,21 +901,19 @@ The **pseudocode** property is designed to avoid clutter in the diagram by minim
 
 @sa @ref sm_tran-text "How QM displays action code in the text box"
 
-@next{sm_xp}
+@nav{sm_subm,sm_xp}
 */
 /*==========================================================================*/
 /*! @page sm_xp Working with eXit-Points
-
 @tableofcontents
+@nav{sm_epseg,sm_smstate}
 
 <p><span class="img xp">eXit Point</span> represents a specific transition out of the *Submachine Diagram*. The *eXit-Point* provides an indirection layer to exiting a specific substate without exposing this substate or any other internal parts of the Submachine.
 </p>
 
 
-
 @section sm_xp_add Adding eXit-Point
 You select the eXtry-Point tool by clicking on the <span class="img xp">eXit-Point button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active submachine diagram, the mouse pointer changes to the XP tool. To add an eXit-Point, move the mouse to the desired location of the **eXit-Point** on the **boundary** of the *Submachine Diagram*. At this point the mouse pointer changes to the eXit-Point with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the eXit-Point at this edge. To anchor the point, release the mouse button.
-
 
 
 @section sm_xp_prop eXit-Point Property Sheet
@@ -969,17 +925,15 @@ The Initial Transition property sheet contains the following properties:
 - @ref sm_xp-name
 
 
-
 @subsection sm_xp-name eXit-Point Name
 Every eXit-Point must have a name, which distinguishes this particular eXit-Point from other eXit-Points from the same Submachine. The eXit-Point name should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the state exited by the eXit-Point. The eXit-Point name shows up in the Text Box associated with the eXit-Point.
 
-
-@next{sm_smstate}
+@nav{sm_epseg,sm_smstate}
 */
 /*==========================================================================*/
 /*! @page sm_smstate Working with Submachine States
-
 @tableofcontents
+@nav{sm_xp,sm_xpseg}
 
 <p><span class="img sm_state">Submachine State</span> represents an instance of a given @ref sm_subm "Submachine Diagram" and is semantically equivalent to inserting the whole *Submachine Diagram* in a given place of your state machine.
 </p>
@@ -1008,7 +962,6 @@ A *Submachine State* cannot have nested states. The entire internal structure of
 All <span class="img xp"></span> @ref sm_xp "eXit-Points" of a *Submachine State* must be connected to <span class="img xp_seg"></span> @ref sm_xpseg "eXit-Point Segments". Otherwise the @ref ce "QM Code Generator" will report errors.
 
 
-
 @section sm_smstate_add Adding a Submachine State
 @note
 In order to add a submachine state, you first need to @ref sm_add "create" and @ref bm_diagram_open "show" a state diagram. Also, to add, move, resize, or edit states, the State Machine diagram must be @ref bm_lock "unlocked" (<span class="img unlock"></span>).
@@ -1016,10 +969,8 @@ In order to add a submachine state, you first need to @ref sm_add "create" and @
 Make sure that the State Machine subwindow is active. In the @ref sm_toolbox click on the <span class="img sm_state">Submachine State</span> tool and *release* the mouse button (don't drag the tool off the toolbar). At this point, when you hover the mouse over the active state diagram, the mouse pointer changes shape to the <span class="img cur_state1">state</span> tool. To add a state, move the mouse to the desired location of the **top-left corner** of the state shape and press the left mouse button. At this point you create a state shape of minimal size at the mouse position. You can release the mouse button immediately or you can **drag** the mouse to the desired location of the **bottom-right** corner of the state shape. In any case, you can @ref sm_state_resize "resize" the state shape at any later time.
 
 
-
 @section sm_smstate_move Moving a Sumachine State
 To move a submachine state, hover the mouse over the state until you get the move cursor. Click the mouse and drag the state shape to the desired location.
-
 
 
 @section sm_smstate_resize Resizing a Submachine State
@@ -1028,10 +979,8 @@ You can resize all four edges of a submachine state shape. The top and bottom ed
 To resize the desired edge of a submachine state, hover the mouse over the state edge until you get the resize cursor. Click the mouse and drag the state edge to the desired location.
 
 
-
 @section sm_smstate_delete Deleting a Submachine State
 To delete a submachine state, you need to select it as the @ref ui_curr_item "Current Item", either by clicking on it in the state diagram or in the @ref ui_explorer "Model Explorer". After this, you can delete the submachine state in several ways: (1) click the <span class="img delete">button</span> in the @ref ui_explorer_delete  "Explorer Toolbar"; (2) press the <span class="button">Del</span> keyboard shortcut; or (3) right-click on the state diagram and choose the <span class="menu">Delete item</span> option from the pop-up menu.
-
 
 
 @section sm_smstate_prop Submachine State Property Sheet
@@ -1054,16 +1003,15 @@ The Submachine State **name** should be a valid function name in C or C++. Typic
 The **submachine** property associates the *Submachine State* with the given @ref sm_subm "Submachine Diagram". This property is editable via a drop-down box, which contains all *Submachine Diagrams* defined for this state machine.
 
 
-
 @subsection sm_smstate-doc Documentation
 The **documentation** entry in the Submachine State Property Sheet allows you to provide documentation to the submachine state. The QM code generator parses the documentation entry and can @ref ce_comment-doc "generate comments" from it in the auto-generated code.
 
-@next{sm_xpseg}
+@nav{sm_xp,sm_xpseg}
 */
 /*==========================================================================*/
 /*! @page sm_xpseg Working with eXit-Point Segments
-
 @tableofcontents
+@nav{sm_smstate,ce}
 
 <p><span class="img xp_seg">eXit-Point Segment</span> represents a way of transitioning out of a specific substate of a @ref sm_subm "Submachine". The *eXit-Point* provides an indirection layer to exiting a specific substate without exposing this substate or any other internal parts of the Submachine.
 </p>
@@ -1074,14 +1022,12 @@ An *eXit-Point Segment* is like a @ref sm_tran "transition", except it does **no
 ![eXit-Point Segments](sm_xpseg.png)
 
 
-
 @section sm_xpseg_add Adding an eXit-Point Segment
 
 @note
 In order to add a transition, you first need to @ref bm_diagram_open "open" a state diagram, which needs to have at least one @ref sm_state "state". Also, the State Machine diagram must be @ref bm_lock "unlocked" ( <span class="img unlock"></span>).
 
 Make sure that the State Machine subwindow is active. In the @ref sm_toolbox click on the <span class="img xp_seg">eXit-Point Segment</span> tool and *release* the mouse button (don't drag the tool off the toolbar). At this point, when you hover the mouse over an eligible *eXit-Point* of a @ref sm_smstate "Submachine State", the mouse pointer changes to the eXit-Point Segment tool with the anchor (<span class="img anchor"></span>). To add the eXit-Point Segment at this **source** state, press the mouse button and drag the transition end out. As you drag the connector, the mouse pointer changes to a hand and the transition end takes the shape of a square (<span class="img tran_internal"></span>).
-
 
 
 @section sm_xpseg_choice eXit-Point Segment with Choices
@@ -1095,7 +1041,6 @@ The failure to use complementary guards at the end a eXit-Point Segment results 
 ![eXit-Point Segment with non-complementary choice segments](sm_xpseg_err.png)
 
 
-
 @section sm_xpseg_prop eXit-Point Property Sheet
 <span class="img xp_seg">eXit-Point Segment</span> item can be configured by the eXit-Point Segment @ref ui_prop "Property Sheet".
 
@@ -1107,20 +1052,15 @@ The eXit-Point Segment property sheet contains the following properties:
 - @ref sm_xpseg-act
 
 
-
 @subsection sm_xpseg-xp Associated eXit-Point
 The **eXit-Point** property is not editable directly, but rather it is determined geometrically by the @ref sm_xp "eXit-Point" at which the given eXit-Point Segment originates.
-
 
 
 @subsection sm_xpseg-target eXit-Point Segment Target
 The **target** property is not editable directly, but rather it is determined geometrically by the end-point of the transition. For *state-to-state transitions*, the *target* property lists the target state at which the end-point (<span class="img tran_state"></span>) terminates. For *internal transitions* with the square end-point (<span class="img tran_internal"></span>), the *target* property shows `internal`.
 
 
-
 @subsection sm_xpseg-choice eXit-Point Segment with Choice Segments
-
-
 
 
 @subsection sm_xpseg-act eXit-Point Segment Action
@@ -1131,5 +1071,5 @@ The <strong>Pseudocode</strong> entry of the *action* property is intended only 
 
 @sa Refer to the documentation for @ref sm_tran "State Transition" for information how to route the eXit-Point Segment, change its type (state-to-state vs. internal), and how to move and resize its action Text Box.
 
-@next{ce}
+@nav{sm_smstate,ce}
 */
