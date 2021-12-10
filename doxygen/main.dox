@@ -1,7 +1,5 @@
 /*! @mainpage About QM&trade;
-
-@image html qm_3monitors.jpg
-
+![QM Model-Based Design tool](qm_3monitors.jpg)
 
 @htmlonly
 <a target="_blank" href="https://github.com/QuantumLeaps/qm/releases" title="QM on GitHub"><img style="float:right; clear:right;" src="img/github-corner.png"></a>
@@ -18,8 +16,6 @@ QM&trade; (QP&trade; Modeler) is a @ref ab_license "freeware" Model-Based Design
 @remark
 To use the QM&trade; tool effectively, you need to understand a few <a href="https://www.state-machine.com/doc/concepts" target="_blank" class="extern"><strong>key concepts</strong></a> that underline the whole philosophy of modeling and code generation in QM&trade;.
 
-<div style="clear:both;"></div>
-
 
 @section ab_goals What does it do?
 The main goals of the QM&trade; Model-Based Design tool are:
@@ -33,69 +29,25 @@ QM&trade; is fundamentally an **object-oriented tool**, regardless of the target
 
 @note
 If you program in C and object-oriented programming is new to you, please refer to the Application Note <a class="pdf" target="_blank" href="https://www.state-machine.com/doc/AN_OOP_in_C.pdf">"Object-Oriented Programming in C"</a>, which describes how you can implement the concepts of @ref bm_class "classes", **inheritance**, and **polymorphism** to portable ANSI-C.
-<br>
-@htmlonly
-<div class="image">
-<a target="_blank" href="https://www.state-machine.com/doc/AN_OOP_in_C.pdf">
-  <img border="0" src="img/AN_OOP_in_C.gif" title="Download PDF">
-  <div class="caption">
-  Application Note: Object-Oriented Programming in C
-  </div>
-</a>
-</div>
-@endhtmlonly
-
+@n
+[![Application Note: Object-Oriented Programming in C](AN_OOP_in_C.gif)](https://www.state-machine.com/doc/AN_OOP_in_C.pdf)
+@caption{Application Note: Object-Oriented Programming in C}
 
 
 @section ab_look How does it look?
 QM&trade; is a cross-platform desktop application. The following screen shots show the typical activities you perform in QM&trade;:
 
-@htmlonly
-<div class="image">
-<a href="sm.html">
-  <img border="0" src="img/qm1.png" title="Working with hierarchical state machines in QM">
-  <div class="caption">
-Working with hierarchical state machines in QM&trade;
-  </div>
-</a>
-</div>
-@endhtmlonly
-@n
+[![Working with hierarchical state machines in QM&trade;](qm1.png)](sm.html)
+@caption{Working with hierarchical state machines in QM&trade;}
 
-@htmlonly
-<div class="image">
-<a href="ce.html">
-  <img border="0" src="img/qm2.png" title="Generating code in QM">
-  <div class="caption">
-Generating code in QM&trade;
-  </div>
-</a>
-</div>
-@endhtmlonly
-@n
+[![Generating code in QM&trade;](qm2.png)](ce.html)
+@caption{Generating code in QM&trade;}
 
-@htmlonly
-<div class="image">
-<a href="sm_subm.html">
-  <img border="0" src="img/qm3.png" title="Designing a sub-machine to capture the common behavior in QM">
-  <div class="caption">
-Designing a sub-machine to capture the common behavior in QM&trade;
-  </div>
-</a>
-</div>
-@endhtmlonly
-@n
+[![Designing a sub-machine to capture the common behavior in QM&trade;](qm3.png)](sm_subm.html)
+@caption{Designing a sub-machine to capture the common behavior in QM&trade;}
 
-@htmlonly
-<div class="image">
-<a href="ui_custom.html">
-  <img border="0" src="img/qm4.png" title="Customizing the QM user interface (dark theme)">
-  <div class="caption">
-Customizing the QM&trade; user interface (dark theme)
-  </div>
-</a>
-</div>
-@endhtmlonly
+[![Customizing the QM&trade; user interface (dark theme)](qm4.png)](ui_custom.html)
+@caption{Customizing the QM&trade; user interface (dark theme)}
 
 
 @section ab_special What's special about it?
@@ -131,7 +83,6 @@ QM&trade; is a unique Model-Based Design tool on the market that allows you to c
 The primary design objective in QM&trade; was to respect your design decisions as much as possible and leave you in control, not only in the physical design of the generated code, but down to the exact details of @ref sm_state "arranging your states" and @ref sm_tran_routing "routing your transitions". Noting is more frustrating as a tool that suddenly changes the arrangement of your diagrams, after you spent hours arranging the states and routing the transitions. QM&trade; will never to that.
 
 A lot of thought went into drawing hierarchical state diagrams in QM&trade;. In this respect, the tool is innovative and might work differently than other graphical state machine tools on the market. For example, QM does not use "pseudostates", such as the initial pseudostate or choice point. Instead QM uses higher-level primitives of @ref sm_init "initial-transition" and @ref sm_choice "choice-segment", respectively. This simplifies state diagramming immensely, because you don't need to separately position pseudostates and then connect them. Also, QM introduces a new notation for @ref sm_tran_add-internal "internal transitions", which allows actual drawing of internal transitions (in standard UML notation internal transitions are just text in the state body). This notation enables you to attach internal transitions and/or regular state transitions to a single choice point--something that comes up very often in practice and was never addressed well in the standard UML.
-
 
 
 @section ab_license How is it licensed?

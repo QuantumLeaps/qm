@@ -120,8 +120,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ../../ql-doxygen/help.dox \
-                         ./main.dox \
+INPUT                  = ./main.dox \
                          ./gs.dox \
                          ./ui.dox \
                          ./bm.dox \
@@ -129,7 +128,7 @@ INPUT                  = ../../ql-doxygen/help.dox \
                          ./ce.dox \
                          ./history.dox \
                          ./license.dox \
-                         ./help.dox \
+                         ../../ql-doxygen/help.dox \
                          ./links.dox
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.dox
@@ -179,9 +178,9 @@ HTML_HEADER            = ../../ql-doxygen/header-awesome.html
 HTML_FOOTER            = ../../ql-doxygen/footer-awesome.html
 HTML_STYLESHEET        =
 HTML_EXTRA_STYLESHEET  = ../../ql-doxygen/doxygen-awesome.css \
-                         ../../ql-doxygen/ql-awesome.css \
-                         qm.css
-HTML_EXTRA_FILES       = ../../ql-doxygen/doxygen-awesome-darkmode-toggle.js
+                         ../../ql-doxygen/ql-awesome.css
+HTML_EXTRA_FILES       = ../../ql-doxygen/doxygen-awesome-darkmode-toggle.js \
+                         ../../ql-doxygen/preview.js
 HTML_COLORSTYLE_HUE    = 209
 HTML_COLORSTYLE_SAT    = 255
 HTML_COLORSTYLE_GAMMA  = 113
@@ -232,7 +231,7 @@ SERVER_BASED_SEARCH    = NO
 EXTERNAL_SEARCH        = NO
 SEARCHENGINE_URL       =
 SEARCHDATA_FILE        = searchdata.xml
-EXTERNAL_SEARCH_ID     =
+EXTERNAL_SEARCH_ID     = QM
 EXTRA_SEARCH_MAPPINGS  =
 #---------------------------------------------------------------------------
 # Configuration options related to the preprocessor

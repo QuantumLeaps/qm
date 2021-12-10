@@ -7,15 +7,15 @@
   </tr>
   <tr>
     <td>
-      - @ref help
       - @ref index "About QM&trade;"
-      - @ref gs "Using QM&trade; Help"
+      - @ref gs
       - @ref gs_get
       - @ref gs_install
       - @ref gs_run
       - @ref gs_tut
       - @ref gs_exa
       - @ref license
+      - @ref help
     </td>
     <td>
       - <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/forums/forum/668726">Free Support Forum</a>

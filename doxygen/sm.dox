@@ -9,16 +9,10 @@ The most important innovation of HSMs over classical finite state machines (FSMs
 
 @note
 The Quantum Leaps Application Note <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf"><strong>A Crash Course in UML State Machines</strong></a> introduces the main state machine concepts backed up by examples.
-@htmlonly
-<div class="image">
-<a target="_blank" href="https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf"><img border="0" src="img/AN_Crash_Course_in_UML_State_Machines.gif" title="Download PDF"></a>
-<div class="caption">
-Application Note: A Crash Course in UML State Machines
-</div>
-</div>
-@endhtmlonly
+@n
+[![Application Note: A Crash Course in UML State Machines](AN_Crash_Course_in_UML_State_Machines.gif)](https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf)
+@caption{Application Note: A Crash Course in UML State Machines}
 
-<div class="clear"></div>
 
 This section focuses primarily on working with **state machine diagrams**, while the section @ref ce_sm will cover generating code from state machines. Of course, these two aspects are related, so even while "simply drawing" state machine diagrams, you will need to take code generation into account.
 
@@ -37,7 +31,7 @@ In QM&trade; a State Machine can be associated only with a @ref bm_class "class"
 The <span style="background-color:#aaf;"> **QHsm** </span> base class provides the basic interface `init()` and `dispatch()` for initializing a state machine and for dispatching events to it, respectively. The specific implementations of the state machine interface in the `QHsm` base class and its subclasses, such as **QActive**, **QMsm**, and **QMActive**, determine the @ref ce_sm "state machine implementation strategy" that QM&trade; will apply to generate code.
 
 @note
-QM&trade; supports **classes** and **inheritance** regardless of the target programming language, which currently can be either **C** or <strong>C++</strong>. The <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Simple_OOP_in_C.pdf">Application Note "Simple Object-Oriented Programming in C"</a> describes how the <a class="extern" target="_blank" href="https://www.state-machine.com/qpc">QP/C</a> and <a class="extern" target="_blank" href="https://www.state-machine.com/qpn">QP-nano</a> frameworks as well as the QM&trade; code generator implement *classes* and *inheritance* in portable **ANSI C**.
+QM&trade; supports **classes** and **inheritance** regardless of the target programming language, which currently can be either **C** or <strong>C++</strong>. The <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Simple_OOP_in_C.pdf">Application Note "Simple Object-Oriented Programming in C"</a> describes how the <a class="extern" target="_blank" href="https://www.state-machine.com/qpc">QP/C</a> and <a class="extern" target="_blank" href="https://www.state-machine.com/qpn">QP-nano</a> frameworks as well as the QM&trade; code generator implement *classes* and *inheritance* in portable **ISO C**.
 
 
 @subsection sm_class_qhsm The QHsm-Style State Machines
@@ -61,6 +55,10 @@ You should consider `QHsm/QActive`-style state machines only when you are still 
 @subsection sm_class_qmsm QMsm/QMActive-Style State Machines
 The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-sylte strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **highly human-readable**, but is **not** suitable for manual coding or maintaining.
 
+@note
+The QMsm/QMActive base classes are __not__ provided in the QP-nano framework, and consequently the `QMsm/QMActive` state machine implementation strategy is __not__ available in QP-nano.
+
+
 The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the QMsm/QMActive-Sytle state machine implementation strategy:
 
 @image html sm_qmsm-style.png "Selecting QMsm/QMActive-Style Superclass"
@@ -68,7 +66,7 @@ The screen shot below shows how to select the **superclass** property of your st
 The lab tests indicate that the `QMsm/QMActive`-style state machines can be about twice as fast as the `QHsm`-style state machines (see the @ref sm_class_qhsm "next section" below). Additionally, the `QMsm/QMActive`-style state machines require less runtime support (smaller event processor) and use about 70% less of stack space for the `dispatch()` operation than `QHsm/QActive`-style state machines.
 
 @attention
-Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#FAA;"> **QMActive** </span>, you need to call `QMActive_ctor()` (for the QP/C and QP-nano frameworks) and `QMActive::QMActive()` (for the QP/C++ framework).
+Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#FAA;"> **QMActive** </span>, you need to call `QMActive_ctor()` (for the QP/C framework) and `QMActive::QMActive()` (for the QP/C++ framework).
 
 @image html sm_qmsm-ctor.png "Calling the QMActive_ctor() in the subclass' constructor"
 
@@ -237,7 +235,7 @@ The state-item property sheet contains the following properties:
 
 
 @subsection sm_state-name State Name
-The state **name** should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the state. For example, a state in which a system remains on could be named `on`. To keep with the naming conventions used in @ref gs_examples "QM examples", it is recommended to name use lower-case names of states.
+The state **name** should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the state. For example, a state in which a system remains on could be named `on`. To keep with the naming conventions used in @ref gs_exa "QM examples", it is recommended to name use lower-case names of states.
 
 
 @subsection sm_state-super Superstate
@@ -272,7 +270,7 @@ A state can have optional **exit action**. You provide this action in the @ref s
 An exit action is considered defined if the corresponding **pseudocode** or **code** entries in the @ref sm_state_prop "State Property Sheet" are not empty. Once an exit action is defined the state shape shows the **exit box** in the upper-left corner just below the entry action.
 
 @attention
-The **pseudocode** property is designed to avoid clutter in the diagram by minimizing the amount of text to display inside the state shape. **Pseudocode** is intended only for displaying in the diagram and has **no implications** for code generation</span>. Only the **Code** entry of the *exit* property matters for code generation.
+The **pseudocode** property is designed to avoid clutter in the diagram by minimizing the amount of text to display inside the state shape. **Pseudocode** is intended only for displaying in the diagram and has **no implications** for code generation. Only the **Code** entry of the *exit* property matters for code generation.
 
 @note
 The actual algorithm QM uses to display action text in the exit box is as follows: If both the *pseudocode* and *code* entries in the State Property Sheet are empty, the corresponding exit action is considered undefined and is **not displayed** at all in the state shape. If the *pseduocode* entry is not empty, regardless of the contents of the *code* entry, the pseudocode is displayed in the **same line** as the `x/` (e<strong>x</strong>it) text. Finally, if the *pseudocode* is empty, but the *code* entry is not empty, the code is displayed in the exit text box of the state shape, however, the actual code is displayed in a line **below** the `x/` text. Of course, to see the text, you need to expand the exit text box in the state shape.
@@ -835,7 +833,7 @@ The state-item property sheet contains the following properties:
 
 
 @subsection sm_subm-name Submachine Name
-The submachine **name** should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the submachine. For example, a submachine in which a system remains "on" could be named `on`. To keep with the naming conventions used in @ref gs_examples "QM examples", it is recommended to name use lower-case names of submachines.
+The submachine **name** should be a valid function name in C or C++. Typically, you should strive for a short and punchy name that captures the nature of the submachine. For example, a submachine in which a system remains "on" could be named `on`. To keep with the naming conventions used in @ref gs_exa "QM examples", it is recommended to name use lower-case names of submachines.
 
 
 @subsection sm_subm-doc Submachine Documentation
@@ -996,7 +994,7 @@ The Submachine-State item property sheet contains the following properties:
 
 
 @subsection sm_smstate-name Submachine State Name
-The Submachine State **name** should be a valid function name in C or C++. Typically, you should strive for a name that captures the nature of the Submachine State and is somehow related to the instantiated @ref sm_subm "Submachine Diagram". For example, a submachine state that instantiates *Submachine Diagram" named "operand" could be named "operand1". To keep with the naming conventions used in @ref gs_examples "QM examples", it is recommended to name use lower-case names of submachine states.
+The Submachine State **name** should be a valid function name in C or C++. Typically, you should strive for a name that captures the nature of the Submachine State and is somehow related to the instantiated @ref sm_subm "Submachine Diagram". For example, a submachine state that instantiates *Submachine Diagram" named "operand" could be named "operand1". To keep with the naming conventions used in @ref gs_exa "QM examples", it is recommended to name use lower-case names of submachine states.
 
 
 @subsection sm_smstate-subm Submachine

@@ -148,7 +148,7 @@ __Implemented Feature Requests:__
 - Added @ref bm_diagram_export "SVG diagram export" (Scalale Vector Graphics format)
 - Added @ref ui_custom_style "Dark Style" to the UI
 - Improved consistency of custom styling via the @ref ui_custom_qss "QM Style Sheet"
-- Added @ref custom properties to @ref ui_custom_code "Code-Edit Section" of the QM style sheet to customize syntax highlighers
+- Added @ref ui_custom properties to @ref ui_custom_code "Code-Edit Section" of the QM style sheet to customize syntax highlighers
 - Improved Python syntax highlighting by styling the QUTest script commands.
 
 

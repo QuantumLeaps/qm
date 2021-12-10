@@ -1320,7 +1320,7 @@ The New Model dialog box has the following elements:
 
 
 @note
-The other way of creating a model in QM&trade; is to open an existing model (e.g., one of the @ref gs_examples "examples") and use the <span class="menu">File-&gt;Save As...</span> menu to save it under a different name in a directory of your choice.
+The other way of creating a model in QM&trade; is to open an existing model (e.g., one of the @ref gs_exa "examples") and use the <span class="menu">File-&gt;Save As...</span> menu to save it under a different name in a directory of your choice.
 
 
 @nav{ui_status,ui_tools-dlg}

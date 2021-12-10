@@ -129,7 +129,7 @@ Once you have some directory items added to your model, you can use the drag-and
 @section ce_file_intern Internal Files
 Normally, the <span class="img file">file items</span> are just "templates" for the files to be created on disk. Such files-templates are called **internal files** and can be edited in the @ref ui_mdi "MDI windows" at the center of the @ref ui "QM user interface", which work exactly like any other modern @ref bm_edit "code editors".
 
-You can insert any code (or text) into the file-templates, such as #`include` directives, declarations, definitions, comments, and anything else that you would put into hand-crafted code. All this code will then be literally copied over to the files generated on disk. But, the twist here is that you can also direct QM to **generate** specific parts of the code based on the model items of your choosing, with the granularity ranging from @ref bm_package "packages" and @ref bm_class "classes", down to specific @ref sm "state machines", @ref sm_state "states", @ref bm_attr "attributes", and @ref bm_oper "operations".
+You can insert any code (or text) into the file-templates, such as #`include` directives, declarations, definitions, comments, and anything else that you would put into hand-crafted code. All this code will then be literally copied over to the files generated on disk. But, the twist here is that you can also direct QM to **generate** specific parts of the code based on the model items of your choosing, with the granularity ranging from @ref bm_package "packages" and @ref bm_class "classes", down to specific @ref sm "state machines", @ref sm_state "states", @ref bm_attr "attributes", and @ref bm_oper-class "operations".
 
 <div style="clear:both;"></div>
 
@@ -678,7 +678,7 @@ The following snippet of C++ code shows the top-level file comment in the case w
 
 
 @section ce_comment-doc Generating Comments from Documentation
-QM&trade; allows you to generate comments from the **documentation property** that is available in many model items, such as @ref bm_class "classes", @ref bm_attr "attributes", @ref bm_oper "operations", and @ref sm_state "states".
+QM&trade; allows you to generate comments from the **documentation property** that is available in many model items, such as @ref bm_class "classes", @ref bm_attr "attributes", @ref bm_oper-class "operations", and @ref sm_state "states".
 
 @note
 The feature of generating comments from documentation has been primarily designed to help organizations comply with the specific commenting style imposed by their internal standards.

@@ -11,14 +11,7 @@ The following sections describe how to get started with QM&trade; quickly:
 The features of this online help and tips for using it are described in Section @ref help.
 
 
-@htmlonly
-
-<div class="image">
-<a target="_blank" href="https://youtu.be/VJpTJaGPrVk">
-  <img border="0" src="img/qm_tut_video.jpg" title="Watch QM Tutorial video">
-</a>
-</div>
-@endhtmlonly
+[![Watch QM Tutorial video](qm_tut_video.jpg)](https://youtu.be/VJpTJaGPrVk)
 
 @nav{index,gs_get}
 */
@@ -249,15 +242,7 @@ This tutorial assumes [QP/C Framework](https://www.state-machine.com/qpc) (versi
 @section gs_tut_video QM Tutorial Video
 If you prefer to watch the [<b>video version of this tutorial</b>](https://youtu.be/VJpTJaGPrVk), it is available on the [Quantum Leaps YouTube Channel](https://www.youtube.com/c/StateMachineCOM):
 
-@htmlonly
-<div class="image">
-<a target="_blank" href="https://youtu.be/VJpTJaGPrVk">
-  <img border="0" src="img/qm_tut_video.jpg" title="Watch video">
-</a>
-</div>
-@endhtmlonly
-
-<div style="clear:both;"></div>
+[![Watch QM Tutorial video](qm_tut_video.jpg)](https://youtu.be/VJpTJaGPrVk)
 
 
 @section gs_tut_new Creating New Model from Scratch
@@ -294,7 +279,7 @@ Now you can to start adding items to the new model.
 
 
 @subsection gs_tut_add-package Add a Package
-The first item you add is a @ref bm_package "Package". A package in UML is a grouping construct that allows you to combine other model items into a higher-level unit&mdash;the package. The most common use of a package is to group together @ref bm_class "classes", but a package can hold also @ref bm_attr "free attributes", @ref bm_oper "free operations", and even other @ref bm_package "packages".
+The first item you add is a @ref bm_package "Package". A package in UML is a grouping construct that allows you to combine other model items into a higher-level unit&mdash;the package. The most common use of a package is to group together @ref bm_class "classes", but a package can hold also @ref bm_attr "free attributes", @ref bm_oper-free "free operations", and even other @ref bm_package "packages".
 
 - In the @ref ui_explorer view <strong>right</strong>-click on the <span class="img model">blinky</span> model item to get a popup-menu specific to that item. Once the popup menu opens, select <span class="menu">Add Package</span>.
 
@@ -468,7 +453,7 @@ To build the Blinky project for an embedded board, you need to modify the BSP (B
 
 ![Blinky on TivaC LaunchPad](blinky_ek-tm4c123gxl.gif)
 
-nav{gs_run,gs_exa}
+@nav{gs_run,gs_exa}
 */
 /*##########################################################################*/
 /*! @page gs_exa QM&trade; Examples

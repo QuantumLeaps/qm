@@ -520,10 +520,10 @@ Table::Table() noexcept
 You can make a C++ constructor __explicit__ by providing the keyword `explict` in the __return type__ filed in the Property Sheet. An example of an explicit constructor is provided in the `Table` constructor shown in the scren shot above.
 
 
-@section bm_class-xtor Class Destructors
+@subsection bm_class-xtor Class Destructors
 A destructor is a kind of class operation that cleans up after an instance of its class. QM supports class destructors both for C and C++.
 
-@subsubsection bm_class-xtor_C Class Destructors in C
+@subsection bm_class-xtor_C Class Destructors in C
 In C, a destructor should be named `xtor`. The `xtor` class operation should have return type @c void and should not take any parameters (except of the implicit `me` pointer).
 
 
@@ -726,7 +726,8 @@ Alternatively, you can **right**-click on the diagram in the @ref ui_explorer to
 
 <img src="img/btn_close.png" alt="" style="float:left; margin-right:10px;">To close a diagram, you click on the <span class="button">X</span> button in the top-right corner of the diagram window, or in the @ref ui_mdi "MDI" tab (if you use the @ref ui_mdi_tabs mode), as shown in the picture below.
 
-@image html diagram_close.png "Closing a Diagram"
+![Closing a Diagram](diagram_close.png)
+@caption{Closing a Diagram}
 
 <img src="img/keyboard.png" style="float:left; margin-right:10px;">Alternatively, the current active @ref ui_mdi "MDI" window can be closed by means of the keyboard shortcut: **Ctrl**-<span class="button">W</span>.
 
