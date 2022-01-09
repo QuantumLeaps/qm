@@ -1,4 +1,4 @@
-# Doxyfile 1.9.2
+# Doxyfile 1.9.3
 
 @INCLUDE = ../../ql-doxygen/Doxyfile-QL
 
@@ -15,7 +15,7 @@ CREATE_SUBDIRS         = NO
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
-REPEAT_BRIEF           = YES
+REPEAT_BRIEF           = NO
 ABBREVIATE_BRIEF       = "The $name class" \
                          "The $name widget" \
                          "The $name file" \
@@ -178,18 +178,20 @@ HTML_HEADER            = ../../ql-doxygen/header-awesome.html
 HTML_FOOTER            = ../../ql-doxygen/footer-awesome.html
 HTML_STYLESHEET        =
 HTML_EXTRA_STYLESHEET  = ../../ql-doxygen/doxygen-awesome.css \
-                         ../../ql-doxygen/ql-awesome.css
+                         ../../ql-doxygen/ql-awesome.css \
+                         qm.css
 HTML_EXTRA_FILES       = ../../ql-doxygen/doxygen-awesome-darkmode-toggle.js \
                          ../../ql-doxygen/preview.js
 HTML_COLORSTYLE_HUE    = 209
 HTML_COLORSTYLE_SAT    = 255
 HTML_COLORSTYLE_GAMMA  = 113
 HTML_TIMESTAMP         = NO
-HTML_DYNAMIC_MENUS     = YES
+HTML_DYNAMIC_MENUS     = NO
 HTML_DYNAMIC_SECTIONS  = NO
 HTML_INDEX_NUM_ENTRIES = 100
 GENERATE_DOCSET        = NO
 DOCSET_FEEDNAME        = "Doxygen generated docs"
+DOCSET_FEEDURL         =
 DOCSET_BUNDLE_ID       = com.state-machine.doc
 DOCSET_PUBLISHER_ID    = com.state-machine.doc
 DOCSET_PUBLISHER_NAME  = QuantumLeaps
@@ -216,6 +218,7 @@ FULL_SIDEBAR           = NO
 ENUM_VALUES_PER_LINE   = 4
 TREEVIEW_WIDTH         = 300
 EXT_LINKS_IN_WINDOW    = NO
+OBFUSCATE_EMAILS       = NO
 HTML_FORMULA_FORMAT    = png
 FORMULA_FONTSIZE       = 10
 FORMULA_TRANSPARENT    = YES

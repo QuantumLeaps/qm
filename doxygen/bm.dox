@@ -90,7 +90,7 @@ The <span class="img qp_framework"><strong>qpc, qpcpp, qpn</strong></span> model
 
 As most software frameworks, the QP&trade; frameworks use the basic concepts of encapsulation (@ref bm_class "classes") and **inheritance** as primary mechanisms for customizing, specializing, and extending the framework to a particular application.
 
-nav{bm,bm_fq-name}
+@nav{bm,bm_fq-name}
 */
 /*##########################################################################*/
 /*! @page bm_fq-name Fully-Qualified Names
