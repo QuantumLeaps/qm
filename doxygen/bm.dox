@@ -18,7 +18,6 @@ The following sections describe how to perform the basic modeling tasks in QM&tr
 - @subpage bm_undo-redo explains how the feature works is implemented in QM&trade;
 - @subpage bm_lock explains the concepts of protecting QM&trade; model items from inadvertent changes (locking)
 
-
 @nav{ui_custom,bm_model}
 */
 /*##########################################################################*/
@@ -755,7 +754,7 @@ However, even though you cannot remove the alignment of all shapes to the grid, 
 
 Typically, when you simply click on a shape in a diagram you **select** that shape and clear any previous selection, so that only one shape is selected at a time. The model item corresponding to the selected shape becomes @ref ui_curr_item.
 
-However, QM&trade; also offers you the convenience of selecting and manipulating **multiple shapes** simultaneously. QM&trade; provides a special **select &amp; lasso tool** on the @ref ui_toolbox:
+However, QM&trade; also offers you the convenience of selecting and manipulating **multiple shapes** simultaneously. QM&trade; provides a special **select &amp; lasso tool** on the @ref gen_diagram_tools "Diagram Toolbox":
 
 @anchor gen_diagram_tools
 @image html gen_diagram-tools.png "Diagram Toolbox/Generic Tools"
@@ -764,13 +763,11 @@ The two options of selecting multiple diagram shapes: the **lasso** tool and mou
 
 
 @subsection bm_diagram_shape_select-mouse Selecting Shapes with the Mouse-Toggle
-Click the **select &amp; lasso tool** in the @ref ui_toolbox.
+Click the **select &amp; lasso tool** in the @ref ui_toolbox .
 
-<img class="left" src="img/cur_select0.png" />
-You can also select or deselect shapes with the mouse-toggle. You start exactly the same as for selecting with the lasso, that is by pressing the <span class="button">Ctrl</span> key on your keyboard, at which point the mouse cursor changes to a hand-pointer.
+<img class="left" src="img/cur_select0.png" /> &nbsp; When you hover the mouse over the diagram (hover means just moving the mouse cursor without depressing any mouse buttons), the cursor changes to "select shapes".
 
-<img class="left" src="img/cur_select1.png" />
-Now you just hover the mouse over any shape (hover means just moving the mouse cursor without depressing any mouse buttons). Whenever you hover over an active part of a shape, the mouse cursor changes to a hand-pointer with "+". You can then click the left mouse button to select the shape, if it is not selected, or deselect it, if it was already selected.
+<img class="left" src="img/cur_select1.png" /> &nbsp; Whenever you hover over an active part of a shape, the mouse cursor changes to a hand-pointer with "+". You can then click the left mouse button to __select__ the shape, if it is not selected, or __deselect__ it, if it was already selected.
 
 @image html bm_diagram-select.gif "Selecting/deselecting shapes with mouse toggle"
 
@@ -778,22 +775,29 @@ Now you just hover the mouse over any shape (hover means just moving the mouse c
 @subsection bm_diagram_shape_select-lasso Selecting Shapes with the Lasso
 Click the **select &amp; lasso tool** in the @ref gen_diagram_tools "Diagram Toolbox".
 
-<img class="left" src="img/cur_select0.png"> when you hover the mouse over the diagram, the cursor changes to "select shapes". 
+<img class="left" src="img/cur_select0.png"> &nbsp; When you hover the mouse over the diagram (hover means just moving the mouse cursor without depressing any mouse buttons), the cursor changes to "select shapes". 
 
-<img class="left" src="img/cur_select.png">
-When you press the __left mouse button__, the cursor changes to a hand-pointer with a lasso and you can start dragging the lasso from that point.
+<img class="left" src="img/cur_select.png"> &nbsp; When you press the left mouse button, the cursor changes to a hand-pointer with a lasso and you can start __dragging__ the lasso from that point.
 
 @image html bm_diagram-lasso.gif "Selecting multiple shapes with a lasso"
+
+
+@subsection bm_diagram_shape_move Moving the Selected Shapes
+To move and re-position the selected shapes, you need to choose the __default pointing tool__ in the @ref gen_diagram_tools "Diagram Toolbox".
+
+<img class="left" src="img/cur_normal.png"> &nbsp; When you hover the mouse over the diagram (hover means just moving the mouse cursor without depressing any mouse buttons), the cursor has the normal arrow shape. 
+
+<img class="left" src="img/cur_text_move.png"> &nbsp; Whenever you hover over an movable part of a shape, the mouse cursor changes to "move shape". You can start __dragging__ all the selected shapes from that point.
+
+@image html bm_diagram-move.gif "Moving selected shapes"
 
 
 @section bm_diagram_pan Panning Diagrams
 Click the **panning tool** in the @ref gen_diagram_tools "Diagram Toolbox".
 
-<img class="left" src="img/cur_pan.png" />
-To pan the diagram with the mouse, press the <span class="button">Shift</span> key. At this point the mouse cursor changes to the open hand:
+<img class="left" src="img/cur_pan.png" /> &nbsp; To pan the diagram with the mouse, press the <span class="button">Shift</span> key. At this point the mouse cursor changes to the open hand:
 
-<img class="left" src="img/cur_grab.png" />
-When you press the **left** mouse button, you "grab" the diagram and the cursor changes to closed hand:
+<img class="left" src="img/cur_grab.png" /> &nbsp; When you press the **left** mouse button, you "grab" the diagram and the cursor changes to closed hand:
 
 Hold down the left mouse button and drag the whole diagram under the viewing window.
 
