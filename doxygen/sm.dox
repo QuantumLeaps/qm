@@ -107,7 +107,8 @@ The usage of the tools in the State Diagram Toolbox is explained in the sections
 @nav{sm,sm_state}
 
 @section sm_add Adding a Statechart
-In the @ref ui_explorer **right-click** on the @ref bm_class "Class" to which you want to add the state machine and select <span class="img statechart">Add State Machine</span> from the popup menu.
+In the @ref ui_explorer **right-click** on the @ref bm_class "Class" to which you want to add the state machine and select <span class="img statechart">Add State Machine</span> from
+ the popup menu.
 
 @image html "blinky_sm_add.gif" "Adding a State Machine to a Class"
 
@@ -252,7 +253,8 @@ The **documentation** entry in the State Property Sheet allows you to provide do
 @subsection sm_state-entry State Entry Action
 A state can have optional **entry action**. You provide this action in the @ref sm_state_prop "State Property Sheet" (see also the screen shot below). If defined, the entry action shows up in the upper-left corner of the state shape.
 
-An entry action is considered defined if the corresponding **pseudocode** or **code** entries in the @ref sm_state_prop "State Property Sheet" are not empty. Once an entry action is defined the state shape shows the **entry box** in the upper-left corner just below the name compartment.
+An entry action is considered defined if the corresponding **pseudocode** or **code** entries in the @ref sm_state_prop "State Property Sheet" are not empty. Once an entry action is defined the state shape shows the **entry box** in the upper-left corner just
+ below the name compartment.
 
 @note
 The **pseudocode** property is designed to avoid clutter in the diagram by minimizing the amount of text to display inside the state shape in the diagram. **Pseudocode** is intended only for displaying in the diagram and has <span>no implications for code generation</span>.
@@ -359,7 +361,8 @@ The *trigger* property must be a legal symbolic constant representing the **sign
 By convention, QM&trade; @ref ce_sm "code generator" appends the suffix <strong>`_SIG`</strong> to the *trigger* property you type into the Property Editor. For example, triggers `TIMEOUT`, `OPEN`, and `CLOSE` will appear in the generated code as `TIMEOUT`<strong>`_SIG`</strong>, `OPEN`<strong>`_SIG`</strong>, and `CLOSE`<strong>`_SIG`</strong>, respectively.
 
 @subsubsection sm_tran_trig-list Trigger List
-The *trigger* property might also be a **list** of event *signals* that trigger the transition, which is a shorthand notation for a group of transitions that all target the same state and execute the same actions. For example, you might provide a single *trigger* property as: `"TIMEOUT, OPEN, CLOSE"`, which means that **all** of the listed signals will trigger the transition.
+The *trigger* property might also be a **list** of event *signals* that trigger the transition, which is a shorthand notation for a group of transitions that all
+ target the same state and execute the same actions. For example, you might provide a single *trigger* property as: `"TIMEOUT, OPEN, CLOSE"`, which means that **all** of the listed signals will trigger the transition.
 
 @image html sm_tran_list.png "Transitions with a Trigger List"
 
@@ -459,7 +462,8 @@ In most UML tools, the process of drawing choice segments consists of first addi
 
 @section sm_choice_add Adding Choice Segment
 @note
-In order to add a choice segment, you first need to @ref sm_add "create" and @ref bm_diagram_open "show" a state diagram. Additionally, the state machine must have at least one @ref sm_tran_intern "internal transition" (terminated with <span class="img tran_internal"></span>) or a choice segment (<span class="img tran_choice"></span>). Finally, to add, move, resize, or edit choice segments, the State Machine diagram must be @ref bm_lock "unlocked" (<span class="img unlock"></span>).
+In order to add a choice segment, you first need to @ref sm_add "create" and @ref bm_diagram_open "show" a state diagram. Additionally, the state machine must have at least one @ref sm_tran_intern "internal transition" (terminated with <span class="img tran_internal"></span>) or a choice segment (<span class="img tran_choice"></span>). Finally, to add, move, resize, or edit choice segments, the State Machine diagram must be @ref bm_lock
+ "unlocked" (<span class="img unlock"></span>).
 
 Make sure that the State Machine subwindow is active. In the @ref sm_toolbox click on the <span class="img choice">Choice Segment</span> tool and *release* the mouse button (don't drag the tool off the toolbar). At this point, when you hover the mouse over the active state diagram, the mouse pointer changes to the choice-segment tool with the "forbidden" icon (<span class="img forbidden"></span>), because a choice-segment can only be added to an <span class="highlight">unattached square-end of a transition (<span class="img tran_internal"></span>) or to an existing choice segment (<span class="img tran_choice"></span>)</span>. When you hover the mouse over an allowed attachment point for a choice-segment, the mouse pointer changes to the choice segment tool with the anchor (<span class="img anchor"></span>). To add the choice segment to this attachment point, press the mouse button and drag the choice segment end out to the desired _edge_ of the target state. The transition path thus established will correspond to a regular **state-to-state transition** with a guard.
 
@@ -550,7 +554,8 @@ The UML specification requires that the guard conditions attached to the same ch
 
 ![Multiple Choice Segments With Overlapping Guards](sm_choice_order.png)
 
-The order of guard evaluation is determined by the order of the <span class="img choice">Choice Segment</span> items in the @ref ui_explorer "Model Explorer". This order can be changed by means of the <span class="img move_up">Up</span> and <span class="img move_down">Down</span> buttons on the Explorer Toolbar. Alternatively, the @ref ui_curr_item can be moved up or down within the Model Explorer by means of the keyboard shortcuts: **Ctrl**-<span class="img key_up">(key-up)</span> and **Ctrl**-<span class="img key_down">(key-down)</span>.
+The order of guard evaluation is determined by the order of the <span class="img choice">Choice Segment</span> items in the @ref ui_explorer "Model Explorer". This order can be changed by means of the <span class="img move_up">Up</span> and <span class="img move_down">Down</span>
+ buttons on the Explorer Toolbar. Alternatively, the @ref ui_curr_item can be moved up or down within the Model Explorer by means of the keyboard shortcuts: **Ctrl**-<span class="img key_up">(key-up)</span> and **Ctrl**-<span class="img key_down">(key-down)</span>.
 
 ![Ordered Choice Segments in Model Explorer, Diagram, and Generated Code](sm_choice_graph.png)
 
@@ -686,7 +691,8 @@ All transitions in QM&trade; are **rectilinear**, meaning that they consist only
 @tableofcontents
 @nav{sm_init,sm_subm}
 
-<p>Sometimes in hierarchical state machines you need to transition out of a _composite_ state, but later you wish to come back to the _most-recent_ active substate of this composite state. In UML, this coming back to the most-recent substate is accomplished by the **transition to history** feature. Actually, the UML specification distinguishes between two types of "transition to history":
+<p>Sometimes in hierarchical state machines you need to transition out of a _composite_ state, but later you wish to come back to the _most-recent_ active substate of this composite state. In UML, this coming back to the most-recent substate is accomplished by the **transition to history** feature. Actually, the UML specification distinguishes between two types of "transition
+ to history":
 </p>
 
 - **shallow-history** (shown as a circled letter `H`) is a shorthand notation that represents the most recent active direct substate of its containing state. A transition coming into the shallow-history vertex (called a transition to history) is equivalent to a transition coming into the most recently active direct substate of a state.
@@ -779,7 +785,8 @@ Some designers try to use *Submachines* as ["orthogonal regions"](https://en.wik
 If you are looking for partitioning your behavior into concurrently active components ("orthogonal components" with [AND-decomposition](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions)), you should consider the [**Orthogonal Component State Pattern**](https://www.state-machine.com/doc/Pattern_Orthogonal.pdf) instead *Submachines* and *Submachine States*.
 
 
-To enable reuse of a *Submachine Diagram* without revealing its internal structure ("black-box"), the *Submachine Diagram* must provide a well-defined interface on its boundary, which consists of <span class="img ep_seg"></span> @ref sm_epseg "Entry Points" for attaching any incoming transitions targeting specific substates and <span class="img xp"></span> @ref sm_xp "eXit Points" for attaching outgoing transitions originating in specific substates.
+To enable reuse of a *Submachine Diagram* without revealing its internal structure ("black-box"), the *Submachine Diagram* must provide a well-defined interface on its boundary, which consists of <span class="img ep_seg"></span> @ref sm_epseg "Entry Points" for attaching
+ any incoming transitions targeting specific substates and <span class="img xp"></span> @ref sm_xp "eXit Points" for attaching outgoing transitions originating in specific substates.
 
 @image html "sm_subm.png" "Submachine Diagram"
 
@@ -911,7 +918,8 @@ The **pseudocode** property is designed to avoid clutter in the diagram by minim
 
 
 @section sm_xp_add Adding eXit-Point
-You select the eXtry-Point tool by clicking on the <span class="img xp">eXit-Point button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active submachine diagram, the mouse pointer changes to the XP tool. To add an eXit-Point, move the mouse to the desired location of the **eXit-Point** on the **boundary** of the *Submachine Diagram*. At this point the mouse pointer changes to the eXit-Point with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the eXit-Point at this edge. To anchor the point, release the mouse button.
+You select the eXtry-Point tool by clicking
+ on the <span class="img xp">eXit-Point button</span> the @ref sm_toolbox "State Machine Toolbox". At this point, when you hover the mouse over the active submachine diagram, the mouse pointer changes to the XP tool. To add an eXit-Point, move the mouse to the desired location of the **eXit-Point** on the **boundary** of the *Submachine Diagram*. At this point the mouse pointer changes to the eXit-Point with an anchor (<span class="img anchor"></span>), which indicates that you can anchor the eXit-Point at this edge. To anchor the point, release the mouse button.
 
 
 @section sm_xp_prop eXit-Point Property Sheet
@@ -994,7 +1002,7 @@ The Submachine-State item property sheet contains the following properties:
 
 
 @subsection sm_smstate-name Submachine State Name
-The Submachine State **name** should be a valid function name in C or C++. Typically, you should strive for a name that captures the nature of the Submachine State and is somehow related to the instantiated @ref sm_subm "Submachine Diagram". For example, a submachine state that instantiates *Submachine Diagram" named "operand" could be named "operand1". To keep with the naming conventions used in @ref gs_exa "QM examples", it is recommended to name use lower-case names of submachine states.
+The Submachine State **name** should be a valid function name in C or C++. Typically, you should strive for a name that captures the nature of the Submachine State and is somehow related to the instantiated @ref sm_subm "Submachine Diagram". For example, a submachine state that instantiates "Submachine Diagram" named "operand" could be named "operand1". To keep with the naming conventions used in @ref gs_exa "QM examples", it is recommended to name use lower-case names of submachine states.
 
 
 @subsection sm_smstate-subm Submachine
@@ -1071,3 +1079,4 @@ The <strong>Pseudocode</strong> entry of the *action* property is intended only 
 
 @nav{sm_smstate,ce}
 */
+

@@ -26,8 +26,7 @@ The following sections describe how to perform the basic modeling tasks in QM&tr
 @tableofcontents
 @nav{bm,bm_fq-name}
 
-<p>The abstract **model** of your software is the centerpiece of the QM&trade; modeling tool. In fact, QM&trade; can be viewed as a multifaceted *model editor*, which allows you to create, view, and modify the abstract model and eventually to @ref ce "generate code" based on this model.
-</p>
+The abstract **model** of your software is the centerpiece of the QM&trade; modeling tool. In fact, QM&trade; can be viewed as a multifaceted *model editor*, which allows you to create, view, and modify the abstract model and eventually to @ref ce "generate code" based on this model.
 
 @note
 The abstract **QM model** is kept entirely in memory during a QM session and this section describes the *logical structure* of this model. Between editing sessions, the abstract QM model is preserved on disk in an XML-based @ref ui_model_file "QM Model File".
@@ -97,8 +96,7 @@ As most software frameworks, the QP&trade; frameworks use the basic concepts of 
 @tableofcontents
 @nav{bm_model,bm_package}
 
-<p>In a hierarchical tree-like structure, like the @ref bm_model "QM&trade; model", it is often useful to refer to items by means of <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Fully_qualified_name"><strong>fully-qualified names</strong></a>. A name is *fully-qualified* when it <i>"is complete in the sense that it includes (a) all names in the hierarchic sequence above the given element and (b) the name of the given element itself"</i>. The following picture shows examples of the fully-qualified names of various items in a QM model:
-</p>
+In a hierarchical tree-like structure, like the @ref bm_model "QM&trade; model", it is often useful to refer to items by means of <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Fully_qualified_name"><strong>fully-qualified names</strong></a>. A name is *fully-qualified* when it <i>"is complete in the sense that it includes (a) all names in the hierarchic sequence above the given element and (b) the name of the given element itself"</i>. The following picture shows examples of the fully-qualified names of various items in a QM model:
 
 <div style="clear:both;"></div>
 
@@ -132,7 +130,8 @@ QM&trade; supports packages and allows a package to contain:
 <div style="clear:both;"></div>
 
 
-@section bm_package-add Adding a Package
+@section
+ bm_package-add Adding a Package
 In the @ref ui_explorer **right-click** on the @ref bm_model "Model" or a **Package** item to which you want to add a new package and select <span class="img package">Add Package</span> from the popup menu.
 
 @image html bm_package-add.png "Adding a Package to the Model"
@@ -153,7 +152,6 @@ The package-item property sheet allows you to set the following properties:
 - package @ref bm_package-stero "stereotype"
 - package **file** (see @ref bm_package-extern)
 - package @ref bm_package-namespace "namespace"
-
 
 
 @subsection bm_package-stero Package Stereotype
@@ -191,21 +189,21 @@ If you choose to set a non-empty namespace in the package's property sheet, your
 @subsection bm_package-namespace-cpp Namespaces in C++
 If you use a package with a namespace in <strong>C++</strong> (i.e., you model is based on the <span class="img qp_framework">@ref bm_qp_item "qpcpp"</span> framework), the QM @ref ce "code generator" will surround all the appropriate code sections with the C++ `namespace` as follows:
 
-@verbatim
+@code{.c}
 namespace FOO {
     . . .
 } // namespace FOO
-@endverbatim
+@endcode
 
 Moreover, QM&trade; will also handle correctly the case of **nesting** packages with namespaces. For example, if package with namespace `BAR` nests inside a package with namespace `FOO`, any element from the nested package will be surrounded by the correctly nested namespaces as well:
 
-@verbatim
+@code{.c}
 namespace FOO {
 namespace BAR {
     . . .
 } // namespace BAR
 } // namespace FOO
-@endverbatim
+@endcode
 
 
 @subsection bm_package-namespace-c Namespaces in C
@@ -216,7 +214,7 @@ For improved code readability in C, it is recommended to use the underscore '_' 
 
 For example, if your package defines a namespace string as "FOO_", the code generated for any elements inside this package will look as follows:
 
-@verbatim
+@code{.c}
 typedef struct {
     . . .
 } FOO_Test_QMsm;
@@ -224,7 +222,7 @@ typedef struct {
 static QState FOO_Test_QMsm_initial(FOO_Test_QMsm * const me,
                                     QEvt const * const e);
 . . .
-@endverbatim
+@endcode
 
 
 Again, also in C, the QM @ref ce "code generator" supports the case of **nesting** packages with namespaces. For example, if package with a namespace "BAR_" nests inside a package with a namespace "FOO_", the generated code will correctly nest namespaces as follows:
@@ -293,7 +291,8 @@ QM&trade; supports *classes* and *inheritance* regardless of the target programm
 
 <div style="clear:both;"></div>
 
-@image html bm_class.png "A Class in Model Explorer"
+@image
+ html bm_class.png "A Class in Model Explorer"
 
 
 @section bm_class-add Adding a Class
@@ -466,7 +465,8 @@ For example, the model in the screen shot above contains the free operation `Phi
 /* definition provided in the philo.c module */
 void Philo_ctor_call(void) {
     uint8_t n;
-    for (n = 0U; n < N_PHILO; ++n) {
+    for (n = 0U; n < N_PHILO;
+ ++n) {
         Philo_ctor(&Philo_inst[n]); /* <== ctor */
     }
 }
@@ -678,12 +678,13 @@ typedef struct {
     uint8_t id;
 } MineEvt;
 /*.${Events::ScoreEvt} .....................................................*/
-typedef struct {
+typedef
+ struct {
 /* protected: */
-    QEvt super;
+ QEvt super;
 
 /* public: */
-    uint16_t score;
+ uint16_t score;
 } ScoreEvt;
 /*.$enddecl${Events} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 . . .
@@ -696,7 +697,7 @@ As mentioned before, the purpose of custom event classes is to represent events 
 @image html bm_evt-use.png "Using custom event in a transition action"
 
 @note
-The macro `Q_EVT_CAST()` encapsulates the deviation of MISRA-C/C++ rules of casting pointers.
+The macro `Q_EVT_CAST()` encapsulates the deviation from MISRA-C/C++ rules of casting pointers.
 
 @nav{bm_oper-free,bm_diagram}
 */
@@ -705,19 +706,18 @@ The macro `Q_EVT_CAST()` encapsulates the deviation of MISRA-C/C++ rules of cast
 @tableofcontents
 @nav{bm_evt,bm_edit}
 
-<p>In order to work with a diagram, you must first create it. For example, to create a State Machine diagram (Statechart), please refer to Section @ref sm_add.
-</p>
+In order to work with a diagram, you must first create it. For example, to create a State Machine diagram (Statechart), please refer to Section @ref sm_add.
 
 @note
 Currently QM&trade; supports only State Diagrams, but it might support other diagram types in the future. This section describes generic operations applicable to any diagram type.
 
-<div style="clear:both;"></div>
-
 
 @section bm_diagram_open Opening a Diagram
-Once a diagram exists, you have two options of opening it. First option is to **double**-click on the diagram item in the @ref ui_explorer to trigger its default action, which is to show the diagram.
+Once a diagram exists, you can open is int the following ways:
 
-Alternatively, you can **right**-click on the diagram in the @ref ui_explorer to launch the popup menu associated with the diagram, and then choosing the first action from this menu, which is <span class="img diagrams">Show Diagram</span>.
+- in the @ref ui_explorer, you can **double**-click on the class item with the diagram
+- in the @ref ui_explorer, you can **double**-click on the diagram item (nested in the class)
+- in the @ref ui_explorer, you can **right**-click on the class item or the diagram item to open up the popup menu, and then choosing the first action from this menu, which is <span class="img diagrams">Show Diagram</span>.
 
 @image html diagram_open.png "Opening a Diagram"
 
@@ -745,40 +745,50 @@ As shown in the screen shot below, you can easily resize the Drawing Canvas by d
 
 
 @section bm_diagram_grid The Grid
-All elements of any QM&trade; diagram are aligned with the <strong>grid</strong>. You can position the diagram nodes and route the connectors <strong>only</strong> along the grid nodes, and in fact, the geometry of any shape is stored in the grid coordinates, so you cannot achieve any finer positioning granularity than the grid size, which is currently 8 pixels horizontally and 8 pixels vertically.
+All elements of any QM&trade; diagram are aligned with the <strong>grid</strong>. You can position the diagram nodes and route the connectors __only__ along the grid nodes, and in fact, the geometry of any shape is stored in the grid coordinates, so you cannot achieve any finer positioning granularity than the grid size, which is currently 8 pixels horizontally and 8 pixels vertically.
 
-However, even though you cannot remove the alignment of all shapes to the grid, you can show or hide the grid dots in the diagram. You show or hide the grid by means of the "Grid Options" selection in the @ref ui_menu_view, or by means of the grid drop-box (<span class="img grid">grid</span>) in the @ref ui_toolbar_view.
+@image html tb_view-grid.png "Grid viewing options"
+
+However, even though you cannot remove the alignment of all shapes to the grid, you can _show_ or _hide_ the grid lines in the diagram. You can select various presentations of the grid by means of the "Grid Options" selection in the @ref ui_menu_view, or by means of the grid drop-box (<span class="img grid">grid</span>) in the @ref ui_toolbar_view.
 
 
 @section bm_diagram_shape_select Selecting Diagram Shapes
 
-Typically, when you simply click on a shape in a diagram you <strong>select</strong> that shape and clear any previous selection, so that only one shape is selected at a time. The model item corresponding to the selected shape becomes @ref ui_curr_item.
+Typically, when you simply click on a shape in a diagram you **select** that shape and clear any previous selection, so that only one shape is selected at a time. The model item corresponding to the selected shape becomes @ref ui_curr_item.
 
-However, QM&trade; also offers you the convenience of selecting and manipulating **multiple shapes** simultaneously. QM&trade; provides two options of selecting multiple diagram shapes: the **lasso** tool and mouse **selection-toggle**. These two methods can be combined to fine-tune the selection.
+However, QM&trade; also offers you the convenience of selecting and manipulating **multiple shapes** simultaneously. QM&trade; provides a special **select &amp; lasso tool** on the @ref ui_toolbox:
 
+@anchor gen_diagram_tools
+@image html gen_diagram-tools.png "Diagram Toolbox/Generic Tools"
 
-@subsection bm_diagram_shape_select-lasso Selecting Shapes with the Lasso
-<img class="left" src="img/cur_select0.png">
-To select shapes with the lasso, press the <span class="button">Ctrl</span> key on your keyboard, at which point the mouse cursor changes to a hand-pointer.
-
-<img class="left" src="img/cur_select.png">
-When you press the left mouse button, the cursor changes to a hand-pointer with a lasso and you can start dragging the lasso from that point.
-
-@image html bm_diagram-lasso.gif "Selecting multiple shapes with a lasso"
+The two options of selecting multiple diagram shapes: the **lasso** tool and mouse **selection-toggle**. These two methods can be combined to fine-tune the selection.
 
 
 @subsection bm_diagram_shape_select-mouse Selecting Shapes with the Mouse-Toggle
+Click the **select &amp; lasso tool** in the @ref ui_toolbox.
 
 <img class="left" src="img/cur_select0.png" />
 You can also select or deselect shapes with the mouse-toggle. You start exactly the same as for selecting with the lasso, that is by pressing the <span class="button">Ctrl</span> key on your keyboard, at which point the mouse cursor changes to a hand-pointer.
 
 <img class="left" src="img/cur_select1.png" />
-Now you just hover the mouse over any shape (hover means just moving the mouse cursor without depressing any mouse buttons). Whenever you hover over an active part of a shape, the mouse cursor changes to a hand-pointer with "+". You can then click the left mouse button to select the shape, if it is not selected, or un-select it, if it was already selected.
+Now you just hover the mouse over any shape (hover means just moving the mouse cursor without depressing any mouse buttons). Whenever you hover over an active part of a shape, the mouse cursor changes to a hand-pointer with "+". You can then click the left mouse button to select the shape, if it is not selected, or deselect it, if it was already selected.
 
 @image html bm_diagram-select.gif "Selecting/deselecting shapes with mouse toggle"
 
 
+@subsection bm_diagram_shape_select-lasso Selecting Shapes with the Lasso
+Click the **select &amp; lasso tool** in the @ref gen_diagram_tools "Diagram Toolbox".
+
+<img class="left" src="img/cur_select0.png"> when you hover the mouse over the diagram, the cursor changes to "select shapes". 
+
+<img class="left" src="img/cur_select.png">
+When you press the __left mouse button__, the cursor changes to a hand-pointer with a lasso and you can start dragging the lasso from that point.
+
+@image html bm_diagram-lasso.gif "Selecting multiple shapes with a lasso"
+
+
 @section bm_diagram_pan Panning Diagrams
+Click the **panning tool** in the @ref gen_diagram_tools "Diagram Toolbox".
 
 <img class="left" src="img/cur_pan.png" />
 To pan the diagram with the mouse, press the <span class="button">Shift</span> key. At this point the mouse cursor changes to the open hand:
@@ -790,8 +800,7 @@ Hold down the left mouse button and drag the whole diagram under the viewing win
 
 @image html bm_diagram-pan.gif "Panning a Diagram"
 
-@sa
-    @ref ui_birds-eye
+@sa @ref ui_birds-eye
 
 
 @section bm_diagram_scroll Scrolling Diagrams
@@ -829,7 +838,6 @@ Alternatively, you can use the zoom slider in the @ref ui_status. Shifting the s
 You can zoom the active diagram with the @ref ui_menu_view actions <span class="img zoom_in">zoom-in</span>, <span class="img zoom_out">zoom-out</span>, and <span class="img zoom_100">zoom to 100%</span>.
 
 
-
 @subsection bm_diagram_zoom_with_keyboard Zooming with the Keyboard
 <img src="img/keyboard.png" style="float:left; margin-right:10px;">
 You can zoom a diagram in and out with the keyboard shortcuts, which are the same as those used in web browsers for zooming websites. The shortcut <span class="button">Ctrl -</span> (Ctrl-minus) zooms out, <span class="button">Ctrl +</span> (Ctrl-plus) zooms in, and <span class="button">Ctr 0</span> (Ctrl-zero) zooms the diagram to 100%.
@@ -837,7 +845,8 @@ You can zoom a diagram in and out with the keyboard shortcuts, which are the sam
 
 @subsection bm_diagram_zoom_with_wheel Zooming with the Mouse Wheel
 <img src="img/wheel.png" style="float:left; margin-right:10px;">
-Finally, you can zoom the active diagram with the mouse wheel, in similar way as you zoom in or out on Google maps. To activate zoom by the mouse wheel, press the <span class="button">Shift</span> key on your keyboard. Now, rotating the mouse wheel forward zooms out and rotating the wheel backward zooms the diagram in, which is the same convention used in mapping applications, such as Google maps.
+Finally, you can zoom the active diagram with the mouse wheel, in similar way as you zoom in
+ or out on Google maps. To activate zoom by the mouse wheel, press the <span class="button">Shift</span> key on your keyboard. Now, rotating the mouse wheel forward zooms out and rotating the wheel backward zooms the diagram in, which is the same convention used in mapping applications, such as Google maps.
 
 
 @section bm_diagram_export Exporting Diagrams
@@ -947,8 +956,7 @@ Alt+Wheel    | Scrolls the page horizontally (the Wheel is the mouse wheel).
 @tableofcontents
 @nav{bm_search,bm_undo-redo}
 
-<p>QM&trade; supports <span class="img cut">Cut</span>, <span class="img copy">Copy</span>, and <span class="img paste">Paste</span> commands for all model items.
-</p>
+QM&trade; supports <span class="img cut">Cut</span>, <span class="img copy">Copy</span>, and <span class="img paste">Paste</span> commands for all model items.
 
 @note
 Before applying cut or paste, make sure that the QM&trade; model element is <strong>unlocked</strong> to allow editing the model. The model element is unlocked when the unlock button (<span class="img unlock">&nbsp;</span>) in the @ref ui_status as well as the @ref ui_toolbar_edit is depressed:
@@ -965,8 +973,7 @@ Cut, copy, and paste feature in QM uses the same XML format for placing model el
 @tableofcontents
 @nav{bm_cut-paste,bm_lock}
 
-<p>QM&trade; supports <span class="img undo">&nbsp;</span> undoing and <span class="img redo">&nbsp;</span> redoing of all actions that change the model in any way, such as:
-</p>
+QM&trade; supports <span class="img undo">&nbsp;</span> undoing and <span class="img redo">&nbsp;</span> redoing of all actions that change the model in any way, such as:
 
 - creating or deleting a model item
 - changing any property of a model item
@@ -1003,7 +1010,8 @@ The <span class="img undo">Undo</span> command reverses the effect of the action
 The <span class="img redo">Redo</span> command moves the top of the stack one level toward the newer actions and re-applies the action pointed to by the new "top of stack". As long as any actions are available above the current "top of stack", the redo command is enabled both in the @ref ui_menu_edit as well as in the @ref ui_toolbar_edit. The <strong>Redo</strong> command is also available under the standard keyboard shortcut <strong>Ctrl+Y</strong>.
 
 @note
-Unlike most programs with the @ref ui_mdi (such as IDEs), which use a separate undo/redo stack for each document, QM&trade; uses just <strong>one</strong> undo/redo stack for all editing actions. However, when recording actions on the undo stack, QM&trade; keeps track of the various editors/diagrams associated with the actions, so that when you undo the actions QM&trade; can open up the appropriate editor/diagram for each action you undo or redo.
+Unlike
+ most programs with the @ref ui_mdi (such as IDEs), which use a separate undo/redo stack for each document, QM&trade; uses just <strong>one</strong> undo/redo stack for all editing actions. However, when recording actions on the undo stack, QM&trade; keeps track of the various editors/diagrams associated with the actions, so that when you undo the actions QM&trade; can open up the appropriate editor/diagram for each action you undo or redo.
 
 
 @section bm_undo_limit Undo/Redo Stack Depth Limit
@@ -1020,8 +1028,7 @@ QM&trade; uses text editors extensively to edit action code associated with stat
 @tableofcontents
 @nav{bm_cut-paste,sm}
 
-<p>High-level model items, such as the whole @ref bm_model, @ref bm_package "Package Items", @ref ce_dir "Directory Items", and @ref ce_file "File Items" can be individually **locked for editing**, which is very useful for exploring or reviewing the model without the risk of inadvertently modifying the locked items.
-</p>
+High-level model items, such as the whole @ref bm_model, @ref bm_package "Package Items", @ref ce_dir "Directory Items", and @ref ce_file "File Items" can be individually **locked for editing**, which is very useful for exploring or reviewing the model without the risk of inadvertently modifying the locked items.
 
 The lock status of a given model item is visible in the @ref ui_explorer (through the `[locked]` annotation), as well as in @ref ui_status and the @ref ui_toolbar_edit, as shown below:
 
@@ -1069,3 +1076,4 @@ Finally, you can view the files in the File System, but they are all switched to
 
 @nav{bm_cut-paste,sm}
 */
+
