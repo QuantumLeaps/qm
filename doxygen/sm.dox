@@ -11,8 +11,6 @@ The most important innovation of HSMs over classical finite state machines (FSMs
 The Quantum Leaps Application Note <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf"><strong>A Crash Course in UML State Machines</strong></a> introduces the main state machine concepts backed up by examples.
 @n
 [![Application Note: A Crash Course in UML State Machines](AN_Crash_Course_in_UML_State_Machines.gif)](https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf)
-@caption{Application Note: A Crash Course in UML State Machines}
-
 
 This section focuses primarily on working with **state machine diagrams**, while the section @ref ce_sm will cover generating code from state machines. Of course, these two aspects are related, so even while "simply drawing" state machine diagrams, you will need to take code generation into account.
 

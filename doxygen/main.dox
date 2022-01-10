@@ -31,23 +31,18 @@ QM&trade; is fundamentally an **object-oriented tool**, regardless of the target
 If you program in C and object-oriented programming is new to you, please refer to the Application Note <a class="pdf" target="_blank" href="https://www.state-machine.com/doc/AN_OOP_in_C.pdf">"Object-Oriented Programming in C"</a>, which describes how you can implement the concepts of @ref bm_class "classes", **inheritance**, and **polymorphism** to portable ANSI-C.
 @n
 [![Application Note: Object-Oriented Programming in C](AN_OOP_in_C.gif)](https://www.state-machine.com/doc/AN_OOP_in_C.pdf)
-@caption{Application Note: Object-Oriented Programming in C}
 
 
 @section ab_look How does it look?
 QM&trade; is a cross-platform desktop application. The following screen shots show the typical activities you perform in QM&trade;:
 
 [![Working with hierarchical state machines in QM&trade;](qm1.png)](sm.html)
-@caption{Working with hierarchical state machines in QM&trade;}
 
 [![Generating code in QM&trade;](qm2.png)](ce.html)
-@caption{Generating code in QM&trade;}
 
 [![Designing a sub-machine to capture the common behavior in QM&trade;](qm3.png)](sm_subm.html)
-@caption{Designing a sub-machine to capture the common behavior in QM&trade;}
 
 [![Customizing the QM&trade; user interface (dark theme)](qm4.png)](ui_custom.html)
-@caption{Customizing the QM&trade; user interface (dark theme)}
 
 
 @section ab_special What's special about it?
