@@ -408,6 +408,12 @@ The Text Box allows you to **move** and **resize** the transition text by draggi
 The actual algorithm QM uses to display the action text in the text box is as follows: If both the **pseudocode** and **code** entries in the @ref sm_tran_prop "Transition Property Sheet" are empty, the corresponding action is considered undefined and the Text Box associated with the transition shows only the `&lt;TRIGGER&gt;/` string. If the *pseduocode* entry is not empty, regardless of the contents of the *code* entry, the *pseudocode* is displayed in the *same line* as the `&lt;TRIGGER&gt;/` string. Finally, if the *pseudocode* is empty, but the *code* entry is not empty, the *code* is displayed in the Text Box of the transition, however, the actual code is displayed in a line **below** the `&lt;TRIGGER&gt;/` string. Of course, to see the text, you need to sufficiently expand the Text Box of the transition, as shown in the animation above.
 
 
+@section sm_tran_move Moving Transitions
+To move a transition, either within the original source state or to a _different_ source state, you need to hover the mouse over the __source-end__ of the transition until the mouse cursor changes to "hand with an anchor" (<span class="img anchor"></span>). At this point you can start dragging the source-end to a different state edge, which could be a _different_ state. 
+
+@image html "sm_tran-move.gif" "Moving Transition"
+
+
 @section sm_tran_type Changing Transition Type
 At any point, you can very easily change an *internal transition* into a regular *state-to-state transition* by simply dragging the square end (<span class="img tran_internal"></span>) and "anchoring" it at an edge of a state, at which point it becomes an arrow (<span class="img tran_state"></span>). This is one of the many benefits of the "non-normative" transition notation used in QM&trade;
 
