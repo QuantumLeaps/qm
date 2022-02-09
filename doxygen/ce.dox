@@ -632,7 +632,8 @@ If you wish to add some additional comment at the top of your file, you can alwa
 The following snippet of code shows the top-level file comment in the case when the underlying QP framework is used under the <a class="extern" target="_blank" href="https://state-machine.com/licensing/#Open">open-source GPL license</a>:
 
 @code{.c}
-/*============================================================================
+/*.$file${.::file.c} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
+/*
 * Model: test1.qm
 * File:  ./file.c
 *
@@ -647,7 +648,8 @@ The following snippet of code shows the top-level file comment in the case when 
 * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
 * for more details.
-============================================================================*/
+*/
+/*.$endhead${.::file.c} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 @endcode
 
 @sa @ref ui_license-open "Code Generation License Dialog Box--Open Source"
@@ -657,7 +659,8 @@ The following snippet of code shows the top-level file comment in the case when 
 The following snippet of C++ code shows the top-level file comment in the case when the underlying QP framework is used under a <a class="extern" target="_blank" href="https://state-machine.com/licensing/#Commercial">commercial QP</a> license (NOTE: In C++, the generated comments use the C++ comment style: `//...`, while in C, the C comment stye: /`*...*`/):
 
 @code{.cpp}
-//============================================================================
+//.$file${.::test2.cpp} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+//
 // Model: test2.qm
 // File:  ./file.cpp
 //
@@ -671,7 +674,8 @@ The following snippet of C++ code shows the top-level file comment in the case w
 // Support ends: 2015-12-24
 // Product(s)  :
 // eGizmo Shuffle 2nd Generation
-//============================================================================
+//
+//.$endhead${.::test2.cpp} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 @endcode
 
 @sa @ref ui_license-closed "Code Generation License Dialog Box--Closed Source"
