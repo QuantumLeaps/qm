@@ -11,7 +11,7 @@
 QM&trade; is fundamentally an **object-oriented tool**, regardless of the target programming language (currently C or C++). Object orientation means that @ref bm_model "QM models" are fundamentally composed of @ref bm_class "classes" and instances of classes (objects). Also, only classes can have @ref sm "State Machines" associated with them.
 
 @note
-If you program in C and object-oriented programming is new to you, please refer to the Application Note <a class="pdf" target="_blank" href="https://www.state-machine.com/doc/AN_Simple_OOP_in_C.pdf">"Simple Object-Oriented Programming in C"</a>, which describes how you can implement the concepts of @ref bm_class "classes", **inheritance**, and **polymorphism** to portable ANSI-C.
+If you program in C and object-oriented programming is new to you, please refer to the Application Note @webref{oop,Object-Oriented Programming}, which describes how you can implement the concepts of @ref bm_class "classes", **inheritance**, and **polymorphism** to portable ANSI-C.
 @image html AN_OOP_in_C.png
 
 

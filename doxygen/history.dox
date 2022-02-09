@@ -30,25 +30,25 @@ Some icons have been improved to look better, especially with the "Dark Theme".
 
 __Improved Out-of-Box Experience:__
 
-This release improves the "out-of-box experience" for first-time QM users by openining the @ref ui_new-dlg "New Mosdel Dialog Box" when there are no "Recent Models" in the @ref ui_menu_file "File Menu". This allows the first-time users to immediately create and work with a QM model based on the provided examples. The provided examples have been improved and now come with @ref ui_session_file "session files", so that a chosen QM model opens up immediately showing the diagrams and files. Also, the @ref ui_tools-dlg "Manage Tools Dialog Box" is populated, so that the generated code from the models can be immediately built directly from QM.
+This release improves the "out-of-box experience" for first-time QM users by opening the @ref ui_new-dlg "New Mosdel Dialog Box" when there are no "Recent Models" in the @ref ui_menu_file "File Menu". This allows the first-time users to immediately create and work with a QM model based on the provided examples. The provided examples have been improved and now come with @ref ui_session_file "session files", so that a chosen QM model opens up immediately showing the diagrams and files. Also, the @ref ui_tools-dlg "Manage Tools Dialog Box" is populated, so that the generated code from the models can be immediately built directly from QM.
 
 __Implemented Feature Requests:__
 
 - [feature#183 "Add documentation section in the property sheet for top-most initial transtion"](https://sourceforge.net/p/qpc/feature-requests/183/)
 
 @note
-This feature request slightly changes the QM model file format by adding new `<documentation>` element for statecharts. Therefore the QM minor-version number needed to be incremented so that older versions of QM will reject the newer models (because older QM versions might not be able to parse the new models.)
+This feature request slightly changes the QM model file format by adding a new `<documentation>` element for statecharts. This meant the QM minor-version number needed to be incremented so that older versions of QM will reject the newer models (because older QM versions might not be able to parse the new models.)
 
 __Additional Enhancements:__
 
-Additionally, this release improves the vertical layout of property sheets with the collapsible "documentation" section. Also, some problems in registeing and changing @ref ui_license-dlg "code-generation licenses" have been fixed.
+Additionally, this release improves the vertical layout of property sheets with the collapsible "documentation" section. Also, some problems in registering and changing @ref ui_license-dlg "code-generation licenses" have been fixed.
 
 
 @section qm_5_0_4 Version 5.0.4, 2020-09-10
 
 This release adds back the @ref ce_qmc "QMC model compiler", for generating code from QM models in automated "headless" builds on servers without GUI libraries.
 
-Additionally, this release adds class-prefix to the [auto-generated dictionaries](https://www.state-machine.com/qm/sm_statechart.html#sm_statechart-QS) for @ref sm_smstate "submachine states" in QP/C++. This prefix was already added for regular states in @ref qm_5_0_3 "QM 5.0.3", but the submachines states were not included in the change. Now, all auto-generated dictionaries should be consistent in having the class prefix.
+Additionally, this release adds class-prefix to the [auto-generated dictionaries](https://www.state-machine.com/qm/sm_statechart.html#sm_statechart-QS) for @ref sm_smstate "submachine states" in QP/C++. This prefix was already added for regular states in @ref qm_5_0_3 "QM 5.0.3", but the submachines' states were not included in the change. Now, all auto-generated dictionaries should be consistent in having the class prefix.
 
 Finally, this release on Windows switches to the newer Qt version 5.15.1 (LTS). (The QM releases on Linux and MacOS continue to use Qt 5.6.2.)
 
@@ -93,8 +93,7 @@ __Fixed Bugs:__
 Additionally, this release improves support for the modern C++ (C++11 and newer standards). Here, specifically, the operation property sheet now provides an additional field called "specifiers", which allows the modeler to add C++ function specifiers, such as: `override`, `noexcept`, `const`, `=delete`, `=0`, etc. The C++ code generator has also been updated such that declaration-only specifiers are removed in the definition of the C++ operation.
 
 @note
-At the same time as the "specifiers" field has been added to the operation property sheet, the check boxes for "const" and "abstract" have been removed. This is because both these properties can be now provided in the "specifiers" field as `const` and `=0`, respectively. (This is supported even in C for qpc and qpn frameworks, although only the `const` specifier has implications for code gradation in C.)
-
+At the same time the "specifiers" field was added to the operation property sheet, the check boxes for "const" and "abstract" were removed. This is because both these properties can be now provided in the "specifiers" field as `const` and `=0`, respectively. (This is supported even in C for qpc and qpn frameworks, although only the `const` specifier has implications for code gradation in C.)
 
 @section qm_4_6_0 Version 4.6.0, 2019-12-30
 
@@ -145,10 +144,10 @@ __Fixed Bugs:__
 __Implemented Feature Requests:__
 
 - [feature#161 Easier way to show state diagram from Model Explorer](https://sourceforge.net/p/qpc/feature-requests/161/)
-- Added @ref bm_diagram_export "SVG diagram export" (Scalale Vector Graphics format)
+- Added @ref bm_diagram_export "SVG diagram export" (Scalable Vector Graphics format)
 - Added @ref ui_custom_style "Dark Style" to the UI
 - Improved consistency of custom styling via the @ref ui_custom_qss "QM Style Sheet"
-- Added @ref ui_custom properties to @ref ui_custom_code "Code-Edit Section" of the QM style sheet to customize syntax highlighers
+- Added @ref ui_custom properties to @ref ui_custom_code "Code-Edit Section" of the QM style sheet to customize syntax highlighters
 - Improved Python syntax highlighting by styling the QUTest script commands.
 
 
@@ -224,7 +223,7 @@ Also, this release adds an additional check in code generators for QP/C (@ref bm
 
 __Implemented Feature Requests:__
 
-- [feature#138 "Return non-zero exit codes when errors occure with generating files"](https://sourceforge.net/p/qpc/feature-requests/138/)
+- [feature#138 "Return non-zero exit codes when errors occur with generating files"](https://sourceforge.net/p/qpc/feature-requests/138/)
 
 This means that `qm` called from @ref gs_run_cmd-line "command-line" will return non-zero code when code generation fails (-c option) or when diagram generation fails (-d option).
 
@@ -324,7 +323,7 @@ https://sourceforge.net/p/qpc/bugs/165/ )
 https://sourceforge.net/p/qpc/bugs/161/ )
 
 
-Specifically for Bug#164, the policy of resizing states has changed. Previously, QM allowed making states smaller, even if some attachment points for transitions needed to be moved along the edges of the state. Now, QM will not allow a state to get smaller, if this would require shifting any attachment ponts along the edges. The user must first move the attachment point explicitly.
+Specifically for Bug#164, the policy of resizing states has changed. Previously, QM allowed making states smaller, even if some attachment points for transitions needed to be moved along the edges of the state. Now, QM will not allow a state to get smaller, if this would require shifting any attachment points along the edges. The user must first move the attachment point explicitly.
 
 
 @section qm_4_0_0 Version 4.0.0, 2016-12-07
@@ -424,11 +423,11 @@ operating systems and the 32-bit operating systems will no longer be supported.
 
 Also, this release switches from using Qt4 to the latest Qt5 toolkit.
 
-The the Qt5 toolkit is now used under the terms of the LGPL 2.1 license,
-whereas before the Qt4 toolkit was used under a commercial Nokia license.
+The Qt5 toolkit is now used under the terms of the LGPL 2.1 license,
+where previously the Qt4 toolkit was used under a commercial Nokia license.
 
 For compliance with LGPL 2.1, the QM distributions contain the <a class="extern" target="_blank" href="https://www.state-machine.com/qm/qt_lgpl.html">LGPL
-Compliance Package</a>, which provides information how to obtain, install,
+Compliance Package</a>, which provides information on how to obtain, install,
 and build the Qt toolkit from sources.
 
 
@@ -455,7 +454,7 @@ https://sourceforge.net/p/qpc/bugs):
 #94 "Transition to history from a choice segment generates incorrect code"
 
 Also, this release changes the C++ code generation for QP/C++. Only
-short names, not qualified by the class name are used inside the
+short names, not qualified by the class name, are used inside the
 state-handler functions and action-state tables. For example
 Q_TRAN(&state1) is used instead of Q_TRAN(&Foo::state1).
 
@@ -463,7 +462,7 @@ Q_TRAN(&state1) is used instead of Q_TRAN(&Foo::state1).
 @section qm_3_1_1 Version 3.1.1, 2014-04-15
 This release fixes the inconsistency in copying model links into the
 clipboard (bug #92). The model links are now generated in the format
-${name::name::name} which is the same as links inserted into the
+${name::name::name}, which is the same as links inserted into the
 generated code.
 
 Also, this removes the decoration of the names of superclasses displayed
@@ -492,14 +491,14 @@ to make transitions to history also available to submachine states,
 which will be supported in the future.
 
 Once the "transition to history" connector is attached to a state
-border, it's other end with an arrow needs to point to a substate, which
+border, its other end with an arrow needs to point to a substate, which
 will be the initial value of the state history, before the state is
 visited and the actual history is recorded. The 'H' circle of the
 "transition to history" connector can be a target for regular
 transitions and for choice segments. There can be only one "transition
 to history" connector attached to a given state.
 
-For each "transition to history" connector, tghe code generator in QM
+For each "transition to history" connector, the code generator in QM
 generates a history attribute in the state machine. This history
 attribute is set in the exit action of the corresponding state to store
 the history of the composite state.
@@ -521,7 +520,7 @@ generates code "(void)me;" to prevent compiler warnings about unused
 arguments.
 
 This release makes slight improvements in the rendering of diagrams. The
-boarder of selected diagram items (e.g., states, transitions, etc.) is
+border of selected diagram items (e.g., states, transitions, etc.) is
 now thinner (2 pixels) as opposed to heavy-looking 3 pixels before.
 Also, to save precious space, the entry/exit labels for state actions
 have been abbreviated to e/x.
@@ -573,10 +572,10 @@ generating transition-action-tables by humans is too error-prone. The
 lab tests indicate that the new "housekeeping" code for executing
 hierarchical state machines is about twice as fast as the code based on
 the QHsm class. Additionally, the new code requires less run-time
-support (smaller event processor) and uses 70% less of stack space in
+support (smaller event processor) and uses 70% less stack space in
 the call to the QMsm::dispatch() operation than QHsm::dispatch().
 
-This release also fixes several bugs related to Cut-and-Paste feature,
+This release also fixes several bugs related to the Cut-and-Paste feature,
 saving the model with the shortcut Ctrl-S, and editing the actions while
 searching the model.
 
@@ -590,21 +589,21 @@ QP 4.x.
 @section qm_2_3_2 Version 2.3.2, 2013-05-20
 This is a quick update release to fix the bug introduced in 2.3.1, which
 caused a crash when adding a class item to a package. Additionally, this
-relase brings the following minor improvements:
+release brings the following minor improvements:
 
 1. The TAB key in the code editor does not always indent the line. When
 no selection is present, a TAB key inserts 4 spaces at the cursor
 position instead of indenting the whole line.
 
 2. The log has a new option to clear the log via the "Clear All"
-popup menu. The log is also cleared when (re)opeinig a new model file.
+popup menu. The log is also cleared when (re)opening a new model file.
 
-3. Fis for an occasional inconsistency in the "Replace Mode" option
+3. Fixes for an occasional inconsistency in the "Replace Mode" option
 setting and the state of the Search Options button.
 
 
 @section qm_2_3_1 Version 2.3.1, 2013-05-16
-This is a quick update release that fixes a few following problems found
+This is a quick update release that fixes the following problems found
 in 2.3.0:
 
 1. The copy/paste feature didn't reliably detect the element type in
@@ -619,7 +618,7 @@ the class name.
 
 4. The CATCH_ALL trigger was not implemented for FSMs.
 
-Thank you to all reviewers, who immediately contacted Quantum
+Thank you to all reviewers who immediately contacted Quantum
 Leaps. This is "massive parallel testing" at its best!
 
 
@@ -666,16 +665,16 @@ protection of the locked items.
 
 5. Improved MDI (multiple document interface), which now supports
 movable tabs (feature request #5). Also, the window-state
-(normal/maximized) is now independent on the use of tabs. For example,
+(normal/maximized) is now independent of the use of tabs. For example,
 you can have tabs and normal re-sizable windows at the same time.
 
 6. Added new grid options for diagrams and added grid selection button
 to the View toolbar. The grid can be displayed as fine-dot fine-line,
 and dot-line. This feature helps in aligning states/transitions and
-indirectly addresses the feature request #35.
+indirectly addresses feature request #35.
 
 7. Added listing of triggers for states. The feature is available in the
-popup-menu for state items. QM performs the non trivial analysis of
+popup-menu for state items. QM performs the non-trivial analysis of
 triggers with guards, and lists triggers that can "bubble up" to higher
 level states.
 
@@ -698,13 +697,13 @@ the diagram. Allowed negative (x,y) values.
 
 13. Improved the status bar display of the current (Line/Column) cursor
 position in the file(s). The column position starts with 1, consistently
-with all other editors.
+with other editors.
 
 New QM Code Editor Features:
 
 14. Added Quick search in the current editor (F3-search), which is
-independent on model-wide search (but is integrated with the search
-view). The quick F3-search can be initiated by selecting a text and
+independent of model-wide search (but is integrated with the search
+view). The quick F3-search can be initiated by selecting text and
 pressing Ctrl-F3. Next, you can search forward (F3) or backward (Shift-F3).
 
 15. Improved code indenting/un-indenting with TAB/Shft-TAB.
@@ -737,8 +736,7 @@ standards.
 events in a given state (feature requested from a commercial customer).
 This feature is NOT generally recommended.
 
-23. Improved code generation and inconsistent "static" linking for file-
-scope functions and attributes. Added missing new-lines in several cases
+23. Improved code generation and fixed inconsistent "static" linking for file-scope functions and attributes. Added missing new-lines in several cases
 (bugs #34/#40).
 
 
@@ -765,7 +763,7 @@ allows re-arranging the order quickly and easily.
 26. Fixed the problem with copy/paste statechart items (bugs #53/#57).
 
 27. Fixed problems with Property Editor switching current item when
-losing the keyboard focus to other applications (bug #38). Now switching
+losing keyboard focus to other applications (bug #38). Now switching
 between applications on your desktop no longer changes the current item
 when you get back to QM.
 
@@ -800,7 +798,7 @@ F7 for code generation and F8-F12 for tool1-tool5, respectively.
 
 @section qm_2_2_02 Version 2.2.02, 2012-09-02
 The main focus of this release is the External Tools feature, which
-allows the users to execute their own command-line tools, such as make,
+allows users to execute their own command-line tools, such as make,
 lint, qspy, etc. directly from the QM IDE. This release also fixes all
 known bugs and implements a few feature requests. The detailed changes
 are as follows:
@@ -810,13 +808,13 @@ to the QM help file https://www.state-machine.com/qm/ui_tools-dlg.html for
 the description of how to use the new feature.
 
 2. Implemented block-indenting of code with the TAB key and un-indenting
-with Shitf+TAB.
+with Shift+TAB.
 
 3. Moved the "Generate Code" action from the File menu/toolbar to the
 Tools menu/toolbar.
 
-4. Fixed bug #29 (assertion when dragging a component and droping it
-on self).
+4. Fixed bug #29 (assertion when dragging a component and dropping it
+on itself).
 
 5. Fixed other drag-and-drop issues.
 
@@ -827,7 +825,7 @@ and generation of the doxygen comment from this documentation.
 (feature request #36).
 
 8. Added keyboard shortcuts to hide/show docking windows (Property
-Editor, Explorer, Log, Bird's Eye View) for the feature request #39.
+Editor, Explorer, Log, Bird's Eye View) for feature request #39.
 
 9. Code Generation: raised the state nesting limit to 10 (including
 the top state) and the choice segment nesting limit to 10.
@@ -838,7 +836,7 @@ symbols and for C/C++ keywords.
 
 @section qm_2_2_01 Version 2.2.01, 2012-08-14
 This minor release fixes bug #33 (assertion in module item, line 383),
-which popped up with new attribute or operation was added to a package.
+which popped up when new attribute or operation was added to a package.
 
 
 @section qm_2_2_00 Version 2.2.00, 2012-08-06
@@ -854,11 +852,11 @@ Code Generation:
 - Changed code generators for QP/C, QP/C++, and QP-nano to use the MISRA
 switch statement syntax rather than "return" statements in each case.
 
-- Chagned code generators for QP/C and QP-nano to generate "static"
-class methods if the class declaration and defition is made in the same
+- Changed code generators for QP/C and QP-nano to generate "static"
+class methods if the class declaration and definition is made in the same
 file scope (MISRA-C:2004 Rule 8.11-required).
 
-- Chagned code generators for QP/C and QP-nano to use "ClassType - const
+- Changed code generators for QP/C and QP-nano to use "ClassType - const
 me" instead of just "ClassType * me" for class methods, including state
 handlers.
 
@@ -907,8 +905,8 @@ Diagrams:
 items moved outside the drawing canvas above the top edge or left of the
 left-edge.
 
-- Changed the default postion for pasting state shapes to the diagram to
-be oustide the drawing canvas (just right of the right edge of the
+- Changed the default position for pasting state shapes to the diagram to
+be outside the drawing canvas (just right of the right edge of the
 canvas.) This was done to reduce the interference of the pasted state
 shapes with already existing states.
 
@@ -927,29 +925,29 @@ its child.
 
 - Bug # 3553912: Fixed the incorrect handling of the Ctrl+W shortcut
 (close window) in the Tabbed mode. Now, the shortcut Ctrl+W is
-implemented explicitly (whereas before is was showing as Ctrl+F4).
+implemented explicitly (whereas before it was showing as Ctrl+F4).
 
 Miscellaneous:
 
 - Added wait cursor when loading/re-loading the model file.
-- Added dran-and-drop for directories into packages.
+- Added drag-and-drop for directories into packages.
 
 
 @section qm_2_1_02 Version 2.1.02, 2011-12-28
-- Fixed the problem with the keyboard focus being removed from the
+- Fixed a problem with the keyboard focus being removed from the
   Property Editor when the mouse pointer is moved over a diagram.
   Now editing text properties can continue regardless of the
   position of the mouse pointer.
-- Modified the behavior of the main window to eliminate the annoying
+- Modified the behavior of the main window to eliminate annoying
   context switches when the user moves the keyboard focus to another
   desktop application. Now the Bird's Eye View, the Toolbox, and the
-  Property Editor would not be deactivated when the user clicks
+  Property Editor will not be deactivated when the user clicks
   outside the QM application.
 - Added menu command and toolbar button for copying model links to
   the Clipboard. This is useful for quickly finding the corresponding
   model elements in the generated code (through the standard text
   find feature available in virtually all code editors and IDEs).
-- Changed the code generation to generate consistently the @()-style
+- Changed code generation to consistently generate the @()-style
   model links to match the copy-link feature.
 - Fixed the bug with model name not appearing in the Model Explorer
   when a new model is first created.
@@ -973,8 +971,8 @@ Miscellaneous:
   generator converts the trigger list into fall-through case
   statements.
 - Updated all examples for compatibility with QP 4.3.00.
-- Fixed a bug which caused crash when a model file failed to
-  opened (due to version incompatiblity or a missing imported
+- Fixed a bug which caused a crash when a model file failed to
+  open (due to version incompatiblity or a missing imported
   package) and the user would double-click on the Log message to
   inspect the failure cause.
 - Fixed a bug causing assertion on Mac OS X in module nodeglyph,
@@ -989,24 +987,23 @@ Miscellaneous:
   managed and version-controlled packages.
 
 - Fixed the inconsistency between reading and writing the file items,
-  which for empty files lead to "WARNING F802> ...parsing the model
-  template file failed". Specifically, this warning occured for the
+  which for empty files led to "WARNING F802> ...parsing the model
+  template file failed". Specifically, this warning occurred for the
   model templates provided in the QM distribution.
-- Fixed the bug in resizing the diagram canvas, which could lead
-  to breaking an assertion on Mac OS X (when the mouse coursor would
+- Fixed a bug in resizing the diagram canvas, which could lead
+  to breaking an assertion on Mac OS X (when the mouse cursor would
   momentarily leave and re-enter the diagram area).
-- Fixed the inconsistentcy in enabling and disabling of copy/cut/
-  paste/delete actions, which could lead to breaking an assertion
+- Fixed the inconsistency in enabling and disabling of copy/cut/paste/delete actions, which could lead to breaking an assertion
   in explorerview, line 321.
 
 
 @section qm_2_0_0 Version 2.0.00, 2011-09-21
 - This release provides support for Cut/Copy/Paste of model
-  items within one model and accross different models opened
+  items within one model and across different models opened
   in separate instances of QM.
-- The model file format has chaned compared to QM 1.x (to reuse
+- The model file format has changed compared to QM 1.x (to reuse
   the model serialization for Cut/Copy/Paste). This means that
-  the models created with QM 1.x are incompatible with QM 2.x.
+  models created with QM 1.x are incompatible with QM 2.x.
 
   ***
   \note the `<qm>/bin/` directory contains the utility qmconv-1-2
@@ -1023,7 +1020,7 @@ Miscellaneous:
 - This release is the first one available for all three platforms:
   Windows, Linux, and Mac OS X.
 - The directory structure of the QM installation has been modified
-  to accomodate Mac OS X and to make it common for all platforms.
+  to accommodate Mac OS X and to make it common for all platforms.
 - Changed the behavior of the "Generate Code" command to
   save the model to disk before generating code.
 - Changed the keys for panning and zooming of diagrams with the
@@ -1036,40 +1033,40 @@ Miscellaneous:
   CTRL activates selecting and zooming with the mouse wheel.
   When CTRL is depressed, rotating the mouse wheel towards the
   back of the mouse will zoom out.
-- Fixed the problem with C-style comments at the end of a file
+- Fixed a problem with C-style comments at the end of a file
   (bug #3355437).
 - Fixed the problem with print crashing QM on Linux (bug #3325130).
 - Added drag-and-drop of model elements inside the Model Explorer.
   Now you can drag packages, classes, attributes, operations,
-  and paramters as well as directories and files (feature request
+  and parameters as well as directories and files (feature request
   #3116849). The drag-and drop feature verifies the types of the
-  elements and allows only the meaningful operations. For example,
+  elements and allows only meaningful operations, for example,
   dragging a class operation to another class, but not allowing
   dragging a state to a directory.
 - Added drag-and-drop of model elements from the Model Explorer
   to files. This allows quick generation of code directives
   without manually typing the element paths.
 - Added drag-and-drop of model files from the File Explorer
-  (File Finder on the Mac) to the QM manin window, to open
+  (File Finder on the Mac) to the QM main window, to open
   the model file.
 - Added "Close Model" command to the File menu.
 
 
 @section qm_1_1_07 Version 1.1.07, 2011-06-23
-- Fixed the bug causing a crash for the sequence: open an existing
+- Fixed a bug causing a crash for the sequence: open an existing
   model, create new model, checking class properties.
 - Modified code generation to include generating Doxygen comments
   from the documentation for classes, class attributes, class
   operations, free attributes, and free operations.
-- Fixed bug related to incorrect updating of free attribute
+- Fixed a bug related to incorrect updating of free attribute
   documentation from the property sheet.
 - Added collapse/expand button for documentation box in the
   operation property sheet. This is to allow more space for
   the code box.
-- Added toggle buttons to the View toolbar to allow easy toggling
+- Added toggle buttons to the View toolbar to allow easily toggling
   the view of the docking windows (Explorer, Property Editor,
   Bird's Eye View, and the Log).
-- Improved/corrected the locked/unloced button behavior and
+- Improved/corrected the locked/unlocked button behavior and
   added the locked/unlocked status to the status bar.
 - Improved/corrected the Grid view button behavior and added
   grid status to the status bar.
@@ -1078,17 +1075,17 @@ Miscellaneous:
 
 
 @section qm_1_1_06 Version 1.1.06, 2011-04-27
-- This release adds the "locked" moded for exploring or
+- This release adds the "locked" mode for exploring or
   reviewing the model without the risk of inadvertently
-  modifiying the model.
+  modifying the model.
 - Fixed the EMF (Enhanced Windows Metafile) generation issue
-  with the bounding box. When shapes in a diagram are selected
+  with the bounding box. When shapes in a diagram are selected,
   only the selected shapes are rendered to EMF and the bounding
   box is adjusted so that it contains only the selected shapes.
   Previously, the EMF bounding box was always the size of the
   diagram canvas, regardless if only a tiny fragment of the
   diagram was selected and rendered to EMF.
-- Fixed the bug with keyboard focus, in which occasionally
+- Fixed a bug with keyboard focus, in which occasionally
   a diagram would ignore the Ctrl or Shift keys (for going
   into Selecting and Panning modes, respectively).
 - Added the Show/Hide Grid menu option and toolbar button.
@@ -1097,17 +1094,17 @@ Miscellaneous:
 @section qm_1_1_05 Version 1.1.05, 2011-04-22
 - This release changes the permissions of the generated files
   to READ-ONLY, to prevent users from editing these files.
-  This is to reinforce the policy that all changes need to
-  be really made to the QM MODELS, not the generated files.
-- Fixed the bug in creating new models, which led to code
+  This is to reinforce the policy that all changes really need to
+  be made to the QM MODELS, not the generated files.
+- Fixed a bug in creating new models which led to code
   generation errors: "ERROR F031 state machine not allowed
   in this class"
-- Fixed the EMF (Enhanced Windows Metafile) generation bug,
+- Fixed an EMF (Enhanced Windows Metafile) generation bug
   in which all single ampersands ('&') were dropped and double
   ampersands ('&&') were replaced with a single ampersand.
-- Fixed the problem with closing a minimized window, which
+- Fixed a problem with closing a minimized window which
   would lead to problems in opening the window again.
-- Fiexed the problem of not adding newly created models to the
+- Fixed a problem of not adding newly created models to the
   list of most-recently used models.
 - Improved error message reporting from XML parsing of the
   model file.
@@ -1128,7 +1125,7 @@ Miscellaneous:
 - This release includes examples of QM models and projects for
   Windows, Linux, and ARM Cortex.
 
-- The default location of the help and model templates have
+- The default locations of the help and model templates have
   been modified.
 
 
@@ -1149,18 +1146,18 @@ Miscellaneous:
 
 
 @section qm_1_1_00 Version 1.1.00, 2010-12-30
-- Added consistent support for Unicode, from the model file,
+- Added consistent support for Unicode, from the model file
   through all model elements, to generated code. Now, you can
   use Unicode characters (e.g., Chinese, Japanese, etc.) in
-  your documenation and code (e.g., comments) and they will
+  your documentation and code (e.g., comments) and they will
   be preserved and propagated to the generated code.
 
-- Added options for specifying text endcoding for the
+- Added options for specifying text encoding for the
   generated code and the model file explicitly for most
   encodings used in the world.
 
 - Added customizability of look and feel via a style sheet
- (file qm.qss stored in the QM directory). Now you can customize
+ (file qm.qss, stored in the QM directory). Now you can customize
  fonts and colors of editors and diagrams.
 
 - Improved log file by adding double-click functionality for
@@ -1260,7 +1257,7 @@ upgrade the QM tool to get the new help.
 - Fixed bug related to adding connectors without dragging them
 out of the attachment point, which results in zero-sized
 connectors. Such connectors are illegal and were deleted, but
-the property sheet was not cleaned up. Now adding a zero-size
+the property sheet was not cleaned up. Now adding a zero-sized
 connector removes the connector and cleans up all views.
 
 - Added a proactive fix to an unreproducible bug (assertion in

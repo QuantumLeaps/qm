@@ -6,14 +6,14 @@
 <p> **Code engineering** is the process of designing, implementing, and maintaining source code. This section describes how QM&trade; can assist you in this process by providing a unique approach to modeling the structure and content of the **generated source code**, also known as the "physical design" as defined below:
 </p>
 
-@note **Physical design** is the decomposition of the source code into directories and files, such as header files (`.h` files) and implementation files (`.c` or `.cpp` files), as well as "makefiles", build scripts, etc. The critical aspects of physical design is managing the inter-dependencies among the source code modules as well as information hiding policy to expose only the desired interfaces in the header files. Additionally, physical design of automatically generated source code must also afford a sufficiently flexible way of interfacing with hand-crafted code or any existing 3rd-party code.
+@note **Physical design** is the decomposition of the source code into directories and files, such as header files (`.h` files) and implementation files (`.c` or `.cpp` files), as well as "makefiles", build scripts, etc. The critical aspect of physical design is managing the inter-dependencies among the source code modules, as well as an information hiding policy to expose only the desired interfaces in the header files. Additionally, physical design of automatically generated source code must also afford a sufficiently flexible way of interfacing with hand-crafted code or any existing 3rd-party code.
 
 
 @section ce_phys Physical Design
 In QM&trade;, directories and files are first-class model elements, so the **physical design** is an integral part of the model, just as the logical design is. This approach makes QM&trade; a unique tool on the market that allows you to **explicitly** perform physical design of the generated code as an integral part of the modeling process (as opposed to tweaking the code generator or adjusting hundreds of parameters of a "model compiler").
 
 @remark
-If you have used other modeling tools, the QM&trade; approach might feel like <a class="extern" target="_blank" href="http://embeddedgurus.com/state-space/2012/02/turning-automatic-code-generation-upside-down/">turning code generation "upside down"</a>, because QM&trade; does not impose any code structure by itself, but rather gives **you** the complete control of what is being generated. In contrast, most other modeling tools on the market use an implicit and inflexible physical design, in which, for example, each @ref bm_class "class" generates `<class-name>.h` header file and `<class-name>.c/.cpp` implementation file.
+If you have used other modeling tools, the QM&trade; approach might feel like <a class="extern" target="_blank" href="http://embeddedgurus.com/state-space/2012/02/turning-automatic-code-generation-upside-down/">turning code generation "upside down"</a>, because QM&trade; does not impose any code structure by itself, but rather gives **you** the complete control of what is being generated. In contrast, most other modeling tools on the market use an implicit and inflexible physical design, in which, for example, each @ref bm_class "class" generates a `<class-name>.h` header file and `<class-name>.c/.cpp` implementation file.
 
 @anchor ce_temp
 The main enabler of the explicit physical design is representing directories and files as *model items* that can be added to the model and edited as any other parts of the model. But, it is critical to understand that the @ref ce_dir "directories" and @ref ce_file "files" in the model are **not** the actual directories and files on disk. Rather, you should think of these model items as "templates" that the QM&trade; code generator uses to create the actual directories and files on your disk. (The word "template" here should not be confused with the "C++ templates"!)
@@ -85,7 +85,7 @@ The path of a directory nested directly inside the <span class="img model">model
 - <span class="highlight"> **relative** to the location of the @ref bm_package-extern "package file"</span> for directories nested inside @ref bm_package-extern "external packages"
 
 
-In any case, the directory path is always **relative**. This relative path can contain the usual relative path symbols, such as the current model directory is denoted as `.` (dot), parent directory of the model as `..` (dot-dot), etc. The following table shows some examples of the relative paths for the model-level or package-level directory items:
+In any case, the directory path is always **relative**. This relative path can contain the usual relative path symbols, such as the current model directory, denoted as `.` (dot), parent directory of the model as `..` (dot-dot), etc. The following table shows some examples of the relative paths for the model-level or package-level directory items:
 
 <center>
 Directory Path Example                          |  Path (Windows) | Path (Unix)
@@ -106,7 +106,7 @@ The path of a directory nested inside another <span class="img folder">directory
 @note
 The path of a directory nested inside a directory cannot contain directory separators or any relative path symbols, like `.` or `..`.
 
-For example, the following screen shot shows a directories `subproj1` and `subproj2` nested inside the directory `..\proj`. Please note that the path of the package-scope directory `..\proj` is relative to the model file on the disk, while the paths of `subproj1` and `subproj2` are simply the names of these directories.
+For example, the following screen shot shows directories `subproj1` and `subproj2` nested inside the directory `..\proj`. Please note that the path of the package-scope directory `..\proj` is relative to the model file on the disk, while the paths of `subproj1` and `subproj2` are simply the names of these directories.
 
 
 @image html ce_dir_nest.png "Nested directories inside a project-scope directory"
@@ -122,12 +122,12 @@ Once you have some directory items added to your model, you can use the drag-and
 @tableofcontents
 @nav{ce_dir,ce_directive}
 
-<p>As described in section about the @ref ce_phys "physical design", QM&trade; provides special <span class="img file">file items</span> that represent files to be generated on disk. The file items can only exist inside a @ref ce_dir "directory item", which determines the location of the file relative to the @ref ui_model_file "QM Model File" or the @ref bm_package-extern "External Package File", for files nested inside External Packages.
+<p>As described in the section about the @ref ce_phys "physical design", QM&trade; provides special <span class="img file">file items</span> that represent files to be generated on disk. The file items can only exist inside a @ref ce_dir "directory item", which determines the location of the file relative to the @ref ui_model_file "QM Model File" or the @ref bm_package-extern "External Package File", for files nested inside External Packages.
 </p>
 
 
 @section ce_file_intern Internal Files
-Normally, the <span class="img file">file items</span> are just "templates" for the files to be created on disk. Such files-templates are called **internal files** and can be edited in the @ref ui_mdi "MDI windows" at the center of the @ref ui "QM user interface", which work exactly like any other modern @ref bm_edit "code editors".
+Normally, the <span class="img file">file items</span> are just "templates" for the files to be created on disk. Such file-templates are called **internal files** and can be edited in the @ref ui_mdi "MDI windows" at the center of the @ref ui "QM user interface", which work exactly like any other modern @ref bm_edit "code editors".
 
 You can insert any code (or text) into the file-templates, such as #`include` directives, declarations, definitions, comments, and anything else that you would put into hand-crafted code. All this code will then be literally copied over to the files generated on disk. But, the twist here is that you can also direct QM to **generate** specific parts of the code based on the model items of your choosing, with the granularity ranging from @ref bm_package "packages" and @ref bm_class "classes", down to specific @ref sm "state machines", @ref sm_state "states", @ref bm_attr "attributes", and @ref bm_oper-class "operations".
 
@@ -143,7 +143,7 @@ The files generated from *Internal Files* should **not** be edited manually outs
 
 
 @section ce_file_extern External Files
-QM supports also *External Files*, which combine user-code with the generated-code and possibly @ref ce_directive "Code-Generation Directives". This merging of a file-template with generated-code is achieved by clearly delimiting the generated-sections with special comments. Such External Files can be edited inside any editor/IDE of choice and are **not** editable inside QM. The following listing shows an example of an *External File* on disk (the comments after the listing explain the interesting lines of code):
+QM also supports *External Files*, which combine user-code with the generated-code and possibly @ref ce_directive "Code-Generation Directives". This merging of a file-template with generated-code is achieved by clearly delimiting the generated-sections with special comments. Such External Files can be edited inside any editor/IDE of choice and are **not** editable inside QM. The following listing shows an example of an *External File* on disk (the comments after the listing explain the interesting lines of code):
 
 @includelineno file_external.cpp
 
@@ -168,7 +168,7 @@ The files generated from *External Files* are saved as <span class="highlight"><
 
 
 @section ce_file_add Adding a New File
-The file items can only exist inside a @ref ce_dir "directory item", which determines the location of the file **relative to** the @ref ui_model_file. Therefore, to add a new file item, you first need to select the @ref ce_dir "directory item" in the @ref ui_explorer. Then you **right**-click on this <span class="img folder">directory</span> item and select the "Add File" in the popup menu, as shown below:
+The file items can only exist inside a @ref ce_dir "directory item", which determines the location of the file **relative to** the @ref ui_model_file. Therefore, to add a new file item, you first need to select the @ref ce_dir "directory item" in the @ref ui_explorer. Then **right**-click on this <span class="img folder">directory</span> item and select the "Add File" in the popup menu, as shown below:
 
 @image html ce_file_add.png "Adding a file item to a directory item"
 
@@ -180,7 +180,7 @@ The following picture shows the Property Sheet of a File Item (see @ref ui_prop)
 
 
 @subsection ce_file-name File Name
-The most important property of a file item is its **name**. QM&trade; automatically recognizes several file types based on the file name **extension** and applies a special icon for the recognized files. The following table shows the the list of recognized file types and icons:
+The most important property of a file item is its **name**. QM&trade; automatically recognizes several file types based on the file name **extension** and applies a special icon for the recognized files. The following table shows the list of recognized file types and icons:
 
 <center>
 File Name Extension|  File Type | File Icon
@@ -205,7 +205,7 @@ Providing one of the recognized file name extensions is necessary for QM&trade; 
 
 
 @subsection ce_file-encoding Encoding
-The **encoding** drop-box property of the file item allows you to select one of the few dozens available <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Character_encoding">character encodings</a> for your file. This option might be interesting if you use special characters outside the basic ASCII character set. (NOTE: the *default* setting corresponds to the encoder selected in your operating system).
+The **encoding** drop-box property of the file item allows you to select one of the few dozens of available <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Character_encoding">character encodings</a> for your file. This option might be interesting if you use special characters outside the basic ASCII character set. (NOTE: the *default* setting corresponds to the encoder selected in your operating system.)
 
 
 @subsection ce_file-external External
@@ -213,10 +213,10 @@ The "external" check box designates a file as an @ref ce_file_extern "External F
 
 
 @section ce_file_eol Unix End-Of-Line Convention
-QM&trade; applies consistently the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Newline"><strong>Unix end-of-line convention</strong></a> (single LF octet at the end of line) to all files saved on disk, regardless on the host operating system. This is done intentionally to generate **identical** code across diverse hosts, which might be used by various team members working on the same project.
+QM&trade; applies consistently the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Newline"><strong>Unix end-of-line convention</strong></a> (single LF octet at the end of line) to all files saved on disk, regardless of the host operating system. This is done intentionally to generate **identical** code across diverse hosts, which might be used by various team members working on the same project.
 
 @note
-Because the LF-only end-of-line convention is **nonnative** on Windows, the generated files might look incorrectly in some text editors (e.g., <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Notepad_%28software%29">Notepad</a>). However, experience shows that most programming editors designed for editing code should have no problem correctly displaying the generated code.
+Because the LF-only end-of-line convention is **nonnative** on Windows, the generated files might look incorrect in some text editors (e.g., <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Notepad_%28software%29">Notepad</a>). However, experience shows that most programming editors designed for editing code should have no problem correctly displaying the generated code.
 
 @nav{ce_dir,ce_directive}
 */
@@ -309,7 +309,7 @@ The code-generation directives are recognized by the **QM syntax highlighter** a
 
 
 @section ce_declare_class_cpp Class Declaration in C++
-In C++, the directive `$declare${<Class>}` generates the C++ class declaration, which has a generic form `class <Class> : public <Superclass> {...};`. For instance, the code snipped below shows the code generated by the directive `$declare${AOs::Ship}` for the class `AOs::Ship` shown in the screen shot above:
+In C++, the directive `$declare${<Class>}` generates the C++ class declaration, which has a generic form `class <Class> : public <Superclass> {...};`. For instance, the code snippet below shows the code generated by the directive `$declare${AOs::Ship}` for the class `AOs::Ship` shown in the screen shot above:
 
 @code{.numbered}
 //${AOs::Ship} ...............................................................
@@ -377,7 +377,7 @@ extern QMState const Ship_exploding_s;
 @endcode
 
 @note
-A class with a @ref sm "State Machine", such as `Ship` in the example above, contains also functions and (`extern`) attributes for each @ref sm_state "State" of the *state machine*.
+A class with a @ref sm "State Machine", such as `Ship` in the example above, also contains functions and (`extern`) attributes for each @ref sm_state "State" of the *state machine*.
 
 
 @section ce_declare_class_c-static Class Declaration in C (File Scope)
@@ -443,19 +443,19 @@ A class with a @ref sm "State Machine" based on the `QMsm` base class, such as `
 
 
 @section ce_declare_attr Free Attribute Declaration
-The <strong>$declare${&lt;free-attribute&gt;}</strong> directive requests generating a **declaration** of the &lt;free-attribute&gt; specified between the parentheses. (Free attribute is a variable declared outside of any class in a package). The following screen shot shows an example of a free attribute model item (in the @ref ui_explorer) and a `$declare${}` code-generation directive in a file template.
+The <strong>$declare${&lt;free-attribute&gt;}</strong> directive requests generating a **declaration** of the &lt;free-attribute&gt; specified between the parentheses. (Free attribute is a variable declared outside of any class in a package.) The following screen shot shows an example of a free attribute model item (in the @ref ui_explorer) and a `$declare${}` code-generation directive in a file template.
 
 @image html ce_gen-attr.png "Example of a Free Attribute Declaration"
 
 The following code snippet shows the <strong>C</strong> code generated by the `$declare${AOs::AO_Ship}` code-generation directive:
 
-@code{.numbered}
+@code{.c}
 extern QActive * const AO_Ship;
 @endcode
 
-The following code snippet shows the <strong>C++</strong> code generated by the `$declare${AOs::AO_Ship}` code-generation directive. Please note the C++ namespace generated around the variable. This is because the enclosing package `AOs` provides the namespace `GAME`:
+The following code snippet shows the <strong>C++</strong> code generated by the `$declare${AOs::AO_Ship}` code-generation directive. Please note the __C++ namespace__ generated around the variable. This is because the enclosing package `AOs` provide the namespace `GAME`:
 
-@code{.numbered}
+@code{.cpp}
 namespace GAME {
 
 extern QP::QActive * const AO_Ship;
@@ -631,8 +631,8 @@ If you wish to add some additional comment at the top of your file, you can alwa
 @subsection ce_comment_gpl QP Used Under GPL
 The following snippet of code shows the top-level file comment in the case when the underlying QP framework is used under the <a class="extern" target="_blank" href="https://state-machine.com/licensing/#Open">open-source GPL license</a>:
 
-@verbatim
-/*****************************************************************************
+@code{.c}
+/*============================================================================
 * Model: test1.qm
 * File:  ./file.c
 *
@@ -647,17 +647,17 @@ The following snippet of code shows the top-level file comment in the case when 
 * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
 * for more details.
-*****************************************************************************/
-@endverbatim
+============================================================================*/
+@endcode
 
 @sa @ref ui_license-open "Code Generation License Dialog Box--Open Source"
 
 
 @subsection ce_comment_commercial QP Used Under a Commercial License
-The following snippet of C++ code shows the top-level file comment in the case when the underlying QP framework is used under a <a class="extern" target="_blank" href="https://state-machine.com/licensing/#Commercial">commercial QP</a> license (NOTE: In C, the generated comments use the C comment style /`*...*`/):
+The following snippet of C++ code shows the top-level file comment in the case when the underlying QP framework is used under a <a class="extern" target="_blank" href="https://state-machine.com/licensing/#Commercial">commercial QP</a> license (NOTE: In C++, the generated comments use the C++ comment style: `//...`, while in C, the C comment stye: /`*...*`/):
 
-@verbatim
-//////////////////////////////////////////////////////////////////////////////
+@code{.cpp}
+//============================================================================
 // Model: test2.qm
 // File:  ./file.cpp
 //
@@ -671,8 +671,8 @@ The following snippet of C++ code shows the top-level file comment in the case w
 // Support ends: 2015-12-24
 // Product(s)  :
 // eGizmo Shuffle 2nd Generation
-//////////////////////////////////////////////////////////////////////////////
-@endverbatim
+//============================================================================
+@endcode
 
 @sa @ref ui_license-closed "Code Generation License Dialog Box--Closed Source"
 
@@ -688,7 +688,7 @@ The following screen shot shows an example of the *documentation property* that 
 
 @image html ce_comment-doc.png "Comments in the Documentation Property"
 
-The QM code generator uses the following algorithm to generate comments form the *documentation property*:
+The QM code generator uses the following algorithm to generate comments from the *documentation property*:
 
 1. The documentation text is searched for a comment, whereas both the C-style comments (/`*...*`/) and C++-style comments (`//`) are allowed. If no comment is found, the documentation property generates **no** comments. (NOTE: Any comments in the *documentation property* are clearly indicated by **syntax highlighting**);
 
@@ -705,63 +705,63 @@ As illustrated in the screen shot above, the comments in the *documentation prop
 
 
 @section ce_comment-link Model-Link Comments
-QM&trade; generates also comments that contain the **model-links**. These **model-link comments** have a generic form: /`* ${<fully-qualified-name>} *`/, where `<fully-qualified-name>` is the @ref bm_fq-name "Fully-Qualified Item Name" of the referenced item. The following code snippet provides several examples of **model-reference comments** at lines 1, 5, 7, and 19:
+QM&trade; generates also comments that contain the **model-links**. These **model-link comments** have a generic form: /`* ${<fully-qualified-name>} *`/, where `<fully-qualified-name>` is the @ref bm_fq-name "Fully-Qualified Item Name" of the referenced item. The following code snippet provides several examples of **model-reference comments** at lines [1-4]:
 
-@code{.numbered}
-/* ${AOs::Missile::SM::flying} */
-static QState Missile_flying(Missile * const me, QEvt const * const e) {
-    QState status_;
-    switch (e->sig) {
-        /* ${AOs::Missile::SM::flying::TIME_TICK} */
-        case TIME_TICK_SIG: {
-            /* ${AOs::Missile::SM::flying::TIME_TICK::[me->x+GAME_MI~]} */
-            if (me->x + GAME_MISSILE_SPEED_X < GAME_SCREEN_WIDTH) {
-                ObjectImageEvt *oie;
-                me->x += GAME_MISSILE_SPEED_X;
-                /*tell the Tunnel to draw the Missile and test for wall hits*/
-                oie = Q_NEW(ObjectImageEvt, MISSILE_IMG_SIG);
-                oie->x   = me->x;
-                oie->y   = me->y;
-                oie->bmp = MISSILE_BMP;
-                QACTIVE_POST(AO_Tunnel, (QEvt *)oie, me);
-                status_ = QM_HANDLED();
-            }
-            /* ${AOs::Missile::SM::flying::TIME_TICK::[else]} */
-            else {
-                static QMTranActTable const tatbl_ = { /* transition-action table */
-                    &Missile_armed_s,
-                    {
-                        Q_ACTION_CAST(0) /* zero terminator */
-                    }
-                };
-                status_ = QM_TRAN(&tatbl_);
-            }
-            break;
-        }
-    . . .
+@code{.c}
+[1]  /* ${AOs::Missile::SM::flying} */
+     static QState Missile_flying(Missile * const me, QEvt const * const e) {
+         QState status_;
+         switch (e->sig) {
+[2]          /* ${AOs::Missile::SM::flying::TIME_TICK} */
+             case TIME_TICK_SIG: {
+[3]              /* ${AOs::Missile::SM::flying::TIME_TICK::[me->x+GAME_MI~]} */
+                 if (me->x + GAME_MISSILE_SPEED_X < GAME_SCREEN_WIDTH) {
+   :                 ObjectImageEvt *oie;
+                     me->x += GAME_MISSILE_SPEED_X;
+                     /*tell the Tunnel to draw the Missile and test for wall hits*/
+                     oie = Q_NEW(ObjectImageEvt, MISSILE_IMG_SIG);
+                     oie->x   = me->x;
+                     oie->y   = me->y;
+                     oie->bmp = MISSILE_BMP;
+                     QACTIVE_POST(AO_Tunnel, (QEvt *)oie, me);
+                     status_ = QM_HANDLED();
+                 }
+[4]              /* ${AOs::Missile::SM::flying::TIME_TICK::[else]} */
+                 else {
+                     static QMTranActTable const tatbl_ = { /* transition-action table */
+                         &Missile_armed_s,
+                         {
+                             Q_ACTION_CAST(0) /* zero terminator */
+                         }
+                     };
+                     status_ = QM_TRAN(&tatbl_);
+                 }
+                 break;
+             }
+         . . .
 @endcode
 
 The **model-link comments** allow you to quickly open the linked model item as the @ref ui_curr_item "Current Item" in QM&trade; To do so, you only need to:
 
 1. Select a piece of code containing the desired **model-link comment** and copy it into the Clipboard (Ctrl-C), which you can do from virtually any code editor or debugger.
 
-2. Next, you click on QM&trade; tool and click the <span class="img paste_link">button</span> or just press <span class="button"><strong>F5</strong></span> (see @ref ui_toolbar_edit and @ref ui_menu_edit)
+2. Next, click on QM&trade; tool and click the <span class="img paste_link">button</span> or just press <span class="button"><strong>F5</strong></span> (see @ref ui_toolbar_edit and @ref ui_menu_edit)
 
 
 @section ce_comment-div Divider Comments
-Finally, to improve readability of the generated code, QM&trade; generates **divider comments** to visually separate various sections of code, as illustrated in the following snippet of generated code (lines 1, 6, and 7):
+Finally, to improve readability of the generated code, QM&trade; generates **divider comments** to visually separate various sections of code, as illustrated in the following snippet of generated code (lines [1-3]):
 
-@code{.numbered}
-/*${AOs::Missile_ctor} .....................................................*/
-void Missile_ctor(void) {
-    Missile *me = &l_missile;
-    QMActive_ctor(&me->super, Q_STATE_CAST(&Missile_initial));
-}
-/*${AOs::Missile} ..........................................................*/
-/*${AOs::Missile::SM} ......................................................*/
-static QState Missile_initial(Missile * const me, QEvt const * const e) {
-    static QMTranActTable const tatbl_ = { /* transition-action table */
-    . . .
+@code{.c}
+[1]  /*${AOs::Missile_ctor} .....................................................*/
+     void Missile_ctor(void) {
+         Missile *me = &l_missile;
+         QMActive_ctor(&me->super, Q_STATE_CAST(&Missile_initial));
+     }
+[2]  /*${AOs::Missile} ..........................................................*/
+[3]  /*${AOs::Missile::SM} ......................................................*/
+     static QState Missile_initial(Missile * const me, QEvt const * const e) {
+         static QMTranActTable const tatbl_ = { /* transition-action table */
+         . . .
 @endcode
 
 The *divider comments* often contain the @ref bm_fq-name "Fully-Qualified Item Name" of the model item that follows, so you can use the *divider comments* to quickly open the referenced model item as the @ref ui_curr_item "Current Item" in QM&trade;, as described in the previous section @ref ce_comment-link.
@@ -793,7 +793,7 @@ The conditional compilation is supported for all QP framework types (`qpc`, `qpc
 
 
 @section ce_cond_apply Applying Conditional Compilation
-To mark a model item as conditionally compiled, you need to append a <span class="highlight">question mark (`?`)</span> followed by the preprocessor expression to the **name** of the attribute, state, or the transition in the @ref ui_prop. The following two screen shots provide examples for a conditional state and conditional transition, respectively. The highlighted text after the state name and transition trigger, respectively, corresponds to the pre-processor expression.
+To mark a model item as conditionally compiled, append a <span class="highlight">question mark (`?`)</span> followed by the preprocessor expression to the **name** of the attribute, state, or the transition in the @ref ui_prop. The following two screen shots provide examples for a conditional state and conditional transition, respectively. The highlighted text after the state name and transition trigger, respectively, corresponds to the pre-processor expression.
 
 @image html ce_cond_state_prop.png "Setting the Name Property of a Conditionally Compiled State"
 @n
@@ -814,7 +814,7 @@ For example, a conditional compilation expression `?def FOO_BAR` will lead to th
 @note
 Please note that the QM code generator specifically does **not** append any spaces after the #`if`, so that statements of the form #`ifdef FOO_BAR` and #`ifundef FOO_BAR` can be easily generated from the conditions `?def FOO_BAR` and `?undef FOO_BAR`, respectively.
 
-However, your pre-processor expressions might be also more complex and might include logical operators `&&`, `||`, etc. For example, the condition `? (defined FOO_BAR) && (VERSION >= 531)` will will lead to the generation of the following pre-processor statements:
+However, your pre-processor expressions might be also more complex and might include logical operators `&&`, `||`, etc. For example, the condition `? (defined FOO_BAR) && (VERSION >= 531)` will lead to the generation of the following pre-processor statements:
 
 @code{.numbered}
 #if (defined FOO_BAR) && (VERSION >= 531)
@@ -834,10 +834,10 @@ As shown in the screen shots below, the QM&trade; tool will give you a visual in
 @subsection ce_cond_check Conditional Compilation and Model Correctness
 The QM&trade; code generator applies the conditional compilation **consistently** and in a way that most developers should find **intuitive**.
 
-For example, for a conditionally-compiled state, both the state @ref ce_declare "declaration" and state @ref ce_define "definition" will be surrounded by the corresponding #`if<expr>` / #`endif` statements. Similarly, all substates of a conditionally-compiled state will be surrounded by the same  #`if<expr>`/#`endif` statements as the superstate. The QM code generator will even correctly nest the #`if`/#`endif` statements for nested states, as one would expect. (NOTE: The following sub-sections describe how conditional compilation is applied in various special cases).
+For example, for a conditionally-compiled state, both the state @ref ce_declare "declaration" and state @ref ce_define "definition" will be surrounded by the corresponding #`if<expr>` / #`endif` statements. Similarly, all substates of a conditionally-compiled state will be surrounded by the same  #`if<expr>`/#`endif` statements as the superstate. The QM code generator will even correctly nest the #`if`/#`endif` statements for nested states, as one would expect. (NOTE: The following sub-sections describe how conditional compilation is applied in various special cases.)
 
 @attention
-However, the QM&trade; code generator is limited in that it does not "know" the settings of the pre-processor macros used for the conditional expressions. Consequently, QM can **not** check the completeness of a whole state-machine with some states or transitions conditionally-compiled. For example, the QM code generator will **not** report errors for transitions targeting conditionally-compiled states, even though such states might be "compiled out" in the actual code. In most of such cases, the compilation of the code will fail (so you will **know** that your model is inconsistent), but avoiding such inconsistencies in the model is considered the responsibility of the developer (**you**), not the QM&trade; tool.
+However, the QM&trade; code generator is limited in that it does not "know" the settings of the pre-processor macros used for the conditional expressions. Consequently, QM can **not** check the completeness of a whole state-machine with some states or transitions conditionally-compiled. For example, the QM code generator will **not** report errors for transitions targeting conditionally-compiled states, even though such states might be "compiled out" in the actual code. In most such cases, the compilation of the code will fail (so you will **know** that your model is inconsistent), but avoiding such inconsistencies in the model is considered the responsibility of the developer (**you**), not the QM&trade; tool.
 
 
 @section ce_cond_state Conditional States
@@ -849,7 +849,7 @@ If both a superstate and some of its substates are conditionally compiled (each 
 
 @image html ce_cond_nest.png "Nested Conditional States"
 
-For example, if a superstate `state1` with a condition `?def FOO_BAR` has a substate `state2` with a condition `?(VERSION > 531)`, QM will generate the following conditional compilation statements for `state1` and `state2`.
+For example, if a superstate `state1` with a condition `?def FOO_BAR` has a substate `state3` with a condition `?(VERSION > 531)`, QM will generate the following conditional compilation statements for `state1` and `state3`.
 
 @code{.numbered}
 typedef struct {
@@ -866,7 +866,7 @@ typedef struct {
 
 #ifdef FOO_BAR
 #if(VERSION > 531)
-    // declaration or definition of state2
+    // declaration or definition of state3
 #endif /* (VERSION > 531) */
 #endif /* def FOO_BAR */
 @endcode
@@ -937,7 +937,7 @@ static QState Test_QMsm_state1(Test_QMsm * const me, QEvt const * const e) {
 @endcode
 
 @note
-Conditionally-compiled transitions can be attached to conditionally-compiled states. In that case the #`if`/#`endif` preprocessor statements will naturally nest, which will produce the expected result. (A transition will only be "compiled in" when both the conditional expression for the sate as well as the actual conditional expression for the transition evaluate to true).
+Conditionally-compiled transitions can be attached to conditionally-compiled states. In that case the #`if`/#`endif` preprocessor statements will naturally nest, which will produce the expected result. (A transition will only be "compiled in" when both the conditional expression for the state as well as the actual conditional expression for the transition evaluate to true.)
 
 
 @subsection ce_cond_tran_multi Multi-Trigger Conditional Transitions
@@ -952,9 +952,10 @@ The special **CATCH_ALL** transition is triggered by any not-explicitly handled 
 @image html ce_cond_catch.png "CATCH_ALL Conditional Transition"
 
 
-Due to the CATCH_ALL transitions are implemented in QP, the preprocessor #`if` statement has also the #`else` branch in that case, so that there is no "catch all" behavior when such transition is "compiled out". The following code snippet illustrates the conditional transition in a `QMsm` sub-class (please note the #`else` conditional branch at line 23):
+Because CATCH_ALL transitions are implemented in QP, the preprocessor #`if` statement also has the #`else` branch in this example, so that there is no "catch all" behavior when the transition is "compiled out". The following code snippet illustrates the conditional transition in a `QMsm` sub-class (please note the #`else` conditional branch):
 
-@code{.numbered}
+
+@code{.c}
 /* ${AOs::Test_QMsm::SM::state1} */
 static QState Test_QMsm_state1(Test_QMsm * const me, QEvt const * const e) {
     QState status_;
@@ -989,9 +990,9 @@ static QState Test_QMsm_state1(Test_QMsm * const me, QEvt const * const e) {
 @endcode
 @n
 
-The following code snippet illustrates the conditional transition in a `QHsm` sub-class (please note the #`else` conditional branch at line 31):
+The following code snippet illustrates the conditional transition in a `QHsm` sub-class (please note the #`else` conditional branch):
 
-@code{.numbered}
+@code{.c}
 /*${AOs::Test_QHsm::SM::state1} ............................................*/
 static QState Test_QHsm_state1(Test_QHsm * const me, QEvt const * const e) {
     QState status_;
@@ -1100,7 +1101,7 @@ where `<qm-model-file>` stands for the @ref ui_model_file "QM model file" to pro
 
 
 @section ce_qmc_mac Invoking qmc on MacOS
-On MacOS, the `qmc` executable is located in the the same bundle as the QM graphical modeling tool. Assuming that you have installed QM into the `/Applications/` folder, you can invoke the `qmc` as follows:
+On MacOS, the `qmc` executable is located in the same bundle as the QM graphical modeling tool. Assuming that you have installed QM into the `/Applications/` folder, you can invoke the `qmc` as follows:
 
 @verbatim
 /Applications/qm.app/Contents/MacOS/qmc <qm-model-file>

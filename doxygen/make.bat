@@ -71,7 +71,7 @@ if "%1"=="-CHM" (
 
     @echo Generating HTML...
     %DOXYGEN% Doxyfile%1
-    rem @qclean %HTML_OUT%
+    @qclean %HTML_OUT%
 )
 
 @endlocal

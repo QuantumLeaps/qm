@@ -31,7 +31,7 @@ The features of this online help and tips for using it are described in Section 
 @section gs_gh Downloading QM&trade; from GitHub
 Go to the <a class="extern" href="https://github.com/QuantumLeaps/qm/releases" target="_blank">QM&trade; <strong>release</strong> page on GitHub</a>, and choose the QM&trade; version number you wish to download. You should select the latest QM&trade; version, unless you have a very specific reason to go with an older release.
 
-Inside the release directory (e.g., `4.6.0`), you need to choose the QM&trade; archive for you platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
+Inside the release directory (e.g., `4.6.0`), you need to choose the QM&trade; archive for your platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
 
 ![QM downloads from GitHub](qm_gh.jpg)
 
@@ -82,7 +82,7 @@ The easiest way to launch QM&trade; is through the desktop shortcut. However, on
 ![Changing the icon for the QM shortcut](setup_linux_icon.png)
 
 @attention
-To run the QM&trade; application on Linux, you need to run the `<qm>/bin/qm.sh` bash script instead of the `<qm>/bin/qm` executable directly.
+To run the QM&trade; application on Linux, you need to run the `<qm>/bin/qm.sh` bash script instead of directly running the `<qm>/bin/qm` executable.
 
 
 @section gs_install_mac Installing QM&trade; on MacOS
@@ -95,7 +95,7 @@ To uninstall QM, simply delete the QM application from the Applications folder.
 
 
 @section gs_install_folder QM&trade; Installation Folder
-The setup program installs QM&trade; executable and all shared libraries necessary to run the application. The following example shows directories and files installed on Windows (`&lt;qm&gt;` denotes the folder, where you chose to install QM&trade;):
+The setup program installs QM&trade; executable and all shared libraries necessary to run the application. The following example shows directories and files installed on Windows (where `&lt;qm&gt;` denotes the folder where you chose to install QM&trade;):
 
 @code{c}
 <qm>
@@ -146,10 +146,10 @@ The QM&trade; executable takes the following optional command-line parameters:
 - Console-Mode:
     + `-h` prints help to the console and exits
     + `-c [item]` generates code for the given model `[item]` and exits
-    + `-d [item][.png|.emf]` generates diagram from the given model `[item]` and exits
+    + `-d [item][.png|.emf]` generates a diagram from the given model `[item]` and exits
 - GUI-Mode:
-    + `-stylesheet <stylesheet-file>` override a stylesheet used by QM
-    + `-style <style>` override the style used by QM
+    + `-stylesheet <stylesheet-file>` overrides a stylesheet used by QM
+    + `-style <style>` overrides the style used by QM
 
 @note
 The `-stylesheet <stylesheet-file>` option overrides the default QM style sheet `qm.qss` located in the @ref gs_install_folder.
@@ -218,7 +218,7 @@ If you associate QM model files (`.qm`) with the QM application, you can conveni
 
 @section gs_run_mac Launching QM&trade; on MacOS
 
-On Mac OS X, you can put the QM into the Dock, as shown in the screen shot below. You can also create a QM application alias on the desktop.
+On macOS, you can put the QM shortcut into the Dock, as shown in the screen shot below. You can also create a QM application alias on the desktop.
 
 ![QM running on MacOS](setup_run_mac.png)
 
@@ -245,18 +245,18 @@ If you prefer to watch the [<b>video version of this tutorial</b>](https://youtu
 [![Watch QM Tutorial video](qm_tut_video.jpg)](https://youtu.be/VJpTJaGPrVk)
 
 
-@section gs_tut_new Creating New Model from Scratch
+@section gs_tut_new Creating A New Model from Scratch
 To create a new model, go to <span class="menu">File-&gt;New Model...</span> menu or press the <span class="img new_model">New Model</span> button in the @ref ui_toolbar_edit. This will open the following @ref ui_new-dlg :
 
 ![New Model dialog](new_model.png)
 
-- Select the **QP framework type** you want to base the new model on (the "Frameworks" panel). The choices are: `qpc` for QP/C&trade;, `qpcpp` for QP/C++&trade;, and `qpn` for QP-nano&trade;. For this tutorial, you leave the default **qpc** framework type.
+- Select the **QP framework type** you want to base the new model on (the "Framework" panel). The choices are: `qpc` for QP/C&trade;, `qpcpp` for QP/C++&trade;, and `qpn` for QP-nano&trade;. For this tutorial, leave the default **qpc** framework type.
 
-- Choose the **model template** for your model ("Templates" panel). If you don't select the template and leave at "None", your model will be empty, except the selected framework. For this tutorial, you leave the default template **None**, so that you can start building your model from scratch.
+- Choose the **model template** for your model ("the Model Template" panel). , select the template and leave it at "None", your model will be empty, except the selected framework. For this tutorial, leave the default template **None**, so that you can start building your model from scratch.
 
-- Name your model ("Name:" field). <span class="highlight">NOTE: the `.qm` extension will be added automatically.</span> For this tutorial, you rename the model to `blinky`.
+- Name your model (the "Name" field). <span class="highlight">NOTE: the `.qm` extension will be added automatically.</span> For this tutorial, rename the model to `blinky`.
 
-- Choose the directory for your model file ("Location:" field). You can either type in the path manually, or you can press the <span class="img search_folder">&nbsp;</span> button to open the directory-search dialog box. For this tutorial, you choose the model location to `<your-directory>\blinky`, where `<your-directory>` is a directory of your choice. <span class="highlight">NOTE: the model directory provides also the reference point for the code generation. All generated directories and files are relative to the model file directory.</span>
+- Choose the directory for your model file (the "Location" field). You can either type in the path manually, or you can press the <span class="img search_folder">&nbsp;</span> button to open the directory-search dialog box. For this tutorial, choose the model location to `<your-directory>\blinky`, where `<your-directory>` is a directory of your choice. <span class="highlight">NOTE: the model directory also provides the reference point for code generation. All generated directories and files are relative to the model file directory.</span>
 
 - Press the <span class="button">OK</span> button.
 
@@ -264,7 +264,7 @@ To create a new model, go to <span class="menu">File-&gt;New Model...</span> men
 
 
 @section gs_tut_template Creating Blinky Model from Template
-Alternatively, you can create the Blinky model from the Provided Template. As shown in the screen shot below, you select the `blinky.qm` Template in the New Model dialog:
+Alternatively, you can create the Blinky model from the provided Template. As shown in the screen shot below, you select the `blinky.qm` Template in the New Model dialog:
 
 ![The Blinky template in New Model dialog](new_blinky.png)
 
@@ -275,7 +275,7 @@ The blinky model templates are available for all QP framework types (QP/C, QP/C+
 
 
 @section gs_tut_add Adding Model Items
-Now you can to start adding items to the new model.
+Now you can start adding items to the new model.
 
 
 @subsection gs_tut_add-package Add a Package
@@ -302,7 +302,7 @@ Next you need to add a @ref bm_class "class" to the new package, because only cl
 ![Setting Superclass](blinky_class.png)
 
 @note
-In QM&trade; a State Machine can be associated only with a @ref bm_class "class" that inherits one of the @ref sm_class "QP state machine classes". The choice of the state machine superclass determines the @ref ce_sm_strategy "state machine implementation strategy".
+In QM&trade; a State Machine can only be associated with a @ref bm_class "class" that inherits one of the @ref sm_class "QP state machine classes". The choice of the state machine superclass determines the @ref ce_sm_strategy "state machine implementation strategy".
 
 
 @subsection gs_tut_add-timer Add a Time Event
@@ -326,21 +326,21 @@ Next, you need to add a **Time Event** attribute that will deliver the periodic 
 @section gs_tut_draw Drawing State Machine Diagram
 - In the @ref ui_explorer **right**-click on the <span class="img statechart">SM</span> (State Machine) item and select <span class="menu">Show Diagram</span> from the popup menu. Alternatively you can just **double**-click on the <span class="img statechart">SM</span> item to execute its **default action**, which is to show the diagram.
 
-![blinky_sm_show.png](Show State Machine Diagram)
+![Show State Machine Diagram](blinky_sm_show.png)
 
 
 @subsection gs_tut_draw-state Add States
 - In the @ref ui_toolbox click on the <span class="img state">state</span> tool. Move your mouse (all mouse buttons released) to the diagram window where you want to position the upper-left corner of the state shape. Notice the new shape of the mouse cursor (shown on the right). Click the mouse and drag it (with mouse button depressed) to the location of the lower-right corner of the state shape. Release the mouse.
 
-![blinky_state_add.gif](Adding the off State)
+![Adding the off State](blinky_state_add.gif)
 
 - In the @ref ui_prop change the state name to `off` and add the entry action to this state `BSP_ledOff();`.
 
-- In the similar way as before add second state. In the @ref ui_prop change the state name to `on` and add the entry action to this state `BSP_ledOn();`.
+- In a similar way as before add a second state. In the @ref ui_prop change the state name to `on` and add the entry action to this state `BSP_ledOn();`.
 
 
 @subsection gs_tut_draw-initial Add Initial Transition
-- In the @ref ui_toolbox click on the <span class="img initial"></span> initial transition tool. Move your mouse (all mouse buttons released) to the diagram window where you want to position the begin of the initial transition shape. Notice the new shape of the mouse cursor (shown on the right). Click the mouse and drag it (with mouse button depressed) to the edge of the state. Notice the cursor change when you reach the edge. Release the mouse.
+- In the @ref ui_toolbox click on the <span class="img initial"></span> initial transition tool. Move your mouse (all mouse buttons released) to the diagram window where you want to position the beginning of the initial transition shape. Notice the new shape of the mouse cursor (shown on the right). Click the mouse and drag it (with mouse button depressed) to the edge of the state. Notice the cursor change when you reach the edge. Release the mouse.
 
 ![Adding the Initial Transition](blinky_init_add.gif)
 
@@ -351,13 +351,13 @@ Next, you need to add a **Time Event** attribute that will deliver the periodic 
 
 
 @subsection gs_tut_draw-tran Add Transitions
-- In the @ref ui_toolbox click on the <span class="img tran"></span> transition tool. Move your mouse (all mouse buttons released) to the state edge where you want to position the begin of the transition connector. Notice the new shape of the mouse cursor (<span class="img cur_tran1"></span>). Click the mouse and drag it (with mouse button depressed) to the edge of the state. Notice the cursor change when you reach the edge. Release the mouse.
+- In the @ref ui_toolbox click on the <span class="img tran"></span> transition tool. Move your mouse (all mouse buttons released) to the state edge where you want to position the beginning of the transition connector. Notice the new shape of the mouse cursor (<span class="img cur_tran1"></span>). Click the mouse and drag it (with mouse button depressed) to the edge of the state. Notice the cursor change when you reach the edge. Release the mouse.
 
 ![Adding a Transition](blinky_tran_add.gif)
 
 - In the @ref ui_prop change the trigger of this transition to `TIMEOUT`.
 
-- In the similar way as before add second transition and change its trigger also to `TIMEOUT`.
+- In a similar way as before add a second transition and change its trigger also to `TIMEOUT`.
 
 ![Complete State Machine](blinky_sm.png)
 
@@ -369,9 +369,9 @@ Compared to most other graphical tools based on state machines, QM&trade; turns 
 @subsection gs_tut_ce-dir Add Directory
 First, you need to create a @ref ce_dir "directory", which will determine the location of the files generated on disk **relative** to the @ref ui_model_file.
 
-![blinky_dir_add.gif](Adding a Directory)
+![Adding a Directory](blinky_dir_add.gif)
 
-- In the @ref ui_explorer **right**-click on the <span class="img model">blinky</span> model item and select <span class="menu">Add Directory</span> in the popup menu. This will be the @ref ce_dir "directory", where your code will be generated. The **path** of the directory **relative** to the @ref ui_model_file can be edited in the Property Editor. Type `.` (dot) for the name of the directory. The dot means the same directory as the @ref ui_model_file, meaning that your code will be generated in the same directory as your model.
+- In the @ref ui_explorer **right**-click on the <span class="img model">blinky</span> model item and select <span class="menu">Add Directory</span> in the popup menu. This will be the @ref ce_dir "directory" where your code will be generated. The **path** of the directory **relative** to the @ref ui_model_file can be edited in the Property Editor. Type `.` (dot) for the name of the directory. The dot means the same directory as the @ref ui_model_file, meaning that your code will be generated in the same directory as your model.
 
 
 @subsection gs_tut_ce-file Add File
@@ -390,7 +390,7 @@ In QM&trade; **you** provide the body of every @ref ce_file "file-template", in 
 @include "blinky.c"
 
 @attention
-The listing above shows two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_directive-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_directive-def of the of the `Blinky` class.
+The listing above shows the two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_directive-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_directive-def of the of the `Blinky` class.
 
 
 @n
@@ -413,11 +413,11 @@ The following sections show how to build the Blinky project from the command-pro
 
 
 @subsection gs_tut_win Building Blinky on Windows
-The Board Support Package (BSP) functions coded at the beginning if the `blinky.c` file are designed to run on the desktop OS, such as Windows or Linux, because of the `printf()` statements. Here is how to build the `blinky.exe` executable on Windows command prompt:
+The Board Support Package (BSP) functions coded at the beginning of the `blinky.c` file are designed to run on the desktop OS, such as Windows or Linux, because of the `printf()` statements. Here is how to build the `blinky.exe` executable in a Windows command prompt:
 
 ![Blinky on Windows](blinky_win.gif)
 
-First, you set the environment variable `QPC` to point to the location of the QP/C framework on your machine. Here, `QCP=C:\qp\qpc`, which is the default location, but if you installed QP/C in *different* location, you need to set `QPC` to the actual location on your machine.
+First, you set the environment variable `QPC` to point to the location of the QP/C framework on your machine. Here, `QCP=C:\qp\qpc`, which is the default location, but if you installed QP/C in a *different* location you need to set `QPC` to the actual location on your machine.
 
 @verbatim
 set QPC=C:\qp\qpc
@@ -430,7 +430,7 @@ gcc blinky.c -oblinky.exe -I%QPC%\include -I%QPC%\ports\win32 -L%QPC%\ports\win3
 @endverbatim
 
 @note
-On Windows the free `gcc` compiler is typically not installed, so you need to download and install it. The <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qtools/releases">QTools collection for Windows</a> contains the MinGW `gcc` compiler and other Unix-style utilities.
+On Windows, the free `gcc` compiler is typically not installed, so you need to download and install it. The <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qtools/releases">QTools collection for Windows</a> contains the MinGW `gcc` compiler and other Unix-style utilities.
 
 
 Finally, you run the produced `blinky.exe` file, which starts printing to your screen.
@@ -449,7 +449,7 @@ Building and running Blinky on the POSIX platforms (such as Linux and MacOS) is 
 
 
 @subsection gs_tut_emb Building Blinky for an Embedded Board
-To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package), to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPC.pdf">QP/C</a>, <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPCpp.pdf">QP/C++</a>, and <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QP-nano.pdf">QP-nano</a>.
+To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package) to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPC.pdf">QP/C</a>, <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPCpp.pdf">QP/C++</a>, and <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QP-nano.pdf">QP-nano</a>.
 
 ![Blinky on TivaC LaunchPad](blinky_ek-tm4c123gxl.gif)
 
@@ -478,7 +478,7 @@ Specifically:
 The following directory chart shows QM&trade; example models and projects in the QP/C Baseline Distribution. The QP/C++ and QP-nano Baseline Distributions have a similar structure.
 
 @note
-The QM model files have the <b>extension .qm</b>. After installing QM, you can open the models in QM by double-clinking on the `.qm` files in the Windows Explorer.
+The QM model files have the <b>extension .qm</b>. After installing QM, you can open the models in QM by double-clicking on the `.qm` files in Windows Explorer.
 
 
 @code{c}
@@ -638,27 +638,27 @@ qpc/   // QP/C installation folder (QP/C++ and QP-nano are similar)
 
 
 @section gs_examples_models Example Models
-Most QP&trade; example application contain the QM&trade; models (`.qm`) that you can open in the QM&trade; tool, explore, and modify. For example, the following screen shot shows the model <span class="highlight">game.qm</span> opened in QM.
+Most QP&trade; example application contain the QM&trade; models (`.qm`) that you can open in the QM&trade; tool to explore, and modify. For example, the following screen shot shows the model <span class="highlight">game.qm</span> opened in QM.
 
 
-@subsection dpp Dining Philosopher Problem (DPP) Example
-The Dining Philosopher Problem (DPP) application is used in most QP&trade; examples for various processors and operating systems. This example application is described in the <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_DPP.pdf">Application Note "Dining Philosophers Problem (DPP) Example"</a>.
+@subsection dpp Dining Philosophers Problem (DPP) Example
+The Dining Philosophers Problem (DPP) application is used in most QP&trade; examples for various processors and operating systems. This example application is described in the <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_DPP.pdf">Application Note "Dining Philosophers Problem (DPP) Example"</a>.
 
 ![Dining Philosophers Problem (DPP) model](ex_dpp.jpg)
 
 
 @subsection game "Fly 'n' Shoot" Game Example
-The "Fly 'n' Shoot" game example demonstrates several state machines (active objects) executing concurrently to realize a simple game. This example application is described in the <a class="extern" target="_blank" href="https://www.state-machine.com/doc/PSiCC2.pdf">Chapter 1 of the "Practical UML Statecharts in C/C++, 2nd Ed." book</a>, which is available online in the book excerpts.
+The "Fly 'n' Shoot" game example demonstrates several state machines (active objects) executing concurrently to realize a simple game. This example application is described in <a class="extern" target="_blank" href="https://www.state-machine.com/doc/PSiCC2.pdf">Chapter 1 of the "Practical UML Statecharts in C/C++, 2nd Ed." book</a>, which is available online in the book excerpts.
 
 ![Fly 'n' Shoot game model](ex_game.jpg)
 
 
 @section gs_examples_run Running the Examples
-All provided QM&trade; examples contain the per-built executables/images that you can immediately execute (on Windows/Linux) or download to the target board (EK-TM4C123GXL or EK-LM3S811 boards).
+All provided QM&trade; examples contain pre-built executables/images that you can immediately execute (on Windows/Linux) or download to the target board (EK-TM4C123GXL or EK-LM3S811 boards).
 
 
 @subsection gs_examples_win Windows
-The examples for <strong>Windows</strong> come in two flavors: simple console applications and GUI simulations of an embedded board. Both types can be run by double-clicking on the executable (e.g., `dpp.exe` or `game-gui.exe`). You interact with the console applications by typing on your keyboard, whereas the legend of the recognized keys is displayed at the beginning of the run. The GUI simulations respond to mouse clicks and keyboard as described in the <a class="extern" target="_blank" href="https://www.state-machine.com/an/">App Notes</a> for the example applications.
+The examples for <strong>Windows</strong> come in two flavors: simple console applications and GUI simulations of an embedded board. Both types can be run by double-clicking on the executable (e.g., `dpp.exe` or `game-gui.exe`). You interact with the console applications by typing on your keyboard, where the legend of the recognized keys is displayed at the beginning of the run. The GUI simulations respond to mouse clicks and keyboard as described in the <a class="extern" target="_blank" href="https://www.state-machine.com/an/">App Notes</a> for the example applications.
 
 ![DPP-GUI example on Windows](dpp_win-gui.gif)
 @n
@@ -666,7 +666,7 @@ The examples for <strong>Windows</strong> come in two flavors: simple console ap
 
 
 @subsection gs_examples_lin Linux
-The examples for <strong>Linux</strong> are provided as simple console applications. You run them from the terminal window tying the name of the program. You interact with the console applications by typing on your keyboard, whereas the legend of the recognized keys is displayed at the beginning of the run.
+The examples for <strong>Linux</strong> are provided as simple console applications. You run them from the terminal window, typing the name of the program. You interact with the console applications by typing on your keyboard, where the legend of the recognized keys is displayed at the beginning of the run.
 
 ![DPP example in a Linux terminal](ex_dpp_linux.jpg)
 
