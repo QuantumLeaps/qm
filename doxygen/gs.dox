@@ -18,11 +18,13 @@ The features of this online help and tips for using it are described in Section 
 /*##########################################################################*/
 /*!
 @page gs_get Downloading &amp; Installing QM&trade;
+@tableofcontents
 @nav{gs,gs_run}
 
-@tableofcontents
+@section gs_bundle Downloading QM&trade; in QP&trade;-Bundle
+The most recommended way of getting QM&trade; is by downloading the <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><b>QP-bundle&trade;</b></a>, which includes QM&trade; and also all <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; Real-Time Embedded Frameworks</a> and the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qtools/">QTools&trade; collection</a>. The main advantage of getting QM&trade; bundled together like that is that you get all components, tools and ready-to-use examples.
 
-<p>The most recommended way of getting QM&trade; is by downloading the <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><b>QP-bundle&trade;</b></a>, which includes QM&trade; and also all <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; Real-Time Embedded Frameworks</a> and the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qtools/">QTools&trade; collection</a>. The main advantage of getting QM&trade; bundled together like that is that you get all components, tools and ready-to-use examples.
+[![QP-bundle Downloads](qp-bundle.png)](https://www.state-machine.com/#Downloads)
 
 @note
 <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><strong>QP-bundle&trade;</strong></a> is the **most recommended** way of downloading and installing QM&trade;. However, if you are allergic to installers and GUIs or don't have administrator privileges you can also **download and install QM&trade; separately** as described below.
@@ -31,17 +33,9 @@ The features of this online help and tips for using it are described in Section 
 @section gs_gh Downloading QM&trade; from GitHub
 Go to the <a class="extern" href="https://github.com/QuantumLeaps/qm/releases" target="_blank">QM&trade; <strong>release</strong> page on GitHub</a>, and choose the QM&trade; version number you wish to download. You should select the latest QM&trade; version, unless you have a very specific reason to go with an older release.
 
-Inside the release directory (e.g., `4.6.0`), you need to choose the QM&trade; archive for your platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
+Inside the release directory (e.g., `5.1.3`), you need to choose the QM&trade; archive for your platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
 
 ![QM downloads from GitHub](qm_gh.jpg)
-
-
-@section gs_sf Downloading QM&trade; from SourceForge
-Go to the <a class="extern" href="https://sourceforge.net/projects/qpc/files/QM/" target="_blank">QM&trade; <strong>download</strong> page on SourceForge</a>, and choose the QM&trade; version number you wish to download. You should select the latest QM&trade; version, unless you have a very specific reason to go with an older release.
-
-Inside the release directory (e.g., `4.6.0`), you need to choose the QM&trade; archive for you platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
-
-![QM downloads from SourceForge](qm_sf.jpg)
 
 
 @section gs_install Installing QM&trade;
@@ -194,7 +188,6 @@ Even though the QM&trade; __console mode__ does not launch a GUI, it still requi
 The simplest way of running QM&trade; is by double-clicking on the desktop shortcut. In this case QM is launched without any command-line arguments. QM&trade; can be also launched by dragging a QM model file and dropping it on the QM shortcut, in which case QM is launched with the model file name as a command-line argument. Finally, QM can also be launched by double-clicking on the @ref bm_model "Model File" in the standard file explorer on your system, which launches QM&trade; and opens the model.
 
 ![QM shortcut](qm_shortcut.png)
-
 
 
 @section gs_run_linux Launching QM&trade; on Linux

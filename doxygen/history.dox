@@ -1,6 +1,15 @@
 /*! @page history Revision History
 @nav{ce_qmc,license}
 
+@section qm_5_1_4 Version 5.1.4, 2022-04-30
+
+__Fixed Bugs:__
+
+- [bug#303	QM generates code with trailing whitespace](https://sourceforge.net/p/qpc/bugs/303)
+- [bug#307	QM reports incorrect location of code generation errors](https://sourceforge.net/p/qpc/bugs/307)
+- [bug#308	QM doesn't print .c/​.h files on Windows](https://sourceforge.net/p/qpc/bugs/308)
+
+
 @section qm_5_1_3 Version 5.1.3, 2021-06-17
 
 __Corrections in Property Sheets:__

@@ -49,8 +49,7 @@ if "%1"=="-CHM" (
 
     @echo Adding custom images...
     xcopy img tmp\img\
-    copy lgpl*.txt tmp\
-    @echo img\img.htm >> tmp\index.hhp
+    xcopy /Y ..\..\ql-doxygen\jquery.js tmp
 
     @echo Generating CHM...
     %HHC% tmp\index.hhp
@@ -65,12 +64,12 @@ if "%1"=="-CHM" (
     @echo Cleanup...
     rmdir /S /Q  %HTML_OUT%
 
-    @echo Adding custom images...
-    xcopy img %HTML_OUT%\img\
-    copy images\favicon.ico %HTML_OUT%
-
     @echo Generating HTML...
     %DOXYGEN% Doxyfile%1
+
+    @echo Adding custom images...
+    xcopy img %HTML_OUT%\img\
+    xcopy /Y ..\..\ql-doxygen\jquery.js %HTML_OUT%
     @qclean %HTML_OUT%
 )
 
