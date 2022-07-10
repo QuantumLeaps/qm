@@ -1,5 +1,4 @@
 /*! @page sm State Machines
-@tableofcontents
 @nav{bm_lock,sm_statechart}
 
 <p>QM&trade; provides extensive support for modern <a class="extern" target="_blank" href="https://www.state-machine.com/fsm/#HSM">Hierarchical State Machines (HSMs)</a> (UML Statecharts), which are perhaps the most effective and elegant technique of structuring event-driven systems. In fact, QM&trade; has been specifically designed for ease of diagramming HSMs and for generating efficient, production-quality code from them.
@@ -101,7 +100,6 @@ The usage of the tools in the State Diagram Toolbox is explained in the sections
 */
 /*==========================================================================*/
 /*! @page sm_statechart Working with Statecharts
-@tableofcontents
 @nav{sm,sm_state}
 
 @section sm_add Adding a Statechart
@@ -114,12 +112,10 @@ In the @ref ui_explorer **right-click** on the @ref bm_class "Class" to which yo
 The <span class="menu">Add State Machine</span> menu option is only available if a given @ref bm_class "class" directly or indirectly inherits the @ref sm_class "QP class QHsm". Otherwise the option is "grayed-out".
 
 
-
 @section sm_resize Resizing a State Machine Diagram
 As shown in the screen shot below, you can easily resize the @ref bm_diagram_canvas "Drawing Canvas" of a State Diagram by dragging its right or bottom edges, or by dragging the resize handle in the bottom-right corner of the canvas. In each case the mouse cursor indicates the possible direction of resizing.
 
 @image html bm_diagram-canvas.gif "Resizing the Drawing Canvas"
-
 
 
 @section sm_statechart_prop Statechart Property Sheet
@@ -128,13 +124,6 @@ As shown in the screen shot below, you can easily resize the @ref bm_diagram_can
 @image html "sm_statechart_prop.png" "Statechart Property Sheet"
 
 The statechart-item property sheet contains the following properties:
-
-
-@subsection sm_statechart-use-me Use "me->"
-Checkbox that controls the state machine implementation style. When checked, the old **use me-> pointer** style is applied. If unchecked (recommended), the new **no me-> pointer** style is used. Please refer to the [QP/C++ documentation of this feature](https://www.state-machine.com/qpcpp/sm.html).
-
-@note
-The **Use me->** checkbox is only relevant for models based on QP/C++ (qpcpp). For models based on QP/C or QP-nano, this checkbox is permanently checked and is "grayed-out" meaning that it cannot be unchecked.
 
 
 @subsection sm_statechart-QS QS_FUN_DICT
@@ -160,7 +149,6 @@ The **documentation** entry in the Statechart Property Sheet allows you to provi
 */
 /*==========================================================================*/
 /*! @page sm_state Working with States
-@tableofcontents
 @nav{sm_statechart,sm_tran}
 
 <p>The concept of <strong>State</strong> is a very effective mechanism of decomposing event-driven behavior. *States* divide the overall behavior of a class into separate parts, each part (state) handling events in a specific way. Any change in handling of any event requires a change of state, that is, a state @ref sm_tran "transition". States are represented in UML as rounded-corner rectangles with the state name at the top.
@@ -283,7 +271,6 @@ Once the state shape is *selected* as the @ref ui_curr_item "Current Item", you 
 */
 /*==========================================================================*/
 /*! @page sm_tran Working with Transitions
-@tableofcontents
 @nav{sm_state,sm_choice}
 
 @section sm_tran_reg Regular Transitions
@@ -442,7 +429,6 @@ The UML supports the concept of a "choice-pseudostate", which is an alternative 
 */
 /*==========================================================================*/
 /*! @page sm_choice Working with Choice Segments
-@tableofcontents
 @nav{sm_tran,sm_init}
 
 <p>Often in state machines, you need to take a state transition only when a specific condition (called **guard condition**) evaluates to TRUE at run-time. Also, quite often, you need to transition to different states, depending on the outcome of some guard conditions evaluated at run-time.
@@ -630,7 +616,6 @@ On the other hand, if you select an outgoing choice-segment, you cannot move the
 */
 /*==========================================================================*/
 /*! @page sm_init Working with Initial Transitions
-@tableofcontents
 @nav{sm_choice,sm_hist}
 
 <p>Every state machine needs the **top-most initial transition**, which originates in an initial pseudostate (black dot) placed directly on the drawing canvas and points to the first active state after the state machine gets initialized.
@@ -692,7 +677,6 @@ All transitions in QM&trade; are **rectilinear**, meaning that they consist only
 */
 /*==========================================================================*/
 /*! @page sm_hist Working with Transitions to History
-@tableofcontents
 @nav{sm_init,sm_subm}
 
 <p>Sometimes in hierarchical state machines you need to transition out of a _composite_ state, but later you wish to come back to the _most-recent_ active substate of this composite state. In UML, this coming back to the most-recent substate is accomplished by the **transition to history** feature. Actually, the UML specification distinguishes between two types of "transition
@@ -776,7 +760,6 @@ The **Is shallow** property specifies the type of the transition to history. Whe
 */
 /*==========================================================================*/
 /*! @page sm_subm Working with Submachine Diagrams
-@tableofcontents
 @nav{sm_hist,sm_epseg}
 
 <p><span class="img submachine">Submachine Diagram</span> allows you to specify a composite state and all its nested substates and transitions (*submachine*) in such a way that it can be instantiated (and thus reused), possibly **multiple times**, in the context of a given state machine. You can think of submachines as "macros" or "procedures" that capture common behavior inside a given state machine in order to reuse it (as @ref sm_smstate "submachine states") within the context of the same state machines.
@@ -868,7 +851,6 @@ Once the state shape is *selected* as the @ref ui_curr_item "Current Item", you 
 */
 /*==========================================================================*/
 /*! @page sm_epseg Working with Entry-Point Segments
-@tableofcontents
 @nav{sm_subm,sm_xp}
 
 <p><span class="img ep_seg">Entry-Point Segment</span> represents a way of transitioning into a specific substate of a @ref sm_subm "Submachine". The *Entry-Point* provides an indirection layer to entering a specific substate without exposing this substate or any other internal parts of the Submachine.
@@ -914,7 +896,6 @@ The **pseudocode** property is designed to avoid clutter in the diagram by minim
 */
 /*==========================================================================*/
 /*! @page sm_xp Working with eXit-Points
-@tableofcontents
 @nav{sm_epseg,sm_smstate}
 
 <p><span class="img xp">eXit Point</span> represents a specific transition out of the *Submachine Diagram*. The *eXit-Point* provides an indirection layer to exiting a specific substate without exposing this substate or any other internal parts of the Submachine.
@@ -942,7 +923,6 @@ Every eXit-Point must have a name, which distinguishes this particular eXit-Poin
 */
 /*==========================================================================*/
 /*! @page sm_smstate Working with Submachine States
-@tableofcontents
 @nav{sm_xp,sm_xpseg}
 
 <p><span class="img sm_state">Submachine State</span> represents an instance of a given @ref sm_subm "Submachine Diagram" and is semantically equivalent to inserting the whole *Submachine Diagram* in a given place of your state machine.
@@ -1020,7 +1000,6 @@ The **documentation** entry in the Submachine State Property Sheet allows you to
 */
 /*==========================================================================*/
 /*! @page sm_xpseg Working with eXit-Point Segments
-@tableofcontents
 @nav{sm_smstate,ce}
 
 <p><span class="img xp_seg">eXit-Point Segment</span> represents a way of transitioning out of a specific substate of a @ref sm_subm "Submachine". The *eXit-Point* provides an indirection layer to exiting a specific substate without exposing this substate or any other internal parts of the Submachine.

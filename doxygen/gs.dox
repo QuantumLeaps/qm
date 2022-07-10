@@ -18,7 +18,6 @@ The features of this online help and tips for using it are described in Section 
 /*##########################################################################*/
 /*!
 @page gs_get Downloading &amp; Installing QM&trade;
-@tableofcontents
 @nav{gs,gs_run}
 
 @section gs_bundle Downloading QM&trade; in QP&trade;-Bundle
@@ -128,7 +127,6 @@ If your only intention is to use QM&trade; as a drawing tool, you don't need to 
 */
 /*##########################################################################*/
 /*! @page gs_run Launching QM&trade;
-@tableofcontents
 @nav{gs_get, gs_tut}
 
 <p>The QM&trade; modeling tool can be used in two modes of operation: interactive GUI mode and command-line mode. This section begins with the description of the @ref gs_run_cmd-line "command-line parameters" and the @ref gs_console "console-mode", which is the same on all platforms supported by QM. Next, the section describes how to launch QM&trade; in the @ref gs_run_win "interactive GUI mode", which might vary, depending on the underlying operating system.
@@ -222,7 +220,6 @@ QM&trade; can be also launched by dragging a QM model file and dropping it on th
 */
 /*##########################################################################*/
 /*! @page gs_tut QM&trade; Tutorial
-@tableofcontents
 @nav{gs_run,gs_exa}
 
 <p>This tutorial describes how to use QM&trade; to model and implement a simple "Blinky" application, which can blink an LED on an embedded board or just print the state changes of the LED to the screen when executed on the desktop.
@@ -450,7 +447,6 @@ To build the Blinky project for an embedded board, you need to modify the BSP (B
 */
 /*##########################################################################*/
 /*! @page gs_exa QM&trade; Examples
-@tableofcontents
 @nav{gs_tut, ui}
 
 <p>QM&trade; model examples and projects for ARM Cortex-M, POSIX (Linux, Embedded Linux), and Windows (including <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_QWIN-GUI.pdf">QWIN GUI Kit for Prototyping Embedded Systems on Windows

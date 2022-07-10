@@ -96,7 +96,6 @@ END USER LICENSE AGREEMENT</h1>
 */
 /*##########################################################################*/
 /*! @page qt_lgpl Compliance with Qt LGPL
-@tableofcontents
 @nav{license,links}
 
 <p>The @ref ab_what "QM&trade; Modeling Tool" uses the <a class="extern" target="_blank" href="http://www.qt.io">Qt Toolkit</a> under the terms of the GNU Lesser General Public License v. 3 and the GNU Lesser General Public License v. 2.1 (both jointly <a class="extern" target="_blank" href="http://www.qt.io/qt-licensing-terms">"LGPL"</a>). In compliance with LGPL, this document collects the relevant information about downloading, installing, and building the Qt Toolkit from sources. The main source of the information and most of the web links provided here come from the <a class="extern" target="_blank" href="http://www.qt.io">Qt Company's</a> website.

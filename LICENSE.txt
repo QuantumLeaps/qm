@@ -26,7 +26,7 @@ controlled, thoroughly documented, and available in full source code.
 The behavior of active objects is specified in QP by means of hierarchical
 state machines (UML statecharts). The QP frameworks support manual coding
 of UML state machines in C or C++ as well as Model-Based Design (MBD) and
-automatic code generation by means of the free QM Model-Based Design tool. 
+automatic code generation by means of the free QM Model-Based Design tool.
 The QP framework familiy has been described in the book "Practical UML
 Statecharts in C/C++, Second Edition" by Miro Samek, (ISBN: 978-0750687065).
 
@@ -76,7 +76,7 @@ separately from this Agreement.
 secrets or any other Intellectual Property of Quantum Leaps, even if
 such trademarks are included in the Licensed Software.
 
-3.3 No right is granted to the Qt Toolkit, which is copyright by Qt Group 
+3.3 No right is granted to the Qt Toolkit, which is copyright by Qt Group
 and/or its subsidiary(-ies) and other contributors (see
 https://www.qt.io) and is used by the Licensed Software under the LGPL
 v2.1 open source license (see Section 5 "Compliance with LGPL").
@@ -110,7 +110,7 @@ The Licensed Software uses the Qt Toolkit under the terms of LGPL.
 The Licensed Software complies with the LGPL in the following ways:
 
 5.1 The Licensed Software dynamically links to the unmodified Qt
-Framework, as provided by the Qt Project (see 
+Framework, as provided by the Qt Project (see
 https://doc.qt.io/qt-5/lgpl.html) in the pre-compiled binary format.
 
 5.2 All users of the Licensed Software are expressly allowed to use

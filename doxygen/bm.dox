@@ -22,7 +22,6 @@ The following sections describe how to perform basic modeling tasks in QM&trade;
 */
 /*##########################################################################*/
 /*! @page bm_model QM Model
-@tableofcontents
 @nav{bm,bm_fq-name}
 
 The abstract **model** of your software is the centerpiece of the QM&trade; modeling tool. In fact, QM&trade; can be viewed as a multifaceted *model editor*, which allows you to create, view, and modify the abstract model and eventually to @ref ce "generate code" based on this model.
@@ -92,7 +91,6 @@ As most software frameworks, the QP&trade; frameworks use the basic concepts of 
 */
 /*##########################################################################*/
 /*! @page bm_fq-name Fully-Qualified Names
-@tableofcontents
 @nav{bm_model,bm_package}
 
 In a hierarchical tree-like structure, like the @ref bm_model "QM&trade; model", it is often useful to refer to items by means of <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Fully_qualified_name"><strong>fully-qualified names</strong></a>. A name is *fully-qualified* when it <i>"is complete in the sense that it includes (a) all names in the hierarchic sequence above the given element and (b) the name of the given element itself"</i>. The following picture shows examples of the fully-qualified names of various items in a QM model:
@@ -112,7 +110,6 @@ Just like most high-level language compilers, QM&trade; recognizes only a limite
 */
 /*##########################################################################*/
 /*! @page bm_package Working with Packages
-@tableofcontents
 @nav{bm_fq-name,bm_class}
 
 <p>A **package** in the Unified Modeling Language is used to <i>"group elements, and to provide a namespace for the grouped elements"</i>. Pretty much all UML elements can be grouped into packages. A package may even contain other packages, thus allowing **hierarchical nesting** of packages.
@@ -276,7 +273,6 @@ If you want to avoid inadvertent modification of the imported package you can @r
 */
 /*##########################################################################*/
 /*! @page bm_class Working with Classes
-@tableofcontents
 @nav{bm_package,bm_attr}
 
 <p>A <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Class_%28computer_programming%29"><strong>class</strong></a> groups together @ref bm_attr-class "attributes" and @ref bm_oper-class "operations" available to all instances of the class (*objects*). A class can also <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)"><strong>inherit</strong></a> from another class (called the *superclass*).
@@ -330,7 +326,6 @@ The **documentation** box in the Class Property Sheet allows you to provide docu
 */
 /*##########################################################################*/
 /*! @page bm_attr Working with Attributes
-@tableofcontents
 @nav{bm_class,bm_oper-class}
 
 <p>An *attribute* defines a variable that can be attached to the instances of a @ref bm_class "class" (see @ref bm_attr-class) or to a @ref bm_package "package" (see @ref bm_attr-free).
@@ -415,7 +410,6 @@ QActive * const AO_Philo[N_PHILO] = {
 */
 /*##########################################################################*/
 /*! @page bm_oper-class Working with Class Operations
-@tableofcontents
 @nav{bm_attr,bm_oper-free}
 
 <p>Operations attached to a @ref bm_class "class" can access individual instances of the class, except for a @ref bm_class-oper-static "static class operation", which cannot access any particular instance.
@@ -554,7 +548,6 @@ The class operation property sheet allows you to set the following properties:
 */
 /*##########################################################################*/
 /*! @page bm_oper-free Working with Free Operations
-@tableofcontents
 @nav{bm_oper-class,bm_evt}
 
 <p>Free operations are defined at a @ref bm_package "package" scope, _not_ attached to any class.
@@ -591,7 +584,6 @@ The free operation property sheet allows you to set the following properties:
 */
 /*##########################################################################*/
 /*! @page bm_evt Working with Events
-@tableofcontents
 @nav{bm_oper-free,bm_diagram}
 
 <p>Events are objects specifically designed for communication. They consist of event-signals and event-parameters. In the QP frameworks underlying QM, events are subclasses of the `QEvt` base class. QM incorporates such events by recognizing that a given class is a (direct or indirect) subclass of `QEvt` and by providing the <span class="img class_evt">event stereotype</span> for those classes. Additionally, event classes can be placed in @ref bm_package-stero "packages" with the <span class="img class_evt">event stereotype</span>
@@ -701,7 +693,6 @@ The macro `Q_EVT_CAST()` encapsulates the deviation from MISRA-C/C++ rules of ca
 */
 /*##########################################################################*/
 /*! @page bm_diagram Working with Diagrams
-@tableofcontents
 @nav{bm_evt,bm_edit}
 
 In order to work with a diagram, you must first create it. For example, to create a State Machine diagram (Statechart), please refer to Section @ref sm_add.
@@ -880,7 +871,6 @@ You can also copy the selected items or the whole diagram to the Clipboard in SV
 */
 /*##########################################################################*/
 /*! @page bm_edit Working with Code Editors
-@tableofcontents
 @nav{bm_diagram,bm_search}
 
 <p>QM provides an advanced text editor for working with @ref ce_file "files", as well as text-based properties in the @ref ui_prop "Property Editor". Besides the usual features expected of a state-of-the-art editor, the QM text editor provides the following features:
@@ -945,7 +935,6 @@ Alt+Wheel    | Scrolls the page horizontally (the Wheel is the mouse wheel).
 */
 /*##########################################################################*/
 /*! @page bm_search Search/Replace
-@tableofcontents
 @nav{bm_edit,bm_cut-paste}
 
 @image html under_construction.jpg "under construction"
@@ -954,7 +943,6 @@ Alt+Wheel    | Scrolls the page horizontally (the Wheel is the mouse wheel).
 */
 /*##########################################################################*/
 /*! @page bm_cut-paste Cut/Copy/Paste
-@tableofcontents
 @nav{bm_search,bm_undo-redo}
 
 QM&trade; supports <span class="img cut">Cut</span>, <span class="img copy">Copy</span>, and <span class="img paste">Paste</span> commands for all model items.
@@ -971,7 +959,6 @@ Cut, copy, and paste feature in QM uses the same XML format for placing model el
 */
 /*##########################################################################*/
 /*! @page bm_undo-redo Undo/Redo
-@tableofcontents
 @nav{bm_cut-paste,bm_lock}
 
 QM&trade; supports <span class="img undo">&nbsp;</span> undoing and <span class="img redo">&nbsp;</span> redoing of all actions that change the model in any way, such as:
@@ -1025,7 +1012,6 @@ QM&trade; uses text editors extensively to edit action code associated with stat
 */
 /*##########################################################################*/
 /*! @page bm_lock Locking Model Items
-@tableofcontents
 @nav{bm_cut-paste,sm}
 
 High-level model items, such as the whole @ref bm_model, @ref bm_package "Package Items", @ref ce_dir "Directory Items", and @ref ce_file "File Items" can be individually **locked for editing**, which is very useful for exploring or reviewing the model without the risk of inadvertently modifying the locked items.

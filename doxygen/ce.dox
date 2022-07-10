@@ -1,5 +1,4 @@
 /*! @page ce Code Engineering
-@tableofcontents
 @nav{sm_xpseg,ce_dir}
 
 @anchor idx_ce
@@ -55,7 +54,6 @@ The other code engineering tasks described in this section include:
 */
 /*##########################################################################*/
 /*! @page ce_dir Working with Directories
-@tableofcontents
 @nav{ce,ce_file}
 
 <p>QM&trade; provides special <span class="img folder">directory</span> items to represent directories on the disk. These directory items can be added to the @ref bm_model "model item", to any @ref bm_package "package item", as well as to other directory item in which case you can create nested directories.
@@ -119,7 +117,6 @@ Once you have some directory items added to your model, you can use the drag-and
 */
 /*##########################################################################*/
 /*! @page ce_file Working with Files
-@tableofcontents
 @nav{ce_dir,ce_directive}
 
 <p>As described in the section about the @ref ce_phys "physical design", QM&trade; provides special <span class="img file">file items</span> that represent files to be generated on disk. The file items can only exist inside a @ref ce_dir "directory item", which determines the location of the file relative to the @ref ui_model_file "QM Model File" or the @ref bm_package-extern "External Package File", for files nested inside External Packages.
@@ -222,7 +219,6 @@ Because the LF-only end-of-line convention is **nonnative** on Windows, the gene
 */
 /*##########################################################################*/
 /*! @page ce_directive Code-Generation Directives
-@tableofcontents
 @nav{ce_file,ce_declare}
 
 <p>The QM&trade; code generation process consists of replacing the **code-generation directives** in the @ref ce_file "file templates" in the model with the corresponding pieces of auto-generated code in the files generated on disk. All other code fragments surrounding the code-generation directives in the file-templates are simply copied to the files on disk. The picture below illustrates the process:
@@ -269,9 +265,10 @@ In C and C++ a definition can be used in the place of a declaration, meaning tha
 @section ce_directive-syntax General Syntax
 The general syntax of the code-generating directives in the QM file templates is <strong>$&lt;directive&gt; ${&lt;model-item&gt;}</strong>, where $&lt;directive&gt; is one of:
 
-- @subpage ce_declare "$declare"
-- @subpage ce_define  "$define"
-- @subpage ce_define1 "$define1"
+- @subpage ce_declare  "$declare"
+- @subpage ce_declare1 "$declare1"
+- @subpage ce_define   "$define"
+- @subpage ce_define1  "$define1"
 
 and <strong>&lt;model-item&gt;</strong> denotes a @ref bm_fq-name "Fully-Qualified Name" of the model item to expand.
 
@@ -298,8 +295,7 @@ The code-generation directives are recognized by the **QM syntax highlighter** a
 */
 /*##########################################################################*/
 /*! @page ce_declare $declare${}
-@tableofcontents
-@nav{ce_directive,ce_define}
+@nav{ce_directive,ce_declare1}
 
 <p>The <strong>$declare${&lt;model-item&gt;}</strong> directive requests generating a **declaration** of the &lt;model-item&gt; specified between the parentheses. QM can generate declarations for the following item types: @ref bm_class "Class", @ref bm_attr-free "Free Attribute", @ref bm_oper-free "Free Operation", and @ref bm_package "Package".
 </p>
@@ -506,11 +502,20 @@ The <strong>$declare${&lt;Package&gt;}</strong> directive requests generating a 
 @note
 The QM&trade; code generator honors the order of the items in the package (as viewed in the @ref ui_explorer).
 
-@nav{ce_directive,ce_define}
+@nav{ce_directive,ce_declare1}
+*/
+/*##########################################################################*/
+/*! @page ce_declare1 $declare1${}
+@nav{ce_declare,ce_define}
+
+<p>The <strong>$declare1${&lt;model-item&gt;}</strong> directive requests generating a **non-recursive declaration** of the &lt;model-item&gt; specified between the parentheses. The primary use for <strong>$declare1$</strong> is to generate non-recursive declarations for @ref bm_package "packages".
+</p>
+<div style="clear:both;"></div>
+
+@nav{ce_declare,ce_define}
 */
 /*##########################################################################*/
 /*! @page ce_define $define${}
-@tableofcontents
 @nav{ce_declare,ce_define1}
 
 <p>The <strong>$define${}</strong> directive specifies a **recursive definition** of an element, such as:
@@ -529,7 +534,6 @@ The QM&trade; code generator honors the order of the items in the package (as vi
 */
 /*##########################################################################*/
 /*! @page ce_define1 $define1${}
-@tableofcontents
 @nav{ce_define,ce_sm}
 
 <p>The <strong>$define1${}</strong> directive specifies a **non-recursive definition** of an element, such as:
@@ -548,7 +552,6 @@ The QM&trade; code generator honors the order of the items in the package (as vi
 */
 /*##########################################################################*/
 /*! @page ce_sm Generating State Machine Code
-@tableofcontents
 @nav{ce_define1,ce_comment}
 
 <p>In QM&trade; a State Machine can be associated only with a @ref bm_class "class" that is a direct or indirect subclass of the <a href="https://www.state-machine.com/products/qp/" target="_blank" class="extern">QP Framework</a> base class **QHsm**, shown in blue in the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Class_(computer_programming)">class diagram</a> @ref sm_super "below".
@@ -603,7 +606,6 @@ Starting from version 4, QM&trade; requires a @ref ui_license_cert "QM license c
 */
 /*##########################################################################*/
 /*! @page ce_comment Generating Comments
-@tableofcontents
 @nav{ce_sm,ce_cond}
 
 <p>Even though the code generated by QM&trade; is not intended to be edited manually outside QM&trade;, it still needs to be understood and debugged using a traditional source-level debuggers.
@@ -774,7 +776,6 @@ The *divider comments* often contain the @ref bm_fq-name "Fully-Qualified Item N
 */
 /*##########################################################################*/
 /*! @page ce_cond Conditional Compilation
-@tableofcontents
 @nav{ce_comment,ce_qmc}
 
 <p>Often, the models created with QM are intended for entire families of related products (product lines), as opposed to a single end-product only. The designers of such product lines often find that big pieces of the model, such as state machines, can be similar in all individual products, except for some parts that vary.
@@ -1043,7 +1044,6 @@ static QState Test_QHsm_state1(Test_QHsm * const me, QEvt const * const e) {
 */
 /*##########################################################################*/
 /*! @page ce_qmc QM Compiler (qmc)
-@tableofcontents
 @nav{ce_cond,history}
 
 <p>The @ref gs_install_folder "QM&trade; installation folder" contains the **command-line** utility called <span class="highlight"><strong>qmc</strong></span> (QM Compiler), which can generate code from a given @ref ui_model_file "QM model file". The `qmc` utility allows you to incorporate the code generation step into an **automated build process**, such as `Makefiles`, build scripts, or extra pre-compile steps in project files.

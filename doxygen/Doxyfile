@@ -1,17 +1,18 @@
-# Doxyfile 1.9.3
+# Doxyfile 1.9.4
 
-@INCLUDE = ../../ql-doxygen/Doxyfile-QL
+@INCLUDE = ../../ql-doxygen/ql-doxyfile
 
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = QM
-PROJECT_NUMBER         = 5.1.4
+PROJECT_NAME           = "QM"
+PROJECT_NUMBER         = 5.2.0
 PROJECT_BRIEF          = "Model-Based Design Tool"
-PROJECT_LOGO           = images/logo_ql.png
+PROJECT_LOGO           = ../../ql-doxygen/images/logo_ql.png
 OUTPUT_DIRECTORY       =
 CREATE_SUBDIRS         = NO
+CREATE_SUBDIRS_LEVEL   = 6
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
@@ -33,7 +34,7 @@ FULL_PATH_NAMES        = NO
 STRIP_FROM_PATH        =
 STRIP_FROM_INC_PATH    =
 SHORT_NAMES            = NO
-JAVADOC_AUTOBRIEF      = NO
+JAVADOC_AUTOBRIEF      = YES
 JAVADOC_BANNER         = NO
 QT_AUTOBRIEF           = NO
 MULTILINE_CPP_IS_BRIEF = NO
@@ -97,7 +98,7 @@ GENERATE_TODOLIST      = YES
 GENERATE_TESTLIST      = YES
 GENERATE_BUGLIST       = YES
 GENERATE_DEPRECATEDLIST= YES
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = QM
 MAX_INITIALIZER_LINES  = 30
 SHOW_USED_FILES        = YES
 SHOW_FILES             = YES
@@ -116,6 +117,7 @@ WARN_IF_INCOMPLETE_DOC = YES
 WARN_NO_PARAMDOC       = NO
 WARN_AS_ERROR          = NO
 WARN_FORMAT            = "$file:$line: $text"
+WARN_LINE_FORMAT       = "at line $line of file $file"
 WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -150,7 +152,7 @@ USE_MDFILE_AS_MAINPAGE =
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
 #---------------------------------------------------------------------------
-SOURCE_BROWSER         = NO
+SOURCE_BROWSER         = YES
 INLINE_SOURCES         = NO
 STRIP_CODE_COMMENTS    = YES
 REFERENCED_BY_RELATION = NO
@@ -174,19 +176,24 @@ IGNORE_PREFIX          =
 GENERATE_HTML          = YES
 HTML_OUTPUT            = ../html
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            = ../../ql-doxygen/header-awesome.html
-HTML_FOOTER            = ../../ql-doxygen/footer-awesome.html
+HTML_HEADER            = ../../ql-doxygen/ql-header-awesome.html
+HTML_FOOTER            = ../../ql-doxygen/ql-footer-awesome.html
 HTML_STYLESHEET        =
 HTML_EXTRA_STYLESHEET  = ../../ql-doxygen/doxygen-awesome.css \
+                         ../../ql-doxygen/doxygen-awesome-sidebar-only.css \
+                         ../../ql-doxygen/doxygen-awesome-sidebar-only-darkmode-toggle.css \
                          ../../ql-doxygen/ql-awesome.css \
                          qm.css
 HTML_EXTRA_FILES       = ../../ql-doxygen/doxygen-awesome-darkmode-toggle.js \
-                         ../../ql-doxygen/preview.js
+                         ../../ql-doxygen/doxygen-awesome-fragment-copy-button.js \
+                         ../../ql-doxygen/doxygen-awesome-paragraph-link.js \
+                         ../../ql-doxygen/ql-preview.js
+
 HTML_COLORSTYLE_HUE    = 209
 HTML_COLORSTYLE_SAT    = 255
 HTML_COLORSTYLE_GAMMA  = 113
 HTML_TIMESTAMP         = NO
-HTML_DYNAMIC_MENUS     = NO
+HTML_DYNAMIC_MENUS     = YES
 HTML_DYNAMIC_SECTIONS  = NO
 HTML_INDEX_NUM_ENTRIES = 100
 GENERATE_DOCSET        = NO
@@ -212,11 +219,11 @@ QHP_SECT_FILTER_ATTRS  =
 QHG_LOCATION           =
 GENERATE_ECLIPSEHELP   = NO
 ECLIPSE_DOC_ID         = com.state-machine.qp
-DISABLE_INDEX          = YES
+DISABLE_INDEX          = NO
 GENERATE_TREEVIEW      = YES
 FULL_SIDEBAR           = NO
 ENUM_VALUES_PER_LINE   = 4
-TREEVIEW_WIDTH         = 300
+TREEVIEW_WIDTH         = 335
 EXT_LINKS_IN_WINDOW    = NO
 OBFUSCATE_EMAILS       = NO
 HTML_FORMULA_FORMAT    = png
