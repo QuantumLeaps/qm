@@ -89,7 +89,7 @@ chmod u+x qm.sh
 ---------------------------------------------------------------------------
 ### Installing QM on MacOS
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
-download the disk image for MacOS (`qm_<ver>-macx64.dmg`). Double click
+download the disk image for MacOS (`qm_<ver>-macos.dmg`). Double click
 on `.dmg` file. This will mount and open the disk image. To install the
 QM tool, you simply drag the qm.app image into the Applications folder
 (typically visible in the Dock). If you wish, you might also create the
