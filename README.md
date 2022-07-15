@@ -45,8 +45,13 @@ please *uninstall* it before installing the new version.
 ---------------------------------------------------------------------------
 ### Installing QM on Windows (32/64-bit)
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
-download the QM zip archive for Windows (`qm_<ver>-win32.zip`). You can
-unzip the archive into any directory, although the `C:\qp\` folder is the
+download the QM installer (`qm_<ver>-windows.exe`), which is digitally signed
+by Quantum Leaps. The installer will create a desktop shortcut for QM and will
+also associate QM model files (`*.qm` and `*.qmp`)
+
+Alternatively, if you are allergic to installers, you can download QM zip
+archive for Windows (`qm_<ver>-windows.zip`). Installation consists of
+unzipping the archive into any directory, although the `C:\qp\` folder is the
 recommended default.
 
 > NOTE: It is generally not recommended to install QM in such standard
@@ -54,12 +59,11 @@ locations as "Program Files" or "Program Files (x86)", because these
 directories have access limitations and don't allow you to modify the
 QM Style Sheet (`qm.qss`) or the model templates.
 
-If you wish, after the installation, you could create a desktop shortcut
-for QM and you can also associate QM model files (`*.qm` and `*.qmp`)
-with the QM application (using the standard Windows Explorer and
-"Open With" popup menu).
+If you intalled QM via the installer program, the unistaller will be
+provided and you can uninstall QM via the standard "Apps and Features".
 
-To uninstall QM you simply delete the installation directory.
+If you intalled QM from the zip archive, you unistall QM by simply deleting
+the installation directory.
 
 ---------------------------------------------------------------------------
 ### Installing QM on Linux (64-bit)
