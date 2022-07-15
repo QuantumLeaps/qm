@@ -1,0 +1,133 @@
+/*****************************************************************************
+* QM Style Sheet for Linux "Light"
+* Last Updated for Version: 4.4.0
+* Date of the Last Update:  2019-02-28
+*
+*                    Q u a n t u m  L e a P s
+*                    ------------------------
+*                    Modern Embedded Software
+*
+* Copyright (C) 2005-2019 Quantum Leaps, LLC. All rights reserved.
+*
+* Contact information:
+* https://www.state-machine.com
+* mailto:info@state-machine.com
+*****************************************************************************/
+
+/* MainWindow ................................................................
+*/
+MainWindow {
+    /* window background for code, doc and diagram widnows
+    * (outside the editing area or canvas area)
+    */
+    qproperty-windowColor:       darkGray;
+
+    /* background for code edit area */
+    qproperty-codeBaseColor:     white;
+
+    /* background for doc edit area */
+    qproperty-docBaseColor:      #FFFFDD; /* light yellow */
+
+    /* syntax highlighting styles */
+    qproperty-comment: "green, #F7F7F7, italic";
+    qproperty-keyword: "blue, transparent, bold";
+    qproperty-preproc: "red,  transparent, bold";
+    qproperty-string:  "darkBlue, transparent, italic";
+    qproperty-string2: "blue, transparent, italic";
+    qproperty-trail:   "transparent, lightGray";
+    qproperty-stdint:  "blue, #EEEEEE";
+    qproperty-me_ptr:  "red,  yellow";
+    qproperty-evt_ptr: "blue, yellow";
+    qproperty-qp_api:  "red, transparent, underline";
+    qproperty-qm_dir:  "red, yellow, bold, underline";
+}
+
+/* ExplorerView ..............................................................
+*/
+ExplorerView {
+    color:                       black;
+    background-color:            white;
+    alternate-background-color:  #E0E0E0;
+}
+ExplorerView:hover {
+    background-color:            #FFFFDD;
+    alternate-background-color:  #EEEEDD;
+}
+ExplorerView::item:selected {
+    background-color:            darkRed;
+}
+/* SearchView ................................................................
+*/
+SearchView {
+    font-style:                  italic;
+    color:                       blue;
+    background-color:            lightBlue;
+    alternate-background-color:  #EEEEFF;
+}
+SearchView:hover {
+    background-color:            #DDDDFF;
+    alternate-background-color:  #BBBBEE;
+}
+SearchView::item:selected {
+    background-color:            darkBlue;
+}
+/* DiagramView ...............................................................
+*/
+DiagramView {
+    font-family:                 "Nimbus Sans L";
+    font-size:                   12px;
+
+    qproperty-canvasColor:       white;
+    qproperty-birdsEyeViewColor: #FFFF77;
+    qproperty-nodePenColor:      darkBlue;
+    qproperty-nodeBrushColor:    #E0E0FF;
+    qproperty-connPenColor:      darkRed;
+}
+
+/* CodeEdit ..................................................................
+* Used in the files and code entered via a Property Sheet.
+*/
+CodeEdit {
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
+
+    color:                       black;
+    selection-color:             white;
+    selection-background-color:  darkBlue;
+    /* NOTE: set the background with MainWindow::qproperty-codeBaseColor */
+}
+
+/* DocEdit ...................................................................
+* Used in the documentation entered via a Property Sheet.
+*/
+DocEdit {
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
+    font-style:                  italic;
+
+    color:                       darkBlue;
+    /* NOTE: set the background with MainWindow::qproperty-docBaseColor */
+}
+
+/* Log window ................................................................
+*/
+Log {
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
+
+    color:                       black;
+    background-color:            white;
+    selection-color:             darkRed;
+    selection-background-color:  yellow;
+}
+Log:!active {
+    selection-color:             white;
+    selection-background-color:  darkGrey;
+}
+
+/* Birdseye view window ......................................................
+*/
+Birdseye {
+    background:                  darkGray;
+    background-color:            lightCyan;
+}

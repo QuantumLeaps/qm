@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model version="5.2.0" links="1">
+ <documentation>About this example:
+-------------------
+Dining Philosopher Problem for STM32 NUCLEO-L152RE board
+(see qpcpp\examples\arm-cm\dpp_nucleo-l152re)
+
+This example demonstrates:
+- Multiple communicating active objects (Philo[5] and Table) with state machines
+- Publish-subscribe and direct event posting
+- Board Support Package abstraction for portability
+- BSP implementation for desktop OS (Windows, Linux, MacOS)
+- Platform-independent main() function
+- Makefile to build the generated code with GNU toolchain
+- Customized tools for building the generated code directly from QM&lt;/documentation&gt;
+
+Building the example:
+To build this example, you will need the QP/C++ framework installed on your computer and the GNU-ARM cross-compiler, which you can get by installing the QP-bundle from:
+
+https://www.state-machine.com/#Downloads
+
+Running the example:
+--------------------
+This example is a simple console application, which you can run from a terminal.
+
+For more QM examples for QP/C++ see:
+https://www.state-machine.com/qpcpp/exa.html</documentation>
+ <!--${qpcpp}-->
+ <framework name="qpcpp"/>
+ <!--${Events}-->
+ <package name="Events" stereotype="0x01" namespace="DPP::">
+  <!--${Events::TableEvt}-->
+  <class name="TableEvt" superclass="qpcpp::QEvt">
+   <!--${Events::TableEvt::philoNum}-->
+   <attribute name="philoNum" type="uint8_t" visibility="0x00" properties="0x00"/>
+  </class>
+ </package>
+ <!--${AOs}-->
+ <package name="AOs" stereotype="0x02" namespace="DPP::">
+  <!--${AOs::Philo}-->
+  <class name="Philo" superclass="qpcpp::QActive">
+   <!--${AOs::Philo::inst[N_PHILO]}-->
+   <attribute name="inst[N_PHILO]" type="Philo" visibility="0x00" properties="0x01">
+    <documentation>The array of static insts of the Philo class (Singleton pattern)</documentation>
+   </attribute>
+   <!--${AOs::Philo::m_timeEvt}-->
+   <attribute name="m_timeEvt" type="QP::QTimeEvt" visibility="0x02" properties="0x00"/>
+   <!--${AOs::Philo::Philo}-->
+   <operation name="Philo" type="" visibility="0x00" properties="0x00">
+    <code>  : QActive(&amp;initial),
+    m_timeEvt(this, TIMEOUT_SIG, 0U)</code>
+   </operation>
+   <!--${AOs::Philo::SM}-->
+   <statechart properties="0x00">
+    <!--${AOs::Philo::SM::initial}-->
+    <initial target="../1">
+     <action>static bool registered = false; // starts off with 0, per C-standard
+(void)e; // suppress the compiler warning about unused parameter
+if (!registered) {
+    registered = true;
+
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[0]);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[0].m_timeEvt);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[1]);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[1].m_timeEvt);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[2]);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[2].m_timeEvt);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[3]);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[3].m_timeEvt);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[4]);
+    QS_OBJ_DICTIONARY(&amp;Philo::inst[4].m_timeEvt);
+
+    QS_FUN_DICTIONARY(&amp;Philo::initial);
+    QS_FUN_DICTIONARY(&amp;Philo::thinking);
+    QS_FUN_DICTIONARY(&amp;Philo::hungry);
+    QS_FUN_DICTIONARY(&amp;Philo::eating);
+}
+
+subscribe(EAT_SIG);
+subscribe(TEST_SIG);</action>
+     <initial_glyph conn="2,3,5,1,20,6,-2">
+      <action box="0,-2,6,2"/>
+     </initial_glyph>
+    </initial>
+    <!--${AOs::Philo::SM::thinking}-->
+    <state name="thinking">
+     <entry>m_timeEvt.armX(think_time(), 0U);</entry>
+     <exit>(void)m_timeEvt.disarm();</exit>
+     <!--${AOs::Philo::SM::thinking::TIMEOUT}-->
+     <tran trig="TIMEOUT" target="../../2">
+      <tran_glyph conn="2,14,3,1,20,14,-2">
+       <action box="0,-2,10,2"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Philo::SM::thinking::EAT, DONE}-->
+     <tran trig="EAT, DONE">
+      <action>/* EAT or DONE must be for other Philos than this one */
+Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoNum != PHILO_ID(this));</action>
+      <tran_glyph conn="2,18,3,-1,12">
+       <action box="0,-2,14,2"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Philo::SM::thinking::TEST}-->
+     <tran trig="TEST">
+      <tran_glyph conn="2,22,3,-1,12">
+       <action box="0,-2,11,4"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="2,6,18,18">
+      <entry box="1,2,5,2"/>
+      <exit box="1,4,5,2"/>
+     </state_glyph>
+    </state>
+    <!--${AOs::Philo::SM::hungry}-->
+    <state name="hungry">
+     <entry>TableEvt *pe = Q_NEW(TableEvt, HUNGRY_SIG);
+pe-&gt;philoNum = PHILO_ID(this);
+AO_Table-&gt;POST(pe, this);</entry>
+     <!--${AOs::Philo::SM::hungry::EAT}-->
+     <tran trig="EAT">
+      <!--${AOs::Philo::SM::hungry::EAT::[Q_EVT_CAST(TableEvt)->philoNum=~}-->
+      <choice target="../../../3">
+       <guard>Q_EVT_CAST(TableEvt)-&gt;philoNum == PHILO_ID(this)</guard>
+       <choice_glyph conn="14,34,5,1,8,14,-2">
+        <action box="1,0,19,4"/>
+       </choice_glyph>
+      </choice>
+      <tran_glyph conn="2,34,3,-1,12">
+       <action box="0,-2,14,2"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Philo::SM::hungry::DONE}-->
+     <tran trig="DONE">
+      <action>/* DONE must be for other Philos than this one */
+Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoNum != PHILO_ID(this));</action>
+      <tran_glyph conn="2,40,3,-1,12">
+       <action box="0,-2,14,2"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="2,26,18,18">
+      <entry box="1,2,5,2"/>
+     </state_glyph>
+    </state>
+    <!--${AOs::Philo::SM::eating}-->
+    <state name="eating">
+     <entry>m_timeEvt.armX(eat_time(), 0U);</entry>
+     <exit>TableEvt *pe = Q_NEW(TableEvt, DONE_SIG);
+pe-&gt;philoNum = PHILO_ID(this);
+QP::QF::PUBLISH(pe, this);
+(void)m_timeEvt.disarm();</exit>
+     <!--${AOs::Philo::SM::eating::TIMEOUT}-->
+     <tran trig="TIMEOUT" target="../../1">
+      <tran_glyph conn="2,56,3,1,22,-45,-4">
+       <action box="0,-2,10,2"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Philo::SM::eating::EAT, DONE}-->
+     <tran trig="EAT, DONE">
+      <action>/* EAT or DONE must be for other Philos than this one */
+Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoNum != PHILO_ID(this));</action>
+      <tran_glyph conn="2,60,3,-1,13">
+       <action box="0,-2,14,2"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="2,46,18,18">
+      <entry box="1,2,5,2"/>
+      <exit box="1,4,5,2"/>
+     </state_glyph>
+    </state>
+    <state_diagram size="36,66"/>
+   </statechart>
+  </class>
+  <!--${AOs::Table}-->
+  <class name="Table" superclass="qpcpp::QActive">
+   <!--${AOs::Table::inst}-->
+   <attribute name="inst" type="Table" visibility="0x00" properties="0x01">
+    <documentation>The only static inst of the Table class (Singleton pattern)</documentation>
+   </attribute>
+   <!--${AOs::Table::m_fork[N_PHILO]}-->
+   <attribute name="m_fork[N_PHILO]" type="uint8_t" visibility="0x02" properties="0x00"/>
+   <!--${AOs::Table::m_isHungry[N_PHILO]}-->
+   <attribute name="m_isHungry[N_PHILO]" type="bool" visibility="0x02" properties="0x00"/>
+   <!--${AOs::Table::Table}-->
+   <operation name="Table" type="" visibility="0x00" properties="0x00">
+    <code>  : QActive(&amp;initial)
+
+for (uint8_t n = 0U; n &lt; N_PHILO; ++n) {
+    m_fork[n] = FREE;
+    m_isHungry[n] = false;
+}</code>
+   </operation>
+   <!--${AOs::Table::SM}-->
+   <statechart properties="0x02">
+    <!--${AOs::Table::SM::initial}-->
+    <initial target="../1/2">
+     <action>(void)e; // suppress the compiler warning about unused parameter
+
+QS_OBJ_DICTIONARY(&amp;Table::inst);
+
+QS_SIG_DICTIONARY(DONE_SIG,      nullptr); // global signals
+QS_SIG_DICTIONARY(EAT_SIG,       nullptr);
+QS_SIG_DICTIONARY(PAUSE_SIG,     nullptr);
+QS_SIG_DICTIONARY(SERVE_SIG,     nullptr);
+QS_SIG_DICTIONARY(TEST_SIG,      nullptr);
+
+QS_SIG_DICTIONARY(HUNGRY_SIG,    this); // signal just for Table
+
+subscribe(DONE_SIG);
+subscribe(PAUSE_SIG);
+subscribe(SERVE_SIG);
+subscribe(TEST_SIG);
+
+for (uint8_t n = 0U; n &lt; N_PHILO; ++n) {
+    m_fork[n] = FREE;
+    m_isHungry[n] = false;
+    BSP::displayPhilStat(n, THINKING);
+}</action>
+     <initial_glyph conn="3,3,5,1,43,19,-8">
+      <action box="0,-2,6,2"/>
+     </initial_glyph>
+    </initial>
+    <!--${AOs::Table::SM::active}-->
+    <state name="active">
+     <!--${AOs::Table::SM::active::TEST}-->
+     <tran trig="TEST">
+      <tran_glyph conn="2,12,3,-1,14">
+       <action box="0,-2,11,4"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Table::SM::active::EAT}-->
+     <tran trig="EAT">
+      <action>Q_ERROR();</action>
+      <tran_glyph conn="2,16,3,-1,14">
+       <action box="0,-2,10,4"/>
+      </tran_glyph>
+     </tran>
+     <!--${AOs::Table::SM::active::serving}-->
+     <state name="serving">
+      <entry brief="give pending permitions to eat">for (uint8_t n = 0U; n &lt; N_PHILO; ++n) { // give permissions to eat...
+    if (m_isHungry[n]
+        &amp;&amp; (m_fork[LEFT(n)] == FREE)
+        &amp;&amp; (m_fork[n] == FREE))
+    {
+        m_fork[LEFT(n)] = USED;
+        m_fork[n] = USED;
+        TableEvt *te = Q_NEW(TableEvt, EAT_SIG);
+        te-&gt;philoNum = n;
+        QP::QF::PUBLISH(te, this);
+        m_isHungry[n] = false;
+        BSP::displayPhilStat(n, EATING);
+    }
+}</entry>
+      <!--${AOs::Table::SM::active::serving::HUNGRY}-->
+      <tran trig="HUNGRY">
+       <action>uint8_t n = Q_EVT_CAST(TableEvt)-&gt;philoNum;
+// phil ID must be in range and he must be not hungry
+Q_ASSERT((n &lt; N_PHILO) &amp;&amp; (!m_isHungry[n]));
+
+BSP::displayPhilStat(n, HUNGRY);
+uint8_t m = LEFT(n);</action>
+       <!--${AOs::Table::SM::active::serving::HUNGRY::[bothfree]}-->
+       <choice>
+        <guard brief="both free">(m_fork[m] == FREE) &amp;&amp; (m_fork[n] == FREE)</guard>
+        <action>m_fork[m] = USED;
+m_fork[n] = USED;
+TableEvt *pe = Q_NEW(TableEvt, EAT_SIG);
+pe-&gt;philoNum = n;
+QP::QF::PUBLISH(pe, this);
+BSP::displayPhilStat(n, EATING);</action>
+        <choice_glyph conn="18,28,5,-1,12">
+         <action box="1,0,10,2"/>
+        </choice_glyph>
+       </choice>
+       <!--${AOs::Table::SM::active::serving::HUNGRY::[else]}-->
+       <choice>
+        <guard>else</guard>
+        <action>m_isHungry[n] = true;</action>
+        <choice_glyph conn="18,28,4,-1,4,12">
+         <action box="0,4,6,2"/>
+        </choice_glyph>
+       </choice>
+       <tran_glyph conn="4,28,3,-1,14">
+        <action box="0,-2,8,2"/>
+       </tran_glyph>
+      </tran>
+      <!--${AOs::Table::SM::active::serving::DONE}-->
+      <tran trig="DONE">
+       <action>uint8_t n = Q_EVT_CAST(TableEvt)-&gt;philoNum;
+// phil ID must be in range and he must be not hungry
+Q_ASSERT((n &lt; N_PHILO) &amp;&amp; (!m_isHungry[n]));
+
+BSP::displayPhilStat(n, THINKING);
+uint8_t m = LEFT(n);
+// both forks of Phil[n] must be used
+Q_ASSERT((m_fork[n] == USED) &amp;&amp; (m_fork[m] == USED));
+
+m_fork[m] = FREE;
+m_fork[n] = FREE;
+m = RIGHT(n); // check the right neighbor
+
+if (m_isHungry[m] &amp;&amp; (m_fork[m] == FREE)) {
+    m_fork[n] = USED;
+    m_fork[m] = USED;
+    m_isHungry[m] = false;
+    TableEvt *pe = Q_NEW(TableEvt, EAT_SIG);
+    pe-&gt;philoNum = m;
+    QP::QF::PUBLISH(pe, this);
+    BSP::displayPhilStat(m, EATING);
+}
+m = LEFT(n); // check the left neighbor
+n = LEFT(m); // left fork of the left neighbor
+if (m_isHungry[m] &amp;&amp; (m_fork[n] == FREE)) {
+    m_fork[m] = USED;
+    m_fork[n] = USED;
+    m_isHungry[m] = false;
+    TableEvt *pe = Q_NEW(TableEvt, EAT_SIG);
+    pe-&gt;philoNum = m;
+    QP::QF::PUBLISH(pe, this);
+    BSP::displayPhilStat(m, EATING);
+}</action>
+       <tran_glyph conn="4,36,3,-1,14">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <!--${AOs::Table::SM::active::serving::EAT}-->
+      <tran trig="EAT">
+       <action>Q_ERROR();</action>
+       <tran_glyph conn="4,40,3,-1,14">
+        <action box="0,-2,12,4"/>
+       </tran_glyph>
+      </tran>
+      <!--${AOs::Table::SM::active::serving::PAUSE}-->
+      <tran trig="PAUSE" target="../../3">
+       <tran_glyph conn="4,44,3,1,36,6,-2">
+        <action box="0,-2,7,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,20,34,26">
+       <entry box="1,2,27,2"/>
+      </state_glyph>
+     </state>
+     <!--${AOs::Table::SM::active::paused}-->
+     <state name="paused">
+      <entry>BSP::displayPaused(1U);</entry>
+      <exit>BSP::displayPaused(0U);</exit>
+      <!--${AOs::Table::SM::active::paused::SERVE}-->
+      <tran trig="SERVE" target="../../2">
+       <tran_glyph conn="4,60,3,1,38,-31,-4">
+        <action box="0,-2,7,2"/>
+       </tran_glyph>
+      </tran>
+      <!--${AOs::Table::SM::active::paused::HUNGRY}-->
+      <tran trig="HUNGRY">
+       <action>uint8_t n = Q_EVT_CAST(TableEvt)-&gt;philoNum;
+// philo ID must be in range and he must be not hungry
+Q_ASSERT((n &lt; N_PHILO) &amp;&amp; (!m_isHungry[n]));
+m_isHungry[n] = true;
+BSP::displayPhilStat(n, HUNGRY);</action>
+       <tran_glyph conn="4,64,3,-1,16">
+        <action box="0,-2,10,2"/>
+       </tran_glyph>
+      </tran>
+      <!--${AOs::Table::SM::active::paused::DONE}-->
+      <tran trig="DONE">
+       <action>uint8_t n = Q_EVT_CAST(TableEvt)-&gt;philoNum;
+// phil ID must be in range and he must be not hungry
+Q_ASSERT((n &lt; N_PHILO) &amp;&amp; (!m_isHungry[n]));
+
+BSP::displayPhilStat(n, THINKING);
+uint8_t m = LEFT(n);
+/* both forks of Phil[n] must be used */
+Q_ASSERT((m_fork[n] == USED) &amp;&amp; (m_fork[m] == USED));
+
+m_fork[m] = FREE;
+m_fork[n] = FREE;</action>
+       <tran_glyph conn="4,68,3,-1,16">
+        <action box="0,-2,6,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph node="4,48,34,22">
+       <entry box="1,2,18,4"/>
+       <exit box="1,6,18,4"/>
+      </state_glyph>
+     </state>
+     <state_glyph node="2,6,42,66"/>
+    </state>
+    <state_diagram size="50,76"/>
+   </statechart>
+  </class>
+  <!--${AOs::AO_Philo[N_PHILO]}-->
+  <attribute name="AO_Philo[N_PHILO]" type="QP::QActive * const" visibility="0x00" properties="0x00">
+   <code>= { // &quot;opaque&quot; pointers to Philo AO
+    &amp;Philo::inst[0],
+    &amp;Philo::inst[1],
+    &amp;Philo::inst[2],
+    &amp;Philo::inst[3],
+    &amp;Philo::inst[4]
+};</code>
+  </attribute>
+  <!--${AOs::AO_Table}-->
+  <attribute name="AO_Table" type="QP::QActive * const" visibility="0x00" properties="0x00">
+   <code>= &amp;Table::inst; // &quot;opaque&quot; pointer to Table AO</code>
+  </attribute>
+  <!--${AOs::XT_Test1}-->
+  <attribute name="XT_Test1" type="QP::QXThread * const" visibility="0x00" properties="0x00"/>
+  <!--${AOs::XT_Test2}-->
+  <attribute name="XT_Test2" type="QP::QXThread * const" visibility="0x00" properties="0x00"/>
+ </package>
+ <!--${.}-->
+ <directory name=".">
+  <!--${.::dpp.hpp}-->
+  <file name="dpp.hpp">
+   <text>#ifndef DPP_HPP
+#define DPP_HPP
+
+namespace DPP {
+
+enum DPPSignals {
+    TIMEOUT_SIG = QP::Q_USER_SIG, // time event timeout
+    EAT_SIG,        // published by Table to let a philosopher eat
+    DONE_SIG,       // published by Philosopher when done eating
+    PAUSE_SIG,      // published by BSP to pause the application
+    SERVE_SIG,      // published by BSP to serve re-start serving forks
+    TEST_SIG,       // published by BSP to test the application
+    MAX_PUB_SIG,    // the last published signal
+
+    HUNGRY_SIG,     // posted direclty to Table from hungry Philo
+    MAX_SIG         // the last signal
+};
+
+} // namespace DPP
+
+$declare${Events::TableEvt}
+
+// number of philosophers
+#define N_PHILO ((uint8_t)5)
+
+$declare${AOs::AO_Philo[N_PHILO]}
+$declare${AOs::AO_Table}
+
+#ifdef QXK_HPP
+$declare${AOs::XT_Test1}
+$declare${AOs::XT_Test2}
+#endif // QXK_HPP
+
+#endif // DPP_HPP</text>
+  </file>
+  <!--${.::philo.cpp}-->
+  <file name="philo.cpp">
+   <text>#include &quot;qpcpp.hpp&quot;
+#include &quot;dpp.hpp&quot;
+#include &quot;bsp.hpp&quot;
+
+Q_DEFINE_THIS_FILE
+
+// Active object class -------------------------------------------------------
+$declare${AOs::Philo}
+
+namespace DPP {
+
+// Local objects -------------------------------------------------------------
+// helper function to provide a randomized think time for Philos
+inline QP::QTimeEvtCtr think_time() {
+    return static_cast&lt;QP::QTimeEvtCtr&gt;((BSP::random() % BSP::TICKS_PER_SEC)
+                                        + (BSP::TICKS_PER_SEC/2U));
+}
+
+// helper function to provide a randomized eat time for Philos
+inline QP::QTimeEvtCtr eat_time() {
+    return static_cast&lt;QP::QTimeEvtCtr&gt;((BSP::random() % BSP::TICKS_PER_SEC)
+                                        + BSP::TICKS_PER_SEC);
+}
+
+// helper function to provide the ID of Philo &quot;me&quot;
+inline uint8_t PHILO_ID(Philo const * const me) {
+    return static_cast&lt;uint8_t&gt;(me - &amp;Philo::inst[0]);
+}
+
+} // namespace DPP
+
+$define${AOs::AO_Philo[N_PHILO]}
+$define${AOs::Philo}</text>
+  </file>
+  <!--${.::table.cpp}-->
+  <file name="table.cpp">
+   <text>#include &quot;qpcpp.hpp&quot;
+#include &quot;dpp.hpp&quot;
+#include &quot;bsp.hpp&quot;
+
+Q_DEFINE_THIS_FILE
+
+// Active object class -------------------------------------------------------
+$declare(AOs::Table)
+
+namespace DPP {
+
+// helper function to provide the RIGHT neighbour of a Philo[n]
+inline uint8_t RIGHT(uint8_t const n) {
+    return static_cast&lt;uint8_t&gt;((n + (N_PHILO - 1U)) % N_PHILO);
+}
+
+// helper function to provide the LEFT neighbour of a Philo[n]
+inline uint8_t LEFT(uint8_t const n) {
+    return static_cast&lt;uint8_t&gt;((n + 1U) % N_PHILO);
+}
+
+constexpr uint8_t FREE = static_cast&lt;uint8_t&gt;(0);
+constexpr uint8_t USED = static_cast&lt;uint8_t&gt;(1);
+
+constexpr char_t const * const THINKING = &amp;&quot;thinking&quot;[0];
+constexpr char_t const * const HUNGRY   = &amp;&quot;hungry  &quot;[0];
+constexpr char_t const * const EATING   = &amp;&quot;eating  &quot;[0];
+
+} // namespace DPP
+
+$define${AOs::AO_Table}
+$define(AOs::Table)</text>
+  </file>
+  <!--${.::bsp.hpp}-->
+  <file name="bsp.hpp">
+   <text>//============================================================================
+// BSP for DPP, console application
+//============================================================================
+#ifndef BSP_HPP
+#define BSP_HPP
+
+namespace DPP {
+
+class BSP {
+public:
+    enum { TICKS_PER_SEC = 100 };
+
+    static void init(void);
+    static void displayPaused(uint8_t const paused);
+    static void displayPhilStat(uint8_t const n, char const *stat);
+    static void terminate(int16_t const result);
+
+    static void randomSeed(uint32_t const seed); // random seed
+    static uint32_t random(void); // pseudo-random generator
+
+    // for testing...
+    static void wait4SW1(void);
+    static void ledOn(void);
+    static void ledOff(void);
+};
+
+} // namespace DPP
+
+#endif // BSP_HPP
+</text>
+  </file>
+  <!--${.::bsp.cpp}-->
+  <file name="bsp.cpp">
+   <text>//============================================================================
+// BSP for DPP, console application
+//============================================================================
+#include &quot;qpcpp.hpp&quot;
+#include &quot;dpp.hpp&quot;
+#include &quot;bsp.hpp&quot;
+
+#include &quot;stm32l1xx.h&quot;  // CMSIS-compliant header file for the MCU used
+// add other drivers if necessary...
+
+Q_DEFINE_THIS_FILE
+
+// namespace DPP *************************************************************
+namespace DPP {
+
+// Local-scope objects -------------------------------------------------------
+// LED pins available on the board (just one user LED LD2--Green on PA.5)
+#define LED_LD2  (1U &lt;&lt; 5)
+
+// Button pins available on the board (just one user Button B1 on PC.13)
+#define BTN_B1   (1U &lt;&lt; 13)
+
+static unsigned  l_rnd;  // random seed
+
+#ifdef Q_SPY
+
+    QP::QSTimeCtr QS_tickTime_;
+    QP::QSTimeCtr QS_tickPeriod_;
+
+    // QSpy source IDs
+    static QP::QSpyId const l_SysTick_Handler  = { 0U };
+    static QP::QSpyId const l_EXTI0_IRQHandler = { 0U };
+
+    enum AppRecords { // application-specific trace records
+        PHILO_STAT = QP::QS_USER
+    };
+
+#endif
+
+// ISRs used in this project =================================================
+extern &quot;C&quot; {
+
+//............................................................................
+void SysTick_Handler(void); // prototype
+void SysTick_Handler(void) {
+    // state of the button debouncing, see below
+    static struct ButtonsDebouncing {
+        uint32_t depressed;
+        uint32_t previous;
+    } buttons = { ~0U, ~0U };
+    uint32_t current;
+    uint32_t tmp;
+
+    QK_ISR_ENTRY();   // inform QK about entering an ISR
+
+#ifdef Q_SPY
+    {
+        tmp = SysTick-&gt;CTRL; // clear SysTick_CTRL_COUNTFLAG
+        QS_tickTime_ += QS_tickPeriod_; // account for the clock rollover
+    }
+#endif
+
+    QP::QF::TICK_X(0U, &amp;l_SysTick_Handler); // process time events for rate 0
+
+    // Perform the debouncing of buttons. The algorithm for debouncing
+    // adapted from the book &quot;Embedded Systems Dictionary&quot; by Jack Ganssle
+    // and Michael Barr, page 71.
+    //
+    current = ~GPIOC-&gt;IDR; // read Port C with the state of Button B1
+    tmp = buttons.depressed; // save the debounced depressed buttons
+    buttons.depressed |= (buttons.previous &amp; current); // set depressed
+    buttons.depressed &amp;= (buttons.previous | current); // clear released
+    buttons.previous   = current; // update the history
+    tmp ^= buttons.depressed;     // changed debounced depressed
+    if ((tmp &amp; BTN_B1) != 0U) {  // debounced BTN_B1 state changed?
+        if ((buttons.depressed &amp; BTN_B1) != 0U) { // is BTN_B1 depressed?
+            static QP::QEvt const pauseEvt = { DPP::PAUSE_SIG, 0U, 0U};
+            QP::QF::PUBLISH(&amp;pauseEvt, &amp;l_SysTick_Handler);
+        }
+        else {            // the button is released
+            static QP::QEvt const serveEvt = { DPP::SERVE_SIG, 0U, 0U};
+            QP::QF::PUBLISH(&amp;serveEvt, &amp;l_SysTick_Handler);
+        }
+    }
+
+    QK_ISR_EXIT();  // inform QK about exiting an ISR
+}
+//............................................................................
+void EXTI0_IRQHandler(void); // prototype
+void EXTI0_IRQHandler(void) {
+    QK_ISR_ENTRY(); // inform QK about entering an ISR
+
+    // for testing..
+    DPP::AO_Table-&gt;POST(Q_NEW(QP::QEvt, DPP::MAX_PUB_SIG),
+                        &amp;l_EXTI0_IRQHandler);
+
+    QK_ISR_EXIT();  // inform QK about exiting an ISR
+}
+//............................................................................
+#if Q_SPY
+void USART2_IRQHandler(void) { // kernel UNAWARE interrupt
+    // is RX register NOT empty?
+    if ((USART2-&gt;SR &amp; (1U &lt;&lt; 5)) != 0) {
+        uint32_t b = USART2-&gt;DR;
+        QP::QS::rxPut(b);
+    }
+}
+#endif
+
+} // extern &quot;C&quot;
+
+// BSP functions =============================================================
+void BSP::init(void) {
+    // NOTE: SystemInit() already called from the startup code
+    //  but SystemCoreClock needs to be updated
+    //
+    SystemCoreClockUpdate();
+
+    // enable GPIOA clock port for the LED LD2
+    RCC-&gt;AHBENR |= (1U &lt;&lt; 0);
+
+    // configure LED (PA.5) pin as push-pull output, no pull-up, pull-down
+    GPIOA-&gt;MODER   &amp;= ~((3U &lt;&lt; 2*5));
+    GPIOA-&gt;MODER   |=  ((1U &lt;&lt; 2*5));
+    GPIOA-&gt;OTYPER  &amp;= ~((1U &lt;&lt;   5));
+    GPIOA-&gt;OSPEEDR &amp;= ~((3U &lt;&lt; 2*5));
+    GPIOA-&gt;OSPEEDR |=  ((1U &lt;&lt; 2*5));
+    GPIOA-&gt;PUPDR   &amp;= ~((3U &lt;&lt; 2*5));
+
+    // enable GPIOC clock port for the Button B1
+    RCC-&gt;AHBENR |=  (1U &lt;&lt; 2);
+
+    // configure Button (PC.13) pins as input, no pull-up, pull-down
+    GPIOC-&gt;MODER   &amp;= ~(3U &lt;&lt; 2*13);
+    GPIOC-&gt;OSPEEDR &amp;= ~(3U &lt;&lt; 2*13);
+    GPIOC-&gt;OSPEEDR |=  (1U &lt;&lt; 2*13);
+    GPIOC-&gt;PUPDR   &amp;= ~(3U &lt;&lt; 2*13);
+
+    BSP::randomSeed(1234U);
+
+    if (QS_INIT(nullptr) == 0U) { // initialize the QS software tracing
+        Q_ERROR();
+    }
+    QS_OBJ_DICTIONARY(&amp;l_SysTick_Handler);
+    QS_OBJ_DICTIONARY(&amp;l_EXTI0_IRQHandler);
+    QS_USR_DICTIONARY(PHILO_STAT);
+
+    // setup the QS filters...
+    QS_GLB_FILTER(QP::QS_SM_RECORDS); // state machine records
+    QS_GLB_FILTER(QP::QS_AO_RECORDS); // active object records
+    QS_GLB_FILTER(QP::QS_UA_RECORDS); // all user records
+}
+//............................................................................
+void BSP::displayPhilStat(uint8_t n, char const *stat) {
+    if (stat[0] == 'h') {
+        GPIOA-&gt;BSRRL |= LED_LD2;  // turn LED on
+    }
+    else {
+        GPIOA-&gt;BSRRH |= LED_LD2;  // turn LED off
+    }
+
+    QS_BEGIN_ID(PHILO_STAT, AO_Philo[n]-&gt;m_prio) // app-specific record begin
+        QS_U8(1, n);  // Philosopher number
+        QS_STR(stat); // Philosopher status
+    QS_END()
+}
+//............................................................................
+void BSP::displayPaused(uint8_t paused) {
+    // not enough LEDs to implement this feature
+    if (paused != (uint8_t)0) {
+        //GPIOA-&gt;BSRRL |= LED_LD2;  // turn LED on
+    }
+    else {
+        //GPIOA-&gt;BSRRH |= LED_LD2;  // turn LED off
+    }
+}
+//............................................................................
+uint32_t BSP::random(void) { // a very cheap pseudo-random-number generator
+    // &quot;Super-Duper&quot; Linear Congruential Generator (LCG)
+    // LCG(2^32, 3*7*11*13*23, 0, seed)
+    //
+    l_rnd = l_rnd * (3U*7U*11U*13U*23U);
+
+    return l_rnd &gt;&gt; 8;
+}
+//............................................................................
+void BSP::randomSeed(uint32_t seed) {
+    l_rnd = seed;
+}
+//............................................................................
+void BSP::terminate(int16_t result) {
+    (void)result;
+}
+
+} // namespace DPP
+
+
+// namespace QP **************************************************************
+namespace QP {
+
+// QF callbacks ==============================================================
+void QF::onStartup(void) {
+    // set up the SysTick timer to fire at BSP::TICKS_PER_SEC rate
+    SysTick_Config(SystemCoreClock / DPP::BSP::TICKS_PER_SEC);
+
+    // set priorities of ALL ISRs used in the system, see NOTE00
+    //
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!! CAUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Assign a priority to EVERY ISR explicitly by calling NVIC_SetPriority().
+    // DO NOT LEAVE THE ISR PRIORITIES AT THE DEFAULT VALUE!
+    //
+    NVIC_SetPriority(SysTick_IRQn,   QF_AWARE_ISR_CMSIS_PRI + 1);
+    NVIC_SetPriority(EXTI0_IRQn,     QF_AWARE_ISR_CMSIS_PRI + 2);
+    NVIC_SetPriority(USART2_IRQn,    0); // kernel UNAWARE interrupt
+    // ...
+
+    // enable IRQs...
+    NVIC_EnableIRQ(EXTI0_IRQn);
+#ifdef Q_SPY
+    NVIC_EnableIRQ(USART2_IRQn); // UART2 interrupt used for QS-RX
+#endif
+}
+//............................................................................
+void QF::onCleanup(void) {
+}
+//............................................................................
+void QK::onIdle(void) {
+    // toggle the User LED on and then off (not enough LEDs, see NOTE01)
+    QF_INT_DISABLE();
+    //GPIOA-&gt;BSRRL |= LED_LD2;  // turn LED on
+    //GPIOA-&gt;BSRRH |= LED_LD2;  // turn LED off
+    QF_INT_ENABLE();
+
+#ifdef Q_SPY
+    QS::rxParse();  // parse all the received bytes
+
+    if ((USART2-&gt;SR &amp; 0x0080U) != 0) {  // is TXE empty?
+        QF_INT_DISABLE();
+        uint16_t b = QS::getByte();
+        QF_INT_ENABLE();
+
+        if (b != QS_EOD) {  // not End-Of-Data?
+            USART2-&gt;DR  = (b &amp; 0xFFU);  // put into the DR register
+        }
+    }
+#elif defined NDEBUG
+    // Put the CPU and peripherals to the low-power mode.
+    // you might need to customize the clock management for your application,
+    // see the datasheet for your particular Cortex-M3 MCU.
+    //
+    // !!!CAUTION!!!
+    // The WFI instruction stops the CPU clock, which unfortunately disables
+    // the JTAG port, so the ST-Link debugger can no longer connect to the
+    // board. For that reason, the call to __WFI() has to be used with CAUTION.
+    //
+    // NOTE: If you find your board &quot;frozen&quot; like this, strap BOOT0 to VDD and
+    // reset the board, then connect with ST-Link Utilities and erase the part.
+    // The trick with BOOT(0) is it gets the part to run the System Loader
+    // instead of your broken code. When done disconnect BOOT0, and start over.
+    //
+    //__WFI();   Wait-For-Interrupt
+#endif
+}
+
+//............................................................................
+extern &quot;C&quot; Q_NORETURN Q_onAssert(char const * const module, int_t const loc) {
+    //
+    // NOTE: add here your application-specific error handling
+    //
+    (void)module;
+    (void)loc;
+    QS_ASSERTION(module, loc, static_cast&lt;uint32_t&gt;(10000U));
+    NVIC_SystemReset();
+}
+
+// QS callbacks ==============================================================
+#ifdef Q_SPY
+
+/*..........................................................................*/
+#define __DIV(__PCLK, __BAUD)       (((__PCLK / 4U) * 25U)/(__BAUD))
+#define __DIVMANT(__PCLK, __BAUD)   (__DIV(__PCLK, __BAUD)/100U)
+#define __DIVFRAQ(__PCLK, __BAUD)   \
+    (((__DIV(__PCLK, __BAUD) - (__DIVMANT(__PCLK, __BAUD) * 100U)) \
+        * 16U + 50U) / 100U)
+#define __USART_BRR(__PCLK, __BAUD) \
+    ((__DIVMANT(__PCLK, __BAUD) &lt;&lt; 4)|(__DIVFRAQ(__PCLK, __BAUD) &amp; 0x0FU))
+
+//............................................................................
+bool QS::onStartup(void const *arg) {
+    static uint8_t qsBuf[2*1024]; // buffer for Quantum Spy
+    static uint8_t qsRxBuf[128];  /* buffer for QS-RX channel */
+
+    initBuf(qsBuf, sizeof(qsBuf));
+    rxInitBuf(qsRxBuf, sizeof(qsRxBuf));
+
+    // enable peripheral clock for USART2
+    RCC-&gt;AHBENR   |=  (1U &lt;&lt;  0);   // Enable GPIOA clock
+    RCC-&gt;APB1ENR  |=  (1U &lt;&lt; 17);   // Enable USART#2 clock
+
+    // Configure PA3 to USART2_RX, PA2 to USART2_TX
+    GPIOA-&gt;AFR[0] &amp;= ~((15U &lt;&lt; 4*3) | (15U &lt;&lt; 4*2));
+    GPIOA-&gt;AFR[0] |=  (( 7U &lt;&lt; 4*3) | ( 7U &lt;&lt; 4*2));
+    GPIOA-&gt;MODER  &amp;= ~(( 3U &lt;&lt; 2*3) | ( 3U &lt;&lt; 2*2));
+    GPIOA-&gt;MODER  |=  (( 2U &lt;&lt; 2*3) | ( 2U &lt;&lt; 2*2));
+
+    USART2-&gt;BRR  = __USART_BRR(SystemCoreClock, 115200U);  // baud rate
+    USART2-&gt;CR3  = 0x0000U;        // no flow control
+    USART2-&gt;CR2  = 0x0000U;        // 1 stop bit
+    USART2-&gt;CR1  = ((1U &lt;&lt;  2) |   // enable RX
+                    (1U &lt;&lt;  3) |   // enable TX
+                    (1U &lt;&lt;  5) |   // enable RX interrupt
+                    (0U &lt;&lt; 12) |   // 1 start bit, 8 data bits
+                    (1U &lt;&lt; 13));   // enable USART
+
+    DPP::QS_tickPeriod_ = SystemCoreClock / DPP::BSP::TICKS_PER_SEC;
+    DPP::QS_tickTime_ = DPP::QS_tickPeriod_; // to start the timestamp at zero
+
+    return true; // return success
+}
+//............................................................................
+void QS::onCleanup(void) {
+}
+//............................................................................
+QSTimeCtr QS::onGetTime(void) {  // NOTE: invoked with interrupts DISABLED
+    if ((SysTick-&gt;CTRL &amp; SysTick_CTRL_COUNTFLAG_Msk) == 0) { // not set?
+        return DPP::QS_tickTime_ - static_cast&lt;QSTimeCtr&gt;(SysTick-&gt;VAL);
+    }
+    else { // the rollover occured, but the SysTick_ISR did not run yet
+        return DPP::QS_tickTime_ + DPP::QS_tickPeriod_
+               - static_cast&lt;QSTimeCtr&gt;(SysTick-&gt;VAL);
+    }
+}
+//............................................................................
+void QS::onFlush(void) {
+    uint16_t b;
+
+    QF_INT_DISABLE();
+    while ((b = getByte()) != QS_EOD) { // while not End-Of-Data...
+        QF_INT_ENABLE();
+        while ((USART2-&gt;SR &amp; (1U &lt;&lt; 7)) == 0U) { // while TXE not empty
+        }
+        USART2-&gt;DR = (b &amp; 0xFFU);  // put into the DR register
+        QF_INT_DISABLE();
+    }
+    QF_INT_ENABLE();
+}
+//............................................................................
+//! callback function to reset the target (to be implemented in the BSP)
+void QS::onReset(void) {
+    NVIC_SystemReset();
+}
+//............................................................................
+//! callback function to execute a uesr command (to be implemented in BSP)
+void QS::onCommand(uint8_t cmdId, uint32_t param1,
+                   uint32_t param2, uint32_t param3)
+{
+    (void)cmdId;
+    (void)param1;
+    (void)param2;
+    (void)param3;
+    //TBD
+}
+#endif // Q_SPY
+//--------------------------------------------------------------------------*/
+
+} // namespace QP
+
+//****************************************************************************
+// NOTE00:
+// The QF_AWARE_ISR_CMSIS_PRI constant from the QF port specifies the highest
+// ISR priority that is disabled by the QF framework. The value is suitable
+// for the NVIC_SetPriority() CMSIS function.
+//
+// Only ISRs prioritized at or below the QF_AWARE_ISR_CMSIS_PRI level (i.e.,
+// with the numerical values of priorities equal or higher than
+// QF_AWARE_ISR_CMSIS_PRI) are allowed to call the QK_ISR_ENTRY/QK_ISR_ENTRY
+// macros or any other QF/QK  services. These ISRs are &quot;QF-aware&quot;.
+//
+// Conversely, any ISRs prioritized above the QF_AWARE_ISR_CMSIS_PRI priority
+// level (i.e., with the numerical values of priorities less than
+// QF_AWARE_ISR_CMSIS_PRI) are never disabled and are not aware of the kernel.
+// Such &quot;QF-unaware&quot; ISRs cannot call any QF/QK services. In particular they
+// can NOT call the macros QK_ISR_ENTRY/QK_ISR_ENTRY. The only mechanism
+// by which a &quot;QF-unaware&quot; ISR can communicate with the QF framework is by
+// triggering a &quot;QF-aware&quot; ISR, which can post/publish events.
+//
+// NOTE01:
+// The User LED is used to visualize the idle loop activity. The brightness
+// of the LED is proportional to the frequency of invcations of the idle loop.
+// Please note that the LED is toggled with interrupts locked, so no interrupt
+// execution time contributes to the brightness of the User LED.
+//
+</text>
+  </file>
+  <!--${.::main.cpp}-->
+  <file name="main.cpp">
+   <text>//============================================================================
+// main() for DPP
+//============================================================================
+#include &quot;qpcpp.hpp&quot;
+#include &quot;dpp.hpp&quot;
+#include &quot;bsp.hpp&quot;
+
+//............................................................................
+int main() {
+    static QP::QEvt const *tableQueueSto[N_PHILO];
+    static QP::QEvt const *philoQueueSto[N_PHILO][N_PHILO];
+    static QP::QSubscrList subscrSto[DPP::MAX_PUB_SIG];
+
+    static QF_MPOOL_EL(DPP::TableEvt) smlPoolSto[2*N_PHILO];
+
+
+    QP::QF::init();  // initialize the framework and the underlying RT kernel
+
+    DPP::BSP::init(); // initialize the BSP
+
+    QP::QF::psInit(subscrSto, Q_DIM(subscrSto)); // init publish-subscribe
+
+    // initialize event pools...
+    QP::QF::poolInit(smlPoolSto,
+                     sizeof(smlPoolSto), sizeof(smlPoolSto[0]));
+
+    // start the active objects...
+    for (uint8_t n = 0U; n &lt; N_PHILO; ++n) {
+        DPP::AO_Philo[n]-&gt;start((uint8_t)(n + 1U),
+                           philoQueueSto[n], Q_DIM(philoQueueSto[n]),
+                           nullptr, 0U);
+    }
+    DPP::AO_Table-&gt;start((uint8_t)(N_PHILO + 1U),
+                    tableQueueSto, Q_DIM(tableQueueSto),
+                    nullptr, 0U);
+
+    return QP::QF::run(); // run the QF application
+}
+</text>
+  </file>
+  <!--${.::dpp-qk.ld}-->
+  <file name="dpp-qk.ld">
+   <text>/*****************************************************************************
+* Product: Linker script for for STM32L152RET6, GNU-ARM linker
+* Last Updated for Version: 5.9.8
+* Date of the Last Update:  2017-09-13
+*
+*                    Q u a n t u m     L e a P s
+*                    ---------------------------
+*                    innovating embedded systems
+*
+* Copyright (C) Quantum Leaps, LLC. All rights reserved.
+*
+* This program is open source software: you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published
+* by the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Alternatively, this program may be distributed and modified under the
+* terms of Quantum Leaps commercial licenses, which expressly supersede
+* the GNU General Public License and are specifically designed for
+* licensees interested in retaining the proprietary status of their code.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*
+* Contact information:
+* https://state-machine.com
+* mailto:info@state-machine.com
+*****************************************************************************/
+OUTPUT_FORMAT(&quot;elf32-littlearm&quot;, &quot;elf32-bigarm&quot;, &quot;elf32-littlearm&quot;)
+OUTPUT_ARCH(arm)
+ENTRY(Reset_Handler)  /* entry Point */
+
+MEMORY {              /* memory map of STM32L152RET6 */
+    ROM (rx)  : ORIGIN = 0x08000000, LENGTH = 512K
+    RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 80K
+}
+
+/* The size of the stack used by the application. NOTE: you need to adjust  */
+STACK_SIZE = 1024;
+
+/* The size of the heap used by the application. NOTE: you need to adjust   */
+HEAP_SIZE = 0;
+
+SECTIONS {
+
+    .isr_vector : {        /* the vector table goes FIRST into ROM */
+        KEEP(*(.isr_vector)) /* vector table */
+        . = ALIGN(4);
+    } &gt;ROM
+
+    .text : {              /* code and constants */
+        . = ALIGN(4);
+        *(.text)           /* .text sections (code) */
+        *(.text*)          /* .text* sections (code) */
+        *(.rodata)         /* .rodata sections (constants, strings, etc.) */
+        *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+
+        KEEP (*(.init))
+        KEEP (*(.fini))
+
+        . = ALIGN(4);
+    } &gt;ROM
+
+    .preinit_array : {
+        PROVIDE_HIDDEN (__preinit_array_start = .);
+        KEEP (*(.preinit_array*))
+        PROVIDE_HIDDEN (__preinit_array_end = .);
+    } &gt;ROM
+
+    .init_array : {
+        PROVIDE_HIDDEN (__init_array_start = .);
+        KEEP (*(SORT(.init_array.*)))
+        KEEP (*(.init_array*))
+        PROVIDE_HIDDEN (__init_array_end = .);
+    } &gt;ROM
+
+    .fini_array : {
+        PROVIDE_HIDDEN (__fini_array_start = .);
+        KEEP (*(.fini_array*))
+        KEEP (*(SORT(.fini_array.*)))
+        PROVIDE_HIDDEN (__fini_array_end = .);
+    } &gt;ROM
+
+    _etext = .;            /* global symbols at end of code */
+
+    .stack : {
+        __stack_start__ = .;
+        . = . + STACK_SIZE;
+        . = ALIGN(4);
+        __stack_end__ = .;
+    } &gt;RAM
+
+    .data :  AT (_etext) {
+        __data_load = LOADADDR (.data);
+        __data_start = .;
+        *(.data)           /* .data sections */
+        *(.data*)          /* .data* sections */
+        . = ALIGN(4);
+        __data_end__ = .;
+        _edata = __data_end__;
+    } &gt;RAM
+
+    .bss : {
+        __bss_start__ = .;
+        *(.bss)
+        *(.bss*)
+        *(COMMON)
+        . = ALIGN(4);
+        _ebss = .;         /* define a global symbol at bss end */
+        __bss_end__ = .;
+    } &gt;RAM
+
+    __exidx_start = .;
+    .ARM.exidx   : { *(.ARM.exidx* .gnu.linkonce.armexidx.*) } &gt;RAM
+    __exidx_end = .;
+
+    PROVIDE ( end = _ebss );
+    PROVIDE ( _end = _ebss );
+    PROVIDE ( __end__ = _ebss );
+
+    .heap : {
+        __heap_start__ = .;
+        . = . + HEAP_SIZE;
+        . = ALIGN(4);
+        __heap_end__ = .;
+    } &gt;RAM
+
+    /* Remove information from the standard libraries */
+    /DISCARD/ : {
+        libc.a ( * )
+        libm.a ( * )
+        libgcc.a ( * )
+    }
+}
+</text>
+  </file>
+  <!--${.::Makefile}-->
+  <file name="Makefile">
+   <text>##############################################################################
+# Makefile for QP/C++ on STM32 NUCLEO-L152RE, QK kernel, GNU-ARM
+##############################################################################
+# examples of invoking this Makefile:
+# building configurations: Debug (default), Release, and Spy
+# make
+# make CONF=rel
+# make CONF=spy
+#
+# cleaning configurations: Debug (default), Release, and Spy
+# make clean
+# make CONF=rel clean
+# make CONF=spy clean
+#
+# NOTE:
+# To use this Makefile on Windows, you will need the GNU make utility, which
+# is included in the Qtools collection for Windows, see:
+#    https://sourceforge.net/projects/qpc/files/QTools/
+#
+
+#-----------------------------------------------------------------------------
+# project name
+#
+PROJECT     := dpp-qk
+
+#-----------------------------------------------------------------------------
+# project directories
+#
+
+# location of the QP/C++ framework (if not provided in an environemnt var.)
+ifeq ($(QPCPP),)
+QPCPP := ../../../../..
+endif
+
+# QP port used in this project
+QP_PORT_DIR := $(QPCPP)/ports/arm-cm/qk/gnu
+
+# list of all source directories used by this project
+VPATH = \
+    .. \
+    ../.. \
+    $(QPCPP)/src/qf \
+    $(QPCPP)/src/qk \
+    $(QPCPP)/src/qs \
+    $(QP_PORT_DIR) \
+    $(QPCPP)/3rd_party/nucleo-l152re \
+    $(QPCPP)/3rd_party/nucleo-l152re/gnu
+
+# list of all include directories needed by this project
+INCLUDES  = \
+    -I../.. \
+    -I$(QPCPP)/include \
+    -I$(QPCPP)/src \
+    -I$(QP_PORT_DIR) \
+    -I$(QPCPP)/3rd_party/CMSIS/Include \
+    -I$(QPCPP)/3rd_party/nucleo-l152re
+
+#-----------------------------------------------------------------------------
+# files
+#
+
+# assembler source files
+ASM_SRCS :=
+
+# C source files
+C_SRCS := \
+    system_stm32l1xx.c \
+    startup_stm32l1xx.c
+
+# C++ source files
+CPP_SRCS := \
+    bsp.cpp \
+    main.cpp \
+    philo.cpp \
+    table.cpp
+
+OUTPUT    := $(PROJECT)
+LD_SCRIPT := $(PROJECT).ld
+
+QP_SRCS := \
+    qep_hsm.cpp \
+    qep_msm.cpp \
+    qf_act.cpp \
+    qf_actq.cpp \
+    qf_defer.cpp \
+    qf_dyn.cpp \
+    qf_mem.cpp \
+    qf_ps.cpp \
+    qf_qact.cpp \
+    qf_qeq.cpp \
+    qf_qmact.cpp \
+    qf_time.cpp \
+    qk.cpp \
+    qk_port.cpp
+
+QP_ASMS :=
+
+QS_SRCS := \
+    qs.cpp \
+    qs_rx.cpp \
+    qs_64bit.cpp \
+    qs_fp.cpp
+
+LIB_DIRS  :=
+LIBS      :=
+
+# defines
+DEFINES   :=
+
+# ARM CPU, ARCH, FPU, and Float-ABI types...
+# ARM_CPU:   [cortex-m0 | cortex-m0plus | cortex-m1 | cortex-m3 | cortex-m4]
+# ARM_ARCH:  [6 | 7] (NOTE: must match ARM_CPU!)
+# ARM_FPU:   [ | vfp]
+# FLOAT_ABI: [ | soft | softfp | hard]
+#
+ARM_CPU   := -mcpu=cortex-m3
+ARM_ARCH  := 7   # NOTE: must match the ARM_CPU!
+ARM_FPU   :=
+FLOAT_ABI :=
+
+#-----------------------------------------------------------------------------
+# GNU-ARM toolset (NOTE: You need to adjust to your machine)
+# see https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
+#
+ifeq ($(GNU_ARM),)
+GNU_ARM := $(QTOOLS)/gnu_arm-none-eabi
+endif
+
+# make sure that the GNU-ARM toolset exists...
+ifeq (&quot;$(wildcard $(GNU_ARM))&quot;,&quot;&quot;)
+$(error GNU_ARM toolset not found. Please adjust the Makefile)
+endif
+
+CC    := $(GNU_ARM)/bin/arm-none-eabi-gcc
+CPP   := $(GNU_ARM)/bin/arm-none-eabi-g++
+AS    := $(GNU_ARM)/bin/arm-none-eabi-as
+LINK  := $(GNU_ARM)/bin/arm-none-eabi-g++
+BIN   := $(GNU_ARM)/bin/arm-none-eabi-objcopy
+
+
+##############################################################################
+# Typically, you should not need to change anything below this line
+
+# basic utilities (included in Qtools for Windows), see:
+#    http://sourceforge.net/projects/qpc/files/Qtools
+
+MKDIR := mkdir
+RM    := rm
+RMDIR := rmdir
+
+#-----------------------------------------------------------------------------
+# build options for various configurations for ARM Cortex-M4F
+#
+
+# combine all the soruces...
+CPP_SRCS += $(QP_SRCS)
+ASM_SRCS += $(QP_ASMS)
+
+ifeq (rel, $(CONF)) # Release configuration ..................................
+
+BIN_DIR := rel
+
+ASFLAGS = $(ARM_CPU) $(ARM_FPU) $(ASM_CPU) $(ASM_FPU)
+
+CFLAGS = -c $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections \
+    -O1 $(INCLUDES) $(DEFINES) -DNDEBUG
+
+CPPFLAGS = -c $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions \
+    -O1 $(INCLUDES) $(DEFINES) -DNDEBUG
+
+else ifeq (spy, $(CONF))  # Spy configuration ................................
+
+BIN_DIR := spy
+
+CPP_SRCS += $(QS_SRCS)
+
+ASFLAGS = -g $(ARM_CPU) $(ARM_FPU) $(ASM_CPU) $(ASM_FPU)
+
+CFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections \
+    -O $(INCLUDES) $(DEFINES) -DQ_SPY
+
+CPPFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions \
+    -O $(INCLUDES) $(DEFINES) -DQ_SPY
+
+else # default Debug configuration ..........................................
+
+BIN_DIR := dbg
+
+ASFLAGS = -g $(ARM_CPU) $(ARM_FPU) $(ASM_CPU) $(ASM_FPU)
+
+CFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections \
+    -O $(INCLUDES) $(DEFINES)
+
+CPPFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
+    -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions \
+    -O $(INCLUDES) $(DEFINES)
+
+endif # ......................................................................
+
+
+LINKFLAGS = -T$(LD_SCRIPT) $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb \
+    -specs=nosys.specs -specs=nano.specs \
+    -Wl,-Map,$(BIN_DIR)/$(OUTPUT).map,--cref,--gc-sections $(LIB_DIRS)
+
+
+ASM_OBJS     := $(patsubst %.s,%.o,  $(notdir $(ASM_SRCS)))
+C_OBJS       := $(patsubst %.c,%.o,  $(notdir $(C_SRCS)))
+CPP_OBJS     := $(patsubst %.cpp,%.o,$(notdir $(CPP_SRCS)))
+
+TARGET_BIN   := $(BIN_DIR)/$(OUTPUT).bin
+TARGET_ELF   := $(BIN_DIR)/$(OUTPUT).elf
+ASM_OBJS_EXT := $(addprefix $(BIN_DIR)/, $(ASM_OBJS))
+C_OBJS_EXT   := $(addprefix $(BIN_DIR)/, $(C_OBJS))
+C_DEPS_EXT   := $(patsubst %.o, %.d, $(C_OBJS_EXT))
+CPP_OBJS_EXT := $(addprefix $(BIN_DIR)/, $(CPP_OBJS))
+CPP_DEPS_EXT := $(patsubst %.o, %.d, $(CPP_OBJS_EXT))
+
+# create $(BIN_DIR) if it does not exist
+ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
+$(shell $(MKDIR) $(BIN_DIR))
+endif
+
+#-----------------------------------------------------------------------------
+# rules
+#
+
+all: $(TARGET_BIN)
+#all: $(TARGET_ELF)
+
+$(TARGET_BIN): $(TARGET_ELF)
+    $(BIN) -O binary $&lt; $@
+
+$(TARGET_ELF) : $(ASM_OBJS_EXT) $(C_OBJS_EXT) $(CPP_OBJS_EXT)
+    $(CPP) $(CPPFLAGS) $(QPCPP)/include/qstamp.cpp -o $(BIN_DIR)/qstamp.o
+    $(LINK) $(LINKFLAGS) -o $@ $^ $(BIN_DIR)/qstamp.o $(LIBS)
+
+$(BIN_DIR)/%.d : %.c
+    $(CC) -MM -MT $(@:.d=.o) $(CFLAGS) $&lt; &gt; $@
+
+$(BIN_DIR)/%.d : %.cpp
+    $(CPP) -MM -MT $(@:.d=.o) $(CPPFLAGS) $&lt; &gt; $@
+
+$(BIN_DIR)/%.o : %.s
+    $(AS) $(ASFLAGS) $&lt; -o $@
+
+$(BIN_DIR)/%.o : %.c
+    $(CC) $(CFLAGS) $&lt; -o $@
+
+$(BIN_DIR)/%.o : %.cpp
+    $(CPP) $(CPPFLAGS) $&lt; -o $@
+
+# include dependency files only if our goal depends on their existence
+ifneq ($(MAKECMDGOALS),clean)
+  ifneq ($(MAKECMDGOALS),show)
+-include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
+  endif
+endif
+
+
+.PHONY : clean
+clean:
+    $(RM) $(BIN_DIR)/*.*
+    $(RMDIR) $(BIN_DIR)
+
+show:
+    @echo PROJECT = $(PROJECT)
+    @echo CONF = $(CONF)
+    @echo DEFINES = $(DEFINES)
+    @echo ASM_FPU = $(ASM_FPU)
+    @echo ASM_SRCS = $(ASM_SRCS)
+    @echo C_SRCS = $(C_SRCS)
+    @echo CPP_SRCS = $(CPP_SRCS)
+    @echo ASM_OBJS_EXT = $(ASM_OBJS_EXT)
+    @echo C_OBJS_EXT = $(C_OBJS_EXT)
+    @echo C_DEPS_EXT = $(C_DEPS_EXT)
+    @echo CPP_DEPS_EXT = $(CPP_DEPS_EXT)
+    @echo TARGET_ELF = $(TARGET_ELF)
+</text>
+  </file>
+ </directory>
+</model>
