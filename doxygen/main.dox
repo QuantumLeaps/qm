@@ -2,8 +2,8 @@
 ![QM Model-Based Design tool](qm_3monitors.jpg)
 
 @remark
-<a target="_blank" href="https://github.com/QuantumLeaps/qpc" title="QP/C on GitHub"><img style="float:right; clear:right;" src="img/logo_github.png"></a>
-To check what's new in QM, please see @ref history "QM Revision History". You can also get the latest __QM release__, with the recent enhancements and bug fixes, from the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qm/releases"><strong>GitHub QM repository</strong></a>.
+<a target="_blank" href="https://github.com/QuantumLeaps/qm" title="QM on GitHub"><img style="float:right; clear:right;" src="img/logo_github.png"></a>
+To check what's new in QM, please see @ref history "QM Revision History". You can also get the latest **QM release**, with the recent enhancements and bug fixes, from the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qm/releases"><strong>GitHub QM repository</strong></a>.
 
 <div style="clear:both"></div>
 
