@@ -1,6 +1,12 @@
 /*! @page history Revision History
 @nav{ce_qmc,license}
 
+@section qm_5_2_1 Version 5.2.1, 2022-07-31
+__Code Generation:__
+
+- corrected handling of "namespaces" in C
+
+
 @section qm_5_2_0 Version 5.2.0, 2022-06-30
 __Code Generation:__
 
