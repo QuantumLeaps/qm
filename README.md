@@ -1,11 +1,10 @@
 ![QM model-based design tool](https://www.state-machine.com/img/qm_3monitors.jpg)
 
----------------------------------------------------------------------------
 # What's New?
 View QM Revision History at:
 https://www.state-machine.com/qm/history.html
 
----------------------------------------------------------------------------
+
 # Documentation
 The online HTML documention for the **latest** version of QM is located
 at: https://www.state-machine.com/qm/
@@ -14,7 +13,7 @@ The offline HTML documentation for **this** particular version of QM
 is located in the folder `html/`. To view the offline documentation, open
 the file `html/index.html` in your web browser.
 
----------------------------------------------------------------------------
+
 # About QM
 QM (QP Modeler) is a freeware graphical modeling tool for designing and
 implementing real-time embedded software based on the UML state machines
@@ -24,7 +23,7 @@ QM is available for Windows 32/64-bit, Linux 64-bit, and MacOS.
 > NOTE: For more information, please refer to the online QM Manual at:
 https://www.state-machine.com/qm/
 
----------------------------------------------------------------------------
+
 # Downloading and Installing QM
 The most recommended way of obtaining QM is by downloading the
 [QP-bundle](https://www.state-machine.com/#Downloads), which includes
@@ -42,7 +41,7 @@ as described below.
 > CAUTION: If you have any previous version of QM installed on your system,
 please *uninstall* it before installing the new version.
 
----------------------------------------------------------------------------
+
 ### Installing QM on Windows (32/64-bit)
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
 download the QM installer (`qm_<ver>-windows.exe`), which is digitally signed
@@ -65,7 +64,7 @@ provided and you can uninstall QM via the standard "Apps and Features".
 If you intalled QM from the zip archive, you unistall QM by simply deleting
 the installation directory.
 
----------------------------------------------------------------------------
+
 ### Installing QM on Linux (64-bit)
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
 download the QM zip archive for Linux (`qm_<ver>-linux64.zip`). You can
@@ -86,7 +85,6 @@ chmod u+x qm.sh
 `qm/bin/qm.sh` script. Make sure that the file has executable permissions.
 
 
----------------------------------------------------------------------------
 ### Installing QM on MacOS
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
 download the disk image for MacOS (`qm_<ver>-macos.dmg`). Double click
@@ -98,7 +96,6 @@ alias of the qm.app and place it on your Desktop.
 To uninstall QM, simply delete the qm.app file and the examples.
 
 
----------------------------------------------------------------------------
 # EXAMPLE PROJECTS
 The QM example models are included in the QP baseline distributions. The
 console-type examples are available for Windows (MinGW and Visual C++),
@@ -117,7 +114,6 @@ denotes the folder where you have installed the specific version of the
 QP framework (QP/C, QP/C++, or QP-nano).
 
 
----------------------------------------------------------------------------
 # LICENSING QM
 The QM graphical modeling tool is freeware. It is free to download and
 free use, but is not open source. During the installation you will need
@@ -141,14 +137,12 @@ refer to the QP licensing (https://www.state-machine.com/licensing/ )
 for more information.
 
 
----------------------------------------------------------------------------
 # SUPPORT AND REPORTING BUGS & ISSUES
 Support for QM is provided in the Free Support forum at:
 
 - https://sourceforge.net/projects/qpc/forums/forum/668726
 
 
----------------------------------------------------------------------------
 # REPORTING BUGS & ISSUES
 The QM software has many assertions inside, and the assertions are
 ENABLED in the release version.
@@ -168,7 +162,13 @@ a suggestion how to improve this functionality to the "Feature Tracker" at:
 
 Thank you for your help in improving QM!
 
----------------------------------------------------------------------------
+
+# How to Help this Project?
+If you like this project, please give it a star (in the upper-right corner of your browser window):
+
+![GitHub star](doxygen/images/github-star.jpg)
+
+
 # CONTACT INFORMATION
 - https://www.state-machine.com
 - info@state-machine.com
