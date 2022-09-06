@@ -1,4 +1,9 @@
+*.so
+*.so.*
+qm
+qmc
+
 html/
-linux64/bin/
+#linux64/bin
 macos/bin/
 windows/bin/
