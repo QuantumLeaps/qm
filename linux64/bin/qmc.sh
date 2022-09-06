@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # find directory of this wrapper
-dirname="$(dirname "${0}")"
+dirname="$(dirname "$(readlink "${0}")")"
 tmp="${dirname#?}"
 
 if [ "${dirname%$tmp}" != "/" ]; then
@@ -13,7 +13,7 @@ if [ "${LD_LIBRARY_PATH}" ]; then
   LD_LIBRARY_PATH="${dirname}:${LD_LIBRARY_PATH}"
 else
   LD_LIBRARY_PATH="${dirname}"
-fi
+fi  
 export LD_LIBRARY_PATH
 
 # replace this wrapper script with qmc + args
