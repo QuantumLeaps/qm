@@ -1,6 +1,12 @@
 /*! @page history Revision History
 @nav{ce_qmc,license}
 
+@section qm_5_2_2 Version 5.2.2, 2022-09-30
+__Code Generation:__
+- extended the free operation model item to also support function templates in C++
+- removed spurious spaces generated in operations after the parameter list.
+
+
 @section qm_5_2_1 Version 5.2.1, 2022-07-31
 __Code Generation:__
 
