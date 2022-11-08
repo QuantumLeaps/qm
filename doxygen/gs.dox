@@ -1,5 +1,7 @@
 /*! @page gs Getting Started
+@ifnot LATEX
 @nav{index,gs_get}
+@endif
 
 The following sections describe how to get started with QM&trade; quickly:
 - @subpage gs_get
@@ -7,30 +9,40 @@ The following sections describe how to get started with QM&trade; quickly:
 - @subpage gs_tut
 - @subpage gs_exa
 
-@note
+@remark
 The features of this online help and tips for using it are described in Section @ref help.
 
+@note
+<a href="https://youtu.be/VJpTJaGPrVk">QM Tutorial video</a>
+@image html  qm_tut_video.jpg "QM Tutorial video"
+@image latex qm_tut_video.jpg "QM Tutorial video"
 
-[![Watch QM Tutorial video](qm_tut_video.jpg)](https://youtu.be/VJpTJaGPrVk)
-
+@ifnot LATEX
 @nav{index,gs_get}
+@endif
 */
 /*##########################################################################*/
 /*!
 @page gs_get Downloading &amp; Installing QM&trade;
+@ifnot LATEX
 @nav{gs,gs_run}
+@endif
 
 @section gs_bundle Downloading QM&trade; in QP&trade;-Bundle
-The most recommended way of getting QM&trade; is by downloading the <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><b>QP-bundle&trade;</b></a>, which includes QM&trade; and also all <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; Real-Time Embedded Frameworks</a> and the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qtools/">QTools&trade; collection</a>. The main advantage of getting QM&trade; bundled together like that is that you get all components, tools and ready-to-use examples.
+The most recommended way of getting QM&trade; is by downloading the @webref{#Downloads,QP-bundle&trade;}, which includes QM&trade; and also all @webref{products/qp,QP&trade; Real-Time Embedded Frameworks} and the @webref{products/qtools,QTools&trade; collection}. The main advantage of getting QM&trade; bundled together like that is that you get all components, tools and ready-to-use examples.
 
-[![QP-bundle Downloads](qp-bundle.png)](https://www.state-machine.com/#Downloads)
-
-@note
-<a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><strong>QP-bundle&trade;</strong></a> is the **most recommended** way of downloading and installing QM&trade;. However, if you are allergic to installers and GUIs or don't have administrator privileges you can also **download and install QM&trade; separately** as described below.
+@ifnot LATEX
+@remark
+@htmlonly
+<a target="_blank" href="https://www.state-machine.com/#Downloads"><img style="float:right; clear:right;" src="img/qp-bundle.png"></a>
+@endhtmlonly
+@endif
+@image{inline} latex qp-bundle.png width=0.5in
+@webref{#Downloads,QP-bundle&trade;} is the **most recommended** way of downloading and installing QM&trade;. However, if you are allergic to installers and GUIs or don't have administrator privileges you can also **download and install QM&trade; separately** as described below.
 
 
 @section gs_gh Downloading QM&trade; from GitHub
-Go to the <a class="extern" href="https://github.com/QuantumLeaps/qm/releases" target="_blank">QM&trade; <strong>release</strong> page on GitHub</a>, and choose the QM&trade; version number you wish to download. You should select the latest QM&trade; version, unless you have a very specific reason to go with an older release.
+Go to the <a class="extern" href="https://github.com/QuantumLeaps/qm/releases" target="_blank">QM&trade; release page on GitHub</a>, and choose the QM&trade; version number you wish to download. You should select the latest QM&trade; version, unless you have a very specific reason to go with an older release.
 
 Inside the release directory (e.g., `5.1.3`), you need to choose the QM&trade; archive for your platform. QM&trade; is available for Windows (`qm_<ver>-win32.zip`), Linux (`qm_<ver>-linux64.zip`), and MacOS (`qm_<ver>-macx64.dmg`).
 
@@ -78,11 +90,11 @@ The easiest way to launch QM&trade; is through the desktop shortcut. However, on
 To run the QM&trade; application on Linux, you need to run the `<qm>/bin/qm.sh` bash script instead of directly running the `<qm>/bin/qm` executable.
 
 
-@section gs_install_mac Installing QM&trade; on MacOS
+@section gs_install_mac Installing QM&trade; on macOS
 
 After downloading the `qm_<ver>-macx64.dmg` disk image, double click on the `.dmg` file. This will mount and open the disk image. To install the QM tool, you simply drag the `qm.app` image into the `Applications` folder (typically visible in the Dock). If you wish, you might also create the alias of the `qm.app` and place it on your Desktop.
 
-![QM setup for Mac OS X](setup_mac.png)
+![QM setup for macOS](setup_mac.png)
 
 To uninstall QM, simply delete the QM application from the Applications folder.
 
@@ -90,7 +102,8 @@ To uninstall QM, simply delete the QM application from the Applications folder.
 @section gs_install_folder QM&trade; Installation Folder
 The setup program installs QM&trade; executable and all shared libraries necessary to run the application. The following example shows directories and files installed on Windows (where `&lt;qm&gt;` denotes the folder where you chose to install QM&trade;):
 
-@code{c}
+<br>
+@code{.c}
 <qm>
   +-bin/             // executables
   | +-platforms/     // Platform plugin for Qt5
@@ -105,7 +118,7 @@ The setup program installs QM&trade; executable and all shared libraries necessa
   | + . . . .
   |
   +-html/            // HTML help
-  | +-...
+  | +-~~~
   | +-index.html     // HTML index file for all help topics
   |
   +-Resources/       // QM model templates
@@ -121,13 +134,17 @@ The setup program installs QM&trade; executable and all shared libraries necessa
 
 
 @section gs_qp QP&trade; Frameworks
-If your only intention is to use QM&trade; as a drawing tool, you don't need to bother with <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade;</a> or even know what it is. However, if you wish to use QM&trade; to its full potential for generating production-quality code, you need to install at least one of the QP&trade; frameworks (<a class="extern" target="_blank" href="https://www.state-machine.com/qpc/">QP/C</a>, <a class="extern" target="_blank" href="https://www.state-machine.com/qpcpp/">QP/C++</a>, or <a class="extern" target="_blank" href="https://www.state-machine.com/qpn/">QP-nano</a>). The open source QP&trade; frameworks are available for download inside the <a class="extern" target="_blank" href="https://www.state-machine.com/#Downloads"><b>QP-bundle&trade;</b></a>, which includes QM&trade; and also all <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; Real-Time Embedded Frameworks</a> and the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qtools/">QTools&trade; collection</a> or separately, as described in the Reference Manuals of each framework.
+If your only intention is to use QM&trade; as a drawing tool, you don't need to bother with @webref{products/qp,QP&trade;} or even know what it is. However, if you wish to use QM&trade; to its full potential for generating production-quality code, you need to install at least one of the QP&trade; frameworks (QP/C, QP/C++, or QP-nano). The open source QP&trade; frameworks are available for download inside the @webref{#Downloads,QP-bundle&trade;}, which includes QM&trade; and also all @webref{products/qp,QP&trade; Real-Time Embedded Frameworks} and the @webref{products/qtools,QTools&trade; collection}> or separately, as described in the Reference Manuals of each framework.
 
+@ifnot LATEX
 @nav{gs_get,gs_run}
+@endif
 */
 /*##########################################################################*/
 /*! @page gs_run Launching QM&trade;
+@ifnot LATEX
 @nav{gs_get, gs_tut}
+@endif
 
 <p>The QM&trade; modeling tool can be used in two modes of operation: interactive GUI mode and command-line mode. This section begins with the description of the @ref gs_run_cmd-line "command-line parameters" and the @ref gs_console "console-mode", which is the same on all platforms supported by QM. Next, the section describes how to launch QM&trade; in the @ref gs_run_win "interactive GUI mode", which might vary, depending on the underlying operating system.
 </p>
@@ -149,8 +166,7 @@ The `-style <style>` option overrides the default QM style.
 
 
 @section gs_console Console Mode
-
-The QM&trade; application supports the __console mode__, in which it can **generate diagrams** and/or **generate code**. This console QM mode allows you to incorporate the code generation step into an **automated build process**, such as `Makefiles`, build scripts, or extra pre-compile steps in project files. The following output from the -h (help) option concisely summarizes the features of the console-mode:
+The QM&trade; application supports the __console mode__, in which it can **generate diagrams** and/or **generate code**. This console QM mode allows you to incorporate the code generation step into an **automated build process**, such as `Makefiles`, build scripts, or extra pre-compile steps in project files. The following output from the -h (help) option concisely summarizes the features of the console-mode:<br>
 
 @verbatim
 C:\>qm -h
@@ -185,12 +201,12 @@ Even though the QM&trade; __console mode__ does not launch a GUI, it still requi
 @section gs_run_win Launching QM&trade; on Windows
 The simplest way of running QM&trade; is by double-clicking on the desktop shortcut. In this case QM is launched without any command-line arguments. QM&trade; can be also launched by dragging a QM model file and dropping it on the QM shortcut, in which case QM is launched with the model file name as a command-line argument. Finally, QM can also be launched by double-clicking on the @ref bm_model "Model File" in the standard file explorer on your system, which launches QM&trade; and opens the model.
 
-![QM shortcut](qm_shortcut.png)
+@image html  qm_shortcut.png "QM shortcut"
+@image latex qm_shortcut.png "QM shortcut" width=0.5in
 
 
 @section gs_run_linux Launching QM&trade; on Linux
-
-<span class="highlight">To run the QM&trade; application on Linux, you need to run the `<qm>/bin/qm.sh` bash script instead of the `<qm>/bin/qm` executable directly</span>. This is because the dynamic linker on Linux does **not** check the application directory for dynamic libraries by default, and it has to be expressly configured by setting the `LD_LIBRARY_PATH` environment variable, which is why you need the `<qm>/bin/qm.sh` script. Make sure that the script has executable permissions.
+To run the QM&trade; application on Linux, you need to run the `<qm>/bin/qm.sh` bash script instead of the `<qm>/bin/qm` executable directly. This is because the dynamic linker on Linux does **not** check the application directory for dynamic libraries by default, and it has to be expressly configured by setting the `LD_LIBRARY_PATH` environment variable, which is why you need the `<qm>/bin/qm.sh` script. Make sure that the script has executable permissions.
 
 The most convenient way to launch QM&trade; on Linux is through a desktop shortcut (see also @ref gs_install_linux_icon ). The shortcut must be set to run the `<qm>/bin/qm.sh` script, as shown in the screen shot below.
 
@@ -216,23 +232,28 @@ On macOS, you can put the QM shortcut into the Dock, as shown in the screen shot
 @note
 QM&trade; can be also launched by dragging a QM model file and dropping it on the QM shortcut. In this case QM is launched with the model file name as a command-line argument.
 
+@ifnot LATEX
 @nav{gs_get,gs_tut}
+@endif
 */
 /*##########################################################################*/
 /*! @page gs_tut QM&trade; Tutorial
+@ifnot LATEX
 @nav{gs_run,gs_exa}
+@endif
 
 <p>This tutorial describes how to use QM&trade; to model and implement a simple "Blinky" application, which can blink an LED on an embedded board or just print the state changes of the LED to the screen when executed on the desktop.
 </p>
 
 @note
-This tutorial assumes [QP/C Framework](https://www.state-machine.com/qpc) (version **6**). To work with other QP framework types ([QP/C++](https://www.state-machine.com/qpcpp) or [QP-nano](https://www.state-machine.com/qpn)) it is recommended to create your Blinky model from a **model template** for the specific framework type, as @ref gs_tut_template "described below".
+This tutorial assumes @webref{qpc,QP/C} (version **6**). To work with other QP framework types (@webref{qpcpp,QP/C++} or @webref{qpn,QP-nano}) it is recommended to create your Blinky model from a **model template** for the specific framework type, as @ref gs_tut_template "described below".
 
 
 @section gs_tut_video QM Tutorial Video
 If you prefer to watch the [<b>video version of this tutorial</b>](https://youtu.be/VJpTJaGPrVk), it is available on the [Quantum Leaps YouTube Channel](https://www.youtube.com/c/StateMachineCOM):
 
-[![Watch QM Tutorial video](qm_tut_video.jpg)](https://youtu.be/VJpTJaGPrVk)
+@image html  qm_tut_video.jpg "Watch QM Tutorial video"
+@image latex qm_tut_video.jpg "Watch QM Tutorial video"
 
 
 @section gs_tut_new Creating A New Model from Scratch
@@ -377,13 +398,13 @@ In QM&trade; **you** provide the body of every @ref ce_file "file-template", in 
 
 - In the @ref ui_explorer **double**-click on the <span class="img file_c">blinky.c</span> file to open the file in a window. Next copy the following code to the Clipboard and paste it into the file window.
 
+@caption{file blinky.c}
 @include "blinky.c"
 
 @attention
-The listing above shows the two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_directive-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_directive-def of the of the `Blinky` class.
+The listing above shows the two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_directive-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_directive-def of the of the `Blinky` class.<br>
 
 
-@n
 ![Opening blinky.c File and Pasting the Code](blinky_file_edit.gif)
 
 
@@ -439,28 +460,29 @@ Building and running Blinky on the POSIX platforms (such as Linux and MacOS) is 
 
 
 @subsection gs_tut_emb Building Blinky for an Embedded Board
-To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package) to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPC.pdf">QP/C</a>, <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QPCpp.pdf">QP/C++</a>, and <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Getting_Started_with_QP-nano.pdf">QP-nano</a>.
+To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package) to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: @webref{doc/AN_Getting_Started_with_QPC.pdf,QP/C}, @webref{doc/AN_Getting_Started_with_QPCpp.pdf,QP/C++}, and @webref{doc/AN_Getting_Started_with_QP-nano.pdf,QP-nano}.
 
 ![Blinky on TivaC LaunchPad](blinky_ek-tm4c123gxl.gif)
 
+@ifnot LATEX
 @nav{gs_run,gs_exa}
+@endif
 */
 /*##########################################################################*/
 /*! @page gs_exa QM&trade; Examples
+@ifnot LATEX
 @nav{gs_tut, ui}
+@endif
 
-<p>QM&trade; model examples and projects for ARM Cortex-M, POSIX (Linux, Embedded Linux), and Windows (including <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_QWIN-GUI.pdf">QWIN GUI Kit for Prototyping Embedded Systems on Windows
-</a>) are included in the <strong>QP&trade; Baseline Distributions</strong> available for download from <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files">SourceForge.net</a>.
+<p>QM&trade; model examples and projects for ARM Cortex-M, POSIX (Linux, Embedded Linux), and Windows (including @webref{doc/AN_QWIN-GUI.pdf,QWIN GUI Kit for Prototyping Embedded Systems on Windows}) are included in the **QP&trade; Baseline Distributions** available for download from <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files">SourceForge.net</a>.
 </p>
 
 Specifically:
-- the <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files/QP-C">QP/C&trade; Baseline Distribution</a> contains the QM models and projects for the <a class="extern" target="_blank" href="https://www.state-machine.com/qpc/">QP/C framework</a>;
+- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpc">QP/C Baseline Distribution</a> contains the QM models and projects for the @webref{qpc,QP/C} framework</a>;
 
-- the <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files/QP-Cpp">QP/C++&trade; Baseline Distribution</a> contains the QM models and projects for the <a class="extern" target="_blank" href="https://www.state-machine.com/qpcpp/">QP/C++ framework</a>; and
+- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpcpp">QP/C++ Baseline Distribution</a> contains the QM models and projects for the @webref{qpcpp,QP/C++} framework</a>; and
 
-- the <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files/QP-nano">QP-nano&trade; Baseline Distribution</a> contains the QM models and projects for the <a class="extern" target="_blank" href="https://www.state-machine.com/qpn/">QP-nano framework</a>.
-
-<div style="clear:both;"></div>
+- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpn">QP-nano Baseline Distribution</a> contains the QM models and projects for the @webref{qpn,QP-nano} framework</a>.
 
 
 @section gs_examples_finding Finding the QM&trade; Examples in the QP&trade; Distribution
@@ -470,48 +492,48 @@ The following directory chart shows QM&trade; example models and projects in the
 The QM model files have the <b>extension .qm</b>. After installing QM, you can open the models in QM by double-clicking on the `.qm` files in Windows Explorer.
 
 
-@code{c}
-qpc/   // QP/C installation folder (QP/C++ and QP-nano are similar)
+@code{.c}
+<qp>/               // QP/C, QP/C++, or QP-nano installation folder
 +-examples/         // all examples
 | +-workstation/    // examples for host workstations (Windows, Linux, macOS)
 | | +-blinky/       // Blinky example
-| | | +-blinky.qm   // QM model  <<<<<<
-| | | +-...         //
+| | | +-blinky.qm   // QM model
+| | | +-~~~         //
 | | +-calc/         // Calculator example (as published in PSiCC2 book)
-| | | +-calc.qm     // QM model  <<<<<<
-| | | +-...         //
+| | | +-calc.qm     // QM model
+| | | +-~~~         //
 | | +-calc1/        // improved Calculator example
-| | | +-calc1.qm    // QM model  <<<<<<
-| | | +-...         //
+| | | +-calc1.qm    // QM model
+| | | +-~~~         //
 | | +-calc1_sub/    // improved Calculator with sub-machines example
-| | | +-calc1_sub.qm  // QM model  <<<<<<
-| | | +-...         //
+| | | +-calc1_sub.qm  // QM model
+| | | +-~~~         //
 | | +-comp/         // "Orthogonal Component" example
-| | | +-comp.qm     // QM model  <<<<<<
-| | | +-...         //
+| | | +-comp.qm     // QM model
+| | | +-~~~         //
 | | +-dpp/          // Dining Philosophers Problem (DPP) example
-| | | +-dpp.qm      // QM model  <<<<<<
-| | | +-...         //
+| | | +-dpp.qm      // QM model
+| | | +-~~~         //
 | | +-dpp-comp/     // DPP with "Orthogonal Component" example
-| | | +-dpp.qm      // QM model  <<<<<<
-| | | +-...         //
+| | | +-dpp.qm      // QM model
+| | | +-~~~         //
 | | +-dpp-gui/      // Dining Philosophers Problem (DPP) with GUI =====++
 | | |               //                                                 ||
 | | +-game-gui/     // "Fly 'n' Shoot" game example with GUI =====++   ||
 | | |               //                                            ||   ||
 | | +-history_qhsm/ // Transition to history with QHsm example    ||   ||
-| | | +-history.qm  // QM model  <<<<<<                           ||   ||
-| | | +-...         //                                            ||   ||
+| | | +-history.qm  // QM model                                   ||   ||
+| | | +-~~~         //                                            ||   ||
 | | +-history_qmsm/ // Transition to history with QMsm example    ||   ||
-| | | +-history.qm  // QM model  <<<<<<                           ||   ||
-| | | +-...         //                                            ||   ||
-| | +-...           //                                            ||   ||
+| | | +-history.qm  // QM model                                   ||   ||
+| | | +-~~~         //                                            ||   ||
+| | +-~~~           //                                            ||   ||
 | | +-qhsmtst/      // QHsmTst example (from the PSiCC2 book)     ||   ||
-| | | +-qhsmtst.qm  // QM model  <<<<<<                           ||   ||
-| | | +-...         //                                            ||   ||
+| | | +-qhsmtst.qm  // QM model                                   ||   ||
+| | | +-~~~         //                                            ||   ||
 | | +-qmsmtst/      // QMsmTst example                            ||   ||
-| | | +-qmsmtst.qm  // QM model  <<<<<<                           ||   ||
-| | | +-...         //                                            ||   ||
+| | | +-qmsmtst.qm  // QM model                                   ||   ||
+| | | +-~~~         //                                            ||   ||
 | |                 //                                            ||   ||
 | +-arm-cm/         // examples for ARM Cortex-M                  ||   ||
 | | +-blinky_ek-tm4c123gxl/ // Blinky example for EK-TM4C123GXL   ||   ||
@@ -520,97 +542,97 @@ qpc/   // QP/C installation folder (QP/C++ and QP-nano are similar)
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qk.axf // Blinky image for debugging         ||   ||
 | | | | | | +-blinky-qk.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-blinky-qk.uvprojx // Keil uVision project             ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-gnu/      // GNU-ARM toolset                            ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qk.elf // Blinky image for debugging         ||   ||
 | | | | | | +-blinky-qk.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-Makefile  // makefile to build the project            ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-iar/      // IAR EWARM toolset                          ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qk.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-blinky-qk.ewp // IAR EW project                       ||   ||
 | | | | | +-blinky-qk.eww // IAR EW workspace                     ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | +-qv/         // examples for the cooperative QV kernel     ||   ||
 | | | | +-arm/      // ARM-Keil toolset                           ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qv.axf // Blinky image for debugging         ||   ||
 | | | | | | +-blinky-qv.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-blinky-qv.uvprojx // Keil uVision project             ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-gnu/      // GNU-ARM toolset                            ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qv.elf // Blinky image for debugging         ||   ||
 | | | | | | +-blinky-qv.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-Makefile  // makefile to build the project            ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-iar/      // IAR EWARM toolset                          ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
 | | | | | | +-blinky-qv.bin // Blinky image for flash download    ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-blinky-qv.ewp // IAR EW project                       ||   ||
 | | | | | +-blinky-qv.eww // IAR EW workspace                     ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | +-win32/      // examples for Windows                       ||   ||
 | | | | +-dbg/      // debug build directory (MinGW)              ||   ||
 | | | |   +-blinky.exe // Blinky executable                       ||   ||
 | | | | +-Debug/    // debug build directory (Visual C++)         ||   ||
 | | | | | +-blinky.exe // Blinky executable                       ||   ||
-| | | | +-...       //                                            ||   ||
+| | | | +-~~~       //                                            ||   ||
 | | | | +-Makefile  // makefile to build the project (MinGW)      ||   ||
 | | | | +-dpp_gui.sln // Visual Studio solution file              ||   ||
 | | | | +-dpp_gui.vcxproj // Visual Studio project file           ||   ||
-| | | | +-...       //                                            ||   ||
+| | | | +-~~~       //                                            ||   ||
 | | | +-win32-qv/   // examples for Windows (single-threaded)     ||   ||
-| | | | +-...       //                                            ||   ||
+| | | | +-~~~       //                                            ||   ||
 | | | | |           //                                            ||   ||
 | | +-dpp-qk_ek-tm4c123gxl/ // DPP example for EK-TM4C123GXL      ||   ||
 | | | +-qk/         // examples for the preemptive QK kernel      ||   ||
 | | | | +-arm/      // ARM-Keil toolset                           ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-dpp-qk.uvprojx // Keil uVision project                ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-gnu/      // examples for GNU-ARM                       ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-Makefile // makefile to build the project             ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-iar/      // examples for the IAR EWARM                 ||   ||
 | | | | | +-dpp-qk.ewp // IAR EW project                          ||   ||
 | | | | | +-dpp-qk.eww // IAR EW workspace                        ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | +-qv/         // examples for the cooperative QV kernel     ||   ||
 | | | | +-arm/      // ARM-Keil toolset                           ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-dpp-qv.uvprojx // Keil uVision project                ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-gnu/      // examples for GNU-ARM                       ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | | | +-Makefile // makefile to build the project             ||   ||
-| | | | | +...      //                                            ||   ||
+| | | | | +~~~      //                                            ||   ||
 | | | | +-iar/      // examples for the IAR EWARM                 ||   ||
 | | | | | +-dpp-qv.ewp // IAR EW project                          ||   ||
 | | | | | +-dpp-qv.eww // IAR EW workspace                        ||   ||
-| | | | | +-...     //                                            ||   ||
+| | | | | +-~~~     //                                            ||   ||
 | | | +-win32-gui/  // examples for Windows with GUI (QWin)  <=====|===++
 | | | | +-dbg/      // debug build directory (MinGW)              ||
 | | | |   +-dpp.exe // DPP executable                             ||
 | | | | +-Debug/    // debug build directory (Visual C++)         ||
 | | | | | +-dpp.exe // DPP executable                             ||
-| | | | +-...       //                                            ||
+| | | | +-~~~       //                                            ||
 | | | | +-Makefile  // makefile to build the project (MinGW)      ||
 | | | | +-dpp_gui.sln // Visual Studio solution file              ||
 | | | | +-dpp_gui.vcxproj // Visual Studio project file           ||
-| | | | +-...       //                                            ||
-| | | +-dpp.qm      // QM model of DPP <<<<<<                     ||
-| | | +-...         //                                            ||
+| | | | +-~~~       //                                            ||
+| | | +-dpp.qm      // QM model of DPP                            ||
+| | | +-~~~         //                                            ||
 | | +-game_efm32-slstk3401a/ // game for EFM32-SLSTK3401A         ||
 | | | +-qk/         // examples for the preemptive QK kernel      ||
 | | | | +-arm/      // ARM-Keil toolset                           ||
@@ -621,8 +643,8 @@ qpc/   // QP/C installation folder (QP/C++ and QP-nano are similar)
 | | | | +-gnu/      // examples for GNU-ARM                       ||
 | | | | +-iar/      // examples for IAR EWARM                     ||
 | | | +-win32-gui/  // examples for Windows with GUI (QWin) <=====++
-| | | | +-...       //
-| | | +-game.qm     // QM model of the game  <<<<<<
+| | | | +-~~~       //
+| | | +-game.qm     // QM model of the game
 @endcode
 
 
@@ -631,13 +653,13 @@ Most QP&trade; example application contain the QM&trade; models (`.qm`) that you
 
 
 @subsection dpp Dining Philosophers Problem (DPP) Example
-The Dining Philosophers Problem (DPP) application is used in most QP&trade; examples for various processors and operating systems. This example application is described in the <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_DPP.pdf">Application Note "Dining Philosophers Problem (DPP) Example"</a>.
+The Dining Philosophers Problem (DPP) application is used in most QP&trade; examples for various processors and operating systems. This example application is described in the Application Note @webref{doc/AN_DPP.pdf, "Dining Philosophers Problem (DPP) Example"}.
 
 ![Dining Philosophers Problem (DPP) model](ex_dpp.jpg)
 
 
 @subsection game "Fly 'n' Shoot" Game Example
-The "Fly 'n' Shoot" game example demonstrates several state machines (active objects) executing concurrently to realize a simple game. This example application is described in <a class="extern" target="_blank" href="https://www.state-machine.com/doc/PSiCC2.pdf">Chapter 1 of the "Practical UML Statecharts in C/C++, 2nd Ed." book</a>, which is available online in the book excerpts.
+The "Fly 'n' Shoot" game example demonstrates several state machines (active objects) executing concurrently to realize a simple game. This example application is described in @webref{doc/PSiCC2.pdf,Chapter 1 of the <em>Practical UML Statecharts in C/C++, 2nd Ed.</em> book}, which is available online in the book excerpts.
 
 ![Fly 'n' Shoot game model](ex_game.jpg)
 
@@ -647,7 +669,7 @@ All provided QM&trade; examples contain pre-built executables/images that you ca
 
 
 @subsection gs_examples_win Windows
-The examples for <strong>Windows</strong> come in two flavors: simple console applications and GUI simulations of an embedded board. Both types can be run by double-clicking on the executable (e.g., `dpp.exe` or `game-gui.exe`). You interact with the console applications by typing on your keyboard, where the legend of the recognized keys is displayed at the beginning of the run. The GUI simulations respond to mouse clicks and keyboard as described in the <a class="extern" target="_blank" href="https://www.state-machine.com/an/">App Notes</a> for the example applications.
+The examples for <strong>Windows</strong> come in two flavors: simple console applications and GUI simulations of an embedded board. Both types can be run by double-clicking on the executable (e.g., `dpp.exe` or `game-gui.exe`). You interact with the console applications by typing on your keyboard, where the legend of the recognized keys is displayed at the beginning of the run. The GUI simulations respond to mouse clicks and keyboard as described in the @webref{an,App Notes} for the example applications.
 
 ![DPP-GUI example on Windows](dpp_win-gui.gif)
 @n
@@ -679,6 +701,8 @@ In order to rebuild the examples from source code you need to:
 
 For example, if you want to rebuild a QP/C example project, you need to download and install the <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files/QP-C/">QP/C baseline code</a> and you need to define the environment variable `QPC`. Assuming that you have installed QP/C into the directory `C:\qp\qpc`, you should define the environment variable `QPC` to `C:\qp\qpc`.
 
+@ifnot LATEX
 @nav{gs_tut, ui}
+@endif
 */
 

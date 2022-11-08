@@ -28,22 +28,25 @@
 @echo usage:
 @echo make
 @echo make -CHM
-@echo make ...
+@echo make -LATEX
 
-:: Doxygen tool (adjust to your system) ......................................
+:: tools (adjust to your system)---------------------------------------------
+:: Doxygen tool
 @set DOXYGEN=doxygen
 
-:: HTML Help tool (needed only with the -CHM option, (adjust to your system) .
+:: HTML Help tool (needed only with the -CHM option) .
 @set HHC="C:\tools\HTML Help Workshop\hhc.exe"
 
-:: QM directory ..............................................................
+:: QM directory .............................................................
 @set QM=..
 
-:: HTML outut directory ......................................................
+: Outut directories ........................................................
 @set HTML_OUT=%QM%\html
+@set LATEX_OUT=%QM%\latex
 
-:: Generate Doxygen Documentation...
+:: Generate Doxygen Documentation -------------------------------------------
 if "%1"=="-CHM" (
+
     @echo Generating HTML...
     %DOXYGEN% Doxyfile-CHM
 
@@ -59,7 +62,24 @@ if "%1"=="-CHM" (
     @rmdir /S /Q  tmp
     @echo CHM file generated
 
+) else if "%1"=="-LATEX" (
+
+    @echo.
+    @echo Cleanup...
+    rmdir /S /Q  %LATEX_OUT%
+
+    @echo Generating LATEX...
+    %DOXYGEN% Doxyfile-LATEX
+
+    @echo Adding custom files...
+    xcopy img %LATEX_OUT%\img\
+
+    @echo TODO...
+    @echo cd ..\latex
+    @echo make.bat
+
 ) else (
+
     @echo.
     @echo Cleanup...
     rmdir /S /Q  %HTML_OUT%
@@ -67,7 +87,7 @@ if "%1"=="-CHM" (
     @echo Generating HTML...
     %DOXYGEN% Doxyfile%1
 
-    @echo Adding custom images...
+    @echo Adding custom files...
     xcopy img %HTML_OUT%\img\
     xcopy /Y ..\..\ql-doxygen\jquery.js %HTML_OUT%
     @qclean %HTML_OUT%

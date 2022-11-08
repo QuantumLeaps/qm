@@ -1,20 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 # find directory of this wrapper
-dirname="$(dirname "$(readlink "${0}")")"
-tmp="${dirname#?}"
+SCRIPT=$(readlink -f "$0")     # Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPTPATH=$(dirname "$SCRIPT") # Absolute path this script is in, thus /home/user/bin
 
-if [ "${dirname%$tmp}" != "/" ]; then
-  dirname="${PWD}/${dirname}"
-fi
-
-# add dirname (in front of LD_LIBRARY_PATH)
+# add SCRIPTPATH (in front of LD_LIBRARY_PATH)
 if [ "${LD_LIBRARY_PATH}" ]; then
-  LD_LIBRARY_PATH="${dirname}:${LD_LIBRARY_PATH}"
+  LD_LIBRARY_PATH="${SCRIPTPATH}:${LD_LIBRARY_PATH}"
 else
-  LD_LIBRARY_PATH="${dirname}"
-fi  
+  LD_LIBRARY_PATH="${SCRIPTPATH}"
+fi
 export LD_LIBRARY_PATH
 
 # replace this wrapper script with qm + args
-exec "${dirname}/qm"  "$@"
+exec "${SCRIPTPATH}/qm"  "$@"

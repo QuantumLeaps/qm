@@ -4,6 +4,7 @@ qm
 qmc
 
 html/
+latex/
 #linux64/bin
 macos/bin/
 windows/bin/
