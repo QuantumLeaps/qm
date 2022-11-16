@@ -24,7 +24,9 @@ The section @ref bm_diagram describes generic operations applicable to any diagr
 In QM&trade; a State Machine can be associated only with a @ref bm_class "class" that is a direct or indirect subclass of the @ref bm_qp_item "QP Framework" base class **QHsm**, shown at the top of the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Class_(computer_programming)">class diagram</a> @ref sm_super "below".
 
 @anchor sm_super
-@image html "qp_sm.gif" "State Machine Classes in QP 5.8+"
+@image html  qp_sm.gif
+@image latex qp_sm.gif
+@caption{State Machine Classes in QP 5.8+}
 
 The <span style="background-color:#aaf;"> **QHsm** </span> base class provides the basic interface `init()` and `dispatch()` for initializing a state machine and for dispatching events to it, respectively. The specific implementations of the state machine interface in the `QHsm` base class and its subclasses, such as **QActive**, **QMsm**, and **QMActive**, determine the @ref ce_sm "state machine implementation strategy" that QM&trade; will apply to generate code.
 
@@ -37,42 +39,44 @@ The <span style="background-color:#AAF;"> **QHsm** and **QActive** </span> class
 
 The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the `QHsm/QActive`-Style state machine implementation strategy:
 
-@image html sm_qhsm-style.png "Selecting QHsm/QActive-Style Superclass"
+@image html  sm_qhsm-style.png
+@image latex sm_qhsm-style.png
+@caption{Selecting QHsm/QActive-Style Superclass}
 
-The QHsm-style state machine code is highly readable and human-maintainable, but it requires discovering the *transition-sequences* (sequences of exit/entry/initial actions) at run-time as opposed to code-generation time.
+The main advantage of QHsm-style state machine implementation is that the code is **highly readable** and human-maintainable, but it requires discovering the *transition-sequences* (sequences of exit/entry/initial actions) at run-time as opposed to code-generation time. Also, the state nesting in QHsm-style state machines is limited to 5 levels of nesting.
 
 @attention
 Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#AAF;"> **QActive** </span>, you need to call `QActive_ctor()` (for the QP/C and QP-nano frameworks) and `QActive::QActive()` (for the QP/C++ framework).
 
-@image html sm_qhsm-ctor.png "Calling the QActive_ctor() in the subclass' constructor"
+@image html  sm_qhsm-ctor.png
+@image latex sm_qhsm-ctor.png
+@caption{Calling the QActive_ctor() in the subclass' constructor}
 
-@note
-You should consider `QHsm/QActive`-style state machines only when you are still interested in **manual coding** or maintaining your state machines. (But then you will be working against the strictly @ref ab_special "forward-engineering nature" of QM&trade;)
+@remark
+You should consider `QHsm/QActive`-style state machines when you are still interested in **manual coding** or maintaining your state machines. (But then you will be working against the strictly @ref ab_special "forward-engineering nature" of QM&trade;)
 
 
 @subsection sm_class_qmsm QMsm/QMActive-Style State Machines
-The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-style strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **highly human-readable**, but is **not** suitable for manual coding or maintaining.
-
-@note
-The QMsm/QMActive base classes are __not__ provided in the QP-nano framework, and consequently the `QMsm/QMActive` state machine implementation strategy is __not__ available in QP-nano.
+The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-style strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **human-readable**, but is **not** suitable for manual coding or maintaining.
 
 
 The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the QMsm/QMActive-Style state machine implementation strategy:
 
-@image html sm_qmsm-style.png "Selecting QMsm/QMActive-Style Superclass"
+@image html  sm_qmsm-style.png
+@image latex sm_qmsm-style.png
+@caption{Selecting QMsm/QMActive-Style Superclass}
 
-The lab tests indicate that the `QMsm/QMActive`-style state machines can be about twice as fast as the `QHsm`-style state machines (see the @ref sm_class_qhsm "next section" below). Additionally, the `QMsm/QMActive`-style state machines require less runtime support (smaller event processor) and use about 70% less stack space for the `dispatch()` operation than `QHsm/QActive`-style state machines.
+The lab tests indicate that the `QMsm/QMActive`-style state machines can be about twice as fast as the `QHsm`-style state machines (see the @ref sm_class_qhsm "next section" below). Additionally, the `QMsm/QMActive`-style state machines require less runtime support (smaller event processor) and use about 70% less stack space for the `dispatch()` operation than `QHsm/QActive`-style state machines. Also, the state nesting in QMsm-style state machines is no longer limited (nesting levels as high as 10 levels have been tested).
 
 @attention
 Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#FAA;"> **QMActive** </span>, you need to call `QMActive_ctor()` (for the QP/C framework) and `QMActive::QMActive()` (for the QP/C++ framework).
 
-@image html sm_qmsm-ctor.png "Calling the QMActive_ctor() in the subclass' constructor"
+@image html  sm_qmsm-ctor.png
+@image latex sm_qmsm-ctor.png
+@caption{Calling the QMActive_ctor() in the subclass' constructor}
 
-@note
-The `QMsm/QMActive`-style state machines are generally recommended over the older `QHsm/QActive`-style state machines described @ref sm_class_qhsm "above". You should consider `QHsm/QActive`-style state machines only when you are still interested in **manual** coding or maintaining your state machines. (But then you will be working against the strictly @ref ab_special "forward-engineering nature" of QM&trade;)
-
-@attention
-The `QMsm/QMActive`-style implementation strategy requires a @ref ab_license "commercial license certificate" to generate code.
+@remark
+The `QMsm/QMActive`-style state machines are generally recommended over the older `QHsm/QActive`-style state machines described @ref sm_class_qhsm "above".
 
 
 @section sm_toolbox State Machine Toolbox

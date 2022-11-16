@@ -74,9 +74,8 @@ if "%1"=="-CHM" (
     @echo Adding custom files...
     xcopy img %LATEX_OUT%\img\
 
-    @echo TODO...
-    @echo cd ..\latex
-    @echo make.bat
+    @cd %LATEX_OUT%
+    @call make.bat
 
 ) else (
 

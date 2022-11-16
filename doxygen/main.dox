@@ -1,6 +1,8 @@
 /*! @mainpage About QM&trade;
 
-![QM Model-Based Design tool](qm_3monitors.jpg)
+@image html  qm_3monitors.jpg
+@image latex qm_3monitors.jpg
+
 
 @ifnot LATEX
 @remark
@@ -108,9 +110,6 @@ QM&trade; internally uses the <a class="extern" target="_blank" href="http://www
 By default, the QM code generator assumes that the underlying QP&trade; framework is used under the open source <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" class="extern">GNU General Public License (GPL)</a>, and for compliance with the GPL, QM generates the required @ref ce_comment "top-level file comments".
 
 However, when the underlying QP framework is licensed commercially, the Licensee receives a @ref ui_license_cert "QM License Certificate file", which can be registered with QM by means of the @ref ui_license-dlg "Code Generation License Dialog Box". After registering a commercial license, QM generates @ref ce_comment-file "top-level file comments" that reflect the commercial license terms.
-
-@attention
-Starting from version 4, QM&trade; requires a @ref ui_license_cert "QM license certificate" to generate the @ref ce_qmsm_strategy "QMsm state machine implementation strategy".
 
 
 @section ab_help How to get help?
