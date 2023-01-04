@@ -1,13 +1,31 @@
 /*! @page history Revision History
 @nav{ce_qmc,license}
 
+@section qm_5_2_4 Version 5.2.4, 2023-01-04
+__Code Generation:__
+- This release removes code generation for the QP-nano framework, which has been discontinued.
+- The generated code requires QP/C/C++ 7.0.0 or newer.
+- Comments for all conditionally declared attributes are now included inside the conditional compilation (after `#if`).
+
+__Fixed Bugs:__
+- [#316 Using History with Submachines does not work](https://sourceforge.net/p/qpc/bugs/316)
+
+@note
+The full fix of bug#316 requires QP/C/C++ 7.2.0
+
+- [#314 QM 5.2.1 minor formatting issues](https://sourceforge.net/p/qpc/bugs/314)
+- [#327 QActive_recall documentation incorrect in QM](https://sourceforge.net/p/qpc/bugs/327)
+
+
 @section qm_5_2_3 Version 5.2.3, 2022-11-18
 __Code Generation:__
 - This release changes the licensing policy with respect to @ref sm_class_qmsm "QMsm-style state machines". Starting with this release, @ref ab_license "commercial license certificate" is no longer required to generate code for @ref sm_class_qmsm "QMsm-style state machines".
 
 __Fixed Bugs:__
-
+- [#313 QM Generates extra file header every time you generate code.](https://sourceforge.net/p/qpc/bugs/313)
 - [#318 QM incorrectly generates code for external files](https://sourceforge.net/p/qpc/bugs/318)
+- [#319 QM External Generated File - lack of newline after $define incorrectly generates code](https://sourceforge.net/p/qpc/bugs/319)
+- [#320 QM External Code Generation not backward compatible](https://sourceforge.net/p/qpc/bugs/320)
 
 
 @section qm_5_2_2 Version 5.2.2, 2022-09-30
