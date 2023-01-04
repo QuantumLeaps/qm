@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="5.2.0">
+<session version="5.2.4">
  <item name="license"></item>
  <group name="locked"/>
  <group name="settings">
@@ -9,16 +9,16 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Philo::SM">0,0,564,1506,*</item>
-  <item id="AOs::Table::SM">-129,866,693,664</item>
-  <item id=".::dpp.h">-110,0,674,300</item>
-  <item id=".::philo.c">-110,300,674,300</item>
-  <item id=".::table.c">0,600,674,300</item>
-  <item id=".::bsp.h">0,0,674,300</item>
-  <item id=".::bsp.c">0,300,674,300</item>
-  <item id=".::main.c">0,900,674,300</item>
-  <item id=".::Makefile">0,1200,674,300</item>
-  <item id=".::dpp-qk.ld">-110,600,674,300</item>
+  <item id="AOs::Philo::SM">0,0,556,1039,*</item>
+  <item id="AOs::Table::SM">0,0,693,664</item>
+  <item id=".::dpp.h">0,664,674,300</item>
+  <item id=".::philo.c">-118,763,674,300</item>
+  <item id=".::table.c">-118,0,674,300</item>
+  <item id=".::bsp.h">-118,300,674,300</item>
+  <item id=".::bsp.c">-118,600,674,300</item>
+  <item id=".::main.c">0,0,674,300</item>
+  <item id=".::Makefile">0,300,674,300</item>
+  <item id=".::dpp-qk.ld">0,763,674,300</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>
