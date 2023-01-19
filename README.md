@@ -1,6 +1,9 @@
 ![QM model-based design tool](https://www.state-machine.com/img/qm_3monitors.jpg)
 
 # What's New?
+
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/QuantumLeaps/qm)](https://github.com/QuantumLeaps/qm/releases/latest)
+
 View QM Revision History at:
 https://www.state-machine.com/qm/history.html
 
