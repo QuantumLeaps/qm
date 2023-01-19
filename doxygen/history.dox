@@ -1,6 +1,12 @@
 /*! @page history Revision History
 @nav{ce_qmc,license}
 
+@section qm_5_2_5 Version 5.2.5, 2023-01-18
+__Fixed Bugs:__
+- [#330	QM: operation does not generate correct output](https://sourceforge.net/p/qpc/bugs/330)
+- [#329	Dark theme not working](https://sourceforge.net/p/qpc/bugs/329)
+
+
 @section qm_5_2_4 Version 5.2.4, 2023-01-04
 __Code Generation:__
 - This release removes code generation for the QP-nano framework, which has been discontinued.

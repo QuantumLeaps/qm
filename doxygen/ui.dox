@@ -8,7 +8,7 @@ The QM&trade; user interface consists of **dock windows and toolbars** that surr
 
 @image html dock_windows.png "QM&trade; Graphical User Interface"
 
-@note
+<br>ote
 QM&trade; **remembers** the last used layout of all dock windows and toolbars and restores them next time the application is run.
 
 The main elements of the QM&trade; graphical user interface are as follows:
@@ -144,7 +144,7 @@ The **Tabs** mode is activated with the <span class="checkbox">Window-&gt;Show T
 <p>The @ref bm_model is saved between sessions to a **QM model file** (or to multiple **model files**, if you use @ref bm_package-extern). The QM&trade; model file has the default extension `.qm`.
 </p>
 
-@note
+<br>ote
 This section describes the basic format of a *QM model file* as it is stored on disk. Please refer to the Section @ref bm_model "QM Model" for information about the *logical structure* of the QM model, as it is presented to the user during a QM session.
 
 @image html bm_model-file.png "QM Model File on Disk"
@@ -180,7 +180,7 @@ QM can make automatic backups of the *QM model file* as well as the *QM Package 
 
 When "Create Backups" is enabled, QM will save the *previous* version of the model into the file `<model>.bak` before saving the model into a new file `<model>.qm`.
 
-@note
+<br>ote
 QM creates only **one level** of model backups. The model backup file `<model>.bak` gets **overwritten** the second and subsequent times the model is saved.
 
 @nav{ui_mdi,ui_session_file}
@@ -207,7 +207,7 @@ The QM Session File contains the following information:
 - The @ref ui_tools-dlg "External Tools" configured for the model.
 
 
-@note
+<br>ote
 The QM Session File is saved in the @ref ui_model_file "Model File" directory. This allows each model to have its **own** external tools and use the QP framework under different licensing terms than other models on the same machine.
 
 @attention
@@ -224,7 +224,7 @@ The QM Session File saved on disk should <strong>not</strong> be edited manually
 
 The QM License Certificate file is specific to the commercially licensed <a href="https://www.state-machine.com/products/#QP" target="_blank" class="extern">QP framework</a> type and therefore it is highly recommended to store it in the directory where you installed QP. For example, if you installed the <a href="https://www.state-machine.com/qpc">QP/C framework</a> in the directory `C:\qp\qpc`, you should copy your QM License Certificate file to this directory as well.
 
-@note
+<br>ote
 If you are a commercial licensee and for some reason you did not receive your QM License Certificate file, please send email with your license number to <a href="mailto:support@state-machine.com">support@state-machine.com</a> to request your copy.
 
 
@@ -253,7 +253,7 @@ The QM License Certificate file must be registered in QM by means of the @ref ui
 
 @image html license_com-dlg.png "Code Generation License Dialog (Commercial License)"
 
-@note
+<br>ote
 If you are interested in evaluating QM features available only with commercial license (such as generating code with the @ref ce_qmsm_strategy "QMsm state machine implementation strategy"), please submit an evaluation request using the no-obligation <a href="https://www.state-machine.com/licensing/#RequestForm" target="_blank" class="extern"><strong>License Request Form</strong></a>. Evaluation licenses will be granted very liberally.
 
 @nav{ui_session_file,ui_curr_item}
@@ -269,7 +269,7 @@ If you are interested in evaluating QM features available only with commercial l
 
 @image html curr_item.jpg "The Current Item"
 
-@note
+<br>ote
 The Current Item is typically also the **Selected Item** in the active diagram. However, it is also possible to select **multiple items** in a diagram or, by toggling selections, to end up de-selecting the Current Item (see section @ref bm_diagram_shape_select). Therefore, the Selected Items in a diagram should not be confused with the Current Item, which is always highlighted in the @ref ui_explorer and shown in the @ref ui_prop.
 
 @nav{ui_license_cert,ui_explorer}
@@ -325,7 +325,7 @@ The Model Explorer provides two ways to reorder items within the model:
 
 <img src="img/keyboard.png" style="float:left; margin-right:10px;">Alternatively, the @ref ui_curr_item can be moved up or down within the Model Explorer by means of the keyboard shortcuts: **Ctrl**-<span class="img key_up">(key-up)</span> and **Ctrl**-<span class="img key_down">(key-down)</span>.
 
-@note
+<br>ote
 To facilitate better organization of the model and faster navigation within the model, the QM&trade; tool uses a pre-defined ordering of model items within high-level container items, such as @ref bm_package "Packages", @ref bm_class "Classes", @ref sm "State Machines" and @ref ce_dir "Directories". For example, class attribute items are always ordered before the operation items. To enforce this ordering, the actions of moving an item up or down might be **disabled** (grayed out). In this case, you will not be able to move the item in the disallowed direction and the corresponding keyboard shortcut will be disabled as well.
 
 
@@ -344,7 +344,7 @@ To drag an item from one container to another, click on the item within the Mode
 
 @image html ui_explorer_drag-item.gif "Drag-n-Drop within Model Explorer"
 
-@note
+<br>ote
 Model Explorer "knows" which items can be accepted by which "container item" and will not allow drops on the inappropriate containers (e.g., a directory cannot hold a class). When dropping of a given item is not allowed, the mouse cursor changes to <span class="img forbidden"></span>.
 
 
@@ -381,7 +381,7 @@ By **right-clicking** on any item in the Model Explorer you can open the item-sp
 
 By **double-clicking** on an item in the Explorer you can execute its **default action**. The default action for all model items is to expand the item if it is collapsed, and collapse it if it was expanded. Additionally, the default action for diagram and file-template items is to display the diagram or file in the @ref ui_mdi.
 
-@note
+<br>ote
 The default action never causes any changes in the model and is always **safe to execute**.
 
 
@@ -401,7 +401,7 @@ The default action never causes any changes in the model and is always **safe to
 @image html view_search.png "Showing/Hiding the Search Dock Window"
 
 
-@note
+<br>ote
 To avoid confusing **Model Search** with @ref ui_explorer, QM&trade; uses a different color scheme for these two views.
 
 @image html ui_search.png "Model Search Dock Window"
@@ -426,7 +426,7 @@ The tree view below the Search Box is for selecting the **Search Item**, which n
 <div style="clear:both;"></div>
 
 @image html view_prop.png "Showing/Hiding the Property Editor Dock Window"
-@n
+<br>
 
 @image html ui_prop.png "Property Editor Dock Window"
 
@@ -473,9 +473,9 @@ The specific Property Sheets are documented with the model items to which they c
 </p>
 
 @image html view_toolbox.png "Showing/Hiding the Diagram Toolbox"
-@n
+<br>
 
-@note
+<br>ote
 The Diagram Toolbox is **enabled** only when a state diagram is the active MDI window and the model is @ref bm_lock "unlocked" (<span class="img unlock"></span>). If the Toolbox is <span class="highlight">invisible</span>, you need to show it within the <span class="menu"> View-&gt;Draw Toolbar</span> menu.
 
 <div style="clear:both;"></div>
@@ -500,8 +500,8 @@ The diagram-specific tools are used as follows:
 
 
 @sa
-  @ref sm_toolbox @n
-  @ref bm_diagram @n
+  @ref sm_toolbox <br>
+  @ref bm_diagram <br>
   @ref ui_docs_show
 
 @nav{ui_prop,ui_birds-eye}
@@ -516,7 +516,7 @@ The diagram-specific tools are used as follows:
 <div style="clear:both;"></div>
 
 @image html view_bird.png "Showing/Hiding the Bird's Eye View Dock Window"
-@n
+<br>
 
 @image html birds_eye.png "Bird's Eye View"
 
@@ -539,7 +539,7 @@ The highlighted box in the Bird's Eye View represents the viewed area on the ope
 <div style="clear:both;"></div>
 
 @image html view_log.png "Showing/Hiding the Log Console Window"
-@n
+<br>
 
 @image html log.png "Log Console Dock Window"
 
@@ -576,7 +576,7 @@ For example, the following screen shot shows the output from a code upload to an
 
 @image html log_tool.png "Output from an External Tool"
 
-@note
+<br>ote
 In case of the tool failure, the Log Console will show the error status. But, if you checked the @ref ui_tools-dlg_errors "Show error message box after failure" check box in the @ref ui_tools-dlg, you will get an additional alert in form of a message box, which can be useful for unit testing.
 
 
@@ -585,10 +585,10 @@ The Log Console also can display additional information about the model, such as
 
 @image html log_signals.png "List of Signals Handled by a State"
 
-@note
+<br>ote
 In a HSM, a state "inherits" signals from all its @ref sm_state_nest "superstates", so it might not be readily apparent which signals are handled).
 
-@next{ui_menus}
+<br>ext{ui_menus}
 */
 /*##########################################################################*/
 /*! @page ui_menus Menus
@@ -1069,7 +1069,7 @@ The File Toolbar provides quick access to actions of the @ref ui_menu_file. The 
 <div style="clear:both;"></div>
 
 @image html tb_file.png "File Toolbar"
-@n
+<br>
 <table summary="" cellpadding="2" cellspacing="0" >
   <tr>
     <td width="25"><img class="left" alt="" src="img/new_model.png"/></td>
@@ -1098,7 +1098,7 @@ The File Toolbar provides quick access to actions of the @ref ui_menu_file. The 
 The Edit Toolbar provides quick access to actions of the @ref ui_menu_edit. The Edit Toolbar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;Edit Toolbar&nbsp;</span> menu is checked.
 
 @image html tb_edit.png "Edit Toolbar"
-@n
+<br>
 
 <table summary="" cellpadding="2" cellspacing="0" >
   <tr >
@@ -1153,7 +1153,7 @@ The Edit Toolbar provides quick access to actions of the @ref ui_menu_edit. The 
 The View Toolbar provides quick access to actions of the @ref ui_menu_view. The View Toolbar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;View Toolbar&nbsp;</span> menu is checked.
 
 @image html tb_view.png "View Toolbar"
-@n
+<br>
 
 <table summary="" cellpadding="2" cellspacing="0" >
   <tr>
@@ -1198,7 +1198,7 @@ The View Toolbar provides quick access to actions of the @ref ui_menu_view. The 
 The Tools Toolbar provides quick access to actions of the @ref ui_menu_tools. The part of the Tools Toolbar with keyboard shortcuts <span class="button">F8</span>-<span class="button">F12</span> is customizable by means of the @ref ui_tools-dlg, so it might look different in your system. The Tools Toolbar is visible when the checkbox in the <span class="checkbox">&nbsp;View-&gt;Tools Toolbar&nbsp;</span> menu is checked.
 
 @image html tb_tools.png "Tools Toolbar (Example)"
-@n
+<br>
 
 <table summary="" cellpadding="2" cellspacing="0" >
   <tr>
@@ -1289,7 +1289,7 @@ The New Model dialog box has the following elements:
 
 - The @ref ui_custom_templates "Model Template" list allows you to choose a non-empty "template" as a starting point for your model. If you don't select the template and leave it at "None", your model will be empty, except for the selected framework.
 
-@note
+<br>ote
 @ref ui_custom_templates "Model Templates" are just QM models, perhaps incomplete, that **you can create** as a starting point for your other models.
 
 - The model **Name** allows you to type in the name of the @ref bm_model "model". This name is used to identify the model in the QM&trade; tool and for the @ref ui_model_file "Model File". <span class="highlight">NOTE: the model file name has the default extension `.qm`, which is added automatically</span>
@@ -1301,7 +1301,7 @@ The New Model dialog box has the following elements:
 - The <span class="button">Cancel</span> button closes the New Model dialog box without any action.
 
 
-@note
+<br>ote
 The other way of creating a model in QM&trade; is to open an existing model (e.g., one of the @ref gs_exa "examples") and use the <span class="menu">File-&gt;Save As...</span> menu to save it under a different name in a directory of your choice.
 
 
@@ -1314,7 +1314,7 @@ The other way of creating a model in QM&trade; is to open an existing model (e.g
 <p>The **Manage Tools** dialog box allows you to configure up to 5 different external tools that can then be launched directly from QM&trade; with the keyboard shortcuts <span class="button">F8</span> through <span class="button">F12</span>. Examples of external tools include `make` to perform a software build, `lint` to statically check your code, your own unit tests that run on the host computer, or a command-line tool to download the code to the embedded target, directly from QM with just one key press. The output generated by the external tool will appear in the QM's @ref ui_log.
 </p>
 
-@note
+<br>ote
 The external tools that can be launched directly from QM&trade; are not limited to command-line programs only. An external tool can be a GUI application and can be launched as "detached" from QM&trade;.
 
 
@@ -1332,7 +1332,7 @@ The **Environment Variables** list at the top of the "Manage External Tools" dia
 
 The environment variables defined at the top of the "Manage External Tools" dialog box are used in the tool configuration according to the syntax rules of the specific platform on which you run the tools. For example, environment variables on Windows are accessed by placing them between `%%` characters (e.g., `%``FOO%`). Environment variables on Linux are accessed by placing them in the parentheses following the dollar sign  (e.g., `$``(FOO)`).
 
-@note
+<br>ote
 The environment variables defined at the top of the "Manage External Tools" dialog box have scope and lifetime limited to the temporary process that is used to lauch an external tool. They only persist during the run of the tool and disappear afterwards.
 
 
@@ -1359,7 +1359,7 @@ The environment variables defined at the top of the "Manage External Tools" dial
 
 - Press the <span class="button">Save</span> button to save the tool configuration.
 
-@note
+<br>ote
 QM&trade; stores the External Tool configuration in the Settings for the QM&trade; application, which is the same storage that holds the most recently used models or the recent arrangement of the docking windows. These Settings are **not** part of the model, but rather are specific to the machine on which QM&trade; is installed.
 
 
@@ -1375,7 +1375,7 @@ The screen shot below shows how to set up the "build Blinky" tool:
 - **Arguments** property: `blinky.c -oblinky.exe -I%QPC%\include -I%QPC%\ports\win32 -L%QPC%\ports\win32\mingw\dbg -lqp`
 - **Initial Directory** property: `.` (model directory)
 
-@note
+<br>ote
 As shown in the screen shot above, in the __Arguments:__ property you can use the pre-defined symbols `${ModelPath}`, `${ModelFile}`, and `${ModelDir}`.
 
 
@@ -1388,7 +1388,7 @@ The following screen shot shows the QM&trade; @ref ui_log "Log Console" output f
 
 @image html ui_tool_iar-log.png "Log of IAR build"
 
-@note
+<br>ote
 In case of the tool failure, the @ref ui_log "Log Console" will show the error status. But, if you checked the **Show error message box after failure** box for the tool, you will get an additional alert in the form of a message box, which can be useful for unit testing.
 
 
@@ -1427,7 +1427,7 @@ Commercial license is registered by means of a @ref ui_license_cert "QM license 
 - the <span class="button">Change Commercial License</span> button allows you to register a different @ref ui_license_cert "QM license certificate file" (file with extension `.qlc`)
 - the <span class="checkbox">License File Relative to the Model</span> checkbox specifies that the name of the license certificate should be saved inside the @ref ui_model_file "QM Model File", as a **relative** path to this model file. When the checkbox is not checked, the full absolute path to the license certificate is stored in the @ref ui_session_file "QM Session File".
 
-@note
+<br>ote
 If you are a commercial licensee and for some reason you did not receive your QM License Certificate file, please send email with your license number to <a href="mailto:support@state-machine.com">support@state-machine.com</a> to request your copy.
 
 @nav{ui_tools-dlg,ui_custom}
@@ -1459,24 +1459,26 @@ The selected GUI style is loaded only during the startup, so you need to **resta
 The **View|Style**-menu allows you to achieve different effects, such as the "Default" (light) style and the "Dark" style shown below:
 
 ![Default Style with qm_light.qss StyleSheet (Windows)](qm-light.png)
-@n
+<br>
 
 ![Dark Style with qm_dark.qss StyleSheet (Windows)](qm-dark.png)
-@n
+<br>
 
 ![Dark Style with qm_dark.qss StyleSheet (Linux)](qm-dark-linux.png)
 
 
-@section ui_custom_qss QM&trade; Style Sheet qm.qss
-The QM&trade; Style Sheet `qm.qss`, located in the `Resources` sub-directory of the @ref gs_install_folder, provides the main way of customizing QM&trade;. The Style Sheet takes advantage of the <a class="extern" target="_blank" href="https://doc.qt.io/qt-5/stylesheet.html">Qt Style Sheets</a>, a mechanism inspired by HTML CSS (Cascading Style Sheets).
+@section ui_custom_qss QM&trade; Style Sheets
+The QM&trade; **Style Sheets**, located in the `Resources` sub-directory of the @ref gs_install_folder, provide the main way of customizing QM&trade;. The QM Style Sheets take advantage of the mechanism of <a class="extern" target="_blank" href="https://doc.qt.io/qt-5/stylesheet.html">Qt Style Sheets</a> inspired by HTML CSS (Cascading Style Sheets).
 
-@remarks
-The `Resources` folder contains the **active style sheet** `qm.qss` as well as **example style sheets** for the "light theme" (`qm_light.qss`) and "dark theme" (`qm_dark.qss`). To apply one of these example style sheets, simply copy them over the active style sheet `qm.qss`.@n
-@n
+QM&trade; uses **two** Style Sheets:
+
+- `qm_dark.qss` - used when the @ref ui_custom_style "Dark Style" is selected
+- `qm_light.qss` - used in all other cases (when  @ref ui_custom_style "Dark Style" is NOT selected).
+
+<br>
 ![QM&trade; style sheet files on disk](qm_qss.png)
 
-
-@note
+<br>ote
 <img src="img/logo_win48.png" style="float:left; margin-right:10px;">
 If QM&trade; is installed on Windows in such locations as "Program Files" or "Program Files (x86)", the `qm.qss` style sheet might not be editable or accessible to QM&trade; (because Windows treats these folders specially). In this case it is recommended to @ref gs_install_win "re-install QM" in a **different folder**, for example: `C:\qp\qm`.
 
@@ -1485,7 +1487,7 @@ If QM&trade; is installed on Windows in such locations as "Program Files" or "Pr
 The QM&trade; Style Sheet is loaded only during the startup, so you need to **restart QM&trade;** for the style sheet to take effect.
 
 
-The active QM Style Sheet `qm.qss` is a plain text file that you can edit with any text editor. The Style Sheet contains several commented **sections** described below:
+The QM Style Sheets `qm_xxx.qss` are plain text files that you can edit with any text editor. QM Style Sheets contain several commented **sections** described below:
 
 
 @subsection ui_custom_mainwindow MainWindow Section
@@ -1519,13 +1521,13 @@ MainWindow {
     qproperty-qm_dir:  "red, yellow, bold, underline";
 }
 @endcode
-@n
+<br>
 
 ![MainWindow Styles](mainwindow_styles.jpg)
 
 
 @subsection ui_custom_explorer ExplorerView Section
-The `ExplorerView` section of the `qm.qss` Style Sheet pertains to @ref ui_explorer.
+The `ExplorerView` section of the `qm_xxx.qss` Style Sheet pertains to @ref ui_explorer.
 
 @code{.css}
 /* ExplorerView ..............................................................
@@ -1543,10 +1545,9 @@ ExplorerView::item:selected {
     background-color:            darkRed;
 }
 @endcode
-@n
+<br>
 
 ![ExplorerView Styles](explorer_styles.jpg)
-
 
 
 @subsection ui_custom_search SearchView Section
@@ -1569,7 +1570,7 @@ SearchView::item:selected {
     background-color:            darkBlue;
 }
 @endcode
-@n
+<br>
 
 ![SearchView Styles](search_styles.jpg)
 
@@ -1590,10 +1591,10 @@ DiagramView {
     qproperty-connPenColor:      darkRed;
 }
 @endcode
-@n
+<br>
 
 @image html diagram_styles.jpg "Diagram Styles"
-@n
+<br>
 
 @image html birdseye_styles.jpg "Bird's Eye Styles"
 
@@ -1615,10 +1616,10 @@ CodeEdit {
     /* NOTE: set the background with MainWindow::qproperty-codeBaseColor */
 }
 @endcode
-@n
+<br>
 
 @image html code_styles.jpg "Code Edit Styles (Code Edit Active)"
-@n
+<br>
 
 @image html code_styles2.jpg "Code Edit Styles (Code Edit Inactive)"
 
@@ -1639,7 +1640,7 @@ DocEdit {
     /* NOTE: set the background with MainWindow::qproperty-docBaseColor */
 }
 @endcode
-@n
+<br>
 ![DocEdit Styles](doc_styles.jpg)
 
 
@@ -1658,9 +1659,9 @@ Log:!active {
     selection-background-color:  darkGrey;
 }
 @endcode
-@n
+<br>
 @image html log_styles1.jpg "Log Styles (Log Window Active)"
-@n
+<br>
 @image html log_styles2.jpg "Log Styles (Log Window Inactive)"
 
 
@@ -1681,7 +1682,7 @@ You add a new model template simply by saving a model in the @ref gs_install_fol
 
 - A model template created with the <a class="extern" target="_blank" href="https://www.state-machine.com/qpn">QP-nano framework</a> should go into the directory `&lt;qm&gt;/Resources/qpn`.
 
-@note
+<br>ote
 If you save a model template for the wrong QP framework type (e.g., you save a model based on `qpc` into `Resources/qpcpp/`), the template will be rejected during creation of the new model.
 
 @nav{ui_tools-dlg,bm}
