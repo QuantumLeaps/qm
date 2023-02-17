@@ -419,44 +419,46 @@ At this point QM&trade; has generated the `blinky.c` file in the same directory 
 @section gs_tut_build Building the Project
 You build the generated code just as any other hand-crafted code. This simplistic tutorial generated the whole project in just one source file `blinky.c`.
 
-@attention
+@remark
 The following sections show how to build the Blinky project from the command-prompt. However, it is also possible to build the project @ref ui_tools-dlg_gcc "directly from QM", by defining an external tool in the @ref ui_tools-dlg "Manage Tools Dialog Box".
 
 
-@subsection gs_tut_win Building Blinky on Windows
-The Board Support Package (BSP) functions coded at the beginning of the `blinky.c` file are designed to run on the desktop OS, such as Windows or Linux, because of the `printf()` statements. Here is how to build the `blinky.exe` executable in a Windows command prompt:
+To build the example, you need to compile the generated `blinky.c` source file as well as the source files for the QP/C framework and link them together. For this, you need a `Makefile`, which you can [download from GitHub](https://raw.githubusercontent.com/QuantumLeaps/qpc/master/examples/workstation/blinky/Makefile).
 
-![Blinky on Windows](blinky_win.gif)
+[![Downloading Makefile from GitHub](qm-tut_makefile.png)](https://raw.githubusercontent.com/QuantumLeaps/qpc/master/examples/workstation/blinky/Makefile)
 
-First, you set the environment variable `QPC` to point to the location of the QP/C framework on your machine. Here, `QCP=C:\qp\qpc`, which is the default location, but if you installed QP/C in a *different* location you need to set `QPC` to the actual location on your machine.
-
-@verbatim
-set QPC=C:\qp\qpc
-@endverbatim
-
-Next, you invoke the free `gcc` compiler to build your `blinky.c` file. Here, the MinGW `gcc` is taken from the QTools collection installed in the default `C:\qp\qtools\bin`.
+Once you download the `Makefile`, you invoke the `make` utility to build your `blinky` executable, whereas you set the `QPC` variable to point to the location of the QP/C framework:
 
 @verbatim
-gcc blinky.c -oblinky.exe -I%QPC%\include -I%QPC%\ports\win32 -L%QPC%\ports\win32\dbg -lqp
+Windows:
+make QPC=c:\qp\qpc
+
+Linux, macOS:
+make QPC=~/qp/qpc
 @endverbatim
 
 @note
-On Windows, the free `gcc` compiler is typically not installed, so you need to download and install it. The <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qtools/releases">QTools collection for Windows</a> contains the MinGW `gcc` compiler and other Unix-style utilities.
+On Windows, the free `make` utility and the `gcc` compiler aren't typically installed, so you need to download and install them. The <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qtools/releases">QTools collection for Windows</a> contains the MinGW `gcc` compiler and other Unix-style utilities.
 
 
-Finally, you run the produced `blinky.exe` file, which starts printing to your screen.
+Finally, you run the produced `blinky.exe` file, which starts printing to your screen. You exit the application by pressing <span class="button">Ctrl+C</span>.
 
 @verbatim
-blinky
+build\blinky
 @endverbatim
 
-You exit the application by pressing <span class="button">Ctrl+C</span>.
+![Blinky on Windows](blinky_win.gif)
 
 
-@subsection gs_tut_linux Building Blinky on Linux (POSIX)
-Building and running Blinky on the POSIX platforms (such as Linux and MacOS) is a little bit more involved, because the QP framework is built from sources as opposed to being linked as a pre-built library. The recommended procedure is to create the Blinky model from the @ref gs_tut_template "existing template", which also generates the `Makefile` for building the application. The following screen shot shows how to build and run the Blinky project on Linux:
+On Linux, you run the produced `blinky` file as follows. Again, you exit the application by pressing <span class="button">Ctrl+C</span>.
+
+@verbatim
+build/blinky
+@endverbatim
 
 ![Blinky on Linux](blinky_linux.gif)
+
+You exit the application by pressing <span class="button">Ctrl+C</span>.
 
 
 @subsection gs_tut_emb Building Blinky for an Embedded Board
