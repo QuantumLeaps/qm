@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="5.2.4" links="1">
+<model version="5.2.5" links="1">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem for STM32 NUCLEO-L152RE board
@@ -791,19 +791,23 @@ void QK_onIdle(void) { /* called with interrupts enabled */
 }
 
 /*..........................................................................*/
-Q_NORETURN Q_onAssert(char_t const * const module, int_t const loc) {
+Q_NORETURN Q_onAssert(char const * const module, int_t const id) {
     /*
     * NOTE: add here your application-specific error handling
     */
-    (void)module;
-    (void)loc;
-    QS_ASSERTION(module, loc, 10000U); /* report assertion to QS */
+    Q_UNUSED_PAR(module);
+    Q_UNUSED_PAR(id);
 
-#ifndef NDEBUG
-    BSP_wait4SW1();
-#endif
+    QS_ASSERTION(module, id, 10000U); /* report assertion to QS */
     NVIC_SystemReset();
 }
+/*..........................................................................*/
+#if QP_VERSION &gt;= 730
+void assert_failed(char const * const module, int_t const id); /* prototype */
+void assert_failed(char const * const module, int_t const id) {
+    Q_onAssert(module, id);
+}
+#endif
 
 /* QS callbacks ============================================================*/
 #ifdef Q_SPY
@@ -1008,9 +1012,9 @@ PROJECT     := dpp-qk
 # project directories
 #
 
-# location of the QP/C framework (if not provided in an environemnt var.)
+# location of the QP/C framework (if not provided in an env. variable)
 ifeq ($(QPC),)
-QPC := ../../../../..
+QPC := /qp/qpc
 endif
 
 # QP port used in this project
@@ -1237,11 +1241,10 @@ $(BIN_DIR)/%.o : %.cpp
 
 # include dependency files only if our goal depends on their existence
 ifneq ($(MAKECMDGOALS),clean)
-  ifneq ($(MAKECMDGOALS),show)
+ifneq ($(MAKECMDGOALS),show)
 -include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
-  endif
 endif
-
+endif
 
 .PHONY : clean
 clean:

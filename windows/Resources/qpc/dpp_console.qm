@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="5.2.4" links="1">
+<model version="5.2.5" links="1">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem console application for workstations
@@ -796,7 +796,7 @@ INCLUDES := -I. \
 
 # location of the QP/C framework (if not provided in an env. variable)
 ifeq ($(QPC),)
-QPC := ../../..
+QPC := /qp/qpc
 endif
 
 #-----------------------------------------------------------------------------
@@ -813,8 +813,8 @@ C_SRCS := \
 # C++ source files...
 CPP_SRCS :=
 
-LIB_DIRS  :=
-LIBS      :=
+LIB_DIRS :=
+LIBS     :=
 
 # defines...
 # QP_API_VERSION controls the QP API compatibility; 9999 means the latest API
@@ -825,30 +825,8 @@ ifeq (,$(CONF))
 endif
 
 #-----------------------------------------------------------------------------
-# add QP/C framework (depends on the OS this Makefile runs on):
+# add QP/C framework:
 #
-ifeq ($(OS),Windows_NT)
-
-# NOTE:
-# For Windows hosts, you can choose:
-# - the single-threaded QP/C port (win32-qv) or
-# - the multithreaded QP/C port (win32).
-#
-QP_PORT_DIR := $(QPC)/ports/win32-qv
-#QP_PORT_DIR := $(QPC)/ports/win32
-LIB_DIRS += -L$(QP_PORT_DIR)/$(CONF)
-LIBS     += -lqp -lws2_32
-
-else
-
-# NOTE:
-# For POSIX hosts (Linux, MacOS), you can choose:
-# - the single-threaded QP/C port (win32-qv) or
-# - the multithreaded QP/C port (win32).
-#
-QP_PORT_DIR := $(QPC)/ports/posix-qv
-#QP_PORT_DIR := $(QPC)/ports/posix
-
 C_SRCS += \
     qep_hsm.c \
     qep_msm.c \
@@ -871,6 +849,27 @@ QS_SRCS := \
     qs_fp.c \
     qs_port.c
 
+ifeq ($(OS),Windows_NT)
+
+# NOTE:
+# For Windows hosts, you can choose:
+# - the single-threaded QP/C port (win32-qv) or
+# - the multithreaded QP/C port (win32).
+#
+QP_PORT_DIR := $(QPC)/ports/win32-qv
+#QP_PORT_DIR := $(QPC)/ports/win32
+LIBS += -lws2_32
+
+else
+
+# NOTE:
+# For POSIX hosts (Linux, MacOS), you can choose:
+# - the single-threaded QP/C port (win32-qv) or
+# - the multithreaded QP/C port (win32).
+#
+QP_PORT_DIR := $(QPC)/ports/posix-qv
+#QP_PORT_DIR := $(QPC)/ports/posix
+
 LIBS += -lpthread
 
 endif
@@ -879,14 +878,14 @@ endif
 # Typically you should not need to change anything below this line
 
 VPATH    += $(QPC)/src/qf $(QP_PORT_DIR)
-INCLUDES += -I$(QPC)/include -I$(QPC)/src -I$(QP_PORT_DIR)
+INCLUDES += -I$(QPC)/include -I$(QP_PORT_DIR)
 
 #-----------------------------------------------------------------------------
 # GNU toolset:
 #
 # NOTE:
 # GNU toolset (MinGW) is included in the QTools collection for Windows, see:
-#     http://sourceforge.net/projects/qpc/files/QTools/
+#     https://www.state-machine.com/qtools
 # It is assumed that %QTOOLS%\bin directory is added to the PATH
 #
 CC    := gcc
@@ -900,17 +899,14 @@ LINK  := gcc    # for C programs
 ifeq ($(OS),Windows_NT)
     MKDIR      := mkdir
     RM         := rm
-    RMDIR      := rmdir
     TARGET_EXT := .exe
 else ifeq ($(OSTYPE),cygwin)
     MKDIR      := mkdir -p
     RM         := rm -f
-    RMDIR      := rmdir
     TARGET_EXT := .exe
 else
     MKDIR      := mkdir -p
     RM         := rm -f
-    RMDIR      := rmdir
     TARGET_EXT :=
 endif
 
@@ -971,19 +967,16 @@ C_DEPS_EXT   := $(patsubst %.o,%.d, $(C_OBJS_EXT))
 CPP_OBJS_EXT := $(addprefix $(BIN_DIR)/, $(CPP_OBJS))
 CPP_DEPS_EXT := $(patsubst %.o,%.d, $(CPP_OBJS_EXT))
 
-# create $(BIN_DIR) if it does not exist
-ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
-$(shell $(MKDIR) $(BIN_DIR))
-endif
-
 #-----------------------------------------------------------------------------
 # rules
 #
 
+.PHONY: clean show
+
 all: $(TARGET_EXE)
 
 $(TARGET_EXE) : $(C_OBJS_EXT) $(CPP_OBJS_EXT)
-    $(CC) $(CFLAGS) $(QPC)/include/qstamp.c -o $(BIN_DIR)/qstamp.o
+    $(CC) $(CFLAGS) $(QPC)/src/qs/qstamp.c -o $(BIN_DIR)/qstamp.o
     $(LINK) $(LINKFLAGS) $(LIB_DIRS) -o $@ $^ $(BIN_DIR)/qstamp.o $(LIBS)
 
 $(BIN_DIR)/%.d : %.c
@@ -998,20 +991,22 @@ $(BIN_DIR)/%.o : %.c
 $(BIN_DIR)/%.o : %.cpp
     $(CPP) $(CPPFLAGS) $&lt; -o $@
 
-.PHONY : clean show
-
-# include dependency files only if our goal depends on their existence
+# create BIN_DIR and include dependencies only if needed
 ifneq ($(MAKECMDGOALS),clean)
-  ifneq ($(MAKECMDGOALS),show)
+ifneq ($(MAKECMDGOALS),show)
+ifneq ($(MAKECMDGOALS),debug)
+ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
+$(shell $(MKDIR) $(BIN_DIR))
+endif
 -include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
-  endif
+endif
+endif
 endif
 
-.PHONY : clean show
-
 clean :
-    $(RM) $(BIN_DIR)/*.*
-    $(RMDIR) $(BIN_DIR)
+    -$(RM) $(BIN_DIR)/*.o \
+    $(BIN_DIR)/*.d \
+    $(TARGET_EXE)
 
 show :
     @echo PROJECT      = $(PROJECT)
@@ -1027,7 +1022,6 @@ show :
     @echo LIB_DIRS     = $(LIB_DIRS)
     @echo LIBS         = $(LIBS)
     @echo DEFINES      = $(DEFINES)
-
 </text>
   </file>
  </directory>

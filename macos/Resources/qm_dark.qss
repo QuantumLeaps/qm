@@ -1,5 +1,5 @@
 /*****************************************************************************
-* QM Style Sheet for MacOS "Dark"
+* QM Style Sheet for Windows "Dark"
 * Last Updated for Version: 4.4.0
 * Date of the Last Update:  2019-02-28
 *
@@ -75,7 +75,7 @@ SearchView::item:selected {
 */
 DiagramView {
     font-family:                 "Arial";
-    font-size:                   11px;
+    font-size:                   12px;
 
     qproperty-canvasColor:       #252A34;
     qproperty-birdsEyeViewColor: #FFFFFF;
@@ -88,8 +88,8 @@ DiagramView {
 * Used in the files and code entered via a Property Sheet.
 */
 CodeEdit {
-    font-family:                 "Menlo";
-    font-size:                   10pt;
+    font-family:                 "Consolas";
+    font-size:                   8.75pt;
 
     color:                       #D8DEEA;
     selection-color:             #CDD3DF;
@@ -100,8 +100,8 @@ CodeEdit {
 * Used in the documentation entered via a Property Sheet.
 */
 DocEdit {
-    font-family:                 "Menlo";
-    font-size:                   10pt;
+    font-family:                 "Consolas";
+    font-size:                   9pt;
     font-style:                  italic;
 
     color:                       #E1E1E1;
@@ -111,8 +111,8 @@ DocEdit {
 /* Log window ................................................................
 */
 Log {
-    font-family:                 "Menlo";
-    font-size:                   10pt;
+    font-family:                 "Consolas";
+    font-size:                   8.75pt;
 
     color:                       #E1E1E1;
     background-color:            #252A34;

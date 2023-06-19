@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="5.2.4">
- <item name="license"></item>
+<session version="5.2.5">
  <group name="locked"/>
  <group name="settings">
   <item name="tabs">1</item>
@@ -9,12 +8,12 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Philo::SM">0,0,556,1039,*</item>
-  <item id="AOs::Table::SM">0,0,653,828</item>
-  <item id=".::bsp.hpp">-118,763,674,300</item>
-  <item id=".::bsp.cpp">-118,0,674,300</item>
-  <item id=".::main.cpp">-118,300,674,300</item>
-  <item id=".::Makefile">0,212,616,851</item>
+  <item id="AOs::Philo::SM">0,0,584,1556,*</item>
+  <item id="AOs::Table::SM">-69,752,653,828</item>
+  <item id=".::bsp.hpp">-90,0,674,300</item>
+  <item id=".::bsp.cpp">-90,300,674,300</item>
+  <item id=".::main.cpp">0,1039,674,300</item>
+  <item id=".::Makefile">0,600,616,851</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>

@@ -1,82 +1,81 @@
 /*! @page sm State Machines
 @nav{bm_lock,sm_statechart}
 
-<p>QM&trade; provides extensive support for modern <a class="extern" target="_blank" href="https://www.state-machine.com/fsm/#HSM">Hierarchical State Machines (HSMs)</a> (UML Statecharts), which are perhaps the most effective and elegant technique of structuring event-driven systems. In fact, QM&trade; has been specifically designed for ease of diagramming HSMs and for generating efficient, production-quality code from them.
-</p>
+This section focuses primarily on working with **state machine diagrams**, while Section @ref ce_sm will cover **generating code** from state machines. Of course, these two aspects are related, so even while "simply drawing" state machine diagrams, you will need to take @ref cd "code generation" into account.
+
+@section sm_hsm Hierarchical State Machines in QM
+QM&trade; provides extensive support for modern @webref{fsm/#HSM,Hierarchical State Machines (HSMs)} (UML Statecharts), which are perhaps the most effective and elegant technique of structuring event-driven systems. In fact, QM&trade; has been specifically designed for ease of diagramming HSMs and for @ref ce_sm "generating efficient, production-quality code from them".
 
 The most important innovation of HSMs over classical finite state machines (FSMs) is the hierarchical state nesting. The value of state nesting lies in avoiding repetitions, which are inevitable in the traditional "flat" FSM formalism and are the main reason for the "state-transition explosion" in FSMs. The semantics of state nesting allow substates to define only the differences of behavior from the superstates, thus promoting sharing and reusing behavior.
 
-@note
-The Quantum Leaps Application Note <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Crash_Course_in_UML_State_Machines.pdf"><strong>A Crash Course in UML State Machines</strong></a> introduces the main state machine concepts backed up by examples.<br>
+@remark
+The Quantum Leaps Application Note @webref{doc/AN_Crash_Course_in_UML_State_Machines.pdf,A Crash Course in UML State Machines} introduces the main state machine concepts backed up by examples.<br>
 @image html  AN_Crash_Course_in_UML_State_Machines.gif "Application Note: A Crash Course in UML State Machines"
 @image latex AN_Crash_Course_in_UML_State_Machines.gif "Application Note: A Crash Course in UML State Machines"
 
-
-This section focuses primarily on working with **state machine diagrams**, while the section @ref ce_sm will cover generating code from state machines. Of course, these two aspects are related, so even while "simply drawing" state machine diagrams, you will need to take code generation into account.
-
-@note
-The section @ref bm_diagram describes generic operations applicable to any diagram type, such as @ref bm_diagram_open "opening", @ref bm_diagram_close "closing", @ref bm_diagram_scroll "scrolling", @ref bm_diagram_pan "panning", and @ref bm_diagram_zoom "zooming" a diagram. The section @subpage sm_statechart "Working with Statecharts" describes specific operations applicable to statecharts (UML state diagrams).
-
-<div style="clear:both;"></div>
+@remark
+The section @ref bm_diagram in the @ref bm part describes generic operations applicable to any diagram type, such as @ref bm_diagram_open "opening", @ref bm_diagram_close "closing", @ref bm_diagram_scroll "scrolling", @ref bm_diagram_pan "panning", and @ref bm_diagram_zoom "zooming" a diagram. The section @subpage sm_statechart "Working with Statecharts" describes specific operations applicable to statecharts (UML state diagrams).
 
 
 @section sm_class State Machine Base Classes
 In QM&trade; a State Machine can be associated only with a @ref bm_class "class" that is a direct or indirect subclass of the @ref bm_qp_item "QP Framework" base class **QHsm**, shown at the top of the <a class="extern" target="_blank" href="http://en.wikipedia.org/wiki/Class_(computer_programming)">class diagram</a> @ref sm_super "below".
 
-@anchor sm_super
-@image html  qp_sm.gif
-@image latex qp_sm.gif
-@caption{State Machine Classes in QP 5.8+}
+@anchor qp_classes-sm
+@image html  qp_sm.png
+@image latex qp_sm.png
+@caption{State Machine Classes in QP/C and QP/C++}
 
-The <span style="background-color:#aaf;"> **QHsm** </span> base class provides the basic interface `init()` and `dispatch()` for initializing a state machine and for dispatching events to it, respectively. The specific implementations of the state machine interface in the `QHsm` base class and its subclasses, such as **QActive**, **QMsm**, and **QMActive**, determine the @ref ce_sm "state machine implementation strategy" that QM&trade; will apply to generate code.
+The <span style="background-color:#aaf;"> **QHsm** </span> base class provides the basic interface `init()` and `dispatch()` for initializing a state machine and for dispatching events to it, respectively. The specific implementations of the state machine interface in the `QHsm` base class and its subclasses, such as **QActive**, **QMsm**, and **QMActive**, determine the @ref ce_sm_stra "state machine implementation strategy" that QM&trade; will apply to generate code.
 
-@note
-QM&trade; supports **classes** and **inheritance** regardless of the target programming language, which currently can be either **C** or <strong>C++</strong>. The <a class="extern" target="_blank" href="https://www.state-machine.com/doc/AN_Simple_OOP_in_C.pdf">Application Note "Simple Object-Oriented Programming in C"</a> describes how the <a class="extern" target="_blank" href="https://www.state-machine.com/qpc">QP/C</a> and <a class="extern" target="_blank" href="https://www.state-machine.com/qpn">QP-nano</a> frameworks as well as the QM&trade; code generator implement *classes* and *inheritance* in portable **ISO C**.
+@remark
+QM&trade; supports **classes** and **inheritance** regardless of the target programming language, which currently can be either C or C++. @webref{oop,Key Concept: Object-Oriented Programming in C} describes how the @webref{qpc,QP/C} framework as well as the QM&trade; code generator implement *classes* and *inheritance* in portable **ISO C**.
 
 
-@subsection sm_class_qhsm The QHsm-Style State Machines
-The <span style="background-color:#AAF;"> **QHsm** and **QActive** </span> classes from the @ref sm_class "class diagram above" implement the @ref ce_qhsm_strategy  that was originally designed for **manual coding** of HSMs, but now can also benefit from automatic code generation by QM&trade;
+@subsection sm_class_qhsm QHsm-Based State Machines
+The <span style="background-color:#AAF;"> **QHsm** and **QActive** </span> classes from the @ref qp_classes-sm "class diagram above" implement the QHsm-based state machines that were originally designed for **manual coding** of HSMs, but now can also benefit from automatic code generation by QM&trade; modeling tool.
 
-The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the `QHsm/QActive`-Style state machine implementation strategy:
+The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the `QHsm/QActive`-based state machine implementation strategy:
 
-@image html  sm_qhsm-style.png
-@image latex sm_qhsm-style.png
-@caption{Selecting QHsm/QActive-Style Superclass}
+@image html  sm_qhsm-based.png
+@image latex sm_qhsm-based.png
+@caption{Selecting QHsm/QActive base class (superclass)}
 
-The main advantage of QHsm-style state machine implementation is that the code is **highly readable** and human-maintainable, but it requires discovering the *transition-sequences* (sequences of exit/entry/initial actions) at run-time as opposed to code-generation time. Also, the state nesting in QHsm-style state machines is limited to 5 levels of nesting.
+The main advantage of QHsm-based state machine implementation is that the code is **highly readable** and human-maintainable, but it requires discovering the *transition-sequences* (sequences of exit/entry/initial actions) at run-time as opposed to code-generation time. Also, the state nesting in QHsm-based state machines is limited to 5 levels of nesting.
 
-@attention
-Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#AAF;"> **QActive** </span>, you need to call `QActive_ctor()` (for the QP/C and QP-nano frameworks) and `QActive::QActive()` (for the QP/C++ framework).
+@remark
+You should consider `QHsm/QActive`-based state machines to get the highest readability of the generated code at some efficiency cost (compared to the `QMsm/QMActive`-based state machines).
+
+
+@subsection sm_class_qmsm QMsm/QMActive-Based State Machines
+The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-based strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **human-readable**, but is **not** suitable for manual coding or maintaining.
+
+The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the QMsm/QMActive-based state machine implementation strategy:
+
+@image html  sm_qmsm-based.png
+@image latex sm_qmsm-based.png
+@caption{Selecting QMsm/QMActive base class (superclass)}
+
+The lab tests indicate that the `QMsm/QMActive`-based state machines can be about twice as fast as the `QHsm`-based state machines. (This pertains only to the boilerplate structural code for taking state transitions, but does not include application-specific action code, which typically dominates the execution time.) Additionally, the `QMsm/QMActive`-based state machines require less runtime support (smaller event processor) and use a bit less stack space for the `dispatch()` operation than `QHsm/QActive`-based state machines. Also, the state nesting in QMsm-based state machines is no longer limited (nesting levels as high as 10 levels have been tested).
+
+@remark
+You should consider `QMsm/QMActive`-based state machines to get the highest performance at slightly less readable generated code.
+
+@subsection sm_class-change Changing State Machine Implementation
+To change state machine implementation strategy, you need to:
+
+1. Select the **superclass** in the Property Sheet of your state machine class
+2. Call the right **constructor** of your state machine class to call the matching base-class constructor, as illustrated in the screen shots below:
 
 @image html  sm_qhsm-ctor.png
 @image latex sm_qhsm-ctor.png
-@caption{Calling the QActive_ctor() in the subclass' constructor}
-
-@remark
-You should consider `QHsm/QActive`-style state machines when you are still interested in **manual coding** or maintaining your state machines. (But then you will be working against the strictly @ref ab_special "forward-engineering nature" of QM&trade;)
-
-
-@subsection sm_class_qmsm QMsm/QMActive-Style State Machines
-The <span style="background-color:#FAA;"> **QMsm** and **QMActive** </span> classes from the @ref sm_class "class diagram above" re-implement the state machine interface and thus provide an alternative @ref ce_qmsm_strategy that is more efficient than the @ref sm_class_qhsm "QHsm-style strategy", but requires the assistance of the QM&trade; tool (as an advanced "state machine compiler") to generate the complete *transition-sequences* at *code-generation* time. The resulting code is still **human-readable**, but is **not** suitable for manual coding or maintaining.
-
-
-The screen shot below shows how to select the **superclass** property of your state-machine/active-object class in the @ref bm_class_prop, so that it uses the QMsm/QMActive-Style state machine implementation strategy:
-
-@image html  sm_qmsm-style.png
-@image latex sm_qmsm-style.png
-@caption{Selecting QMsm/QMActive-Style Superclass}
-
-The lab tests indicate that the `QMsm/QMActive`-style state machines can be about twice as fast as the `QHsm`-style state machines (see the @ref sm_class_qhsm "next section" below). Additionally, the `QMsm/QMActive`-style state machines require less runtime support (smaller event processor) and use about 70% less stack space for the `dispatch()` operation than `QHsm/QActive`-style state machines. Also, the state nesting in QMsm-style state machines is no longer limited (nesting levels as high as 10 levels have been tested).
-
-@attention
-Apart from changing the superclass property in the class Property Sheet, you also need to call the right superclass' **constructor** in the constructor of your state machine class. For direct subclasses of <span style="background-color:#FAA;"> **QMActive** </span>, you need to call `QMActive_ctor()` (for the QP/C framework) and `QMActive::QMActive()` (for the QP/C++ framework).
-
+@caption{Calling the QActive_ctor() in the subclass' constructor in C}
+<br>
 @image html  sm_qmsm-ctor.png
 @image latex sm_qmsm-ctor.png
-@caption{Calling the QMActive_ctor() in the subclass' constructor}
+@caption{Calling the QMActive_ctor() in the subclass' constructor in C++}
 
-@remark
-The `QMsm/QMActive`-style state machines are generally recommended over the older `QHsm/QActive`-style state machines described @ref sm_class_qhsm "above".
+@attention
+The two state machine implementation strategies have been designed to be **interchangeable**. Specifically, both strategies use the *same* state machine elements and the *same* syntax of @ref ce_sm_act "actions" (entry/exit actions to states and actions on transitions), as described in the next section.
 
 
 @section sm_toolbox State Machine Toolbox
@@ -85,7 +84,6 @@ When a State Machine diagram is active, the @ref sm_toolbox displays a specific 
 @note
 The State Diagram Toolbox is **enabled** only when a state diagram is the active MDI window and the model is @ref bm_lock "unlocked" (<span class="img unlock"></span>). If the Toolbox is <span class="highlight">invisible</span>, you need to show it in the <span class="menu"> View-&gt;Draw Toolbar</span> menu.
 
-<div style="clear:both;"></div>
 
 The usage of the tools in the State Diagram Toolbox is explained in the sections pertaining to the corresponding state machine elements:
 
@@ -99,7 +97,6 @@ The usage of the tools in the State Diagram Toolbox is explained in the sections
 - <span class="img xp"></span> @subpage sm_xp          "Add eXit-Point"
 - <span class="img sm_state"></span> @subpage sm_smstate "Add Submachine State"
 - <span class="img xp_seg"></span> @subpage sm_xpseg   "Add eXit-Point Segment"
-
 
 @nav{bm_lock,sm_statechart}
 */
@@ -132,7 +129,7 @@ The statechart-item property sheet contains the following properties:
 
 
 @subsection sm_statechart-QS QS_FUN_DICT
-Checkbox that turns on/off the automatic generation of the [QS_FUN_DICTIONARY()](https://www.state-machine.com/qtools/qs.html#qs_dict) macros for all states of a given statechart. The dictionary macros are generated in the top-most initial transition of the statechart. Below is an example of generated code with the `QS_FUN_DICTIONARY()` macros:
+Checkbox that turns on/off the automatic generation of the @webref{qtools/qs.html#qs_dict,QS_FUN_DICTIONARY()} macros for all states of a given statechart. The dictionary macros are generated in the top-most initial transition of the statechart. Below is an example of generated code with the `QS_FUN_DICTIONARY()` macros:
 
 @code{c}
 /*${SMs::Calc::SM} .........................................................*/
@@ -171,7 +168,7 @@ Make sure that the State Machine subwindow is active. In the @ref sm_toolbox cli
 
 
 @section sm_state_nest Nesting of States
-One of the most important features of <a class="extern" target="_blank" href="https://www.state-machine.com/fsm/#HSM">Hierarchical State Machines (HSMs)</a> (UML Statecharts) is that states can **nest** within other states, thus forming state hierarchies. In fact, QM&trade; has been specifically designed for ease of working with such hierarchically nested states.
+One of the most important features of @webref{fsm/#HSM,Hierarchical State Machines (HSMs)} (UML Statecharts) is that states can **nest** within other states, thus forming state hierarchies. In fact, QM&trade; has been specifically designed for ease of working with such hierarchically nested states.
 
 QM&trade; determines state nesting by the **geometric** arrangement of states in the diagram, whereas state nesting is determined only by the position of the <span>top-left corner</span> of the state rectangle. This state hierarchy is immediately reflected in the @ref bm_model "hierarchical model view" in the @ref ui_explorer dock window.
 
@@ -692,7 +689,7 @@ All transitions in QM&trade; are **rectilinear**, meaning that they consist only
 
 - **deep-history** (shown as a circled `H*`) is similar to shallow-history except it represents the most recent _leaf_-substate of the composite state.
 
-QM&trade; supports directly the "transition to history" feature for all QP framework types (<span class="img qp_framework">qpc</span>, <span class="img qp_framework">qpcpp</span>, and <span class="img qp_framework">qpn</span>) as well as both @ref sm_class_qhsm "QHsm-style" state machines and @ref sm_class_qmsm "QMsm-style" state machines. Also, starting from version 4.0.0, QM supports both the @ref sm_hist-is_shallow "deep history" transition type denoted as a circled letter `(H+)` and the @ref sm_hist-is_shallow "shallow history" transition type denoted as a circled letter `(H)`.
+QM&trade; supports directly the "transition to history" feature for all QP framework types (<span class="img qp_framework">qpc</span> and <span class="img qp_framework">qpcpp</span>) as well as both @ref sm_class_qhsm "QHsm-style" state machines and @ref sm_class_qmsm "QMsm-style" state machines. Also, starting from version 4.0.0, QM supports both the @ref sm_hist-is_shallow "deep history" transition type denoted as a circled letter `(H+)` and the @ref sm_hist-is_shallow "shallow history" transition type denoted as a circled letter `(H)`.
 
 @image html "sm_hist.png" "Transition to deep history"
 
@@ -774,7 +771,7 @@ The **Is shallow** property specifies the type of the transition to history. Whe
 Some designers try to use *Submachines* as ["orthogonal regions"](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions). This is **incorrect**, because *Submachines* and their instances (@ref sm_smstate "Submachine States") are **not** concurrently-active parts. A state machine with multiple *Submachine States* can still be in only **one** currently active state configuration ("exclusive-OR"-decomposition).
 
 @note
-If you are looking to partition your behavior into concurrently active components ("orthogonal components" with [AND-decomposition](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions)), you should consider the [**Orthogonal Component State Pattern**](https://www.state-machine.com/doc/Pattern_Orthogonal.pdf) instead *Submachines* and *Submachine States*.
+If you are looking to partition your behavior into concurrently active components ("orthogonal components" with [AND-decomposition](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions)), you should consider the @webref{doc/Pattern_Orthogonal.pdf,Orthogonal Component State Pattern} instead *Submachines* and *Submachine States*.
 
 
 To enable reuse of a *Submachine Diagram* without revealing its internal structure ("black-box"), the *Submachine Diagram* must provide a well-defined interface on its boundary, which consists of <span class="img ep_seg"></span> @ref sm_epseg "Entry Points" for attaching
@@ -937,7 +934,7 @@ Every eXit-Point must have a name, which distinguishes this particular eXit-Poin
 Some designers try to use *Submachine States* as ["orthogonal regions"](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions). This is **incorrect**, because *Submachine States* are **not** concurrently-active parts. A state machine with multiple *Submachine States* can still be in only **one** currently active state configuration ("exclusive-OR"-decomposition).
 
 @note
-If you are looking to partition your behavior into concurrently active components ("orthogonal components" with [AND-decomposition](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions)), you should consider the [**Orthogonal Component State Pattern**](https://www.state-machine.com/doc/Pattern_Orthogonal.pdf) instead *Submachines* and *Submachine States*.
+If you are looking to partition your behavior into concurrently active components ("orthogonal components" with [AND-decomposition](https://en.wikipedia.org/wiki/UML_state_machine#Orthogonal_regions)), you should consider the @webref{doc/Pattern_Orthogonal.pdf,Orthogonal Component State Pattern} instead *Submachines* and *Submachine States*.
 
 
 Each *Submachine State* represents a distinct instance of a @ref sm_subm "Submachine", even when multiple *Submachine States* reference the same *Submachine*, such as "operand1" and "operand2" Submachine States both reference Submachine "operand" in the picture below:

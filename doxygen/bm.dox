@@ -39,7 +39,7 @@ A typical QM&trade; model has a hierarchical structure consisting of:
 
 - the <span class="img model"><strong>Model Item</strong></span> sits at the root of the hierarchy and contains all other model items;
 
-- the <span class="img qp_framework">@ref bm_qp_item "QP framework"</span> (`qpc`, `qpcpp`, or `qpn`) that provides you with foundation classes for derivation of your own classes, such as active objects, state machines, time events, etc. (NOTE: The QM&trade; Model is always based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; frameworks</a>).
+- the <span class="img qp_framework">@ref bm_qp_item "QP framework"</span> (`qpc` or `qpcpp`) that provides you with foundation classes for derivation of your own classes, such as active objects, state machines, time events, etc. (NOTE: The QM&trade; Model is always based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; frameworks</a>).
 
 - one or more <span class="img package">@ref bm_package "packages"</span> that contain <span class="img class">@ref bm_class "classes"</span> and possibly other model items, including packages.
 
@@ -80,10 +80,9 @@ QM Framework Item Name|  QP framework type
 :---------------------|--------------------
 <span class="img qp_framework">qpc</span>  | <a class="extern" target="_blank" href="https://www.state-machine.com/qpc/">QP/C</a>
 <span class="img qp_framework">qpcpp</span>| <a class="extern" target="_blank" href="https://www.state-machine.com/qpcpp/">QP/C++</a>
-<span class="img qp_framework">qpn</span>  | <a class="extern" target="_blank" href="https://www.state-machine.com/qpn/">QP-nano</a>
 </center>
 
-The <span class="img qp_framework"><strong>qpc, qpcpp, qpn</strong></span> model item contains a quite detailed and documented model of the selected <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; framework</a>, which you can use as a quick reference. For instance, you can check the signatures of various functions, macros, etc. <span class="highlight">You can also copy-and-paste the provided code examples into your own code</span> anywhere in the editable parts of the model (see also @ref bm_edit).
+The <span class="img qp_framework"><strong>qpc, qpcpp</strong></span> model item contains a quite detailed and documented model of the selected <a class="extern" target="_blank" href="https://www.state-machine.com/products/qp/">QP&trade; framework</a>, which you can use as a quick reference. For instance, you can check the signatures of various functions, macros, etc. <span class="highlight">You can also copy-and-paste the provided code examples into your own code</span> anywhere in the editable parts of the model (see also @ref bm_edit).
 
 As most software frameworks, the QP&trade; frameworks use the basic concepts of encapsulation (@ref bm_class "classes") and **inheritance** as primary mechanisms for customizing, specializing, and extending the framework to a particular application.
 
@@ -101,7 +100,7 @@ In a hierarchical tree-like structure, like the @ref bm_model "QM&trade; model",
 
 As you can see from the picture above, QM&trade; uses two colons (`::`) to separate the list of parent-items of the given item.
 
-To avoid ambiguities, the QM&trade; modeling tool requires providing the **fully-qualified names** of items in several circumstances, such as specifying the @ref bm_class-super "Superclass" of a given class, inside the @ref ce_directive "Code-Generation Directives", and in the @ref ce_comment-link "item references" embedded into comments in the generated code.
+To avoid ambiguities, the QM&trade; modeling tool requires providing the **fully-qualified names** of items in several circumstances, such as specifying the @ref bm_class-super "Superclass" of a given class, inside the @ref ce_gen "Code-Generation Directives", and in the @ref ce_comment-link "item references" embedded into comments in the generated code.
 
 @note
 Just like most high-level language compilers, QM&trade; recognizes only a limited number of characters in each name level as unique, and abbreviates the rest of the name. Currently, this limit is set to 16 unique leading characters at each level of the name, with the total length of the fully-qualified name not exceeding 99 characters.
@@ -202,7 +201,7 @@ namespace BAR {
 
 
 @subsection bm_package-namespace-c Namespaces in C
-QM&trade; also supports namespaces in <strong>C</strong> (i.e., in models based on the <span class="img qp_framework">@ref bm_qp_item "qpc"</span> or <span class="img qp_framework">@ref bm_qp_item "qpn"</span> frameworks). In C, the QM @ref ce "code generator" will pre-pend the namespace to the names of elements included in the package, such as classes, class operations, free attributes, and free operations.
+QM&trade; also supports namespaces in <strong>C</strong> (i.e., in models based on the <span class="img qp_framework">@ref bm_qp_item "qpc"</span> framework). In C, the QM @ref ce "code generator" will pre-pend the namespace to the names of elements included in the package, such as classes, class operations, free attributes, and free operations.
 
 @note
 For improved code readability in C, it is recommended to use the underscore '_' as the last character in the namespace string. QM&trade; will not insert any characters between the namespace and the name of the element. (This is in contrast to C++, where QM will make sure that the namespace is separated with the double-colon '::').
@@ -317,7 +316,6 @@ A class can *optionally* inherit a **superclass**. A superclass can be any of th
 @image html bm_class-super.png "Selecting a Superclass"
 
 
-
 @subsection bm_class-doc Class Documentation
 The **documentation** box in the Class Property Sheet allows you to provide documentation to the class. The QM code generator parses the documentation box and can @ref ce_comment-doc "generate comments" from it in the auto-generated code.
 
@@ -331,16 +329,14 @@ The **documentation** box in the Class Property Sheet allows you to provide docu
 <p>An *attribute* defines a variable that can be attached to the instances of a @ref bm_class "class" (see @ref bm_attr-class) or to a @ref bm_package "package" (see @ref bm_attr-free).
 </p>
 
-
 @section bm_attr-class Class Attributes
 Attributes attached to a @ref bm_class "class" are present in each instance of the class, except for a `static` class attribute, which exists in one copy only, regardless of the number of class instances. In C/C++, non-static class attributes correspond to data members of a `struct`/`class`.
-
 
 @subsection bm_attr-class-add Adding a Class Attribute
 A *class attribute* can only be added to a Class. To add a *class attribute*, in the Model Explorer right-click on the Class to which you want to add a new *class attribute* and select `Add Attribute` from the popup menu.
 
-![Adding a Class Attribute](bm_attr-class-add.png)
-
+@image html bm_attr-class-add.png
+@caption{Adding a Class Attribute}
 
 @subsection bm_attr-class-prop Class Attribute Property Sheet
 A <span class="img attr">Class Attribute</span> item can be configured by the Class-Attribute-Specific @ref ui_prop "Property Sheet".
@@ -348,17 +344,14 @@ A <span class="img attr">Class Attribute</span> item can be configured by the Cl
 ![Class Attribute Property Sheet](bm_attr-class-prop.png)
 
 The class-attribute-item property sheet allows you to set the following properties:
-
 - **attribute name** (NOTE: name can be followed by the array dimension for arrays of attributes)
 - **attribute type** drop-down box (NOTE: accepts also user-supplied types)
 - **attribute visibility** drop-down box with options: `public`, `protected`, `private`
 - **static checkbox** (for designating a class attribute as a *static class attribute*)
 - **attribute documentation** for documenting the attribute (see also @ref ce_comment-doc "generate comments")
 
-
 @section bm_attr-free Free Attributes
 Attributes attached to a @ref bm_package "package" (as opposed to a @ref bm_class "class") are called **free attributes**. In C/C++, such free attributes correspond to variables defined directly at file scope (either `static` variables or a global variables).
-
 
 @subsection bm_attr-free-add Adding a Free Attribute
 A *free attribute* can only be added to a Package. To add a *free attribute*, in the Model Explorer right-click on the Package to which you want to add a new *free attribute* and select `Add Attribute` from the popup menu.
@@ -376,35 +369,7 @@ The free-attribute-item property sheet allows you to set the following propertie
 - **attribute name** (NOTE: name can be followed by the array dimension for arrays of attributes)
 - **attribute type** drop-down box (NOTE: accepts also user-supplied types)
 - **attribute documentation** for documenting the attribute (see also @ref ce_comment-doc "generate comments")
-- **attribute initializer** (for optional initialization of the free attribute)
-
-
-@subsection bm_attr-free-init Free Attribute Initialization
-As mentioned in the previous section, the @ref bm_attr-free-prop "Free Attribute Property Sheet", provides the **attribute initializer** field for an *optional* initialization of the free attribute at the point of definition. If specified, the *attribute initializer* is copied literally immediately *after* the attribute definition (see also @ref ce_define).
-
-For example, the free attribute initializer shown on the left-hand side of the @ref bm_attr-free-prop "Free Attribute Property Sheets" above generates the following code (directive `$define${AOs::AO_Table}`):
-
-@code{c}
-/* opaque pointer to the Table AO */
-/*${AOs::AO_Table} .........................................................*/
-QActive * const AO_Table = &l_table.super;
-/*$enddef${AOs::AO_Table} ##################################################*/
-@endcode
-
-The free attribute initializer shown on the right-hand side of the @ref bm_attr-free-prop "Free Attribute Property Sheets" above generates the following code (directive `$define${AOs::AO_Philo[N_PHILO]}`):
-
-@code{c}
-/* opaque pointers to the Philo AOs */
-/*${AOs::AO_Philo[N_PHILO]} ................................................*/
-QActive * const AO_Philo[N_PHILO] = {
-    &l_philo[0].super,
-    &l_philo[1].super,
-    &l_philo[2].super,
-    &l_philo[3].super,
-    &l_philo[4].super
-};
-/*$enddef${AOs::AO_Philo[N_PHILO]} #########################################*/
-@endcode
+- **attribute initializer** for optional initialization of the free attribute (see also @ref ce_def_free-attr "free attribute definition")
 
 @nav{bm_class,bm_oper-class}
 */
@@ -412,27 +377,27 @@ QActive * const AO_Philo[N_PHILO] = {
 /*! @page bm_oper-class Working with Class Operations
 @nav{bm_attr,bm_oper-free}
 
-<p>Operations attached to a @ref bm_class "class" can access individual instances of the class, except for a @ref bm_class-oper-static "static class operation", which cannot access any particular instance.
-</p>
-In C, a non-static class operation corresponds to a function that (by a coding convention) takes the "me" pointer to the `struct` with class attribute (e.g., `bool Calc_eval(Calc * const me, double op, uint8_t oper)`).
+Operations attached to a @ref bm_class "class" can access individual instances of the class, except for a @ref bm_class-oper-static "static class operation", which cannot access any particular instance.
 
-@image html bm_class-oper_c.png "Example of a class operation in C"
+@section bm_oper-class-c Class Operations in C
+In C, a non-static class operation corresponds to a function that (by a coding convention) takes the `me`-pointer to the `struct` with class attribute. The `me`-pointer is generated **automatically** by QM and should NOT be provided explicitly.
+
+@image html bm_class-oper_c.png
+@caption{Example of a class operation in C}
+
+For example, operation `eval` in class `Calc` shown in the screen shot above will be generated as:<br>
+`bool Calc_eval(Calc const * const me, double op, uint8_t oper)`
+
+@note
+The `me` pointer parameter is of type `Calc const *...` because the *specifier* `const` is provided.
+Such `const` operation promises not to change the class instance.
 
 
-In C++, a non-static class operation corresponds to a class member function, that is a function with the "this"-calling convention (e.g.,  (e.g., `bool Calc::eval(double op, std::uint8_t oper)`).
+@subsection bm_class-ctor-c Class Constructors in C
+In C, a constructor is just like any other class operation in that QM will generate the `me`-pointer as the first parameter. By convention, a constructor should be named `ctor`, or `ctor1`, `ctor2`, etc. if you have more constructors with different signatures (different parameters). The `ctor` function should have return type `void`. It can have any number of parameters.
 
-@image html bm_class-oper_cpp.png "Example of a class operation in C++"
-
-
-@section bm_class-ctor Class Constructors
-
-A constructor is a special kind of class operation that initializes an instance of its class. QM supports class constructors both for C and C++.
-
-
-@subsection bm_class-ctor_C Class Constructors in C
-In C, a constructor should be named @c ctor, or @c ctor1, @c ctor2, etc. if you have more constructors with different signatures (different parameters). The @c ctor function should have return type @c void. It can have any number of parameters.
-
-@image html bm_class-ctor_c.png "Class constructor in C"
+@image html bm_class-ctor_c.png
+@caption{Class constructor in C}
 
 This piece of the model generates the following code:
 
@@ -446,25 +411,20 @@ void Philo_ctor(Philo * const me) {
 @note
 The C constructor must always call the superclass' as well as members' constructors explicitly. For example, the `Philo_ctor()` in the listing above calls the superclass' constructor `QActive_ctor()` as well as member constructor `QTimeEvt_ctorX()`.
 
-
-@subsection bm_class-ctor_call Invoking Constructors of Static Objects in C
-
-In C, constructors of global/static objects are __not__ invoked automatically, as is the case in C++. Therefore, in C, __you__ need to call the constructors of all your global/static objects explicitly. This often poses a problem with __encapsulation__ of components, such as Active Objects, where you don't want to expose the whole class declaration (to get to the constructor). In these cases, the example models in QP/C use an idiom, in which the special @ref bm_oper-free "free operation" `<Class>_ctor_caller()` (or just `<Class>_ctor()`) is provided just to call the constructor.
+@subsection bm_class-ctor_call Invoking Constructors in C
+In C, all constructors must be called **explicitly**. This often poses a problem with *encapsulation*. For example, you might not want to expose the whole Active Object class declaration (to get to the constructor). In these cases, the example models in QP/C use an idiom, in which the special @ref bm_oper-free "free operation" `<Class>_ctor_caller()` (or just `<Class>_ctor()`) is provided just to call the constructor on an implicit instance.
 
 For example, the model in the screen shot above contains the free operation `Philo_ctor_call()`, which is defined as follows
 
 @code{c}
-/* definition provided in the philo.c module */
 void Philo_ctor_call(void) {
-    uint8_t n;
-    for (n = 0U; n < N_PHILO;
- ++n) {
+    for (uint8_t n = 0U; n < N_PHILO; ++n) {
         Philo_ctor(&Philo_inst[n]); /* <== ctor */
     }
 }
 @endcode
 
-This particular "ctor call" invokes constructors of all `Philo` instances in the system. Later, in the `main()` function, only the  `Philo_ctor_call()` operation is called, without exposing the declaration of the `Philo` class (and its constructor):
+This particular "ctor call" invokes constructors of all `Philo` instances in the system. Later, in the `main()` function, only the free `Philo_ctor_call()` operation is called, without exposing the declaration of the `Philo` class (and its constructor):
 
 @code{c}
 void main(void) {
@@ -479,10 +439,20 @@ void main(void) {
 }
 @endcode
 
+@subsection bm_class-xtor-c Class Destructors in C
+In C, a destructor should be named `xtor`. The `xtor` class operation should have return type @c void and should not take any parameters (except of the implicit `me` pointer).
+
+@section bm_oper-class-cpp Class Operations in C++
+In C++, a non-static class operation corresponds to a class member function, that is a function with the `this`-calling convention.
+
+@image html bm_class-oper_cpp.png
+@caption{Example of a class operation in C++}
+
+For example, operation `eval` in class `Calc` shown in the screen shot above will be generated as:<br>
+`bool Calc::eval(double op, std::uint8_t oper)`
 
 @subsection bm_class-ctor_Cpp Class Constructors in C++
 In C++, a constructor has the same name as the class and no return value. A constructor can have any number of parameters and a class may have any number of overloaded constructors. Constructors may have any accessibility: public, protected or private.
-
 
 @subsection bm_class-ctor_initializer  C++ Constructor Initializer List
 To provide the **constructor initializer list**, you put the list in the _code_ panel starting with the colon (':') optionally preceded by any number of spaces. You can continue the list for as many lines as you wish.
@@ -493,7 +463,8 @@ Finally, you might skip the **constructor initializer list** altogether by simpl
 
 The following screen shot shows a C++ constructor with a **constructor initializer list** and a body.
 
-@image html bm_class-ctor_cpp.png "Class constructor in C++"
+@image html bm_class-ctor_cpp.png
+@caption{Class constructor in C++}
 
 This piece of the model generates the following code:
 
@@ -508,26 +479,15 @@ Table::Table() noexcept
 }
 @endcode
 
-@subsection bm_class-ctor_explicit  Explicit Constructor in C++
+@subsubsection bm_class-ctor_explicit  Explicit Constructor in C++
 You can make a C++ constructor __explicit__ by providing the keyword `explict` in the __return type__ filed in the Property Sheet. An example of an explicit constructor is provided in the `Table` constructor shown in the screen shot above.
 
-
-@subsection bm_class-xtor Class Destructors
-A destructor is a kind of class operation that cleans up after an instance of its class. QM supports class destructors both for C and C++.
-
-@subsection bm_class-xtor_C Class Destructors in C
-In C, a destructor should be named `xtor`. The `xtor` class operation should have return type @c void and should not take any parameters (except of the implicit `me` pointer).
-
-
-@note
-The C constructor must always call the superclass' constructor explicitly.
-
-@subsubsection bm_class-xtor_cpp Class Destructors in C++
-In C++, a destructor should be named ` ~<Class>`. The destructor class operation should have no return type and should not take any parameters (except of the implicit `this` pointer).
+@subsection bm_class-xtor-cpp Class Destructors in C++
+In C++, a destructor should be named ` ~<Class>`. The destructor class operation should have no return type and should not take any parameters (except of the implicit `this`-pointer).
 
 
 @section bm_class-oper-static Static (Class-Wide) Operations
-Static class operation does not have access to any specific instance of a class, but has permissions to access any attributes of any instance of the class. In C, a static class operation does __not__ take the "me" pointer. Similarly, in C++, a static class operation does __not__ take the implicit "this" pointer. You make a given class operation `static` by checking the __static__ checkbox in the @ref bm_class-oper-prop "Class Operation Property Sheet".
+Static class operation does not have access to any specific instance of a class, but has permissions to access any attributes of any instance of the class. In C, a static class operation does __not__ take the `me`-pointer. Similarly, in C++, a static class operation does __not__ take the implicit `this`-pointer. You make a given class operation `static` by checking the __static__ checkbox in the @ref bm_class-oper-prop "Class Operation Property Sheet".
 
 
 @section bm_class-oper-prop Class Operation Property Sheet
@@ -538,11 +498,12 @@ The class operation property sheet allows you to set the following properties:
 
 - **operation name**
 - **operation return type** drop-down box (NOTE: accepts also user-supplied types)
-- **operation specifier** (C++ only) allows you to provide such specifiers as: `override`, `noexcept`, `=delete`, `=0`, etc.
-- **operation virtual** (C++ only) checkbox
-- **operation inline** (C++ only) checkbox
+- **operation specifier** allows you to provide such specifiers as: `const` (for C/C++),<br>
+and `override`, `noexcept`, `=delete`, `=0` (for C++ only)
+- **operation virtual** checkbox (supported for C++ only)
+- **operation inline** checkbox
 - **operation documentation** for documenting the operation (see also @ref ce_comment-doc "generate comments")
-- **operation code/pseudocode** for specifying code of the operation (NOTE: the pseudocode box is currently not used)
+- **operation code/pseudocode** for specifying code of the operation (NOTE: currently not used)
 
 @nav{bm_attr,bm_oper-free}
 */
@@ -576,7 +537,7 @@ The free operation property sheet allows you to set the following properties:
 - **operation name**
 - **operation return type** drop-down box (NOTE: accepts also user-supplied types)
 - **operation specifier** (C++ only) allows you to provide such specifiers as: `noexcept`, etc.
-- **operation inline** (C++ only) checkbox
+- **operation inline** checkbox
 - **operation documentation** for documenting the operation (see also @ref ce_comment-doc "generate comments")
 - **operation code/pseudocode** for specifying code of the operation (NOTE: the pseudocode box is currently not used)
 
@@ -887,7 +848,7 @@ The appearance of the QM text editor, such as fonts and colors, can be customize
 @section bm_edit-syntax Syntax Highlighting
 The Syntax Highlighter supplied with the QM text editor has been customized to highlight the QM-specific constructs, such as:
 
-- the @ref ce_directive "Code-Generation Directives" (<strong>$declare${}</strong>, <strong>$define${}</strong>, <strong>$define1${}</strong>)
+- the @ref ce_gen "Code-Generation Directives" (<strong>$declare${}</strong>, <strong>$define${}</strong>, <strong>$define1${}</strong>)
 - the <strong>me->...</strong> and <strong>e->...</strong> constructs for accessing the state-machine members and event-parameters, respectively
 - the standard fixed-width integer types from `<stdint.h>` header file (<strong>uint8_t</strong>, <strong>uint16_t</strong>...)
 

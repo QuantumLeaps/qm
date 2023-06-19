@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="5.2.0" links="1">
+<model version="5.2.5" links="1">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem for STM32 NUCLEO-L152RE board
@@ -816,15 +816,27 @@ void QK::onIdle(void) {
 }
 
 //............................................................................
-extern &quot;C&quot; Q_NORETURN Q_onAssert(char const * const module, int_t const loc) {
+extern &quot;C&quot; {
+
+Q_NORETURN Q_onAssert(char const * const module, int_t const id) {
     //
     // NOTE: add here your application-specific error handling
     //
-    (void)module;
-    (void)loc;
-    QS_ASSERTION(module, loc, static_cast&lt;uint32_t&gt;(10000U));
+    Q_UNUSED_PAR(module);
+    Q_UNUSED_PAR(id);
+
+    QS_ASSERTION(module, id, 10000U); /* report assertion to QS */
     NVIC_SystemReset();
 }
+//............................................................................
+#if QP_VERSION &gt;= 730
+void assert_failed(char const * const module, int_t const id); // prototype
+void assert_failed(char const * const module, int_t const id) {
+    Q_onAssert(module, id);
+}
+#endif
+
+} // extern &quot;C&quot;
 
 // QS callbacks ==============================================================
 #ifdef Q_SPY
@@ -1163,7 +1175,7 @@ PROJECT     := dpp-qk
 
 # location of the QP/C++ framework (if not provided in an environemnt var.)
 ifeq ($(QPCPP),)
-QPCPP := ../../../../..
+QPCPP := /qp/qpcpp
 endif
 
 # QP port used in this project

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="5.2.4" links="0">
+<model version="5.2.5" links="0">
  <documentation>About this example:
 -------------------
 Simple &quot;Blinky&quot; console application for workstations (Windows, Linux, macOS)
@@ -135,7 +135,7 @@ void BSP::ledOn(void)  { cout &lt;&lt; &quot;LED ON&quot; &lt;&lt; endl;  }
 // callback functions needed by the framework --------------------------------
 void QF::onStartup(void) {}
 void QP::QF::onCleanup(void) {}
-void QP::QF_onClockTick(void) {
+void QP::QF::onClockTick(void) {
     QF::TICK_X(0U, 0); // QF clock tick processing for rate 0
 }
 void Q_onAssert(char const * const module, int loc) {
@@ -198,7 +198,7 @@ INCLUDES := -I. \
 
 # location of the QP/C framework (if not provided in an env. variable)
 ifeq ($(QPCPP),)
-QPCPP := ../../..
+QPCPP := /qp/qpcpp
 endif
 
 #-----------------------------------------------------------------------------
@@ -228,28 +228,6 @@ endif
 #-----------------------------------------------------------------------------
 # add QP/C++ framework (depends on the OS this Makefile runs on):
 #
-ifeq ($(OS),Windows_NT)
-
-# NOTE:
-# For Windows hosts, you can choose:
-# - the single-threaded QP/C++ port (win32-qv) or
-# - the multithreaded QP/C++ port (win32).
-#
-QP_PORT_DIR := $(QPCPP)/ports/win32-qv
-#QP_PORT_DIR := $(QPCPP)/ports/win32
-LIB_DIRS += -L$(QP_PORT_DIR)/$(CONF)
-LIBS     += -lqp -lws2_32
-
-else
-
-# NOTE:
-# For POSIX hosts (Linux, MacOS), you can choose:
-# - the single-threaded QP/C++ port (win32-qv) or
-# - the multithreaded QP/C++ port (win32).
-#
-QP_PORT_DIR := $(QPCPP)/ports/posix-qv
-#QP_PORT_DIR := $(QPCPP)/ports/posix
-
 CPP_SRCS += \
     qep_hsm.cpp \
     qep_msm.cpp \
@@ -272,6 +250,26 @@ QS_SRCS := \
     qs_fp.cpp \
     qs_port.cpp
 
+ifeq ($(OS),Windows_NT)
+
+# NOTE:
+# For Windows hosts, you can choose:
+# - the single-threaded QP/C++ port (win32-qv) or
+# - the multithreaded QP/C++ port (win32).
+#
+QP_PORT_DIR := $(QPCPP)/ports/win32-qv
+#QP_PORT_DIR := $(QPCPP)/ports/win32
+LIBS     += -lws2_32
+
+else
+
+# NOTE:
+# For POSIX hosts (Linux, MacOS), you can choose:
+# - the single-threaded QP/C++ port (win32-qv) or
+# - the multithreaded QP/C++ port (win32).
+#
+QP_PORT_DIR := $(QPCPP)/ports/posix-qv
+#QP_PORT_DIR := $(QPCPP)/ports/posix
 LIBS += -lpthread
 
 endif

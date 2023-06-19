@@ -1,5 +1,5 @@
 /*****************************************************************************
-* QM Style Sheet for Linux "Light"
+* QM Style Sheet for Windows "Light"
 * Last Updated for Version: 4.4.0
 * Date of the Last Update:  2019-02-28
 *
@@ -74,7 +74,7 @@ SearchView::item:selected {
 /* DiagramView ...............................................................
 */
 DiagramView {
-    font-family:                 "Nimbus Sans L";
+    font-family:                 "Arial";
     font-size:                   12px;
 
     qproperty-canvasColor:       white;
@@ -88,8 +88,8 @@ DiagramView {
 * Used in the files and code entered via a Property Sheet.
 */
 CodeEdit {
-    font-family:                 "DejaVu Sans Mono";
-    font-size:                   8pt;
+    font-family:                 "Consolas";
+    font-size:                   8.75pt;
 
     color:                       black;
     selection-color:             white;
@@ -101,8 +101,8 @@ CodeEdit {
 * Used in the documentation entered via a Property Sheet.
 */
 DocEdit {
-    font-family:                 "DejaVu Sans Mono";
-    font-size:                   8pt;
+    font-family:                 "Consolas";
+    font-size:                   8.75pt;
     font-style:                  italic;
 
     color:                       darkBlue;
@@ -112,8 +112,8 @@ DocEdit {
 /* Log window ................................................................
 */
 Log {
-    font-family:                 "DejaVu Sans Mono";
-    font-size:                   8pt;
+    font-family:                 "Consolas";
+    font-size:                   8.75pt;
 
     color:                       black;
     background-color:            white;
