@@ -231,15 +231,20 @@ If you are a commercial licensee and for some reason you did not receive your QM
 @section ui_license_cont Contents of QM License Certificate File
 The QM License Certificate file is a plain-text file, which you can open in any editor and inspect (but you cannot change without corrupting it). Here is an example of a QM License Certificate file:
 
+__File name:__ `QPC-SP-221115A.qlc`
 @include "QPC-SP-221115A.qlc"
 
 The QM License Certificate file the following information:
 
+- The license number (the file name of the certificate file)
 - The name of the commercial Licensee (company or individual)
 - The licensed QP framework type(s) (qpc/qpcpp)
 - The expiration date of the <a href="https://www.state-machine.com/licensing/#Support" target="_blank" class="extern">Support Term</a> associated with the license
 - The licensed <a href="https://www.state-machine.com/licensing/#Commercial" target="_blank" class="extern">Single Product / Product Line/etc.</a> of the Licensee
-- The cryptographic hash over the contents of the file, which prevents tampering with it.
+- The cryptographic hash over the contents of the file and the file name, which prevents tampering with it.
+
+@note
+The full name of the certificate file (`QPC-SP-221115A.qlc`) is tied to the license number and is included in the computation of the cryptographic hash. Therefore, changing the name (including the `.qlc` extension) of the certificate file is considered *tampering with the file*.
 
 
 @section ui_license_reg Registering QM License Certificate
@@ -288,7 +293,7 @@ The Current Item is typically also the **Selected Item** in the active diagram. 
 @image html view_explorer.png "Showing/Hiding the Model Explorer Dock Window"
 
 
-At the top-most level, the Model Explorer typically displays: the <span class="img model">@ref bm_model "Model Item"</span>, the <span class="img qp_framework"><a href="https://www.state-machine.com/products" target="_blank" class="extern">QP framework</a></span> (`qpc`, `qpcpp`, or `qpn`), various <span class="img package">@ref bm_package "packages"</span>, and <span class="img directory">@ref ce_dir "directories"</span>.
+At the top-most level, the Model Explorer typically displays: the <span class="img model">@ref bm_model "Model Item"</span>, the <span class="img qp_framework"><a href="https://www.state-machine.com/products" target="_blank" class="extern">QP framework</a></span> (`qpc` or `qpcpp`), various <span class="img package">@ref bm_package "packages"</span>, and <span class="img directory">@ref ce_dir "directories"</span>.
 
 
 @image html explorer.png "Model Explorer Dock Window"
@@ -351,7 +356,7 @@ Model Explorer "knows" which items can be accepted by which "container item" and
 
 
 @section ui_explorer_drag-code Drag-and-Drop into Files
-The Model Explorer supports drag-and-drop of model items to @ref ce_file "File Windows" to create @ref bm_fq-name "Fully-Qualified Item Names" inside @ref ce_directive.
+The Model Explorer supports drag-and-drop of model items to @ref ce_file "File Windows" to create @ref bm_fq-name "Fully-Qualified Item Names" inside @ref ce_gen.
 
 @image html "ui_explorer_drag-link.gif" "Dragging a link to a File"
 
@@ -1287,7 +1292,7 @@ If a **file window** is active, the Status Bar shows a hint and (Line, Column) c
 
 The New Model dialog box has the following elements:
 
-- The **Frameworks** list allows you to choose one of the three currently supported frameworks (`qpc`, `qpcpp`, or `qpn`) that provides you with base classes for derivation of your own classes, such as active objects, state machines, time events, etc. (**NOTE:** The QM&trade; Model is always based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/products">QP&trade; frameworks</a>);
+- The **Frameworks** list allows you to choose one of the three currently supported frameworks (`qpc` or `qpcpp`) that provides you with base classes for derivation of your own classes, such as active objects, state machines, time events, etc. (**NOTE:** The QM&trade; Model is always based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/products">QP&trade; frameworks</a>);
 
 - The @ref ui_custom_templates "Model Template" list allows you to choose a non-empty "template" as a starting point for your model. If you don't select the template and leave it at "None", your model will be empty, except for the selected framework.
 
@@ -1400,7 +1405,7 @@ In case of the tool failure, the @ref ui_log "Log Console" will show the error s
 /*! @page ui_license-dlg Code Generation License Dialog Box
 @nav{ui_tools-dlg,ui_custom}
 
-<p>As mentioned in the section @ref ab_special "What's Special about QM", much of the simplicity of QM&trade; derives from the fact that the models you create with QM&trade; are based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/qp">QP&trade; Real-Time Embedded Frameworks (RTEFs)</a>. An important implication of this design is that the @ref ce "code generated by QM" can only run within the QP&trade; RTEF, which means that such code must comply with the same licensing terms as the underlying QP framework (qpc, qpcpp, or qpn).
+<p>As mentioned in the section @ref ab_special "What's Special about QM", much of the simplicity of QM&trade; derives from the fact that the models you create with QM&trade; are based on one of the <a class="extern" target="_blank" href="https://www.state-machine.com/qp">QP&trade; Real-Time Embedded Frameworks (RTEFs)</a>. An important implication of this design is that the @ref ce "code generated by QM" can only run within the QP&trade; RTEF, which means that such code must comply with the same licensing terms as the underlying QP framework (`qpc` or `qpcpp`).
 </p>
 
 <div style="clear:both;"></div>
@@ -1681,8 +1686,6 @@ You add a new model template simply by saving a model in the @ref gs_install_fol
 - A model template created with the <a class="extern" target="_blank" href="https://www.state-machine.com/qpc">QP/C framework</a> should go into the directory `&lt;qm&gt;/Resources/qpc`.
 
 - A model template created with the <a class="extern" target="_blank" href="https://www.state-machine.com/qpcpp">QP/C++ framework</a> should go into the directory `&lt;qm&gt;/Resources/qpcpp`.
-
-- A model template created with the <a class="extern" target="_blank" href="https://www.state-machine.com/qpn">QP-nano framework</a> should go into the directory `&lt;qm&gt;/Resources/qpn`.
 
 @note
 If you save a model template for the wrong QP framework type (e.g., you save a model based on `qpc` into `Resources/qpcpp/`), the template will be rejected during creation of the new model.

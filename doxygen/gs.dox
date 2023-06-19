@@ -105,36 +105,35 @@ The setup program installs QM&trade; executable and all shared libraries necessa
 <br>
 @code{.c}
 <qm>
-  +-bin/             // executables
-  | +-platforms/     // Platform plugin for Qt5
-  | | +-qwindows.dll
-  | |
-  | +-qm.exe         // QM  application executable
-  | + . . . .
-  | +-Qt5Core.dll         // Qt5 Core features DLL
-  | +-Qt5Gui.dll          // Qt5 GUI DLL
-  | +-Qt5PrintSupport.dll // Qt5 Print DLL
-  | +-Qt5Widgets.dll      // Qt5 Widgets DLL
-  | + . . . .
+  +---bin/                 // executables
+  |   +---platforms/       // Platform plugin for Qt5
+  |   |       qwindows.dll
+  |   |
+  |   |   qm.exe           // QM  application executable
+  |   |   . . .
+  |   |   Qt5Core.dll         // Qt5 Core features DLL
+  |   |   Qt5Gui.dll          // Qt5 GUI DLL
+  |   |   Qt5PrintSupport.dll // Qt5 Print DLL
+  |   |   Qt5Widgets.dll      // Qt5 Widgets DLL
+  |   |   . . .
   |
-  +-html/            // HTML help
-  | +-~~~
-  | +-index.html     // HTML index file for all help topics
+  +---html/                // HTML help
+  |   |   ~~~
+  |   |   index.html       // HTML index file for all help topics
   |
-  +-Resources/       // QM model templates
-  | +-qpc/           // templates for QP/C
-  | +-qpcpp/         // templates for QP/C++
-  | +-qpn/           // templates for QP-nano
-  | +-qm.qss         // QM style sheet (see Customizing QM)
+  +---Resources/           // QM model templates
+  |   +---qpc/             // templates for QP/C
+  |   +---qpcpp/           // templates for QP/C++
+  |   |   qm.qss           // QM style sheet (see Customizing QM)
   |
-  +-QM_LICENSE.txt   // QM license
-  +-README.md        // QM release notes
-  +-unins000.exe     // QM uninstaller (if QM installed separately)
+  |   QM_LICENSE.txt       // QM license
+  |   README.md            // QM release notes
+  |   unins000.exe         // QM uninstaller (if QM installed separately)
 @endcode
 
 
 @section gs_qp QP&trade; Frameworks
-If your only intention is to use QM&trade; as a drawing tool, you don't need to bother with @webref{products/qp,QP&trade;} or even know what it is. However, if you wish to use QM&trade; to its full potential for generating production-quality code, you need to install at least one of the QP&trade; frameworks (QP/C, QP/C++, or QP-nano). The open source QP&trade; frameworks are available for download inside the @webref{#Downloads,QP-bundle&trade;}, which includes QM&trade; and also all @webref{products/qp,QP&trade; Real-Time Embedded Frameworks} and the @webref{products/qtools,QTools&trade; collection}> or separately, as described in the Reference Manuals of each framework.
+If your only intention is to use QM&trade; as a drawing tool, you don't need to bother with @webref{products/qp,QP&trade;} or even know what it is. However, if you wish to use QM&trade; to its full potential for generating production-quality code, you need to install at least one of the QP&trade; frameworks (QP/C or QP/C++). The open source QP&trade; frameworks are available for download inside the @webref{#Downloads,QP-bundle&trade;}, which includes QM&trade; and also all @webref{products/qp,QP&trade; Real-Time Embedded Frameworks} and the @webref{products/qtools,QTools&trade; collection}> or separately, as described in the Reference Manuals of each framework.
 
 @ifnot LATEX
 @nav{gs_get,gs_run}
@@ -246,7 +245,7 @@ QM&trade; can be also launched by dragging a QM model file and dropping it on th
 </p>
 
 @note
-This tutorial assumes @webref{qpc,QP/C} (version **6**). To work with other QP framework types (@webref{qpcpp,QP/C++} or @webref{qpn,QP-nano}) it is recommended to create your Blinky model from a **model template** for the specific framework type, as @ref gs_tut_template "described below".
+This tutorial assumes @webref{qpc,QP/C} (version **6** or higher). To work with other QP framework types (e.g., @webref{qpcpp,QP/C++}) it is recommended to create your Blinky model from a **model template** for the specific framework type, as @ref gs_tut_template "described below".
 
 
 @section gs_tut_video QM Tutorial Video
@@ -261,7 +260,7 @@ To create a new model, go to <span class="menu">File-&gt;New Model...</span> men
 
 ![New Model dialog](new_model.png)
 
-- Select the **QP framework type** you want to base the new model on (the "Framework" panel). The choices are: `qpc` for QP/C&trade;, `qpcpp` for QP/C++&trade;, and `qpn` for QP-nano&trade;. For this tutorial, leave the default **qpc** framework type.
+- Select the **QP framework type** you want to base the new model on (the "Framework" panel). The choices are: `qpc` for QP/C&trade; and `qpcpp` for QP/C++&trade;. For this tutorial, leave the default **qpc** framework type.
 
 - Choose the **model template** for your model ("the Model Template" panel). , select the template and leave it at "None", your model will be empty, except the selected framework. For this tutorial, leave the default template **None**, so that you can start building your model from scratch.
 
@@ -282,7 +281,7 @@ Alternatively, you can create the Blinky model from the provided Template. As sh
 When you close the dialog with the <span class="button">OK</span> button in this case, the blinky model will be copied from the provided template and will be ready. You can inspect the model, show the Blinky @ref gs_tut_draw "state diagram", @ref gs_tut_ce-gen "generate code from it", @ref gs_tut_build "build the application" and run it on your desktop PC.
 
 @attention
-The blinky model templates are available for all QP framework types (QP/C, QP/C++ and QP-nano), not just for QP/C. These model templates are a bit more advanced than the model you will create from scratch in the rest of this Tutorial. The models created from these templates are annotated with comments and documentation and it is **highly recommended** that you get familiar with the structure of these models.
+The blinky model templates are available for all QP framework types (QP/C and QP/C++), not just for QP/C. These model templates are a bit more advanced than the model you will create from scratch in the rest of this Tutorial. The models created from these templates are annotated with comments and documentation and it is **highly recommended** that you get familiar with the structure of these models.
 
 
 @section gs_tut_add Adding Model Items
@@ -394,7 +393,7 @@ Once you have a directory, you can add @ref ce_file "Files" to it. In a real-lif
 
 
 @subsection gs_tut_ce-code Edit File
-In QM&trade; **you** provide the body of every @ref ce_file "file-template", in which you can type your own code as well as @ref ce_directive.
+In QM&trade; **you** provide the body of every @ref ce_file "file-template", in which you can type your own code as well as @ref ce_gen.
 
 - In the @ref ui_explorer **double**-click on the <span class="img file_c">blinky.c</span> file to open the file in a window. Next copy the following code to the Clipboard and paste it into the file window.
 
@@ -402,7 +401,7 @@ In QM&trade; **you** provide the body of every @ref ce_file "file-template", in 
 @include "blinky.c"
 
 @attention
-The listing above shows the two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_directive-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_directive-def of the of the `Blinky` class.<br>
+The listing above shows the two most important code generation directives: @ref ce_declare "$declare${AOs::Blinky}" for generating the @ref ce_gen-decl of the `Blinky` class, and @ref ce_define "$define${AOs::Blinky}" for generating the @ref ce_gen-def of the of the `Blinky` class.<br>
 
 
 ![Opening blinky.c File and Pasting the Code](blinky_file_edit.gif)
@@ -462,7 +461,7 @@ You exit the application by pressing <span class="button">Ctrl+C</span>.
 
 
 @subsection gs_tut_emb Building Blinky for an Embedded Board
-To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package) to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: @webref{doc/AN_Getting_Started_with_QPC.pdf,QP/C}, @webref{doc/AN_Getting_Started_with_QPCpp.pdf,QP/C++}, and @webref{doc/AN_Getting_Started_with_QP-nano.pdf,QP-nano}.
+To build the Blinky project for an embedded board, you need to modify the BSP (Board Support Package) to turn the LED on and off. You also need to use the specific cross-compiler. Please refer to the <a class="extern" target="_blank" href="https://youtu.be/O7ER6_VqIH0">"Getting Started" video</a> for more information about getting started with the QP frameworks. Also, you might read "Getting Started" Application Notes: @webref{doc/AN_Getting_Started_with_QPC.pdf,QP/C} and @webref{doc/AN_Getting_Started_with_QPCpp.pdf,QP/C++}.
 
 ![Blinky on TivaC LaunchPad](blinky_ek-tm4c123gxl.gif)
 
@@ -480,79 +479,77 @@ To build the Blinky project for an embedded board, you need to modify the BSP (B
 </p>
 
 Specifically:
-- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpc">QP/C Baseline Distribution</a> contains the QM models and projects for the @webref{qpc,QP/C} framework</a>;
+- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpc">QP/C Baseline Distribution</a> contains the QM models and projects for the @webref{qpc,QP/C} framework</a>; and
 
-- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpcpp">QP/C++ Baseline Distribution</a> contains the QM models and projects for the @webref{qpcpp,QP/C++} framework</a>; and
-
-- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpn">QP-nano Baseline Distribution</a> contains the QM models and projects for the @webref{qpn,QP-nano} framework</a>.
+- the <a class="extern" target="_blank" href="https://github.com/QuantumLeaps/qpcpp">QP/C++ Baseline Distribution</a> contains the QM models and projects for the @webref{qpcpp,QP/C++} framework</a>.
 
 
 @section gs_examples_finding Finding the QM&trade; Examples in the QP&trade; Distribution
-The following directory chart shows QM&trade; example models and projects in the QP/C Baseline Distribution. The QP/C++ and QP-nano Baseline Distributions have a similar structure.
+The following directory chart shows QM&trade; example models and projects in the QP/C Baseline Distribution. The QP/C++ Baseline Distribution has a similar structure.
 
 @note
 The QM model files have the <b>extension .qm</b>. After installing QM, you can open the models in QM by double-clicking on the `.qm` files in Windows Explorer.
 
 
 @code{.c}
-<qp>/               // QP/C, QP/C++, or QP-nano installation folder
+<qp>/               // QP/C or QP/C++
 +-examples/         // all examples
 | +-workstation/    // examples for host workstations (Windows, Linux, macOS)
 | | +-blinky/       // Blinky example
-| | | +-blinky.qm   // QM model
-| | | +-~~~         //
+| | |   blinky.qm   // QM model
+| | |   ~~~         //
 | | +-calc/         // Calculator example (as published in PSiCC2 book)
-| | | +-calc.qm     // QM model
-| | | +-~~~         //
+| | |   calc.qm     // QM model
+| | |   ~~~         //
 | | +-calc1/        // improved Calculator example
-| | | +-calc1.qm    // QM model
-| | | +-~~~         //
+| | |   calc1.qm    // QM model
+| | |   ~~~         //
 | | +-calc1_sub/    // improved Calculator with sub-machines example
-| | | +-calc1_sub.qm  // QM model
-| | | +-~~~         //
+| | |   calc1_sub.qm // QM model
+| | |   ~~~         //
 | | +-comp/         // "Orthogonal Component" example
-| | | +-comp.qm     // QM model
-| | | +-~~~         //
+| | |   comp.qm     // QM model
+| | |   ~~~         //
 | | +-dpp/          // Dining Philosophers Problem (DPP) example
-| | | +-dpp.qm      // QM model
-| | | +-~~~         //
+| | |   dpp.qm      // QM model
+| | |   ~~~         //
 | | +-dpp-comp/     // DPP with "Orthogonal Component" example
-| | | +-dpp.qm      // QM model
-| | | +-~~~         //
+| | |   dpp.qm      // QM model
+| | |   ~~~         //
 | | +-dpp-gui/      // Dining Philosophers Problem (DPP) with GUI =====++
 | | |               //                                                 ||
 | | +-game-gui/     // "Fly 'n' Shoot" game example with GUI =====++   ||
 | | |               //                                            ||   ||
 | | +-history_qhsm/ // Transition to history with QHsm example    ||   ||
-| | | +-history.qm  // QM model                                   ||   ||
-| | | +-~~~         //                                            ||   ||
+| | |   history.qm  // QM model                                   ||   ||
+| | |   ~~~         //                                            ||   ||
 | | +-history_qmsm/ // Transition to history with QMsm example    ||   ||
-| | | +-history.qm  // QM model                                   ||   ||
-| | | +-~~~         //                                            ||   ||
+| | |   history.qm  // QM model                                   ||   ||
+| | |   ~~~         //                                            ||   ||
 | | +-~~~           //                                            ||   ||
 | | +-qhsmtst/      // QHsmTst example (from the PSiCC2 book)     ||   ||
-| | | +-qhsmtst.qm  // QM model                                   ||   ||
-| | | +-~~~         //                                            ||   ||
+| | |   qhsmtst.qm  // QM model                                   ||   ||
+| | |   ~~~         //                                            ||   ||
 | | +-qmsmtst/      // QMsmTst example                            ||   ||
-| | | +-qmsmtst.qm  // QM model                                   ||   ||
-| | | +-~~~         //                                            ||   ||
+| | |   qmsmtst.qm  // QM model                                   ||   ||
+| | |   ~~~         //                                            ||   ||
 | |                 //                                            ||   ||
 | +-arm-cm/         // examples for ARM Cortex-M                  ||   ||
 | | +-blinky_ek-tm4c123gxl/ // Blinky example for EK-TM4C123GXL   ||   ||
 | | | +-qk/         // examples for the preemptive QK kernel      ||   ||
 | | | | +-arm/      // ARM-Keil toolset                           ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
-| | | | | | +-blinky-qk.axf // Blinky image for debugging         ||   ||
-| | | | | | +-blinky-qk.bin // Blinky image for flash download    ||   ||
-| | | | | +-~~~     //                                            ||   ||
-| | | | | +-blinky-qk.uvprojx // Keil uVision project             ||   ||
-| | | | | +~~~      //                                            ||   ||
+| | | | | |   blinky-qk.axf // Blinky image for debugging         ||   ||
+| | | | | |   blinky-qk.bin // Blinky image for flash download    ||   ||
+| | | | | |   ~~~    //                                           ||   ||
+| | | | | | blinky-qk.uvprojx // Keil uVision project             ||   ||
+| | | | | | ~~~     //                                            ||   ||
 | | | | +-gnu/      // GNU-ARM toolset                            ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
-| | | | | | +-blinky-qk.elf // Blinky image for debugging         ||   ||
-| | | | | | +-blinky-qk.bin // Blinky image for flash download    ||   ||
-| | | | | +-~~~     //                                            ||   ||
-| | | | | +-Makefile  // makefile to build the project            ||   ||
+| | | | | |   blinky-qk.elf // Blinky image for debugging         ||   ||
+| | | | | |   blinky-qk.bin // Blinky image for flash download    ||   ||
+| | | | | | ~~~     //                                            ||   ||
+| | | | | | Makefile // makefile to build the project             ||   ||
 | | | | | +~~~      //                                            ||   ||
 | | | | +-iar/      // IAR EWARM toolset                          ||   ||
 | | | | | +-dbg/    // debug build directory                      ||   ||
@@ -633,8 +630,8 @@ The QM model files have the <b>extension .qm</b>. After installing QM, you can o
 | | | | +-dpp_gui.sln // Visual Studio solution file              ||
 | | | | +-dpp_gui.vcxproj // Visual Studio project file           ||
 | | | | +-~~~       //                                            ||
-| | | +-dpp.qm      // QM model of DPP                            ||
-| | | +-~~~         //                                            ||
+| | | | dpp.qm      // QM model of DPP                            ||
+| | | | ~~~         //                                            ||
 | | +-game_efm32-slstk3401a/ // game for EFM32-SLSTK3401A         ||
 | | | +-qk/         // examples for the preemptive QK kernel      ||
 | | | | +-arm/      // ARM-Keil toolset                           ||
@@ -645,8 +642,8 @@ The QM model files have the <b>extension .qm</b>. After installing QM, you can o
 | | | | +-gnu/      // examples for GNU-ARM                       ||
 | | | | +-iar/      // examples for IAR EWARM                     ||
 | | | +-win32-gui/  // examples for Windows with GUI (QWin) <=====++
-| | | | +-~~~       //
-| | | +-game.qm     // QM model of the game
+| | | | ~~~         //
+| | | | game.qm     // QM model of the game
 @endcode
 
 
@@ -699,7 +696,7 @@ In order to rebuild the examples from source code you need to:
 
 - Install the ARM development toolset you want to use (ARM-KEL, GNU-ARM, or IAR).
 
-- Define an environment variable to point to the location of the QP baseline code (`QPC` for QP/C, `QPCPP` for QP/C++, and `QPN` for QP-nano).
+- Define an environment variable to point to the location of the QP baseline code (`QPC` for QP/C and `QPCPP` for QP/C++).
 
 For example, if you want to rebuild a QP/C example project, you need to download and install the <a class="extern" target="_blank" href="https://sourceforge.net/projects/qpc/files/QP-C/">QP/C baseline code</a> and you need to define the environment variable `QPC`. Assuming that you have installed QP/C into the directory `C:\qp\qpc`, you should define the environment variable `QPC` to `C:\qp\qpc`.
 

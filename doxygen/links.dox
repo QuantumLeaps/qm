@@ -94,7 +94,7 @@
       - @ref ce_phys
       - @ref ce_dir
       - @ref ce_file
-      - @ref ce_directive
+      - @ref ce_gen
       - @ref ce_sm
       - @ref ce_comment
       - @ref ce_cond
