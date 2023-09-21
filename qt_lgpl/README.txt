@@ -1,6 +1,6 @@
 Compliance with Qt LGPL
 ========================
-The QM™ Modeling Tool uses the Qt Toolkit under the terms of the GNU Lesser
+The QM Modeling Tool uses the Qt Toolkit under the terms of the GNU Lesser
 General Public License v. 3 and the GNU Lesser General Public License v. 2.1
 (both jointly "LGPL"). In compliance with LGPL, this document collects the
 relevant information about downloading, installing, and building the Qt
@@ -47,18 +47,9 @@ Qt Library Source Code
 The QM Modeling tool has used several Qt versions. Please choose the Qt
 version displayed by the QM "About Qt Dialog Box":
 
-Windows Hosts
--------------
-* Qt 5.15.1 http://download.qt.io/archive/qt/5.15/5.15.1
-* Qt 5.6.2 http://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-windows-x86-msvc2013-5.6.2.exe (814MB)
-
-Linux Hosts
------------
-* Qt 5.6.2 http://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-linux-x64-5.6.2.run (653MB)
-
-MacOS Hosts
------------
-* Qt 5.6.2 http://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-mac-x64-clang-5.6.2.dmg (1.1GB)
+Qt 6.5.2  https://download.qt.io/archive/qt/6.5/6.5.2
+Qt 5.15.1 https://download.qt.io/archive/qt/5.15/5.15.1
+Qt 5.6.2  https://download.qt.io/new_archive/qt/5.6/5.6.2/
 
 
 Written Offer to Provide Source Code

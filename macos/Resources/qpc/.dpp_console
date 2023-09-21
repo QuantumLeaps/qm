@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="5.2.5">
+<session version="6.0.0">
+ <item name="license">GPL</item>
  <group name="locked"/>
  <group name="settings">
   <item name="tabs">1</item>
@@ -8,15 +9,10 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Philo::SM">0,0,584,1556,*</item>
-  <item id="AOs::Table::SM">0,916,375,664</item>
-  <item id=".::dpp.h">-90,0,674,300</item>
-  <item id=".::philo.c">-90,300,674,300</item>
-  <item id=".::table.c">-90,600,674,300</item>
-  <item id=".::bsp.h">-90,900,674,300</item>
-  <item id=".::bsp.c">-90,1200,674,300</item>
-  <item id=".::main.c">0,0,674,300</item>
-  <item id=".::Makefile">0,300,674,300</item>
+  <item id="AOs::Philo::SM">0,0,658,981,*</item>
+  <item id="AOs::Table::SM">0,533,640,480</item>
+  <item id=".::philo.c">-16,0,674,300</item>
+  <item id=".::table.c">-16,300,674,300</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>

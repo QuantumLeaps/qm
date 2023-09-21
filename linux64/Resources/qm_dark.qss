@@ -1,13 +1,13 @@
 /*****************************************************************************
-* QM Style Sheet for Windows "Dark"
-* Last Updated for Version: 4.4.0
-* Date of the Last Update:  2019-02-28
+* QM Style Sheet for Linux "Dark"
+* Last Updated for Version: 6.0.0
+* Date of the Last Update:  2023-09-20
 *
 *                    Q u a n t u m  L e a P s
 *                    ------------------------
 *                    Modern Embedded Software
 *
-* Copyright (C) 2005-2019 Quantum Leaps, LLC. All rights reserved.
+* Copyright (C) 2005-2023 Quantum Leaps, LLC. All rights reserved.
 *
 * Contact information:
 * https://www.state-machine.com
@@ -74,7 +74,7 @@ SearchView::item:selected {
 /* DiagramView ...............................................................
 */
 DiagramView {
-    font-family:                 "Arial";
+    font-family:                 "Nimbus Sans L";
     font-size:                   12px;
 
     qproperty-canvasColor:       #252A34;
@@ -88,8 +88,8 @@ DiagramView {
 * Used in the files and code entered via a Property Sheet.
 */
 CodeEdit {
-    font-family:                 "Consolas";
-    font-size:                   8.75pt;
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
 
     color:                       #D8DEEA;
     selection-color:             #CDD3DF;
@@ -100,8 +100,8 @@ CodeEdit {
 * Used in the documentation entered via a Property Sheet.
 */
 DocEdit {
-    font-family:                 "Consolas";
-    font-size:                   9pt;
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
     font-style:                  italic;
 
     color:                       #E1E1E1;
@@ -111,8 +111,8 @@ DocEdit {
 /* Log window ................................................................
 */
 Log {
-    font-family:                 "Consolas";
-    font-size:                   8.75pt;
+    font-family:                 "DejaVu Sans Mono";
+    font-size:                   8pt;
 
     color:                       #E1E1E1;
     background-color:            #252A34;

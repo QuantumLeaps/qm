@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="5.3.0" links="0">
+<model version="6.0.0" links="0">
  <documentation>About this example:
 -------------------
 Simple &quot;Blinky&quot; console application for workstations (Windows, Linux, macOS)
@@ -26,93 +26,80 @@ This example is a simple console application, which you can run from a terminal.
 For more QM examples for QP/C++ see:
 https://www.state-machine.com/qpcpp/exa.html</documentation>
  <framework name="qpcpp"/>
- <package name="AOs" stereotype="0x02">
-  <class name="Blinky" superclass="qpcpp::QActive">
+ <package name="Shared" stereotype="0x01" namespace="APP::">
+  <attribute name="AppSignals" type="enum" visibility="0x04" properties="0x00">
+   <code>: QP::QSignal {
+    TIMEOUT_SIG = QP::Q_USER_SIG, // published by Table to let a Philo eat
+
+   MAX_SIG         // the last signal
+};</code>
+  </attribute>
+  <attribute name="AO_Blinky" type="QP::QActive * const" visibility="0x00" properties="0x00">
+   <code>= &amp;Blinky::inst;</code>
+  </attribute>
+ </package>
+ <package name="AOs" stereotype="0x02" namespace="APP::">
+  <class name="Blinky" superclass="qpcpp::QMActive">
    <attribute name="m_timeEvt" type="QP::QTimeEvt" visibility="0x02" properties="0x00"/>
-   <attribute name="instance" type="Blinky" visibility="0x00" properties="0x01"/>
+   <attribute name="inst" type="Blinky" visibility="0x00" properties="0x01"/>
    <operation name="Blinky" type="" visibility="0x00" properties="0x00">
-    <documentation>Blinky constructor</documentation>
-    <code>  : QActive(Q_STATE_CAST(&amp;Blinky::initial)),
+    <code>: QMActive(Q_STATE_CAST(&amp;Blinky::initial)),
     m_timeEvt(this, TIMEOUT_SIG, 0U)</code>
    </operation>
    <statechart properties="0x02">
     <initial target="../1">
-     <action>// arm the private time event to expire in 1/2s
-// and periodically every 1/2 second
-m_timeEvt.armX(BSP::TICKS_PER_SEC/2,
-               BSP::TICKS_PER_SEC/2);
+     <action>m_timeEvt.armX(BSP::TICKS_PER_SEC/2, BSP::TICKS_PER_SEC/2);
 (void)e; // unused parameter</action>
-     <initial_glyph conn="2,3,5,1,20,5,-4">
-      <action box="0,-2,6,2"/>
+     <initial_glyph conn="2,2,5,1,20,8,-4">
+      <action box="0,-2,32,6"/>
      </initial_glyph>
     </initial>
     <state name="off">
      <entry>BSP::ledOff();</entry>
      <tran trig="TIMEOUT" target="../../2">
-      <tran_glyph conn="2,15,3,1,18,7,-2">
+      <tran_glyph conn="2,16,3,1,18,8,-2">
        <action box="0,-2,8,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="2,6,16,12">
+     <state_glyph node="2,8,16,10">
       <entry box="1,2,12,4"/>
      </state_glyph>
     </state>
     <state name="on">
      <entry>BSP::ledOn();</entry>
      <tran trig="TIMEOUT" target="../../1">
-      <tran_glyph conn="2,30,3,1,20,-19,-4">
+      <tran_glyph conn="2,30,3,1,20,-17,-4">
        <action box="0,-2,8,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="2,20,16,12">
+     <state_glyph node="2,22,16,10">
       <entry box="1,2,12,4"/>
      </state_glyph>
     </state>
-    <state_diagram size="26,34"/>
+    <state_diagram size="34,34"/>
    </statechart>
   </class>
-  <attribute name="AO_Blinky" type="QP::QActive * const" visibility="0x00" properties="0x00">
-   <code>= &amp;Blinky::instance;</code>
-  </attribute>
  </package>
  <directory name=".">
-  <file name="blinky.cpp">
-   <text>#include &quot;qpcpp.hpp&quot; // QP/C++ framework API
-#include &quot;bsp.hpp&quot;   // Board Support Package interface
-
-using namespace QP;
-
-// ask QM to declare the Blinky class ----------------------------------------
-$declare${AOs::Blinky}
-
-// opaque pointer to the Blinky active object --------------------------------
-$define${AOs::AO_Blinky}
-
-// ask QM to define the Blinky class (including the state machine) -----------
-$define${AOs::Blinky}</text>
-  </file>
   <file name="bsp.hpp">
-   <text>#ifndef BSP_HPP
-#define BSP_HPP
+   <text>#ifndef BSP_HPP_
+#define BSP_HPP_
 
-// a very simple Board Support Package (BSP) -------------------------------
-class BSP {
-public:
-    enum { TICKS_PER_SEC = 100 }; // numer of clock ticks in a second
-    static void init(void);
-    static void ledOff(void);
-    static void ledOn(void);
-};
+namespace BSP {
 
-enum BlinkySignals {
-    TIMEOUT_SIG = QP::Q_USER_SIG, // offset the first signal
-    MAX_SIG
-};
+constexpr std::uint32_t TICKS_PER_SEC {100U};
 
-// active object(s) used in this application -------------------------------
-$declare${AOs::AO_Blinky}
+void init();
+void start();
+void terminate(std::int16_t const result);
+void ledOn(void);
+void ledOff(void);
 
-#endif // BSP_HPP</text>
+} // namespace BSP
+
+$declare ${Shared}
+
+#endif // BSP_HPP_</text>
   </file>
   <file name="bsp.cpp">
    <text>#include &quot;qpcpp.hpp&quot;  // QP/C++ framework API
@@ -120,52 +107,122 @@ $declare${AOs::AO_Blinky}
 #include &lt;iostream&gt;   // for cout/cerr
 #include &lt;cstdlib&gt;    // for exit()
 
-using namespace std;
-using namespace QP;
+#ifdef Q_SPY
+    #error Simple Blinky Application does not provide Spy build configuration
+#endif
 
-void BSP::init(void)   {
-    cout &lt;&lt; &quot;Simple Blinky example\nQP/C++ version: &quot;
-         &lt;&lt; QP_VERSION_STR
-         &lt;&lt; &quot;\nPress Ctrl-C to quit...&quot;
-         &lt;&lt; endl; // print QP version
-}
-void BSP::ledOff(void) { cout &lt;&lt; &quot;LED OFF&quot; &lt;&lt; endl; }
-void BSP::ledOn(void)  { cout &lt;&lt; &quot;LED ON&quot; &lt;&lt; endl;  }
+//============================================================================
+namespace { // unnamed namespace for local stuff with internal linkage
 
-// callback functions needed by the framework --------------------------------
-void QF::onStartup(void) {}
-void QP::QF::onCleanup(void) {}
-void QP::QF::onClockTick(void) {
-    QF::TICK_X(0U, 0); // QF clock tick processing for rate 0
-}
-void Q_onAssert(char const * const module, int loc) {
-    cerr &lt;&lt; &quot;Assertion failed in &quot; &lt;&lt;  module &lt;&lt; &quot;:&quot; &lt;&lt; loc &lt;&lt; endl;
+Q_DEFINE_THIS_FILE
+
+} // unnamed namespace
+
+//============================================================================
+// Error handler and ISRs...
+
+extern &quot;C&quot; {
+
+//............................................................................
+void Q_onError(char const * const module, int id) {
+    std::cerr &lt;&lt; &quot;Assertion failed in &quot; &lt;&lt; module &lt;&lt; ':' &lt;&lt; id &lt;&lt; std::endl;
     exit(-1);
-}</text>
+}
+//............................................................................
+void assert_failed(char const * const module, int_t const id); // prototype
+void assert_failed(char const * const module, int_t const id) {
+    Q_onError(module, id);
+}
+
+} // extern &quot;C&quot;
+
+//============================================================================
+namespace BSP {
+
+void init() {
+    std::cout &lt;&lt; &quot;Simple Blinky example\n&quot;
+            &quot;QP/C++ version: &quot; QP_VERSION_STR &quot;\n&quot;
+            &quot;Press Ctrl-C to quit...&quot; &lt;&lt; std::endl;
+}
+//............................................................................
+void start() {
+    // no need to initialize event pools
+    //QP::QF::poolInit(smlPoolSto, sizeof(smlPoolSto), sizeof(smlPoolSto[0]));
+
+    // no need to initialize publish-subscribe
+    //static QP::QSubscrList subscrSto[APP::MAX_PUB_SIG];
+    //QP::QActive::psInit(subscrSto, Q_DIM(subscrSto));
+
+    // start AOs...
+    static QP::QEvt const *blinkyQueueSto[10];
+    APP::AO_Blinky-&gt;start(
+        1U,                          // QP prio. of the AO
+        blinkyQueueSto,              // event queue storage
+        Q_DIM(blinkyQueueSto),       // queue length [events]
+        nullptr, 0U);                // no stack storage
+}
+//............................................................................
+void ledOn() {
+    std::cout &lt;&lt; &quot;LED-ON&quot; &lt;&lt; std::endl;
+}
+//............................................................................
+void ledOff() {
+    std::cout &lt;&lt; &quot;LED-OFF&quot; &lt;&lt; std::endl;
+}
+//............................................................................
+void terminate(int16_t result) {
+    Q_UNUSED_PAR(result);
+}
+
+} // namespace BSP
+
+//============================================================================
+namespace QP {
+
+// QF callbacks...
+void QF::onStartup() {
+}
+//............................................................................
+void QF::onCleanup() {
+}
+//............................................................................
+void QF::onClockTick(void) {
+    QTimeEvt::TICK_X(0U, nullptr);  // QTimeEvt clock tick processing
+}
+
+} // namespace QP</text>
+  </file>
+  <file name="blinky.cpp">
+   <text>#include &quot;qpcpp.hpp&quot;             // QP/C++ real-time embedded framework
+#include &quot;bsp.hpp&quot;               // Board Support Package
+
+$declare ${AOs::Blinky}
+
+//----------------------------------------------------------------------------
+// unnamed namespace for local definitions with internal linkage
+namespace {
+Q_DEFINE_THIS_FILE
+
+} // unnamed namespace
+
+$define ${Shared}
+
+$define ${AOs::Blinky}</text>
   </file>
   <file name="main.cpp">
-   <text>#include &quot;qpcpp.hpp&quot; // QP/C++ framework API
-#include &quot;bsp.hpp&quot;   // Board Support Package interface
+   <text>#include &quot;qpcpp.hpp&quot;             // QP/C++ real-time embedded framework
+#include &quot;bsp.hpp&quot;               // Board Support Package
 
-using namespace QP;
-
-// the main function ---------------------------------------------------------
+//............................................................................
 int main() {
-    QF::init();  // initialize the framework
-    BSP::init(); // initialize the BSP
-
-    // start the Blinky active object
-    static QEvt const *blinky_queueSto[10]; // event queue buffer for Blinky
-    AO_Blinky-&gt;start(1U, // priority of the active object
-        blinky_queueSto, // event queue buffer
-        Q_DIM(blinky_queueSto), // the length of the buffer
-        (void *)0, 0U);  // private stack (not used on the desktop)
-
-    return QF::run(); // let the framework run the application
+    QP::QF::init();  // initialize the framework and the underlying RT kernel
+    BSP::init();     // initialize the BSP
+    BSP::start();    // start the AOs/Threads
+    return QP::QF::run(); // run the QF application
 }</text>
   </file>
   <file name="Makefile">
-   <text># Makefile for building QP/C++ application on Windows and POSIX hosts
+   <text>##############################################################################
 #
 # examples of invoking this Makefile:
 # building configurations: Debug (default), Release, and Spy
@@ -178,7 +235,7 @@ int main() {
 # NOTE:
 # To use this Makefile on Windows, you will need the GNU make utility, which
 # is included in the QTools collection for Windows, see:
-#    http://sourceforge.net/projects/qpc/files/QTools/
+#    https://github.com/QuantumLeaps/qtools
 #
 
 #-----------------------------------------------------------------------------
@@ -214,8 +271,8 @@ CPP_SRCS := \
     bsp.cpp \
     main.cpp
 
-LIB_DIRS  :=
-LIBS      :=
+LIB_DIRS :=
+LIBS     :=
 
 # defines...
 # QP_API_VERSION controls the QP API compatibility; 9999 means the latest API
@@ -226,7 +283,7 @@ ifeq (,$(CONF))
 endif
 
 #-----------------------------------------------------------------------------
-# add QP/C++ framework (depends on the OS this Makefile runs on):
+# add QP/C++ framework:
 #
 CPP_SRCS += \
     qep_hsm.cpp \
@@ -243,11 +300,12 @@ CPP_SRCS += \
     qf_time.cpp \
     qf_port.cpp
 
+# C++ QS source files
 QS_SRCS := \
     qs.cpp \
-    qs_64bit.cpp \
     qs_rx.cpp \
     qs_fp.cpp \
+    qs_64bit.cpp \
     qs_port.cpp
 
 ifeq ($(OS),Windows_NT)
@@ -259,7 +317,7 @@ ifeq ($(OS),Windows_NT)
 #
 QP_PORT_DIR := $(QPCPP)/ports/win32-qv
 #QP_PORT_DIR := $(QPCPP)/ports/win32
-LIBS     += -lws2_32
+LIBS += -lws2_32
 
 else
 
@@ -270,6 +328,7 @@ else
 #
 QP_PORT_DIR := $(QPCPP)/ports/posix-qv
 #QP_PORT_DIR := $(QPCPP)/ports/posix
+
 LIBS += -lpthread
 
 endif
@@ -278,15 +337,15 @@ endif
 # Typically you should not need to change anything below this line
 
 VPATH    += $(QPCPP)/src/qf $(QP_PORT_DIR)
-INCLUDES += -I$(QPCPP)/include -I$(QPCPP)/src -I$(QP_PORT_DIR)
+INCLUDES += -I$(QPCPP)/include -I$(QP_PORT_DIR)
 
 #-----------------------------------------------------------------------------
 # GNU toolset:
 #
 # NOTE:
 # GNU toolset (MinGW) is included in the QTools collection for Windows, see:
-#     http://sourceforge.net/projects/qpc/files/QTools/
-# It is assumed that %QTOOLS%\bin directory is added to the PATH
+#     https://github.com/QuantumLeaps/qtools
+# It is assumed that $(QTOOLS)/bin directory is added to the PATH
 #
 CC    := gcc
 CPP   := g++
@@ -299,17 +358,14 @@ LINK  := g++   # for C++ programs
 ifeq ($(OS),Windows_NT)
     MKDIR      := mkdir
     RM         := rm
-    RMDIR      := rmdir
     TARGET_EXT := .exe
 else ifeq ($(OSTYPE),cygwin)
     MKDIR      := mkdir -p
     RM         := rm -f
-    RMDIR      := rmdir
     TARGET_EXT := .exe
 else
     MKDIR      := mkdir -p
     RM         := rm -f
-    RMDIR      := rmdir
     TARGET_EXT :=
 endif
 
@@ -331,8 +387,8 @@ else ifeq (spy, $(CONF))  # Spy configuration ................................
 
 BIN_DIR := build_spy
 
-C_SRCS   += $(QS_SRCS)
-VPATH    += $(QPC)/src/qs
+CPP_SRCS += $(QS_SRCS)
+VPATH    += $(QPCPP)/src/qs
 
 # gcc options:
 CFLAGS  = -c -g -O -fno-pie -std=c11 -pedantic -Wall -Wextra -W \
@@ -379,10 +435,12 @@ endif
 # rules
 #
 
+.PHONY: clean show
+
 all: $(TARGET_EXE)
 
 $(TARGET_EXE) : $(C_OBJS_EXT) $(CPP_OBJS_EXT)
-    $(CPP) $(CPPFLAGS) $(QPCPP)/include/qstamp.cpp -o $(BIN_DIR)/qstamp.o
+    $(CPP) $(CPPFLAGS) $(QPCPP)/src/qs/qstamp.cpp -o $(BIN_DIR)/qstamp.o
     $(LINK) $(LINKFLAGS) $(LIB_DIRS) -o $@ $^ $(BIN_DIR)/qstamp.o $(LIBS)
 
 $(BIN_DIR)/%.d : %.c
@@ -397,20 +455,22 @@ $(BIN_DIR)/%.o : %.c
 $(BIN_DIR)/%.o : %.cpp
     $(CPP) $(CPPFLAGS) $&lt; -o $@
 
-.PHONY : clean show
-
-# include dependency files only if our goal depends on their existence
+# create BIN_DIR and include dependencies only if needed
 ifneq ($(MAKECMDGOALS),clean)
-  ifneq ($(MAKECMDGOALS),show)
--include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
-  endif
+ifneq ($(MAKECMDGOALS),show)
+ifneq ($(MAKECMDGOALS),debug)
+ ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
+  $(shell $(MKDIR) $(BIN_DIR))
+ endif
+ -include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
+endif
+endif
 endif
 
-.PHONY : clean show
-
 clean :
-    $(RM) $(BIN_DIR)/*.*
-    $(RMDIR) $(BIN_DIR)
+    -$(RM) $(BIN_DIR)/*.o \
+    $(BIN_DIR)/*.d \
+    $(TARGET_EXE)
 
 show :
     @echo PROJECT      = $(PROJECT)
@@ -423,6 +483,9 @@ show :
     @echo C_DEPS_EXT   = $(C_DEPS_EXT)
     @echo CPP_DEPS_EXT = $(CPP_DEPS_EXT)
     @echo CPP_OBJS_EXT = $(CPP_OBJS_EXT)
+    @echo LIB_DIRS     = $(LIB_DIRS)
+    @echo LIBS         = $(LIBS)
+    @echo DEFINES      = $(DEFINES)
 </text>
   </file>
  </directory>

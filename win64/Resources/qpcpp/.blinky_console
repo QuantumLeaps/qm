@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="6.0.0">
+ <item name="license"></item>
+ <group name="locked"/>
+ <group name="settings">
+  <item name="tabs">1</item>
+  <item name="windows">0</item>
+  <item name="grid">3</item>
+  <item name="backups">0</item>
+ </group>
+ <group name="windows">
+  <item id="AOs::Blinky::SM">0,0,658,981,*</item>
+  <item id=".::blinky.cpp">0,713,596,300</item>
+ </group>
+ <group name="search">
+  <item name="options">2032128</item>
+  <item name="replace">0</item>
+ </group>
+ <group name="vars">
+  <item id="QPCPP">C:\qp\qpcpp</item>
+ </group>
+ <group name="tools">
+  <group name="tool">
+   <item name="icon">2</item>
+   <item name="title">make</item>
+   <item name="command">make</item>
+   <item name="args"></item>
+   <item name="dir">.</item>
+   <item name="options">3</item>
+  </group>
+  <group name="tool">
+   <item name="icon">3</item>
+   <item name="title">clean</item>
+   <item name="command">make</item>
+   <item name="args">clean</item>
+   <item name="dir">.</item>
+   <item name="options">0</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">0</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">0</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">0</item>
+  </group>
+ </group>
+</session>
