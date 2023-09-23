@@ -45,21 +45,21 @@ as described below.
 please *uninstall* it before installing the new version.
 
 
-### Installing QM on Windows (32/64-bit)
+### Installing QM on Windows (64-bit)
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
-download the QM installer (`qm_<ver>-windows.exe`), which is digitally signed
+download the QM installer (`qm_<ver>-win64.exe`), which is digitally signed
 by Quantum Leaps. The installer will create a desktop shortcut for QM and will
 also associate QM model files (`*.qm` and `*.qmp`)
 
 Alternatively, if you are allergic to installers, you can download QM zip
-archive for Windows (`qm_<ver>-windows.zip`). Installation consists of
+archive for Windows (`qm_<ver>-win64.zip`). Installation consists of
 unzipping the archive into any directory, although the `C:\qp\` folder is the
 recommended default.
 
 > NOTE: It is generally not recommended to install QM in such standard
 locations as "Program Files" or "Program Files (x86)", because these
 directories have access limitations and don't allow you to modify the
-QM Style Sheet (`qm.qss`) or the model templates.
+QM Style Sheets (`qm_dark.qss` and `qm_light.qss`) or the model templates.
 
 If you intalled QM via the installer program, the unistaller will be
 provided and you can uninstall QM via the standard "Apps and Features".
@@ -88,7 +88,7 @@ chmod u+x qm.sh
 `qm/bin/qm.sh` script. Make sure that the file has executable permissions.
 
 
-### Installing QM on MacOS
+### Installing QM on macOS
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
 download the disk image for MacOS (`qm_<ver>-macos.dmg`). Double click
 on `.dmg` file. This will mount and open the disk image. To install the
