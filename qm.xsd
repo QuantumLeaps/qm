@@ -1,9 +1,65 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// XML Schema for the QM (QP Modeler) model file XML data format
+// see: https://www.state-machine.com/qm/ui_model_file.html#ui_model_xsd
+//
+//                    Q u a n t u m  L e a P s
+//                    ________________________
+//                    Modern Embedded Software
+//
+// Copyright (C) Quantum Leaps, LLC. All rights reserved.
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- simple types used in this XML schema -->
+  <xs:simpleType name="stereotype_t" id="stereotype_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="properties_t" id="properties_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="visibility_t" id="visibility_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="history_t" id="history_t">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="shallow"/>
+      <xs:enumeration value="deep"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="model_ref_t" id="model_ref_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\.\.(/\.\.)*(/[0-9]+)*"/> <!-- relative path -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="glyph_rect_t" id="glyph_rect_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?[0-9]+,-?[0-9]+,[0-9]+,[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="glyph_conn_t" id="glyph_conn_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?[0-9]+(,-?[0-9]+)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- model elements -->
   <xs:element name="model">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="documentation" type="xs:string"/>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
         <xs:element ref="framework"/>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element ref="package"/>
@@ -15,12 +71,14 @@
       <xs:attribute name="version" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="framework">
     <xs:complexType>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="license" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="package">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -32,15 +90,17 @@
         <xs:element ref="directory"/>
       </xs:choice>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="stereotype" type="xs:string" use="required"/>
+      <xs:attribute name="stereotype" type="stereotype_t" use="required"/>
       <xs:attribute name="namespace" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="extern_package">
     <xs:complexType>
       <xs:attribute name="file" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="attribute">
     <xs:complexType>
       <xs:sequence>
@@ -49,10 +109,32 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="type" type="xs:string" use="required"/>
-      <xs:attribute name="properties" type="xs:string" use="required"/>
-      <xs:attribute name="visibility" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
+      <xs:attribute name="visibility" type="visibility_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="operation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="specifiers" type="xs:string" minOccurs="0"/>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="code" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="visibility" type="visibility_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parameter">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="class">
     <xs:complexType>
       <xs:sequence>
@@ -65,52 +147,39 @@
       <xs:attribute name="superclass" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="operation">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="specifiers" type="xs:string" minOccurs="0"/>
-        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
-        <xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="code" type="xs:string" minOccurs="0"/>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="properties" type="xs:string" use="required"/>
-      <xs:attribute name="type" type="xs:string" use="required"/>
-      <xs:attribute name="visibility" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="parameter">
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="type" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
+
   <xs:element name="statechart">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="initial"/>
         <xs:element ref="state" maxOccurs="unbounded"/>
-        <xs:element ref="submachine" maxOccurs="unbounded"/>
+        <xs:element ref="submachine" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="state_diagram"/>
       </xs:sequence>
-      <xs:attribute name="properties" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="initial">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="action" minOccurs="0"/>
         <xs:element ref="initial_glyph"/>
       </xs:sequence>
-      <xs:attribute name="target" type="xs:string" use="required"/>
+      <xs:attribute name="target" type="model_ref_t" use="required"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="action">
-    <xs:complexType mixed="true">
-      <xs:attribute name="box" type="xs:string"/>
-      <xs:attribute name="brief" type="xs:string"/>
+
+  <xs:element name="history">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="history_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="target" type="model_ref_t" use="required"/>
+      <xs:attribute name="type" type="history_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="state">
     <xs:complexType>
       <xs:sequence>
@@ -118,6 +187,7 @@
         <xs:element ref="entry" minOccurs="0"/>
         <xs:element ref="exit" minOccurs="0"/>
         <xs:element ref="initial" minOccurs="0"/>
+        <xs:element ref="history" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="tran" minOccurs="0" maxOccurs="unbounded"/>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element ref="state" minOccurs="0" maxOccurs="unbounded"/>
@@ -128,6 +198,19 @@
       <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="entry">
+    <xs:complexType mixed="true">
+      <xs:attribute name="box" type="glyph_rect_t"/>
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="exit">
+    <xs:complexType mixed="true">
+      <xs:attribute name="box" type="glyph_rect_t"/>
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="tran">
     <xs:complexType>
       <xs:sequence>
@@ -136,31 +219,21 @@
         <xs:element ref="tran_glyph"/>
       </xs:sequence>
       <xs:attribute name="trig" type="xs:string" use="required"/>
-      <xs:attribute name="target" type="xs:string"/>
-      <xs:attribute name="cpref" type="xs:string"/>
+      <xs:attribute name="target" type="model_ref_t"/>
+      <xs:attribute name="cpref" type="model_ref_t"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="entry">
-    <xs:complexType mixed="true">
-      <xs:attribute name="box" type="xs:string"/>
-      <xs:attribute name="brief" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="exit">
-    <xs:complexType mixed="true">
-      <xs:attribute name="box" type="xs:string"/>
-      <xs:attribute name="brief" type="xs:string"/>
-    </xs:complexType>
-  </xs:element>
+
   <xs:element name="choice">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="guard"/>
         <xs:element ref="action" minOccurs="0"/>
+        <xs:element ref="choice" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="choice_glyph"/>
       </xs:sequence>
-      <xs:attribute name="target" type="xs:string"/>
-      <xs:attribute name="cpref" type="xs:string"/>
+      <xs:attribute name="target" type="model_ref_t"/>
+      <xs:attribute name="cpref" type="model_ref_t"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="guard">
@@ -168,41 +241,47 @@
       <xs:attribute name="brief" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="smstate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="xpseg"/>
-        <xs:element ref="tran" maxOccurs="unbounded"/>
+        <xs:element ref="xpseg" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tran" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="smstate_glyph"/>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="submachine" type="xs:string" use="required"/>
+      <xs:attribute name="submachine" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="xpseg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="action"/>
+        <xs:element ref="action" minOccurs="0"/>
+        <xs:element ref="choice" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="xpseg_glyph"/>
       </xs:sequence>
-      <xs:attribute name="target" type="xs:string" use="required"/>
       <xs:attribute name="xpref" type="xs:string" use="required"/>
+      <xs:attribute name="target" type="model_ref_t"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="submachine">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="entry"/>
-        <xs:element ref="exit"/>
-        <xs:element ref="epseg" maxOccurs="unbounded"/>
-        <xs:element ref="xp"/>
-        <xs:element ref="tran"/>
-        <xs:element ref="state" maxOccurs="unbounded"/>
+        <xs:element ref="entry" minOccurs="0"/>
+        <xs:element ref="exit" minOccurs="0"/>
+        <xs:element ref="epseg" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="xp" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="initial" minOccurs="0"/>
+        <xs:element ref="history" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tran" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="state" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="submachine_diagram"/>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="epseg">
     <xs:complexType>
       <xs:sequence>
@@ -210,12 +289,7 @@
         <xs:element ref="epseg_glyph"/>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="target" type="xs:string" use="required"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="name">
-    <xs:complexType>
-      <xs:attribute name="box" type="xs:string" use="required"/>
+      <xs:attribute name="target" type="model_ref_t" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="xp">
@@ -226,75 +300,103 @@
       <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <!-- graphical representation (glyphs) -->
   <xs:element name="state_diagram">
     <xs:complexType>
       <xs:attribute name="size" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="initial_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="action"/>
       </xs:sequence>
-      <xs:attribute name="conn" type="xs:string" use="required"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="history_glyph">
+    <xs:complexType>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="state_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="entry" minOccurs="0"/>
         <xs:element ref="exit" minOccurs="0"/>
       </xs:sequence>
-      <xs:attribute name="node" type="xs:string" use="required"/>
+      <xs:attribute name="node" type="glyph_rect_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="smstate_glyph">
     <xs:complexType>
-      <xs:attribute name="node" type="xs:string" use="required"/>
+      <xs:attribute name="node" type="glyph_rect_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="tran_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="action"/>
       </xs:sequence>
-      <xs:attribute name="conn" type="xs:string" use="required"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="choice_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="action"/>
       </xs:sequence>
-      <xs:attribute name="conn" type="xs:string" use="required"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="xpseg_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="action"/>
       </xs:sequence>
-      <xs:attribute name="conn" type="xs:string" use="required"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="submachine_diagram">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="entry"/>
-        <xs:element ref="exit"/>
+        <xs:element ref="entry" minOccurs="0"/>
+        <xs:element ref="exit" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="size" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="epseg_glyph">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="name"/>
         <xs:element ref="action"/>
       </xs:sequence>
-      <xs:attribute name="conn" type="xs:string" use="required"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="name">
+    <xs:complexType>
+      <xs:attribute name="box" type="glyph_rect_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="action">
+    <xs:complexType mixed="true">
+      <xs:attribute name="box" type="glyph_rect_t"/>
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="xp_glyph">
     <xs:complexType>
       <xs:sequence>
@@ -303,6 +405,8 @@
       <xs:attribute name="point" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <!-- physical design -->
   <xs:element name="directory">
     <xs:complexType>
       <xs:sequence>
