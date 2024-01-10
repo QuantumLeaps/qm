@@ -5,6 +5,6 @@ qmc
 
 html/
 latex/
-#linux64/bin
+win64/bin/
+linux64/bin
 macos/bin/
-windows/bin/
