@@ -9,7 +9,7 @@ https://www.state-machine.com/qm/history.html
 
 
 # Documentation
-The online HTML documention for the **latest** version of QM is located
+The online HTML documentation for the **latest** version of QM is located
 at: https://www.state-machine.com/qm/
 
 The offline HTML documentation for **this** particular version of QM
@@ -20,8 +20,9 @@ the file `html/index.html` in your web browser.
 # About QM
 QM (QP Modeler) is a freeware graphical modeling tool for designing and
 implementing real-time embedded software based on the UML state machines
-and the lightweight [QP Real-Time Embedded Frameworks (RTEFs)][QP].
-QM is available for Windows 32/64-bit, Linux 64-bit, and MacOS.
+and the lightweight
+[QP Real-Time Embedded Frameworks (RTEFs)](https://www.state-machine.com/products/qp).
+QM is available for Windows 64-bit, Linux 64-bit, and MacOS.
 
 > NOTE: For more information, please refer to the online QM Manual at:
 https://www.state-machine.com/qm/
@@ -30,8 +31,8 @@ https://www.state-machine.com/qm/
 # Downloading and Installing QM
 The most recommended way of obtaining QM is by downloading the
 [QP-bundle](https://www.state-machine.com/#Downloads), which includes
-QM and also all [QP frameworks](https://www.state-machine.com/products/)
-and the [QTools collection](https://www.state-machine.com/products/).
+QM and also all [QP frameworks](https://www.state-machine.com/products/qp)
+and the [QTools collection](https://www.state-machine.com/products/qtools).
 The main advantage of obtaining QM bundled together like that is that you
 get all components, tools and examples ready to go.
 
@@ -61,10 +62,10 @@ locations as "Program Files" or "Program Files (x86)", because these
 directories have access limitations and don't allow you to modify the
 QM Style Sheets (`qm_dark.qss` and `qm_light.qss`) or the model templates.
 
-If you intalled QM via the installer program, the unistaller will be
+If you installed QM via the installer program, the uninstaller will be
 provided and you can uninstall QM via the standard "Apps and Features".
 
-If you intalled QM from the zip archive, you unistall QM by simply deleting
+If you installed QM from the zip archive, you uninstall QM by simply deleting
 the installation directory.
 
 
