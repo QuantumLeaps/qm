@@ -58,7 +58,7 @@ unzipping the archive into any directory, although the `C:\qp\` folder is the
 recommended default.
 
 > NOTE: It is generally not recommended to install QM in such standard
-locations as "Program Files" or "Program Files (x86)", because these
+locations as "Program Files" or "Program Files (x86)" because these
 directories have access limitations and don't allow you to modify the
 QM Style Sheets (`qm_dark.qss` and `qm_light.qss`) or the model templates.
 
@@ -91,11 +91,19 @@ chmod u+x qm.sh
 
 ### Installing QM on macOS
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and
-download the disk image for MacOS (`qm_<ver>-macos.dmg`). Double click
-on `.dmg` file. This will mount and open the disk image. To install the
-QM tool, you simply drag the qm.app image into the Applications folder
-(typically visible in the Dock). If you wish, you might also create the
-alias of the qm.app and place it on your Desktop.
+download the disk image for macOS (`qm_<ver>-macos.dmg`). Because the `.dmg`
+file is not coming from the Apple Store, after downloading you need to launch
+a console and change the attribute of this file:
+
+```sh
+xattr -c qm_<ver>-macos.dmg
+```
+
+Only after changing the file attribute, you can install QM on your macOS.
+Double click on `.dmg` file. This will mount and open the disk image.
+To install the QM tool, you simply drag the qm.app image into the
+Applications folder (typically visible in the Dock). If you wish, you might
+also create the alias of the qm.app and place it on your Desktop.
 
 To uninstall QM, simply delete the qm.app file and the examples.
 
