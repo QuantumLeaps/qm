@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-// XML Schema for the QM (QP Modeler) model file XML data format
+// XML Schema for the QM 6.2.2 (QP Modeler) model file XML data format
 // see: https://www.state-machine.com/qm/ui_model_file.html#ui_model_xsd
 //
 //                    Q u a n t u m  L e a P s
@@ -74,8 +74,21 @@
 
   <xs:element name="framework">
     <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="1">
+        <xs:element ref="license"/>
+      </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="license" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="license">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
     </xs:complexType>
   </xs:element>
 
@@ -262,6 +275,7 @@
       </xs:sequence>
       <xs:attribute name="xpref" type="xs:string" use="required"/>
       <xs:attribute name="target" type="model_ref_t"/>
+      <xs:attribute name="cpref" type="xs:string"/>
     </xs:complexType>
   </xs:element>
 
