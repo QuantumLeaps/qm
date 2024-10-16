@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="6.2.0">
+<session version="7.0.0">
  <group name="locked"/>
  <group name="settings">
   <item name="tabs">1</item>
@@ -8,10 +8,8 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Philo::SM">0,0,606,1047,*</item>
-  <item id="AOs::Table::SM">-34,591,640,480</item>
-  <item id=".::philo.c">-68,0,674,300</item>
-  <item id=".::table.c">0,300,674,300</item>
+  <item id=".::philo.c">0,0,692,843,*</item>
+  <item id=".::table.c">18,567,674,300</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="7.0.0">
+ <group name="locked"/>
+ <group name="settings">
+  <item name="tabs">1</item>
+  <item name="windows">0</item>
+  <item name="grid">3</item>
+  <item name="backups">0</item>
+ </group>
+ <group name="windows">
+  <item id="AOs::Philo::SM">0,0,632,843,*</item>
+  <item id="AOs::Table::SM">0,387,640,480</item>
+  <item id=".::philo.c">0,0,674,300</item>
+  <item id=".::table.c">0,300,674,300</item>
+ </group>
+ <group name="search">
+  <item name="options">2032128</item>
+  <item name="replace">0</item>
+ </group>
+ <group name="vars">
+  <item id="QPC">C:\qp\qpc</item>
+ </group>
+ <group name="tools">
+  <group name="tool">
+   <item name="icon">2</item>
+   <item name="title">make</item>
+   <item name="command">make</item>
+   <item name="args"></item>
+   <item name="dir">.</item>
+   <item name="options">1</item>
+  </group>
+  <group name="tool">
+   <item name="icon">3</item>
+   <item name="title">clean</item>
+   <item name="command">make</item>
+   <item name="args">clean</item>
+   <item name="dir">.</item>
+   <item name="options">0</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">2</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">0</item>
+  </group>
+  <group name="tool">
+   <item name="icon">0</item>
+   <item name="title"></item>
+   <item name="command"></item>
+   <item name="args"></item>
+   <item name="dir"></item>
+   <item name="options">0</item>
+  </group>
+ </group>
+</session>

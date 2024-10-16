@@ -148,6 +148,12 @@ underlying QP framework, for which the code has been generated. Please
 refer to the QP licensing (https://www.state-machine.com/licensing/ )
 for more information.
 
+> NOTE: QM models without a valid QP license certificate (assumed to be
+covered by GPL) can only generate **up to 20 states**. The limitation has
+been introduced to reduce the widespread GPL infringement with respect
+to the QP/C and QP/C++ real-time embedded frameworks that underline the
+code generation in QM.
+
 
 # Support and Issue Resolution
 Support for QM is provided in the Free Support forum at:

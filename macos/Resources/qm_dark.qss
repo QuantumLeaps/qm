@@ -1,13 +1,13 @@
 /*****************************************************************************
 * QM Style Sheet for MacOS "Dark"
-* Last Updated for Version: 6.0.0
-* Date of the Last Update:  2023-09-20
+* Last Updated for Version: 7.0.0
+* Date of the Last Update:  2024-09-12
 *
 *                    Q u a n t u m  L e a P s
 *                    ------------------------
 *                    Modern Embedded Software
 *
-* Copyright (C) 2005-2023 Quantum Leaps, LLC. All rights reserved.
+* Copyright (C) 2005 Quantum Leaps, LLC. All rights reserved.
 *
 * Contact information:
 * https://www.state-machine.com
@@ -45,43 +45,48 @@ MainWindow {
 /* ExplorerView ..............................................................
 */
 ExplorerView {
-    color:                       #E1E1E1;
+    color:                       #e1e1e1;
     background-color:            #252A34;
-    alternate-background-color:  #1A1E24;
+    alternate-background-color:  #1a1e24;
 }
-ExplorerView:hover {
-    background-color:            #353A44;
-    alternate-background-color:  #2A2E34;
+ExplorerView::item:hover {
+    background-color:            #006666;
 }
 ExplorerView::item:selected {
-    background-color:            #AA0000;
+    background-color:            #aa0000;
 }
 /* SearchView ................................................................
 */
 SearchView {
     font-style:                  italic;
-    color:                       #E1E1E1;
-    background-color:            #3B4453;
+    color:                       #e1e1e1;
+    background-color:            #3b4453;
     alternate-background-color:  #304050;
 }
-SearchView:hover {
-    background-color:            #4B5463;
-    alternate-background-color:  #3F4F5F;
+SearchView:item:hover {
+    background-color:            #4b5463;
 }
 SearchView::item:selected {
-    background-color:            #0000AA;
+    background-color:            #0000aa;
 }
 /* DiagramView ...............................................................
+* Used in state diagrams
 */
 DiagramView {
     font-family:                 "Arial";
     font-size:                   11px;
 
-    qproperty-canvasColor:       #252A34;
-    qproperty-birdsEyeViewColor: #FFFFFF;
-    qproperty-nodePenColor:      #77FFFF;
-    qproperty-nodeBrushColor:    #777777;
-    qproperty-connPenColor:      #FFFF77;
+    qproperty-canvasColor:       #15181e;
+
+    qproperty-nodeColor:         #0000cc;
+    qproperty-nodeColor1:        #00cc00;
+    qproperty-nodeColor2:        #cc0000;
+    qproperty-nodeColor3:        #666666;
+
+    qproperty-connColor:         #ffcccc;
+    qproperty-connColor1:        #ccffcc;
+    qproperty-connColor2:        #ccccff;
+    qproperty-connColor3:        #ffffff;
 }
 
 /* CodeEdit ..................................................................
@@ -91,9 +96,10 @@ CodeEdit {
     font-family:                 "Menlo";
     font-size:                   10pt;
 
-    color:                       #D8DEEA;
-    selection-color:             #CDD3DF;
-    selection-background-color:  #3B4453;
+    color:                       #e8eeea;
+    selection-color:             #cdd3df;
+    selection-background-color:  #3b4453;
+    /* NOTE: set the background with MainWindow::qproperty-codeBaseColor */
 }
 
 /* DocEdit ...................................................................
@@ -104,7 +110,7 @@ DocEdit {
     font-size:                   10pt;
     font-style:                  italic;
 
-    color:                       #E1E1E1;
+    color:                       #e1e1e1;
     /* NOTE: set the background with MainWindow::qproperty-docBaseColor */
 }
 
@@ -114,8 +120,8 @@ Log {
     font-family:                 "Menlo";
     font-size:                   10pt;
 
-    color:                       #E1E1E1;
-    background-color:            #252A34;
+    color:                       #e1e1e1;
+    background-color:            #252a34;
     selection-color:             darkRed;
     selection-background-color:  yellow;
 }

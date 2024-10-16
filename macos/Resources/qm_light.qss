@@ -1,13 +1,13 @@
 /*****************************************************************************
 * QM Style Sheet for MacOS "Light"
-* Last Updated for Version: 6.0.0
-* Date of the Last Update:  2023-09-20
+* Last Updated for Version: 7.0.0
+* Date of the Last Update:  2024-09-12
 *
 *                    Q u a n t u m  L e a P s
 *                    ------------------------
 *                    Modern Embedded Software
 *
-* Copyright (C) 2005-2023 Quantum Leaps, LLC. All rights reserved.
+* Copyright (C) 2005 Quantum Leaps, LLC. All rights reserved.
 *
 * Contact information:
 * https://www.state-machine.com
@@ -26,7 +26,7 @@ MainWindow {
     qproperty-codeBaseColor:     white;
 
     /* background for doc edit area */
-    qproperty-docBaseColor:      #FFFFDD; /* light yellow */
+    qproperty-docBaseColor:      #ffffdd; /* light yellow */
 
     /* syntax highlighting styles */
     qproperty-comment: "green, #F7F7F7, italic";
@@ -47,41 +47,46 @@ MainWindow {
 ExplorerView {
     color:                       black;
     background-color:            white;
-    alternate-background-color:  #E0E0E0;
+    alternate-background-color:  #e6e6e6;
 }
-ExplorerView:hover {
-    background-color:            #FFFFDD;
-    alternate-background-color:  #EEEEDD;
+ExplorerView::item:hover {
+    background-color:            #ffcccc;
 }
 ExplorerView::item:selected {
-    background-color:            darkRed;
+    background-color:            #cc0000;
 }
 /* SearchView ................................................................
 */
 SearchView {
     font-style:                  italic;
-    color:                       blue;
-    background-color:            lightBlue;
-    alternate-background-color:  #EEEEFF;
+    color:                       #000066;
+    background-color:            #e6e6ff;
+    alternate-background-color:  #ccccff;
 }
-SearchView:hover {
-    background-color:            #DDDDFF;
-    alternate-background-color:  #BBBBEE;
+SearchView:item:hover {
+    background-color:            #9999ff;
 }
 SearchView::item:selected {
-    background-color:            darkBlue;
+    background-color:            #000066;
 }
 /* DiagramView ...............................................................
+* Used in state diagrams
 */
 DiagramView {
     font-family:                 "Arial";
     font-size:                   11px;
 
     qproperty-canvasColor:       white;
-    qproperty-birdsEyeViewColor: #FFFF77;
-    qproperty-nodePenColor:      darkBlue;
-    qproperty-nodeBrushColor:    #E0E0FF;
-    qproperty-connPenColor:      darkRed;
+
+    qproperty-nodeColor:         #2222ff;
+    qproperty-nodeColor1:        #00ff00;
+    qproperty-nodeColor2:        #ff0000;
+    qproperty-nodeColor3:        #808080;
+
+    qproperty-connColor:         #e60000;
+    qproperty-connColor1:        #008000;
+    qproperty-connColor2:        #0000cc;
+    qproperty-connColor3:        #000000;
 }
 
 /* CodeEdit ..................................................................

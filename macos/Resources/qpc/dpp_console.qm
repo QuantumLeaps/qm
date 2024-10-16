@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="6.2.0" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm.xsd">
+<model version="7.0.0" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem console application for workstations
@@ -132,7 +132,7 @@ QS_OBJ_ARR_DICTIONARY(&amp;Philo_inst[me-&gt;id].timeEvt, me-&gt;id);
 
 QActive_subscribe(&amp;me-&gt;super, EAT_SIG);
 QActive_subscribe(&amp;me-&gt;super, TEST_SIG);</action>
-     <initial_glyph conn="2,4,5,1,20,7,-2">
+     <initial_glyph conn="2,4,5,1,20,5,-2">
       <action box="0,-2,6,2"/>
      </initial_glyph>
     </initial>
@@ -142,7 +142,7 @@ QActive_subscribe(&amp;me-&gt;super, TEST_SIG);</action>
      <exit>(void)QTimeEvt_disarm(&amp;me-&gt;timeEvt);</exit>
      <!--${AOs::Philo::SM::thinking::TIMEOUT}-->
      <tran trig="TIMEOUT" target="../../2">
-      <tran_glyph conn="2,16,3,1,20,14,-2">
+      <tran_glyph conn="2,16,3,1,20,17,-2">
        <action box="0,-2,12,2"/>
       </tran_glyph>
      </tran>
@@ -161,8 +161,8 @@ Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoId != me-&gt;id);</action>
       </tran_glyph>
      </tran>
      <state_glyph node="2,6,18,20">
-      <entry box="1,2,5,2"/>
-      <exit box="1,4,5,2"/>
+      <entry box="0,3,5,2"/>
+      <exit box="0,5,5,2"/>
      </state_glyph>
     </state>
     <!--${AOs::Philo::SM::hungry}-->
@@ -179,11 +179,11 @@ QACTIVE_POST(AO_Table, &amp;pe-&gt;super, &amp;me-&gt;super);</entry>
       <!--${AOs::Philo::SM::hungry::EAT::[e->philoId==me->iid]}-->
       <choice target="../../../3">
        <guard brief="e-&gt;philoId == me-&gt;iid">Q_EVT_CAST(TableEvt)-&gt;philoId == me-&gt;id</guard>
-       <choice_glyph conn="10,36,5,1,12,10,-2">
-        <action box="1,0,23,6"/>
+       <choice_glyph conn="10,38,5,1,16,13,-6">
+        <action box="1,-2,18,2"/>
        </choice_glyph>
       </choice>
-      <tran_glyph conn="2,36,3,-1,8">
+      <tran_glyph conn="2,38,3,-1,8">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
@@ -191,12 +191,12 @@ QACTIVE_POST(AO_Table, &amp;pe-&gt;super, &amp;me-&gt;super);</entry>
      <tran trig="DONE">
       <action>// DONE must be for other Philos than this one
 Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoId != me-&gt;id);</action>
-      <tran_glyph conn="2,40,3,-1,14">
+      <tran_glyph conn="2,42,3,-1,14">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="2,28,18,14">
-      <entry box="1,2,5,2"/>
+     <state_glyph color="2" node="2,30,18,14">
+      <entry box="0,3,5,2"/>
      </state_glyph>
     </state>
     <!--${AOs::Philo::SM::eating}-->
@@ -213,7 +213,7 @@ pe-&gt;philoId = me-&gt;id;
 QACTIVE_PUBLISH(&amp;pe-&gt;super, &amp;me-&gt;super);</exit>
      <!--${AOs::Philo::SM::eating::TIMEOUT}-->
      <tran trig="TIMEOUT" target="../../1">
-      <tran_glyph conn="2,54,3,1,22,-41,-4">
+      <tran_glyph conn="2,58,3,1,26,-45,-8">
        <action box="0,-2,13,2"/>
       </tran_glyph>
      </tran>
@@ -221,16 +221,16 @@ QACTIVE_PUBLISH(&amp;pe-&gt;super, &amp;me-&gt;super);</exit>
      <tran trig="EAT, DONE">
       <action>// EAT or DONE must be for other Philos than this one
 Q_ASSERT(Q_EVT_CAST(TableEvt)-&gt;philoId != me-&gt;id);</action>
-      <tran_glyph conn="2,58,3,-1,14">
+      <tran_glyph conn="2,62,3,-1,14">
        <action box="0,-2,14,2"/>
       </tran_glyph>
      </tran>
-     <state_glyph node="2,44,18,18">
-      <entry box="1,2,5,2"/>
-      <exit box="1,4,5,2"/>
+     <state_glyph color="1" node="2,48,18,16">
+      <entry box="0,3,5,2"/>
+      <exit box="0,5,5,2"/>
      </state_glyph>
     </state>
-    <state_diagram size="36,64"/>
+    <state_diagram size="32,66"/>
    </statechart>
   </class>
   <!--${AOs::Table}-->
@@ -270,15 +270,15 @@ for (uint8_t n = 0U; n &lt; N_PHILO; ++n) {
     <state name="active">
      <!--${AOs::Table::SM::active::TEST}-->
      <tran trig="TEST">
-      <tran_glyph conn="2,12,3,-1,14">
-       <action box="0,-2,11,4"/>
+      <tran_glyph conn="2,12,3,-1,30">
+       <action box="0,-2,26,4"/>
       </tran_glyph>
      </tran>
      <!--${AOs::Table::SM::active::EAT}-->
      <tran trig="EAT">
-      <action>Q_ERROR();</action>
-      <tran_glyph conn="2,16,3,-1,14">
-       <action box="0,-2,10,4"/>
+      <action brief="error">Q_ERROR();</action>
+      <tran_glyph conn="2,16,3,-1,30">
+       <action box="0,-2,27,4"/>
       </tran_glyph>
      </tran>
      <!--${AOs::Table::SM::active::serving}-->
@@ -398,12 +398,12 @@ if (me-&gt;isHungry[m] &amp;&amp; (me-&gt;fork[n] == FREE)) {
       </tran>
       <!--${AOs::Table::SM::active::serving::PAUSE}-->
       <tran trig="PAUSE" target="../../3">
-       <tran_glyph conn="4,44,3,1,36,8,-2">
+       <tran_glyph conn="4,44,3,1,36,10,-2">
         <action box="0,-2,7,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,20,34,26">
-       <entry box="1,2,27,2"/>
+      <state_glyph color="2" node="4,20,34,26">
+       <entry box="0,3,27,2"/>
       </state_glyph>
      </state>
      <!--${AOs::Table::SM::active::paused}-->
@@ -412,7 +412,7 @@ if (me-&gt;isHungry[m] &amp;&amp; (me-&gt;fork[n] == FREE)) {
       <exit>BSP_displayPaused(0U);</exit>
       <!--${AOs::Table::SM::active::paused::SERVE}-->
       <tran trig="SERVE" target="../../2">
-       <tran_glyph conn="4,62,3,1,38,-31,-4">
+       <tran_glyph conn="4,64,3,1,38,-33,-4">
         <action box="0,-2,7,2"/>
        </tran_glyph>
       </tran>
@@ -425,7 +425,7 @@ Q_ASSERT((n &lt; N_PHILO) &amp;&amp; (!me-&gt;isHungry[n]));
 
 me-&gt;isHungry[n] = true;
 BSP_displayPhilStat(n, HUNGRY);</action>
-       <tran_glyph conn="4,66,3,-1,16">
+       <tran_glyph conn="4,68,3,-1,16">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
@@ -444,18 +444,18 @@ Q_ASSERT((me-&gt;fork[n] == USED) &amp;&amp; (me-&gt;fork[m] == USED));
 
 me-&gt;fork[m] = FREE;
 me-&gt;fork[n] = FREE;</action>
-       <tran_glyph conn="4,70,3,-1,16">
+       <tran_glyph conn="4,72,3,-1,16">
         <action box="0,-2,6,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="4,48,34,24">
-       <entry box="1,2,18,4"/>
-       <exit box="1,6,18,4"/>
+      <state_glyph color="3" node="4,50,34,24">
+       <entry box="0,3,34,4"/>
+       <exit box="0,7,34,4"/>
       </state_glyph>
      </state>
-     <state_glyph node="2,6,44,68"/>
+     <state_glyph node="2,6,44,70"/>
     </state>
-    <state_diagram size="50,76"/>
+    <state_diagram size="52,78"/>
    </statechart>
   </class>
  </package>
