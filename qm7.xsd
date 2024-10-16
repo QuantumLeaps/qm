@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// XML Schema for the QM 7.x (QP Modeler) model file XML data format
+// see: https://www.state-machine.com/qm/ui_model_file.html#ui_model_xsd
+//
+//                    Q u a n t u m  L e a P s
+//                    ________________________
+//                    Modern Embedded Software
+//
+// Copyright (C) Quantum Leaps, LLC. All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- simple types used in this XML schema -->
+  <xs:simpleType name="stereotype_t" id="stereotype_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="properties_t" id="properties_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="visibility_t" id="visibility_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9a-fA-F]{2}"/> <!-- hex-2-digit -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="history_t" id="history_t">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="shallow"/>
+      <xs:enumeration value="deep"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="model_ref_t" id="model_ref_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\.\.(/\.\.)*(/[0-9]+)*"/> <!-- relative path -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="glyph_rect_t" id="glyph_rect_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?[0-9]+,-?[0-9]+,[0-9]+,[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="glyph_color_t" id="glyph_color_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-3]"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="glyph_conn_t" id="glyph_conn_t">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?[0-9]+(,-?[0-9]+)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- model elements -->
+  <xs:element name="model">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element ref="framework"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="package"/>
+          <xs:element ref="extern_package"/>
+        </xs:choice>
+        <xs:element ref="directory" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="links" type="xs:string" use="required"/>
+      <xs:attribute name="version" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="framework">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="1">
+        <xs:element ref="license"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="license" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="license">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="package">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="package"/>
+        <xs:element ref="extern_package"/>
+        <xs:element ref="class"/>
+        <xs:element ref="attribute"/>
+        <xs:element ref="operation"/>
+        <xs:element ref="directory"/>
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="stereotype" type="stereotype_t" use="required"/>
+      <xs:attribute name="namespace" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="extern_package">
+    <xs:complexType>
+      <xs:attribute name="file" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="attribute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element name="code" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
+      <xs:attribute name="visibility" type="visibility_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="operation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="specifiers" type="xs:string" minOccurs="0"/>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="code" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="visibility" type="visibility_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parameter">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="class">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="operation" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="statechart" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="superclass" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="statechart">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="initial"/>
+        <xs:element ref="state" maxOccurs="unbounded"/>
+        <xs:element ref="submachine" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="state_diagram"/>
+      </xs:sequence>
+      <xs:attribute name="properties" type="properties_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="initial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="action" minOccurs="0"/>
+        <xs:element ref="initial_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="target" type="model_ref_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="history">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="history_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="target" type="model_ref_t" use="required"/>
+      <xs:attribute name="type" type="history_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="state">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="documentation" type="xs:string" minOccurs="0"/>
+        <xs:element ref="entry" minOccurs="0"/>
+        <xs:element ref="exit" minOccurs="0"/>
+        <xs:element ref="initial" minOccurs="0"/>
+        <xs:element ref="history" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tran" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="state" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+        <xs:element ref="state_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType mixed="true">
+      <xs:attribute name="box" type="glyph_rect_t"/>
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="exit">
+    <xs:complexType mixed="true">
+      <xs:attribute name="box" type="glyph_rect_t"/>
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="tran">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="action" minOccurs="0"/>
+        <xs:element ref="choice" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tran_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="trig" type="xs:string" use="required"/>
+      <xs:attribute name="target" type="model_ref_t"/>
+      <xs:attribute name="cpref" type="model_ref_t"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="choice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="guard"/>
+        <xs:element ref="action" minOccurs="0"/>
+        <xs:element ref="choice" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="choice_glyph"/>
+      </xs:sequence>
+      <xs:attribute name="target" type="model_ref_t"/>
+      <xs:attribute name="cpref" type="model_ref_t"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="guard">
+    <xs:complexType mixed="true">
+      <xs:attribute name="brief" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- graphical representation (glyphs) -->
+  <xs:element name="state_diagram">
+    <xs:complexType>
+      <xs:attribute name="size" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="initial_glyph">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="action"/>
+      </xs:sequence>
+      <xs:attribute name="color" type="glyph_color_t"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="history_glyph">
+    <xs:complexType>
+      <xs:attribute name="color" type="glyph_color_t"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="state_glyph">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="entry" minOccurs="0"/>
+        <xs:element ref="exit" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="color" type="glyph_color_t"/>
+      <xs:attribute name="node" type="glyph_rect_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="tran_glyph">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="action"/>
+      </xs:sequence>
+      <xs:attribute name="color" type="glyph_color_t"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="choice_glyph">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="action"/>
+      </xs:sequence>
+      <xs:attribute name="color" type="glyph_color_t"/>
+      <xs:attribute name="conn" type="glyph_conn_t" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- physical design -->
+  <xs:element name="directory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="directory" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="file">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="text" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="properties" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
