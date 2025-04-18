@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="7.0.0" links="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
+<model version="7.0.1" links="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <documentation>About this example:
 -------------------
 Simple &quot;Blinky&quot; console application for workstations (Windows, Linux, macOS)
@@ -81,6 +81,14 @@ https://www.state-machine.com/qpcpp/exa.html</documentation>
   </class>
  </package>
  <directory name=".">
+  <file name="qp_config.hpp">
+   <text>#ifndef QP_CONFIG_HPP_
+#define QP_CONFIG_HPP_
+
+// put here macros that override the default QP/C++ settings
+
+#endif // QP_CONFIG_HPP_</text>
+  </file>
   <file name="bsp.hpp">
    <text>#ifndef BSP_HPP_
 #define BSP_HPP_
@@ -107,8 +115,12 @@ $declare ${Shared}
 #include &lt;iostream&gt;   // for cout/cerr
 #include &lt;cstdlib&gt;    // for exit()
 
+#if (QP_VERSION &lt; 800U)
+#error this application requires qp version 8.0.0 or higher
+#endif
+
 #ifdef Q_SPY
-    #error Simple Blinky Application does not provide Spy build configuration
+#error Simple Blinky Application does not support QP/Spy software tracing
 #endif
 
 //============================================================================
@@ -253,7 +265,7 @@ VPATH := . \
 # list of all include directories needed by this project
 INCLUDES := -I. \
 
-# location of the QP/C framework (if not provided in an env. variable)
+# location of the QP/C++ framework (if not provided in an env. variable)
 ifeq ($(QPCPP),)
 QPCPP := /qp/qpcpp
 endif
@@ -276,7 +288,7 @@ LIBS     :=
 
 # defines...
 # QP_API_VERSION controls the QP API compatibility; 9999 means the latest API
-DEFINES   := -DQP_API_VERSION=9999
+DEFINES   := $(DEF)
 
 ifeq (,$(CONF))
     CONF := dbg

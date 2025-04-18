@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="7.0.0" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
+<model version="7.0.1" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem console application for workstations
@@ -461,6 +461,18 @@ me-&gt;fork[n] = FREE;</action>
  </package>
  <!--${.}-->
  <directory name=".">
+  <!--${.::qp_config.h}-->
+  <file name="qp_config.h">
+   <text>#ifndef QP_CONFIG_H_
+#define QP_CONFIG_H_
+
+// put here macros that override the default QP/C settings
+
+// Activate the QF console access
+#define QF_CONSOLE
+
+#endif // QP_CONFIG_H_</text>
+  </file>
   <!--${.::bsp.h}-->
   <file name="bsp.h">
    <text>#ifndef BSP_H_
@@ -493,6 +505,10 @@ void BSP_ledOff(void);
 #include &lt;stdlib.h&gt;   // for exit()
 
 //Q_DEFINE_THIS_FILE
+
+#if (QP_VERSION &lt; 800U)
+#error this application requires qpc version 8.0.0 or higher
+#endif
 
 // local variables -----------------------------------------------------------
 static uint32_t l_rnd; // random seed
@@ -561,7 +577,7 @@ void BSP_start(void) {
     static QEvt const *philoQueueSto[N_PHILO][10];
     for (uint8_t n = 0U; n &lt; N_PHILO; ++n) {
         Philo_ctor(n);
-        QACTIVE_START(AO_Philo[n],
+        QActive_start(AO_Philo[n],
             n + 3U,                  // QP prio. of the AO
             philoQueueSto[n],        // event queue storage
             Q_DIM(philoQueueSto[n]), // queue length [events]
@@ -571,7 +587,7 @@ void BSP_start(void) {
 
     static QEvt const *tableQueueSto[N_PHILO];
     Table_ctor();
-    QACTIVE_START(AO_Table,
+    QActive_start(AO_Table,
         N_PHILO + 7U,            // QP prio. of the AO
         tableQueueSto,           // event queue storage
         Q_DIM(tableQueueSto),    // queue length [events]
@@ -621,7 +637,7 @@ void QF_onCleanup(void) {
 }
 //............................................................................
 void QF_onClockTick(void) {
-    QF_TICK_X(0U, &amp;l_clock_tick); // perform the QF clock tick processing
+    QTIMEEVT_TICK_X(0U, &amp;l_clock_tick); // perform clock tick processing
 
     QS_RX_INPUT(); // handle the QS-RX input
     QS_OUTPUT();   // handle the QS output
@@ -632,11 +648,11 @@ void QF_onClockTick(void) {
             break;
         }
         case 'p': {
-            QF_PUBLISH(Q_NEW(QEvt, PAUSE_SIG), &amp;l_clock_tick);
+            QACTIVE_PUBLISH(Q_NEW(QEvt, PAUSE_SIG), &amp;l_clock_tick);
             break;
         }
         case 's': {
-            QF_PUBLISH(Q_NEW(QEvt, SERVE_SIG), &amp;l_clock_tick);
+            QACTIVE_PUBLISH(Q_NEW(QEvt, SERVE_SIG), &amp;l_clock_tick);
             break;
         }
         default: {
