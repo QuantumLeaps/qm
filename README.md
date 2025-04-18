@@ -21,7 +21,7 @@ the file `html/index.html` in your web browser.
 QM (QP Modeler) is a freeware graphical modeling tool for designing and
 implementing real-time embedded software based on the UML state machines
 and the lightweight
-[QP Real-Time Embedded Frameworks (RTEFs)](https://www.state-machine.com/products/qp).
+[QP Real-Time Event Frameworks (RTEFs)](https://www.state-machine.com/products/qp).
 QM is available for Windows (x64), Linux (x64), and macOS (ARM64).
 
 > NOTE: For more information, please refer to the online QM Manual at:
@@ -86,8 +86,27 @@ chmod u+x qm.sh
 ```
 
 > NOTE: To run the QM application on Linux, you need to run the
-`qm/bin/qm.sh` script. Make sure that the file has executable permissions.
+`qm/bin/qm.sh` script as well as the `qm/bin/qm` executable. Make sure
+that both files have executable permissions.
 
+#### Troubleshooting QM on Linux
+> NOTE: Some Linux distributions (e.g., Ubuntu) might report problems
+with missing Qt plugins. For example, if you launch `qm/bin/qm.sh` form a
+terminal, you might get the following output:
+
+```
+qt.qpa.plugin: Could not load the Qt platform plugin "wayland"...
+
+or
+
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found...
+```
+
+One know solution to fix this issue is to install the following:
+
+```sh
+sudo apt install libxcb-cursor0
+```
 
 ### Installing QM on macOS (ARM64)
 Go to the [QM releases](https://github.com/QuantumLeaps/qm/releases) and

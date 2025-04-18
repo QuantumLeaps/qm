@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=qm
+Type=Application
+Comment=QM graphical modeling and code generation tool
+Exec=/home/user/qp/qm/bin/qm.sh
+Icon=/home/user/qp/qm/Resources/qm_icon64.png
+Terminal=false
+

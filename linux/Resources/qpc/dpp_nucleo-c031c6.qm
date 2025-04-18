@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="7.0.0" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
+<model version="7.0.1" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem for STM32 NUCLEO-C031C6 board
@@ -460,6 +460,15 @@ me-&gt;fork[n] = FREE;</action>
  </package>
  <!--${.}-->
  <directory name=".">
+  <!--${.::qp_config.h}-->
+  <file name="qp_config.h">
+   <text>#ifndef QP_CONFIG_H_
+#define QP_CONFIG_H_
+
+// put here macros that override the default QP/C settings
+
+#endif // QP_CONFIG_H_</text>
+  </file>
   <!--${.::bsp.h}-->
   <file name="bsp.h">
    <text>#ifndef BSP_H_
@@ -491,6 +500,10 @@ void BSP_ledOff(void);
 // add other drivers if necessary...
 
 Q_DEFINE_THIS_FILE  // define the name of this file for assertions
+
+#if (QP_VERSION &lt; 800U)
+#error this application requires qpc version 8.0.0 or higher
+#endif
 
 // Local-scope defines -----------------------------------------------------
 // LED pins available on the board (just one user LED LD4--Green on PA.5)
@@ -1111,8 +1124,7 @@ QP_PORT_DIR := $(QPC)/ports/arm-cm/qk/gnu
 
 # list of all source directories used by this project
 VPATH = \
-    .. \
-    ../.. \
+    . \
     $(QPC)/src/qf \
     $(QPC)/src/qk \
     $(QPC)/src/qs \
@@ -1122,7 +1134,7 @@ VPATH = \
 
 # list of all include directories needed by this project
 INCLUDES  = \
-    -I../.. \
+    -I. \
     -I$(QPC)/include \
     -I$(QP_PORT_DIR) \
     -I$(QPC)/3rd_party/CMSIS/Include \

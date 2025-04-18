@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="7.0.0">
+<session version="7.0.1">
+ <item name="license">GPL</item>
  <group name="locked"/>
  <group name="settings">
   <item name="tabs">1</item>
@@ -8,10 +9,10 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Philo::SM">0,0,632,843,*</item>
-  <item id="AOs::Table::SM">0,387,640,480</item>
+  <item id="AOs::Philo::SM">0,0,610,590,*</item>
+  <item id="AOs::Table::SM">-30,134,640,480</item>
   <item id=".::philo.c">0,0,674,300</item>
-  <item id=".::table.c">0,300,674,300</item>
+  <item id=".::table.c">0,314,674,300</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>
@@ -22,11 +23,11 @@
  </group>
  <group name="tools">
   <group name="tool">
-   <item name="icon">2</item>
+   <item name="icon">0</item>
    <item name="title">make</item>
    <item name="command">make</item>
    <item name="args"></item>
-   <item name="dir">.</item>
+   <item name="dir"></item>
    <item name="options">1</item>
   </group>
   <group name="tool">
@@ -34,7 +35,7 @@
    <item name="title">clean</item>
    <item name="command">make</item>
    <item name="args">clean</item>
-   <item name="dir">.</item>
+   <item name="dir"></item>
    <item name="options">0</item>
   </group>
   <group name="tool">

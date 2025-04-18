@@ -1,10 +1,12 @@
 *.so
 *.so.*
+*.exe
+*.dmg
 qm
 qmc
 
 html/
 latex/
-win64/bin/
-linux64/bin
+windows/bin/
+linux/bin
 macos/bin/
