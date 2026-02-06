@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="7.0.1">
+<session version="7.0.2">
  <item name="license">GPL</item>
  <group name="locked"/>
  <group name="settings">
   <item name="tabs">1</item>
   <item name="windows">0</item>
-  <item name="grid">0</item>
+  <item name="grid">3</item>
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="AOs::Blinky::SM">0,0,610,590,*</item>
+  <item id="AOs::Blinky::SM">0,0,599,505,*</item>
+  <item id=".::blinky.c">0,0,596,300</item>
  </group>
  <group name="search">
-  <item name="options">2032128</item>
-  <item name="replace">0</item>
+  <item name="options">2033152</item>
+  <item name="replace">1</item>
  </group>
  <group name="vars">
-  <item id="QPC">c:\qp\qpc</item>
+  <item id="QPC">/qp/qpc</item>
  </group>
  <group name="tools">
   <group name="tool">
