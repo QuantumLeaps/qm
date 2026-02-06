@@ -24,7 +24,7 @@ How QM Modeling Tool Uses Qt
 ============================
 Dynamic Linking
 ---------------
-On each supported platform (Windows, Linux, and macOS), the QM™ Modeling Tool
+On each supported platform (Windows, Linux, and macOS), the QM Modeling Tool
 *dynamically* links to the unmodified Qt libraries, as provided by the Qt
 Company in the pre-compiled binary format.
 

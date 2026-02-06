@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="7.0.1" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
+<model version="7.0.2" links="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <documentation>About this example:
 -------------------
 Dining Philosopher Problem console application for workstations
@@ -525,7 +525,7 @@ static std::uint32_t l_rnd; // random seed
 #ifdef Q_SPY
 
     // QSpy source IDs
-    static QP::QSpyId const l_clock_tick = { QP::QS_AP_ID };
+    static QP::QSpyId const l_clock_tick = { QP::QS_ID_AP };
 
     enum AppRecords { // application-specific trace records
         PHILO_STAT = QP::QS_USER,
@@ -585,7 +585,7 @@ void init(int argc, char **argv) {
     QS_ONLY(APP::produce_sig_dict());
 
     // setup the QS filters...
-    QS_GLB_FILTER(QP::QS_ALL_RECORDS);
+    QS_GLB_FILTER(QP::QS_GRP_ALL);
     QS_GLB_FILTER(-QP::QS_QF_TICK);     // exclude the tick record
     QS_LOC_FILTER(-(APP::N_PHILO + 3)); // exclude prio. of AO_Ticker0
 }
@@ -619,7 +619,7 @@ void start() {
 }
 //............................................................................
 void displayPhilStat(std::uint8_t n, char const *stat) {
-    PRINTF_S(&quot;Philosopher %2d is %s\n&quot;, (int)n, stat);
+    PRINTF_S(&quot;Philosopher %2d is %s\n&quot;, n, stat);
 
     // application-specific record
     QS_BEGIN_ID(PHILO_STAT, APP::AO_Table-&gt;getPrio())
@@ -817,6 +817,34 @@ int main(int argc, char *argv[]) {
   <!--${.::Makefile}-->
   <file name="Makefile">
    <text>##############################################################################
+# Makefile for QP/C++ on the host (Windows/Linux/macOS)
+#
+# Copyright (C) 2005 Quantum Leaps, LLC. All rights reserved.
+#
+#                   Q u a n t u m  L e a P s
+#                   ------------------------
+#                   Modern Embedded Software
+#
+# SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-QL-commercial
+#
+# The QP/C software is dual-licensed under the terms of the open-source GNU
+# General Public License (GPL) or under the terms of one of the closed-
+# source Quantum Leaps commercial licenses.
+#
+# Redistributions in source code must retain this top-level comment block.
+# Plagiarizing this software to sidestep the license obligations is illegal.
+#
+# NOTE:
+# The GPL (see &lt;www.gnu.org/licenses/gpl-3.0&gt;) does NOT permit the
+# incorporation of the QP/C software into proprietary programs. Please
+# contact Quantum Leaps for commercial licensing options, which expressly
+# supersede the GPL and are designed explicitly for licensees interested
+# in using QP/C in closed-source proprietary applications.
+#
+# Quantum Leaps contact information:
+# &lt;www.state-machine.com/licensing&gt;
+# &lt;info@state-machine.com&gt;
+##############################################################################
 #
 # examples of invoking this Makefile:
 # building configurations: Debug (default), Release, and Spy
@@ -830,57 +858,77 @@ int main(int argc, char *argv[]) {
 # To use this Makefile on Windows, you will need the GNU make utility, which
 # is included in the QTools collection for Windows, see:
 #    https://github.com/QuantumLeaps/qtools
-#
 
 #-----------------------------------------------------------------------------
-# project name:
+# project:
 #
 PROJECT := dpp
 
-#-----------------------------------------------------------------------------
-# project directories:
-#
+VPATH := .
 
-# list of all source directories used by this project
-VPATH := . \
+INCLUDES := -I.
 
-# list of all include directories needed by this project
-INCLUDES := -I. \
-
-# location of the QP/C framework (if not provided in an env. variable)
-ifeq ($(QPCPP),)
-QPCPP := /qp/qpcpp
-endif
-
-#-----------------------------------------------------------------------------
-# project files:
-#
-
-# C source files...
 C_SRCS :=
 
-# C++ source files...
 CPP_SRCS := \
-    bsp.cpp \
     main.cpp \
+    bsp.cpp \
     philo.cpp \
     table.cpp
 
 LIB_DIRS :=
 LIBS     :=
-
-# defines...
-# QP_API_VERSION controls the QP API compatibility; 9999 means the latest API
-DEFINES   := $(DEF)
-
-ifeq (,$(CONF))
-    CONF := dbg
-endif
+OUTPUT   := $(PROJECT)
 
 #-----------------------------------------------------------------------------
-# add QP/C++ framework:
+# target
 #
-CPP_SRCS += \
+TARGET   := host
+
+DEFINES +=
+
+BIN_DIR := build_$(TARGET)
+
+#-----------------------------------------------------------------------------
+# QP framework
+#
+
+# location of the QP framework (if not provided in an env. variable)
+ifeq ($(QPCPP),)
+QPCPP := ../../..
+endif
+
+ifeq ($(OS),Windows_NT)
+
+ifdef QV
+QP_PORT_DIR := $(QPCPP)/ports/win32-qv
+else
+QP_PORT_DIR := $(QPCPP)/ports/win32
+endif
+LIBS += -lws2_32
+
+else
+
+ifdef QV
+QP_PORT_DIR := $(QPCPP)/ports/posix-qv
+else
+QP_PORT_DIR := $(QPCPP)/ports/posix
+endif
+LIBS += -lpthread
+
+endif
+
+VPATH += \
+    $(QP_PORT_DIR)
+
+INCLUDES += \
+    -I$(QPCPP)/include \
+    -I$(QP_PORT_DIR)
+
+#-----------------------------------------------------------------------------
+# QP framework sources
+#
+QP_SRCS := \
     qep_hsm.cpp \
     qep_msm.cpp \
     qf_act.cpp \
@@ -895,7 +943,6 @@ CPP_SRCS += \
     qf_time.cpp \
     qf_port.cpp
 
-# C++ QS source files
 QS_SRCS := \
     qs.cpp \
     qs_64bit.cpp \
@@ -903,66 +950,64 @@ QS_SRCS := \
     qs_fp.cpp \
     qs_port.cpp
 
-ifeq ($(OS),Windows_NT)
+VPATH += \
+    $(QPCPP)/src/qf \
+    $(QPCPP)/src/qs \
+    $(QP_PORT_DIR)
 
-# NOTE:
-# For Windows hosts, you can choose:
-# - the single-threaded QP/C++ port (win32-qv) or
-# - the multithreaded QP/C++ port (win32).
-#
-QP_PORT_DIR := $(QPCPP)/ports/win32-qv
-#QP_PORT_DIR := $(QPCPP)/ports/win32
-LIBS += -lws2_32
+INCLUDES += \
+    -I$(QPCPP)/include \
+    -I$(QP_PORT_DIR)
 
-else
+# add the QP sources to the build
+CPP_SRCS += $(QP_SRCS)
 
-# NOTE:
-# For POSIX hosts (Linux, MacOS), you can choose:
-# - the single-threaded QP/C++ port (win32-qv) or
-# - the multithreaded QP/C++ port (win32).
-#
-QP_PORT_DIR := $(QPCPP)/ports/posix-qv
-#QP_PORT_DIR := $(QPCPP)/ports/posix
-
-LIBS += -lpthread
-
+ifeq (spy, $(CONF))  # Spy configuration
+VPATH  += $(QPCPP)/src/qs
+CPP_SRCS += $(QS_SRCS)
 endif
 
-#============================================================================
-# Typically you should not need to change anything below this line
-
-VPATH    += $(QPCPP)/src/qf $(QP_PORT_DIR)
-INCLUDES += -I$(QPCPP)/include -I$(QP_PORT_DIR)
-
 #-----------------------------------------------------------------------------
-# GNU toolset:
+# GNU GCC toolset for the host:
+# NOTE: GNU toolset for Windows (MinGW) is included in the QTools collection
+# for Windows, see: https://www.state-machine.com/qtools
 #
-# NOTE:
-# GNU toolset (MinGW) is included in the QTools collection for Windows, see:
-#     https://github.com/QuantumLeaps/qtools
-# It is assumed that $(QTOOLS)/bin directory is added to the PATH
+# It is assumed that %QTOOLS%\bin directory is added to the PATH
 #
 CC    := gcc
 CPP   := g++
-#LINK  := gcc    # for C programs
-LINK  := g++   # for C++ programs
+LINK  := gcc    # for C programs
+#LINK  := g++   # for C++ programs
 
 #-----------------------------------------------------------------------------
-# basic utilities (depends on the OS this Makefile runs on):
+# basic utilities (included in QTools for Windows), see:
+#     https://www.state-machine.com/qtools
 #
 ifeq ($(OS),Windows_NT)
-  MKDIR      := mkdir
-  RM         := rm
-  TARGET_EXT := .exe
+    TARGET_EXT := .exe
+    MKDIR      := mkdir
+    RM         := rm
+    CAT        := type
+    COV        := gcov -abcgum
+    CODE_COV := --coverage -fcondition-coverage  # NOTE: required gcc 14 or newer
 else ifeq ($(OSTYPE),cygwin)
-  MKDIR      := mkdir -p
-  RM         := rm -f
-  TARGET_EXT := .exe
+    TARGET_EXT := .exe
+    MKDIR      := mkdir -p
+    RM         := rm -f
+    CAT        := cat
+    COV        := gcov -b
+    CODE_COV := -fprofile-arcs -ftest-coverage   # old gcc (version &lt; 14)
 else
-  MKDIR      := mkdir -p
-  RM         := rm -f
-  TARGET_EXT :=
+    TARGET_EXT :=
+    MKDIR      := mkdir -p
+    RM         := rm -f
+    CAT        := cat
+    COV        := gcov -b
+    CODE_COV := -fprofile-arcs -ftest-coverage   # old gcc (version &lt; 14)
 endif
+
+##############################################################################
+# Typically you should not need to change anything below this line
 
 #-----------------------------------------------------------------------------
 # build configurations...
@@ -971,44 +1016,53 @@ ifeq (rel, $(CONF)) # Release configuration ..................................
 
 BIN_DIR := build_rel
 # gcc options:
-CFLAGS  = -c -O3 -fno-pie -std=c11 -pedantic -Wall -Wextra -W \
-    $(INCLUDES) $(DEFINES) -DNDEBUG
+CFLAGS := -c -fno-pie -std=c11 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion \
+    -O3 $(INCLUDES) $(DEFINES) $(DEF) -DNDEBUG
 
-CPPFLAGS = -c -O3 -fno-pie -std=c++11 -pedantic -Wall -Wextra \
+CPPFLAGS := -c -fno-pie -std=c++17 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion -Wold-style-cast \
     -fno-rtti -fno-exceptions \
-    $(INCLUDES) $(DEFINES) -DNDEBUG
+    -O3 $(INCLUDES) $(DEFINES) $(DEF) -DNDEBUG
 
 else ifeq (spy, $(CONF))  # Spy configuration ................................
 
 BIN_DIR := build_spy
 
-CPP_SRCS += $(QS_SRCS)
-VPATH    += $(QPCPP)/src/qs
-
 # gcc options:
-CFLAGS  = -c -g -O -fno-pie -std=c11 -pedantic -Wall -Wextra -W \
-    $(INCLUDES) $(DEFINES) -DQ_SPY
+CFLAGS := -c -g -fno-pie -std=c11 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion \
+    -O $(INCLUDES) $(DEFINES) $(DEF) -DQ_SPY
 
-CPPFLAGS = -c -g -O -fno-pie -std=c++11 -pedantic -Wall -Wextra \
+CPPFLAGS := -c -g -fno-pie -std=c++17 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion -Wold-style-cast \
     -fno-rtti -fno-exceptions \
-    $(INCLUDES) $(DEFINES) -DQ_SPY
+    -O $(INCLUDES) $(DEFINES) -DQ_SPY
 
 else # default Debug configuration .........................................
 
 BIN_DIR := build
 
 # gcc options:
-CFLAGS  = -c -g -O -fno-pie -std=c11 -pedantic -Wall -Wextra -W \
-    $(INCLUDES) $(DEFINES)
+CFLAGS := -c -g -fno-pie -std=c11 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion \
+    -O $(INCLUDES) $(DEFINES) $(DEF)
 
-CPPFLAGS = -c -g -O -fno-pie -std=c++11 -pedantic -Wall -Wextra \
+CPPFLAGS := -c -g -fno-pie -std=c++17 -pedantic \
+    -Wall -Wextra -Wpedantic -Wsign-conversion -Wold-style-cast \
     -fno-rtti -fno-exceptions \
-    $(INCLUDES) $(DEFINES)
+    -O $(INCLUDES) $(DEFINES) $(DEF)
 
 endif  # .....................................................................
 
+ifdef GCOV
+    CFLAGS    += $(CODE_COV)
+    CPPFLAGS  += $(CODE_COV)
+    LINKFLAGS := $(CODE_COV)
+endif
+
 ifndef GCC_OLD
-    LINKFLAGS := -no-pie
+    LINKFLAGS += -no-pie
 endif
 
 #-----------------------------------------------------------------------------
@@ -1017,9 +1071,9 @@ CPP_OBJS     := $(patsubst %.cpp,%.o, $(CPP_SRCS))
 
 TARGET_EXE   := $(BIN_DIR)/$(PROJECT)$(TARGET_EXT)
 C_OBJS_EXT   := $(addprefix $(BIN_DIR)/, $(C_OBJS))
-C_DEPS_EXT   := $(patsubst %.o,%.d, $(C_OBJS_EXT))
+C_DEPS_EXT   := $(patsubst %.o, %.d, $(C_OBJS_EXT))
 CPP_OBJS_EXT := $(addprefix $(BIN_DIR)/, $(CPP_OBJS))
-CPP_DEPS_EXT := $(patsubst %.o,%.d, $(CPP_OBJS_EXT))
+CPP_DEPS_EXT := $(patsubst %.o, %.d, $(CPP_OBJS_EXT))
 
 # create $(BIN_DIR) if it does not exist
 ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
@@ -1028,15 +1082,23 @@ endif
 
 #-----------------------------------------------------------------------------
 # rules
-#
 
 .PHONY: clean show
 
 all: $(TARGET_EXE)
 
+ifeq (spy, $(CONF))
+
 $(TARGET_EXE) : $(C_OBJS_EXT) $(CPP_OBJS_EXT)
     $(CPP) $(CPPFLAGS) $(QPCPP)/src/qs/qstamp.cpp -o $(BIN_DIR)/qstamp.o
     $(LINK) $(LINKFLAGS) $(LIB_DIRS) -o $@ $^ $(BIN_DIR)/qstamp.o $(LIBS)
+
+else
+
+$(TARGET_EXE) : $(C_OBJS_EXT) $(CPP_OBJS_EXT)
+    $(LINK) $(LINKFLAGS) $(LIB_DIRS) -o $@ $^ $(LIBS)
+
+endif
 
 $(BIN_DIR)/%.d : %.c
     $(CC) -MM -MT $(@:.d=.o) $(CFLAGS) $&lt; &gt; $@
@@ -1052,35 +1114,37 @@ $(BIN_DIR)/%.o : %.cpp
 
 # create BIN_DIR and include dependencies only if needed
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(MAKECMDGOALS),show)
-ifneq ($(MAKECMDGOALS),debug)
- ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
-  $(shell $(MKDIR) $(BIN_DIR))
- endif
- -include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
+  ifneq ($(MAKECMDGOALS),show)
+   ifneq ($(MAKECMDGOALS),debug)
+ifeq (&quot;$(wildcard $(BIN_DIR))&quot;,&quot;&quot;)
+$(shell $(MKDIR) $(BIN_DIR))
 endif
-endif
+-include $(C_DEPS_EXT) $(CPP_DEPS_EXT)
+   endif
+  endif
 endif
 
 clean :
-    -$(RM) $(BIN_DIR)/*.o \
-    $(BIN_DIR)/*.d \
-    $(TARGET_EXE)
+    -$(RM) $(BIN_DIR)/*.*
 
 show :
     @echo PROJECT      = $(PROJECT)
     @echo TARGET_EXE   = $(TARGET_EXE)
+    @echo MAKECMDGOALS = $(MAKECMDGOALS)
     @echo VPATH        = $(VPATH)
+    @echo INCLUDES     = $(INCLUDES)
+    @echo DEFINES      = $(DEFINES)
+    @echo DEF          = $(DEF)
     @echo C_SRCS       = $(C_SRCS)
     @echo CPP_SRCS     = $(CPP_SRCS)
     @echo C_DEPS_EXT   = $(C_DEPS_EXT)
     @echo C_OBJS_EXT   = $(C_OBJS_EXT)
-    @echo C_DEPS_EXT   = $(C_DEPS_EXT)
     @echo CPP_DEPS_EXT = $(CPP_DEPS_EXT)
     @echo CPP_OBJS_EXT = $(CPP_OBJS_EXT)
     @echo LIB_DIRS     = $(LIB_DIRS)
     @echo LIBS         = $(LIBS)
     @echo DEFINES      = $(DEFINES)
+    @echo QTOOLS       = $(QTOOLS)
 </text>
   </file>
  </directory>
