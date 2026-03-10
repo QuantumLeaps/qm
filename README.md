@@ -7,14 +7,29 @@
 View QM Revision History at:
 https://www.state-machine.com/qm/history.html
 
-
-# Documentation
+### Documentation
 The online HTML documentation for the **latest** version of QM is located
 at: https://www.state-machine.com/qm/
 
 The offline HTML documentation for **this** particular version of QM
 is located in the folder `html/`. To view the offline documentation, open
 the file `html/index.html` in your web browser.
+
+
+# Issue Tacking and Support
+
+> [!IMPORTANT]
+> **This repository does NOT use GitHub Issues for technical support.**
+
+Please use the following official support channels [hosted on SourceForge](https://sourceforge.net/p/qpc):
+- **Bug Reports:** [**Bug Tracker database**](https://sourceforge.net/p/qpc/bugs)
+- **Feature Requests:** [**Feature Requests database**](https://sourceforge.net/p/qpc/feature-requests)
+- **Questions & Discussion:** [**Free Support Forum**](https://sourceforge.net/p/qpc/discussion/668726)
+
+[![Free Support Forum](https://www.state-machine.com/attachments/support.png "Free QP/QM Support Forum")](https://sourceforge.net/p/qpc/discussion/668726)
+
+> [!NOTE]
+> The [QP/QM Free Support Forum](https://sourceforge.net/p/qpc/discussion/668726) has been active for decades &mdash; *predating GitHub* &mdash; and provides a **searchable** archive of answers, troubleshooting guidance, and resolved issues. Posts to this forum benefit the entire community and are typically answered the same day.
 
 
 # About QM
@@ -24,7 +39,8 @@ and the lightweight
 [QP Real-Time Event Frameworks (RTEFs)](https://www.state-machine.com/products/qp).
 QM is available for Windows (x64), Linux (x64), and macOS (ARM64).
 
-> NOTE: For more information, please refer to the online QM Manual at:
+> [!TIP]
+> For more information, please refer to the online QM Manual at:
 https://www.state-machine.com/qm/
 
 
@@ -36,13 +52,15 @@ and the [QTools collection](https://www.state-machine.com/products/qtools).
 The main advantage of obtaining QM bundled together like that is that you
 get all components, tools and examples ready to go.
 
-> NOTE: [QP-bundle](https://www.state-machine.com/#Downloads) is the
+> [!TIP]
+> [QP-bundle](https://www.state-machine.com/#Downloads) is the
 **most recommended** way of downloading and installing QM. However,
 if you are allergic to installers and GUIs or don't have administrator
 privileges you can also **download and install QM separately**
 as described below.
 
-> CAUTION: If you have any previous version of QM installed on your system,
+> [!CAUTION]
+> If you have any previous version of QM installed on your system,
 please *uninstall* it before installing the new version.
 
 
@@ -57,7 +75,8 @@ archive for Windows (`qm_<ver>-windows.zip`). Installation consists of
 unzipping the archive into any directory, although the `C:\qp\` folder is the
 recommended default.
 
-> NOTE: It is generally not recommended to install QM in such standard
+> [!TIP]
+>  It is generally not recommended to install QM in such standard
 locations as "Program Files" or "Program Files (x86)" because these
 directories have access limitations and don't allow you to modify the
 QM Style Sheets (`qm_dark.qss` and `qm_light.qss`) or the model templates.
@@ -85,20 +104,24 @@ chmod u+x qm
 chmod u+x qm.sh
 ```
 
-> NOTE: To run the QM application on Linux, you need to run the
+> [!NOTE]
+> To run the QM application on Linux, you need to run the
 `qm/bin/qm.sh` script as well as the `qm/bin/qm` executable. Make sure
 that both files have executable permissions.
 
 #### Troubleshooting QM on Linux
-> NOTE: Some Linux distributions (e.g., Ubuntu) might report problems
+> [!NOTE]
+> Some Linux distributions (e.g., Ubuntu) might report problems
 with missing Qt plugins. For example, if you launch `qm/bin/qm.sh` form a
 terminal, you might get the following output:
 
 ```
 qt.qpa.plugin: Could not load the Qt platform plugin "wayland"...
+```
 
 or
 
+```
 qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found...
 ```
 
@@ -154,7 +177,8 @@ notices from QM, selling it, and creating similar competitive products.
 The EULA also prohibits distributing QM from third-party websites. The
 only legitimate source of QM is the SourceForge.net/projects/qpc/ website.
 
-> NOTE: QM uses internally the Qt application toolkit under LGPL
+> [!NOTE]
+> QM uses internally the Qt application toolkit under LGPL
 Please refer to the LGPL Compliance Package for QM in the sub-directory
 qt_lgpl or online at https://www.state-machine.com/qm/qt_lgpl.html for
 more information how to obtain the source code for the Qt toolkit.
@@ -166,37 +190,18 @@ underlying QP framework, for which the code has been generated. Please
 refer to the QP licensing (https://www.state-machine.com/licensing/ )
 for more information.
 
-> NOTE: QM models without a valid QP license certificate (assumed to be
+> [!NOTE]
+> QM models without a valid QP license certificate (assumed to be
 covered by GPL) can only generate **up to 20 states**. The limitation has
 been introduced to reduce the widespread GPL infringement with respect to
 the QP/C and QP/C++ real-time embedded frameworks that underline the code
 generation in QM.
 
 
-# Support and Issue Resolution
-Support for QM is provided in the Free Support forum at:
-
-- https://sourceforge.net/projects/qpc/forums/forum/668726
-
-
-## Bug Reports
-The QM software has many assertions inside, and the assertions are
-ENABLED in the release version. When you hit an assertion, or any other error,
-please check the "Bug Tracker" available at:
-
-- https://sourceforge.net/p/qpc/bugs/
-
-If you don't find your problem, please try to reliably reproduce the
-problem, and submit a concise report to the "Bug Tracker"
-
-Thank you for your help in improving QM!
-
-
-## Feature Requests
-Also, if you find inconsistencies or any awkward features, please submit
-a suggestion how to improve this functionality to the "Feature Tracker" at:
-
-- https://sourceforge.net/p/qpc/feature-requests/
+# Contact Information
+- [Quantum Leaps website](https://www.state-machine.com)
+- [Quantum Leaps licensing](https://www.state-machine.com/licensing)
+- [info@state-machine.com](mailto:info@state-machine.com)
 
 
 # How to Help this Project?
